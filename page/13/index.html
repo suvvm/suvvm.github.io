@@ -177,6 +177,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/19/LightOJ-1214-Large-Division%20copy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/19/LightOJ-1214-Large-Division%20copy/" class="post-title-link" itemprop="url">LightOJ 1214 Large Division</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-19 21:46:44" itemprop="dateCreated datePublished" datetime="2018-11-19T21:46:44+08:00">2018-11-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><meta name="referrer" content="no-referrer"><br>Given two integers, <strong>a</strong> and <strong>b</strong>, you should check whether <strong>a</strong> is divisible by <strong>b</strong> or not. We know that an integer <strong>a</strong> is divisible by an integer <strong>b</strong> if and only if there exists an integer <strong>c</strong> such that <strong>a = b * c</strong>.</p>
+<p>Input</p>
+<p>　　Input starts with an integer <strong>T (**</strong>≤ 525)**, denoting the number of test cases.</p>
+<p>　　Each case starts with a line containing two integers <strong>a (-10200 ≤ a ≤ 10200)</strong> and <strong>b (|b| &gt; 0, b fits into a 32 bit signed integer)</strong>. Numbers will not contain leading zeroes.</p>
+<p>Output</p>
+<p>　　For each case, print the case number first. Then print <strong>‘divisible’</strong> if <strong>a</strong> is divisible by <strong>b</strong>. Otherwise print <strong>‘not divisible’</strong>.</p>
+<p>Sample Input</p>
+<p>6</p>
+<p>101 101</p>
+<p>0 67</p>
+<p>-101 101</p>
+<p>7678123668327637674887634 101</p>
+<p>11010000000000000000 256</p>
+<p>-202202202202000202202202 -101</p>
+<p>Sample Output</p>
+<p>Case 1: divisible</p>
+<p>Case 2: divisible</p>
+<p>Case 3: divisible</p>
+<p>Case 4: not divisible</p>
+<p>Case 5: divisible</p>
+<p>Case 6: divisible</p>
+<p>解题思路：<br>　　本题考查大数运算，每次测试给定一个整数T为测试数量，之后跟随T行，每行都给出两个数字，第一个数字是一个大于<strong>10200</strong> 且小于<strong>10200</strong>的数字，第二个数字是一个32位的int，要求计算第一个数是否可以整除第二个数，若可以整除输出divisible否则输出not divisible。<strong>
+</strong></p>
+<p>　　由于第一个数字超出可以直接存储的范围太多，我们不能直接对其进行运算，那么就换一种运算方式，按位对其进行运算，至于如何按位运算，小学时学过对数字运算极为方便的方法——竖式。</p>
+<p>　　以12345678 / 9为例子</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201811/1447131-20181119212238950-1576527854.png" alt="img"></p>
+<p>　　由于题目中已经告诉我们输入的数字中不包含先导0，所以按照小学的算法我们用第一个数首位除数除以第二个数，9 除以 1得0余1，继续运算将余数1与下一个数结合得到12， 12除以9得1余3，将3与下一个数结合，得到33，以此类推直到运算到最后一位，我们便可以得到最终的余数。之后判断余数是否为0就可以得出答案。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">200</span>+<span class="number">10</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Big</span>&#123;</span> <span class="comment">//Big储存输入的大数</span></span><br><span class="line">    <span class="keyword">int</span> num[maxn];</span><br><span class="line">    <span class="keyword">int</span> len;</span><br><span class="line">    Big()&#123;</span><br><span class="line">        len = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(num, <span class="number">0</span>, <span class="keyword">sizeof</span>(num));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">divide</span><span class="params">(Big a, <span class="keyword">int</span> b)</span></span>&#123;   <span class="comment">//传入被除数与除数</span></span><br><span class="line">    Big c;</span><br><span class="line">    LL mod = <span class="number">0</span>; <span class="comment">//mod记路余数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.len; i++)&#123; <span class="comment">//从首位开始按位运算</span></span><br><span class="line">        mod = mod * <span class="number">10</span> + a.num[i];  <span class="comment">//mod要用long long 因为mod * 10后可能超int范围</span></span><br><span class="line">        <span class="keyword">if</span>(mod &gt;= b)    <span class="comment">//如果除不开就去计算下一位，除的开就进行计算</span></span><br><span class="line">            mod = mod % b;  <span class="comment">//当前值除以b找到新的余数</span></span><br><span class="line">    &#125;</span><br><span class="line">   <span class="keyword">return</span> (<span class="keyword">int</span>)mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t, b;   <span class="comment">//t为测试数量</span></span><br><span class="line">    <span class="built_in">string</span> str; <span class="comment">//str记录输入第一个数字</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t) != EOF)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= t; i++)&#123;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; str &gt;&gt; b;</span><br><span class="line">            Big a;  <span class="comment">//a记录第一个数</span></span><br><span class="line">            <span class="keyword">if</span>(str[<span class="number">0</span>] == <span class="string">'-'</span>)&#123;  <span class="comment">//第一个数字如果是负数就去掉符号</span></span><br><span class="line">                <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">                a.len = str.size() - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="built_in">string</span>::iterator it = ++str.begin(); it != str.end(); it++)&#123;</span><br><span class="line">                    a.num[cnt++] = *it - <span class="string">'0'</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;  <span class="comment">//正数直接记录入a</span></span><br><span class="line">                <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">                a.len = str.size();</span><br><span class="line">                <span class="keyword">for</span>(<span class="built_in">string</span>::iterator it = str.begin(); it != str.end(); it++)&#123;</span><br><span class="line">                    a.num[cnt++] = *it - <span class="string">'0'</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(b &lt; <span class="number">0</span>)</span><br><span class="line">                b = -b;</span><br><span class="line">            <span class="keyword">if</span>(!divide(a, b))&#123;  <span class="comment">//只要mod为0就可以整除，否则不能整除</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Case %d: divisible\n"</span>, i);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Case %d: not divisible\n"</span>, i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/19/LightOJ-1214-Large-Division/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1020,112 +1121,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/09/POJ-1276-Cash-Machine/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/09/POJ-1276-Cash-Machine/" class="post-title-link" itemprop="url">POJ 1276 Cash Machine</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-09 20:15:53" itemprop="dateCreated datePublished" datetime="2018-11-09T20:15:53+08:00">2018-11-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>A Bank plans to install a machine for cash withdrawal. The machine is able to deliver appropriate @ bills for a requested cash amount. The machine uses exactly N distinct bill denominations, say Dk, k=1,N, and for each denomination Dk the machine has a supply of nk bills. For example, </p>
-<p>　　N=3, n1=10, D1=100, n2=4, D2=50, n3=5, D3=10 </p>
-<p>　　means the machine has a supply of 10 bills of @100 each, 4 bills of @50 each, and 5 bills of @10 each. </p>
-<p>　　Call cash the requested amount of cash the machine should deliver and write a program that computes the maximum amount of cash less than or equal to cash that can be effectively delivered according to the available bill supply of the machine. </p>
-<p>Notes:<br>　　@ is the symbol of the currency delivered by the machine. For instance, @ may stand for dollar, euro, pound etc. </p>
-<p>Input</p>
-<p>　　The program input is from standard input. Each data set in the input stands for a particular transaction and has the format: </p>
-<p>　　cash N n1 D1 n2 D2 … nN DN </p>
-<p>　　where 0 &lt;= cash &lt;= 100000 is the amount of cash requested, 0 &lt;=N &lt;= 10 is the number of bill denominations and 0 &lt;= nk &lt;= 1000 is the number of available bills for the Dk denomination, 1 &lt;= Dk &lt;= 1000, k=1,N. White spaces can occur freely between the numbers in the input. The input data are correct. </p>
-<p>Output</p>
-<p>　　For each set of data the program prints the result to the standard output on a separate line as shown in the examples below. </p>
-<p>Sample Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">735 3  4 125  6 5  3 350</span><br><span class="line">633 4  500 30  6 100  1 5  0 1</span><br><span class="line">735 0</span><br><span class="line">0 3  10 100  10 50  10 10</span><br></pre></td></tr></table></figure>
-<p>Sample Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">735</span><br><span class="line">630</span><br><span class="line">0</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
-<p>Hint</p>
-<p>　　The first data set designates a transaction where the amount of cash requested is @735. The machine contains 3 bill denominations: 4 bills of @125, 6 bills of @5, and 3 bills of @350. The machine can deliver the exact amount of requested cash. </p>
-<p>　　In the second case the bill supply of the machine does not fit the exact amount of cash requested. The maximum cash that can be delivered is @630. Notice that there can be several possibilities to combine the bills in the machine for matching the delivered cash. </p>
-<p>　　In the third case the machine is empty and no cash is delivered. In the fourth case the amount of cash requested is @0 and, therefore, the machine delivers no cash.</p>
-<p>解题思路：<br>　　本题有多组测试数据，每组数据占一行，包括现金cash, 票据种类n，之后跟随n组数据每组包括票据数量，票据金额。要求输出小于等于现金的票据最大金额。</p>
-<p>　　可以将本题转化为0 1背包问题，背包容量为现金数cash，背包内容物价值与占空间数都为票据面值。</p>
-<p>　　基本思路是将每个面值的票据拆分，由于票据数量较大，直接拆分运算时会超时，所以我们对拆分进行优化。</p>
-<p>二进制优化：</p>
-<p>　　假设某一面值的票据有100张，我们并不需要将100张票据全部加入运算数组，我们将100拆分为数个小于100的数字，使这些数字可以构成1 ~ 100中任意一个数字。这里用到了一个数论的小知识：1，2，4 ~ 2^n 可以组成1 ~ 2^(n + 1) - 1之间的任意数，100便可分解为1，2，4，8，16，32，（取2的n次幂（二进制数），不能取到64，因为拆分100的话所有分解的数加起来不能超过100） 37（前面取到的1 ~ 32已经可以表示63以内所有的数了，那么再补上100 - 63 = 37这个数后就可以取到所有1 ~ 100的数了）。继续分析，假设这100张票据面值都为2，那我们就可用到我们分解出来的数字，根据这些数字我们把100张票分解1张，2张，4张，8张，16张，32张，37张这7组，这样我们便可以把100张面值为2的票据看成面值为2，4，8，16，32，64，74的7张票据。将这7张票据加入运算数组在运算时比起100张票据就要节约很多时间。</p>
-<p>　　至于为什么1，2，4，8，16，32，37可以代替100，这很简单，之前已经写过了新的数组可以表示1 ~ 100所有数组，那么在运算中，我们如果需要拿5张面值1，在这里就和拿一张面值1一张面值4有同样效果拿其他所有1 ~ 100的数皆是这个道理。</p>
-<p>背包思路：</p>
-<p>　　动态规划，令dp[ j ]表示chsh为 j 时能得到的票据的最大金额。</p>
-<p>　　对于第 i 张票据，有用或不用两种方案。</p>
-<p>　　1、用第 i 块票据，问题转化为计算背包容量为 j - value[ i ] 在前i - 1张票据中取得最大金额问题dp[ j ]的值为前i - 1张票据中取得的最大金额 + 第 i 张票据的金额。</p>
-<p>　　2、不用第 i 张票据，问题转化为背包容量为 j 时在前i - 1张票据中取得最大金额问题，dp[ j ]的值为前i - 1张票据中取得的最大金额。</p>
-<p>　　动态转移方程：dp[ j ] = max(dp[ j ], dp[ j - value[ i ] ] + value[ i ])</p>
-<p>　　边界为用前0张票据，最大金额为0，枚举所有票据，每次从最大背包容量开始逆序枚举便可获得答案。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">11</span> * <span class="number">1000</span>;</span><br><span class="line"><span class="keyword">int</span> dp[maxn];</span><br><span class="line"><span class="keyword">int</span> value[maxn];</span><br><span class="line"><span class="comment">//value记录票据面值</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cash;   <span class="comment">//cash为现金金额（即背包容量）</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;cash) != EOF)&#123;</span><br><span class="line">        <span class="built_in">memset</span>(value, <span class="number">0</span>, <span class="keyword">sizeof</span>(value));</span><br><span class="line">        <span class="comment">//初始化票据面值数组都为0</span></span><br><span class="line">        <span class="keyword">int</span> n, cnt = <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);    <span class="comment">//输入票据种类数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> num, denomination;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;num, &amp;denomination);</span><br><span class="line">            <span class="comment">//输入每种票据的数量与面值</span></span><br><span class="line">            <span class="comment">//二进制拆分num</span></span><br><span class="line">            <span class="keyword">int</span> j = <span class="number">1</span>;  <span class="comment">//拆分的第一个数字为1</span></span><br><span class="line">            <span class="keyword">while</span>(num &gt;= j)&#123;    </span><br><span class="line">            <span class="comment">//所有拆分后数字的和不超过num</span></span><br><span class="line">            <span class="comment">//我们可以每拆分一个数就用num减去它直到num小于想要拆分的下一个数</span></span><br><span class="line">                value[cnt++] = j * denomination;    <span class="comment">//将拆分后的面值计入value</span></span><br><span class="line">                num -= j;   <span class="comment">//num减去当前拆分的数字</span></span><br><span class="line">                j *= <span class="number">2</span>; <span class="comment">//下一个要拆分的数字为当前数字的两倍</span></span><br><span class="line">            &#125;</span><br><span class="line">            value[cnt++] = num * denomination;  </span><br><span class="line">            <span class="comment">//最后补上差的数字，并记录其组成的面值</span></span><br><span class="line">        &#125;</span><br><span class="line">        cnt--;</span><br><span class="line">        <span class="built_in">memset</span>(dp, <span class="number">0</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">        <span class="comment">//初始化边界</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= cnt; i++)&#123;  <span class="comment">//枚举票据</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = cash; j &gt;= value[i]; j--)&#123;  <span class="comment">//逆序枚举背包容量</span></span><br><span class="line">                dp[j] = max(dp[j], dp[j - value[i]] + value[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= cash; i++)&#123; <span class="comment">//找到最大值</span></span><br><span class="line">            ans = max(ans, dp[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1197,7 +1192,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">145</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
