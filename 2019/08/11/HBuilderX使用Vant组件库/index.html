@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ortrait.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.suvvm.work","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="​    HBuilderX是一款由国人开发的开发工具，其官网称其为轻如编辑器、强如IDE的合体版本。但是官方的社区中关于Vant组件的安装大多都是针对微信小程序开发安装Vant Weapp，鄙人尝试了各种方法，经历各种错误后终于成功安装vant组件库，在这里分享一下使用HBuilderX进行vue.js开发时安装Vant组件库的经验，使用的版本为2019.08.10更新的2.2.0版本。 ​">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HBuilderX使用Vant组件库">
+<meta property="og:url" content="https://www.suvvm.work/2019/08/11/HBuilderX%E4%BD%BF%E7%94%A8Vant%E7%BB%84%E4%BB%B6%E5%BA%93/index.html">
+<meta property="og:site_name" content="SUVVM">
+<meta property="og:description" content="​    HBuilderX是一款由国人开发的开发工具，其官网称其为轻如编辑器、强如IDE的合体版本。但是官方的社区中关于Vant组件的安装大多都是针对微信小程序开发安装Vant Weapp，鄙人尝试了各种方法，经历各种错误后终于成功安装vant组件库，在这里分享一下使用HBuilderX进行vue.js开发时安装Vant组件库的经验，使用的版本为2019.08.10更新的2.2.0版本。 ​">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201908/1447131-20190811214026033-1365235595.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201908/1447131-20190811214118333-329131275.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201908/1447131-20190811214153594-1456728818.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201908/1447131-20190811214236996-650998932.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201908/1447131-20190811214253426-1237473327.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201908/1447131-20190811214527678-541846092.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201908/1447131-20190811214624228-1496776260.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201908/1447131-20190811214913216-2006673047.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201908/1447131-20190811215432221-2007786769.png">
+<meta property="article:published_time" content="2019-08-11T14:03:46.000Z">
+<meta property="article:modified_time" content="2020-12-19T14:05:00.626Z">
+<meta property="article:author" content="SUVVM">
+<meta property="article:tag" content="HbuilderX">
+<meta property="article:tag" content="vue.js">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2018.cnblogs.com/blog/1447131/201908/1447131-20190811214026033-1365235595.png">
+
+<link rel="canonical" href="https://www.suvvm.work/2019/08/11/HBuilderX%E4%BD%BF%E7%94%A8Vant%E7%BB%84%E4%BB%B6%E5%BA%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>HBuilderX使用Vant组件库 | SUVVM</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e5190116d64be66cac29daef18c94ac0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">SUVVM</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">呜嗷SUVVM</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/08/11/HBuilderX%E4%BD%BF%E7%94%A8Vant%E7%BB%84%E4%BB%B6%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          HBuilderX使用Vant组件库
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-11 22:03:46" itemprop="dateCreated datePublished" datetime="2019-08-11T22:03:46+08:00">2019-08-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%80%E5%8D%95%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">简单教程</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><meta name="referrer" content="no-referrer"><br>​    HBuilderX是一款由国人开发的开发工具，其官网称其为轻如编辑器、强如IDE的合体版本。但是官方的社区中关于Vant组件的安装大多都是针对微信小程序开发安装Vant Weapp，鄙人尝试了各种方法，经历各种错误后终于成功安装vant组件库，在这里分享一下使用HBuilderX进行vue.js开发时安装Vant组件库的经验，使用的版本为2019.08.10更新的2.2.0版本。</p>
+<p>​    <strong>本篇所有操作建立在操作系统为windows且已经成功安装配置node.js的基础上。</strong></p>
+<p>一、建立uni-app新项目</p>
+<p>　　<img src="https://img2018.cnblogs.com/blog/1447131/201908/1447131-20190811214026033-1365235595.png" alt="img"></p>
+<p>二、在终端打开项目目录</p>
+<p>　　可以直接在HBuilderX中直接右击项目名称选择‘使用命令行窗口打开目录’，之后会提示插件【内置终端】未安装，选择确定来安装内置终端插件,之后便可以通过内置终端打开对应项目目录，当然也可以直接在windows终端中打开对应目录</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201908/1447131-20190811214118333-329131275.png" alt="img"><img src="https://img2018.cnblogs.com/blog/1447131/201908/1447131-20190811214153594-1456728818.png" alt="img"></p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201908/1447131-20190811214236996-650998932.png" alt="img"><img src="https://img2018.cnblogs.com/blog/1447131/201908/1447131-20190811214253426-1237473327.png" alt="img"></p>
+<p>　　之后我将使用内置终端进行操作.</p>
+<p>三、初始化项目创建package.json</p>
+<p>在终端中执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br></pre></td></tr></table></figure>
+<p>　　之后会让你填写一些如项目名称、版本号之类的项目介绍，如果不知道或者不想填就一路回车。　　</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201908/1447131-20190811214527678-541846092.png" alt="img"></p>
+<p>四、安装Vant组件库</p>
+<p>打开有赞vant的官方文档，快速上手中给出了通过npm安装vant的指令，在终端执行它。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i vant -S</span><br></pre></td></tr></table></figure>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201908/1447131-20190811214624228-1496776260.png" alt="img"></p>
+<p>不用管这几个警告</p>
+<p>​    这时按照官方给的引入方式引入组件，我这里图方便直接引入所有组件，在main.js中添加</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vant <span class="keyword">from</span> <span class="string">'vant'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'vant/lib/index.css'</span>;</span><br><span class="line"></span><br><span class="line">Vue.use(Vant);</span><br></pre></td></tr></table></figure>
+<p>　　这时我们在pages下index.vue中尝试使用vant组件，这里我用vant的自定义输入框做演示，在index.vue添加如下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;van-cell-group&gt;</span><br><span class="line">  &lt;van-field</span><br><span class="line">    value&#x3D;&quot;&#123;&#123; username &#125;&#125;&quot;</span><br><span class="line">    required</span><br><span class="line">    clearable</span><br><span class="line">    label&#x3D;&quot;用户名&quot;</span><br><span class="line">    icon&#x3D;&quot;question-o&quot;</span><br><span class="line">    placeholder&#x3D;&quot;请输入用户名&quot;</span><br><span class="line">    bind:click-icon&#x3D;&quot;onClickIcon&quot;</span><br><span class="line">  &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">  &lt;van-field</span><br><span class="line">    value&#x3D;&quot;&#123;&#123; password &#125;&#125;&quot;</span><br><span class="line">    type&#x3D;&quot;password&quot;</span><br><span class="line">    label&#x3D;&quot;密码&quot;</span><br><span class="line">    placeholder&#x3D;&quot;请输入密码&quot;</span><br><span class="line">    required</span><br><span class="line">    border&#x3D;&quot;&#123;&#123; false &#125;&#125;&quot;</span><br><span class="line">  &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;van-cell-group&gt;</span><br></pre></td></tr></table></figure>
+<p>　　编译并运行，可以使用其自带的内置浏览器插件，可在工具——插件安装中配置安装，如果安装失败就给管理员权限，之后点击预览就会开始编译项目。</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201908/1447131-20190811214913216-2006673047.png" alt="img"></p>
+<p>　　不出意料会出现如下错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">21:11:07.242 Module build failed (from .&#x2F;node_modules&#x2F;postcss-loader&#x2F;src&#x2F;index.js):</span><br><span class="line"></span><br><span class="line">21:11:07.242 SyntaxError</span><br><span class="line"></span><br><span class="line">21:11:07.247 (1:5894) Unclosed bracket</span><br><span class="line"></span><br><span class="line">21:11:07.248 &gt; 1 | @-webkit-keyframes van-slide-up-enter&#123;0%&#123;-webkit-transform:translate3d(0,100%,0);transform:translate3d(0,100%,0)&#125;&#125;@keyframes van-slide-up-…………………省略巨量……………………… (left,#ff6034,#ee0a24);background:linear-gradient(to right,#ff6034,#ee0a24)&#125;</span><br></pre></td></tr></table></figure>
+<p>　　这是HBuilderX的bug已经过了很多个版本都没有修复，希望官方早日解决。出现这个是因为在main.js中引入vant的样式import ‘vant/lib/index.css’时出现了错误。</p>
+<p>五、建立一个html的模板文件</p>
+<p>　　删除main.js中错误代码 import ‘vant/lib/index.css’，以下方代码作为模板建立model.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"zh-CN"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"https://cdn.jsdelivr.net/npm/vant@2.0/lib/index.css"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">%=</span> <span class="attr">htmlWebpackPlugin.options.title</span> %&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">document</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="built_in">document</span>.documentElement.style.fontSize = <span class="built_in">document</span>.documentElement.clientWidth / <span class="number">20</span> + <span class="string">'px'</span></span></span><br><span class="line">            &#125;)</span><br><span class="line">        <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"&lt;%= BASE_URL %&gt;static/index.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">noscript</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">strong</span>&gt;</span>Please enable JavaScript to continue.<span class="tag">&lt;/<span class="name">strong</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">noscript</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- built files will be auto injected --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>　　在manifest.json的h5配置中将其作为index.html模板导入</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201908/1447131-20190811215432221-2007786769.png" alt="img"></p>
+<p>　　之后遍可以发现错误没了，在浏览器中查看会发现<strong>依然没有样式</strong>。</p>
+<p>六、在对应页面引入vant样式</p>
+<p>　　将</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@import &#39;vant&#x2F;lib&#x2F;index.css&#39;;</span><br></pre></td></tr></table></figure>
+<p>　　添加至使用vant组件的页面 style块中，这时编译并从浏览器中查看，vant组件样式已经出现（若样式依旧不准确请检查网络连接）。</p>
+<p>七、若还是不行，就抛弃HbuilderX，安装使用Vue脚手架Vue Cli 3</p>
+<p> dCloud开发者已经知晓此bug很长时间，经过很多个版本后一直没有修复的迹象，所以还是用Vue脚手架吧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @vue&#x2F;cli</span><br></pre></td></tr></table></figure>
+<p>若HbuilderX修复了bug欢迎提醒我修改文章。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/HbuilderX/" rel="tag"># HbuilderX</a>
+              <a href="/tags/vue-js/" rel="tag"># vue.js</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/05/09/Java%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0%EF%BC%88%E5%9F%BA%E4%BA%8Esocket%E4%B8%8ERandomAccessFile%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%EF%BC%89/" rel="prev" title="Java断点续传（基于socket与RandomAccessFile的简单实现）">
+      <i class="fa fa-chevron-left"></i> Java断点续传（基于socket与RandomAccessFile的简单实现）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/02/PTA-Advanced-Level-1029-Median/" rel="next" title="PTA (Advanced Level) 1029 Median">
+      PTA (Advanced Level) 1029 Median <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SUVVM"
+      src="/images/ortrait.jpg">
+  <p class="site-author-name" itemprop="name">SUVVM</p>
+  <div class="site-description" itemprop="description">SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/suvvm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;suvvm" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/suvvm@foxmail.com" title="E-Mail → suvvm@foxmail.com"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SUVVM</span>
+	<a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鲁ICP备19040043号-2</a>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ortrait.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.suvvm.work","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="给你一个无向图，N(N&lt;&#x3D;500)个顶点, M(M&lt;&#x3D;5000)条边，每条边有一个权值Vi(Vi&lt;30000)。给你两个顶点S和T，求一条路径，使得路径上最大边和最小边的比值最小。如果S和T之间没有路径，输出”IMPOSSIBLE”，否则输出这个比值，如果需要，表示成一个既约分数。 备注： 两个顶点之间可能有多条路径。 Input 　　第一行包含两个正整数，N和M。下来的M行每行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BZOJ 1050 旅行comf（kruskal）">
+<meta property="og:url" content="https://www.suvvm.work/2018/11/16/BZOJ-1050-%E6%97%85%E8%A1%8Ccomf%EF%BC%88kruskal%EF%BC%89/index.html">
+<meta property="og:site_name" content="SUVVM">
+<meta property="og:description" content="给你一个无向图，N(N&lt;&#x3D;500)个顶点, M(M&lt;&#x3D;5000)条边，每条边有一个权值Vi(Vi&lt;30000)。给你两个顶点S和T，求一条路径，使得路径上最大边和最小边的比值最小。如果S和T之间没有路径，输出”IMPOSSIBLE”，否则输出这个比值，如果需要，表示成一个既约分数。 备注： 两个顶点之间可能有多条路径。 Input 　　第一行包含两个正整数，N和M。下来的M行每行">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-11-16T08:00:59.000Z">
+<meta property="article:modified_time" content="2020-12-19T14:05:00.615Z">
+<meta property="article:author" content="SUVVM">
+<meta property="article:tag" content="最小生成树">
+<meta property="article:tag" content="并查集">
+<meta property="article:tag" content="BZOJ">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.suvvm.work/2018/11/16/BZOJ-1050-%E6%97%85%E8%A1%8Ccomf%EF%BC%88kruskal%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>BZOJ 1050 旅行comf（kruskal） | SUVVM</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e5190116d64be66cac29daef18c94ac0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">SUVVM</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">呜嗷SUVVM</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/16/BZOJ-1050-%E6%97%85%E8%A1%8Ccomf%EF%BC%88kruskal%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          BZOJ 1050 旅行comf（kruskal）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-16 16:00:59" itemprop="dateCreated datePublished" datetime="2018-11-16T16:00:59+08:00">2018-11-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>给你一个无向图，N(N&lt;=500)个顶点, M(M&lt;=5000)条边，每条边有一个权值Vi(Vi&lt;30000)。给你两个顶点S和T，求一条路径，使得路径上最大边和最小边的比值最小。如果S和T之间没有路径，输出”IMPOSSIBLE”，否则输出这个比值，如果需要，表示成一个既约分数。 备注： 两个顶点之间可能有多条路径。</p>
+<p>Input</p>
+<p>　　第一行包含两个正整数，N和M。下来的M行每行包含三个正整数：x，y和v。表示景点x到景点y之间有一条双向公路，车辆必须以速度v在该公路上行驶。最后一行包含两个正整数s，t，表示想知道从景点s到景点t最大最小速度比最小的路径。s和t不可能相同。1&lt;N&lt;=500,1&lt;=x,y&lt;=N，0&lt;v&lt;30000，0&lt;M&lt;=5000</p>
+<p>Output</p>
+<p>　　如果景点s到景点t没有路径，输出“IMPOSSIBLE”。否则输出一个数，表示最小的速度比。</p>
+<p>　　如果需要，输出一个既约分数。</p>
+<p>Sample Input</p>
+<p>【样例输入1】</p>
+<p>　　4 2</p>
+<p>　　1 2 1</p>
+<p>　　3 4 2</p>
+<p>　　1 4</p>
+<p>【样例输入2】</p>
+<p>　　3 3</p>
+<p>　　1 2 10</p>
+<p>　　1 2 5</p>
+<p>　　2 3 8</p>
+<p>　　1 3</p>
+<p>【样例输入3】</p>
+<p>　　3 2</p>
+<p>　　1 2 2</p>
+<p>　　2 3 4</p>
+<p>　　1 3</p>
+<p>Sample Output</p>
+<p>【样例输出1】</p>
+<p>　　IMPOSSIBLE</p>
+<p>【样例输出2】</p>
+<p>　　5/4</p>
+<p>【样例输出3】</p>
+<p>　　2</p>
+<p>解题思路：<br>　　本题给出景点数量n，道路数量m，之后给出m行，每行包括三个整数，分别为道路两端的景点，x，y与该道路的行驶速度v，下一行为两个整数，分别为起始景点s，目标景点t，如果s与t之间连通，就选择一条道路使从s到达t的最小速度比最大，输出其最大边和最小边的比值的最小值的最简分数形式，若不连通，输出IMPOSSIBLE。</p>
+<p>　　本题最小速度比是指一条道路上最大的速度与最小的速度的比值最小。且我们首先思考如何找到一条连通s与t道路上的最大边与最小边，怎么办？最小生成树！克鲁斯卡尔！</p>
+<p>kruskal算法核心思想：　　</p>
+<p>　　既然已经给出了邻接表。将道路按速度由小到大排序，枚举最小速度，初始视所有景点都为不连通，之后由最小速度的道路开始以速度从小到大枚举所有道路，判断道路两端的景点是否已经连通，若已经连通不做处理，若不连通则将该道路记录入最小生成树，标记道路两端为连通，判断s与t是否连通，若连通标记s与t可达，计算此时的最大速度与最小速度比值（因为道路速度由小到大遍历所以最小速度为开始遍历时的道路速度，最大速度为当前道路速度），将现在的比值与之前记录的比值比较，如果现在的值小于先前的值，将比值记录为现在的比值，并记录这时的最大速度与最小速度。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">kruskal</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m, <span class="keyword">int</span> s, <span class="keyword">int</span> t, <span class="keyword">int</span> &amp;maxL, <span class="keyword">int</span> &amp;minL)</span></span>&#123;</span><br><span class="line">    <span class="comment">//传入的n为景点数量，m为道路数量，s为起点，t为目标景点</span></span><br><span class="line">    <span class="comment">//由于要改变maxL与minL记录最终的最大值与最小值，所以maxL与minL传引用</span></span><br><span class="line">    <span class="keyword">double</span> ans = inf;   <span class="comment">//初始化比值为无穷大</span></span><br><span class="line">    <span class="keyword">bool</span> flag = <span class="literal">false</span>;  <span class="comment">//标记s与t为不可达</span></span><br><span class="line">    sort(Edge + <span class="number">1</span>, Edge + <span class="number">1</span> + m, cmp);  <span class="comment">//将道路由小到大排序</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++)&#123;    <span class="comment">//枚举最小速度</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">1</span>; k &lt;= n; k++)&#123;    <span class="comment">//初始化所有景点为不连通</span></span><br><span class="line">            father[k] = k;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> minlen = Edge[i].v, maxlen = <span class="number">0</span>; <span class="comment">//记录最小速度，初始化最大速度为0</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt;= m; j++)&#123;    <span class="comment">//以速度由小到大枚举所有道路</span></span><br><span class="line">            <span class="keyword">int</span> faNode1 = getFather(Edge[j].node1);</span><br><span class="line">            <span class="keyword">int</span> faNode2 = getFather(Edge[j].node2);</span><br><span class="line">            maxlen = Edge[j].v; <span class="comment">//记录最大速度为当前道路速度</span></span><br><span class="line">            <span class="keyword">if</span>(faNode1 != faNode2)&#123; <span class="comment">//判断道路两端顶点是否连通</span></span><br><span class="line">                father[faNode1] = faNode2;  <span class="comment">//不连通就标记为连通</span></span><br><span class="line">                <span class="keyword">if</span>(getFather(s) == getFather(t))&#123;   <span class="comment">//判断s与t是否连通</span></span><br><span class="line">                    flag = <span class="literal">true</span>;    <span class="comment">//如果连通标记s与t为可达</span></span><br><span class="line">                    <span class="keyword">if</span>(ans &gt; (<span class="keyword">double</span>)maxlen / minlen)&#123;  </span><br><span class="line">            <span class="comment">//计算此时的最大速度与最小速度比值，将现在的比值与之前记录的比值比较</span></span><br><span class="line">                        ans = (<span class="keyword">double</span>)maxlen / minlen;</span><br><span class="line">                    <span class="comment">//如果现在的值小于先前的值，将比值记录为现在的比值</span></span><br><span class="line">                        maxL = maxlen;</span><br><span class="line">                        minL = minlen;</span><br><span class="line">                        <span class="comment">//记录这时的最大速度与最小速度</span></span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(flag)&#123;   <span class="comment">//如果s与t可达返回true，否则返回false</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 是否连通用并查集进行判断 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> father[maxn], maxL, minL;   <span class="comment">//并查集部分</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getFather</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(father[x] == x)</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> father[x] = getFather(father[x]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 之后得到了最小速度与最大速度，只需要让最大速度与最小速度除以他们的最大公约数便可以获得分子与分母。 </p>
+<p> AC代码 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">0x7fffffff</span>; <span class="comment">//无穷大</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">3e4</span>+<span class="number">10</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span>&#123;</span>    <span class="comment">//edge保存道路</span></span><br><span class="line">    <span class="keyword">int</span> node1, node2;   <span class="comment">//道路两端景点</span></span><br><span class="line">    <span class="keyword">int</span> v;  <span class="comment">//道路速度</span></span><br><span class="line">&#125;Edge[maxn];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;  <span class="comment">//计算最大公约数</span></span><br><span class="line">    <span class="keyword">if</span>(b == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> gcd( b, a % b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(edge e1, edge e2)</span></span>&#123; <span class="comment">//道路按速度由小到大排序</span></span><br><span class="line">    <span class="keyword">return</span> e1.v &lt; e2.v;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> father[maxn], maxL, minL;   <span class="comment">//并查集部分</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getFather</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(father[x] == x)</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> father[x] = getFather(father[x]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">kruskal</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m, <span class="keyword">int</span> s, <span class="keyword">int</span> t, <span class="keyword">int</span> &amp;maxL, <span class="keyword">int</span> &amp;minL)</span></span>&#123;</span><br><span class="line">    <span class="comment">//传入的n为景点数量，m为道路数量，s为起点，t为目标景点</span></span><br><span class="line">    <span class="comment">//由于要改变maxL与minL记录最终的最大值与最小值，所以maxL与minL传引用</span></span><br><span class="line">    <span class="keyword">double</span> ans = inf;   <span class="comment">//初始化比值为无穷大</span></span><br><span class="line">    <span class="keyword">bool</span> flag = <span class="literal">false</span>;  <span class="comment">//标记s与t为不可达</span></span><br><span class="line">    sort(Edge + <span class="number">1</span>, Edge + <span class="number">1</span> + m, cmp);  <span class="comment">//将道路由小到大排序</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++)&#123;    <span class="comment">//枚举最小速度</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">1</span>; k &lt;= n; k++)&#123;    <span class="comment">//初始化所有景点为不连通</span></span><br><span class="line">            father[k] = k;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> minlen = Edge[i].v, maxlen = <span class="number">0</span>; <span class="comment">//记录最小速度，初始化最大速度为0</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt;= m; j++)&#123;    <span class="comment">//以速度由小到大枚举所有道路</span></span><br><span class="line">            <span class="keyword">int</span> faNode1 = getFather(Edge[j].node1);</span><br><span class="line">            <span class="keyword">int</span> faNode2 = getFather(Edge[j].node2);</span><br><span class="line">            maxlen = Edge[j].v; <span class="comment">//记录最大速度为当前道路速度</span></span><br><span class="line">            <span class="keyword">if</span>(faNode1 != faNode2)&#123; <span class="comment">//判断道路两端顶点是否连通</span></span><br><span class="line">                father[faNode1] = faNode2;  <span class="comment">//不连通就标记为连通</span></span><br><span class="line">                <span class="keyword">if</span>(getFather(s) == getFather(t))&#123;   <span class="comment">//判断s与t是否连通</span></span><br><span class="line">                    flag = <span class="literal">true</span>;    <span class="comment">//如果连通标记s与t为可达</span></span><br><span class="line">                    <span class="keyword">if</span>(ans &gt; (<span class="keyword">double</span>)maxlen / minlen)&#123;  </span><br><span class="line">            <span class="comment">//计算此时的最大速度与最小速度比值，将现在的比值与之前记录的比值比较</span></span><br><span class="line">                        ans = (<span class="keyword">double</span>)maxlen / minlen;</span><br><span class="line">                    <span class="comment">//如果现在的值小于先前的值，将比值记录为现在的比值</span></span><br><span class="line">                        maxL = maxlen;</span><br><span class="line">                        minL = minlen;</span><br><span class="line">                        <span class="comment">//记录这时的最大速度与最小速度</span></span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(flag)&#123;   <span class="comment">//如果s与t可达返回true，否则返回false</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> numNode, numEdge;   </span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;numNode, &amp;numEdge)!= EOF)&#123; <span class="comment">//输入景点数与道路数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= numEdge; i++)&#123;  <span class="comment">//输入道路</span></span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;Edge[i].node1, &amp;Edge[i].node2, &amp;Edge[i].cost);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> s, t;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;s, &amp;t);  <span class="comment">//输入起点终点</span></span><br><span class="line">        <span class="keyword">int</span> maxL  = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> minL = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//初始化最大最小速度都为0</span></span><br><span class="line">        <span class="keyword">if</span>(kruskal(numNode, numEdge, s, t, maxL, minL))&#123;    <span class="comment">//如果s与t连通</span></span><br><span class="line">            <span class="keyword">int</span> temp = gcd(maxL, minL); <span class="comment">//计算最大最小速度的最大公约数</span></span><br><span class="line">            <span class="comment">//printf("%d\n", gcd(maxL, minL));</span></span><br><span class="line">            <span class="keyword">int</span> a = maxL/temp, b = minL/temp;   <span class="comment">//计算分子分母</span></span><br><span class="line">            <span class="keyword">if</span>(b != <span class="number">1</span>)  <span class="comment">//分子不等于1输出最简分数</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, a, b);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, a);  <span class="comment">//分子为1直接输出分母</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;  <span class="comment">//不连通输出IMPOSSIBLE</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"IMPOSSIBLE\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" rel="tag"># 最小生成树</a>
+              <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag"># 并查集</a>
+              <a href="/tags/BZOJ/" rel="tag"># BZOJ</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/11/14/HDU-6187-Destroy-Walls/" rel="prev" title="HDU 6187 Destroy Walls">
+      <i class="fa fa-chevron-left"></i> HDU 6187 Destroy Walls
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/11/19/LightOJ-1214-Large-Division/" rel="next" title="LightOJ 1214 Large Division">
+      LightOJ 1214 Large Division <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SUVVM"
+      src="/images/ortrait.jpg">
+  <p class="site-author-name" itemprop="name">SUVVM</p>
+  <div class="site-description" itemprop="description">SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/suvvm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;suvvm" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/suvvm@foxmail.com" title="E-Mail → suvvm@foxmail.com"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SUVVM</span>
+	<a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鲁ICP备19040043号-2</a>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

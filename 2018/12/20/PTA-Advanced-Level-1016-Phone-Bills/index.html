@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ortrait.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.suvvm.work","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="A long-distance telephone company charges its customers by the following rules: 　　Making a long-distance call costs a certain amount per minute, depending on the time of day when the call is made. W">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PTA (Advanced Level) 1016 Phone Bills">
+<meta property="og:url" content="https://www.suvvm.work/2018/12/20/PTA-Advanced-Level-1016-Phone-Bills/index.html">
+<meta property="og:site_name" content="SUVVM">
+<meta property="og:description" content="A long-distance telephone company charges its customers by the following rules: 　　Making a long-distance call costs a certain amount per minute, depending on the time of day when the call is made. W">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-12-20T11:33:16.000Z">
+<meta property="article:modified_time" content="2020-12-19T14:05:00.652Z">
+<meta property="article:author" content="SUVVM">
+<meta property="article:tag" content="STL">
+<meta property="article:tag" content="模拟">
+<meta property="article:tag" content="PTA">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.suvvm.work/2018/12/20/PTA-Advanced-Level-1016-Phone-Bills/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PTA (Advanced Level) 1016 Phone Bills | SUVVM</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e5190116d64be66cac29daef18c94ac0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">SUVVM</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">呜嗷SUVVM</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/20/PTA-Advanced-Level-1016-Phone-Bills/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PTA (Advanced Level) 1016 Phone Bills
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-20 19:33:16" itemprop="dateCreated datePublished" datetime="2018-12-20T19:33:16+08:00">2018-12-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>　　A long-distance telephone company charges its customers by the following rules:</p>
+<p>　　Making a long-distance call costs a certain amount per minute, depending on the time of day when the call is made. When a customer starts connecting a long-distance call, the time will be recorded, and so will be the time when the customer hangs up the phone. Every calendar month, a bill is sent to the customer for each minute called (at a rate determined by the time of day). Your job is to prepare the bills for each month, given a set of phone call records.</p>
+<h3 id="Input-Specification"><a href="#Input-Specification" class="headerlink" title="Input Specification:"></a>Input Specification:</h3><p>　　Each input file contains one test case. Each case has two parts: the rate structure, and the phone call records.</p>
+<p>　　The rate structure consists of a line with 24 non-negative integers denoting the toll (cents/minute) from 00:00 - 01:00, the toll from 01:00 - 02:00, and so on for each hour in the day.</p>
+<p>　　The next line contains a positive number N (≤), followed by N lines of records. Each phone call record consists of the name of the customer (string of up to 20 characters without space), the time and date (<code>mm:dd:hh:mm</code>), and the word <code>on-line</code>or <code>off-line</code>.</p>
+<p>　　For each test case, all dates will be within a single month. Each <code>on-line</code> record is paired with the chronologically next record for the same customer provided it is an <code>off-line</code> record. Any <code>on-line</code> records that are not paired with an <code>off-line</code> record are ignored, as are <code>off-line</code> records not paired with an <code>on-line</code> record. It is guaranteed that at least one call is well paired in the input. You may assume that no two records for the same customer have the same time. Times are recorded using a 24-hour clock.</p>
+<h3 id="Output-Specification"><a href="#Output-Specification" class="headerlink" title="Output Specification:"></a>Output Specification:</h3><p>　　For each test case, you must print a phone bill for each customer.</p>
+<p>　　Bills must be printed in alphabetical order of customers’ names. For each customer, first print in a line the name of the customer and the month of the bill in the format shown by the sample. Then for each time period of a call, print in one line the beginning and ending time and date (<code>dd:hh:mm</code>), the lasting time (in minute) and the charge of the call. The calls must be listed in chronological order. Finally, print the total charge for the month in the format shown by the sample.</p>
+<h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input:"></a>Sample Input:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">10 10 10 10 10 10 20 20 20 15 15 15 15 15 15 15 20 30 20 15 15 10 10 10</span><br><span class="line">10</span><br><span class="line">CYLL 01:01:06:01 on-line</span><br><span class="line">CYLL 01:28:16:05 off-line</span><br><span class="line">CYJJ 01:01:07:00 off-line</span><br><span class="line">CYLL 01:01:08:03 off-line</span><br><span class="line">CYJJ 01:01:05:59 on-line</span><br><span class="line">aaa 01:01:01:03 on-line</span><br><span class="line">aaa 01:02:00:01 on-line</span><br><span class="line">CYLL 01:28:15:41 on-line</span><br><span class="line">aaa 01:05:02:24 on-line</span><br><span class="line">aaa 01:04:23:59 off-line</span><br></pre></td></tr></table></figure>
+<h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output:"></a>Sample Output:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">CYJJ 01</span><br><span class="line">01:05:59 01:07:00 61 $12.10</span><br><span class="line">Total amount: $12.10</span><br><span class="line">CYLL 01</span><br><span class="line">01:06:01 01:08:03 122 $24.40</span><br><span class="line">28:15:41 28:16:05 24 $3.85</span><br><span class="line">Total amount: $28.25</span><br><span class="line">aaa 01</span><br><span class="line">02:00:01 04:23:59 4318 $638.80</span><br><span class="line">Total amount: $638.80</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题是一个计算电话费用的题目，每组测试首先给出24个整数，代表一天中00：00 ~ 24：00每个小时每分钟通话的收费（单位是美分），下一行给出一个整数n表示通话记录的数量，之后n行跟随表示每条通话记录的信息，包括用户名 时间（月:日:时:分） 开始通话或结束通话标识（on-line / off-line）。要求按时间输出所有用户的通话信息，格式为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">用户名  通话月份</span><br><span class="line">开始通话时间  结束通话时间  本次通话金额（单位为美元）</span><br><span class="line">……</span><br><span class="line">……</span><br><span class="line">Total amount: 全部通话金额总和单位为美元）</span><br></pre></td></tr></table></figure>
+<p>　　这里首先用一个数组toll[25]记录24小时通话各自的收费，用一个结构体node记录每条通话记录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int toll[25];   &#x2F;&#x2F;记录每个小时每分钟通话的收费</span><br><span class="line">struct node&#123;    </span><br><span class="line">    string name;    &#x2F;&#x2F;客户名</span><br><span class="line">    int month, dd, hh,mm;   &#x2F;&#x2F;时间</span><br><span class="line">    bool line;  &#x2F;&#x2F;结束通话标识 true表示on-line false表示off—line</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>　　我们想要在输入是将每个客户的通话记录都分开记录，这里可以利用map将每个客户名映射到一个vector容器，容器中装载通话记录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map&lt;string, vector&lt;node&gt; &gt; customer;    </span><br><span class="line">&#x2F;&#x2F;customer[&quot;张三&quot;]现在就代表着姓名为张三的用户的所有通话记录</span><br></pre></td></tr></table></figure>
+<p>　　这样我们就可以开始录入通话记录了</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        node temp;  <span class="comment">//temp记录当前输入的通话记录信息</span></span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; temp.name;   <span class="comment">//输入姓名</span></span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d:%d:%d:%d"</span>, &amp;temp.month, &amp;temp.dd, &amp;temp.hh, &amp;temp.mm);</span><br><span class="line">        <span class="comment">//输入时</span></span><br><span class="line">        <span class="built_in">string</span> tline;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; tline;   <span class="comment">//输入通话标识</span></span><br><span class="line">        temp.line = mp[tline];  <span class="comment">//这里的mp将"on-line"映射为true将"off-line"映射为false</span></span><br><span class="line">        customer[temp.name].push_back(temp);</span><br><span class="line">        <span class="comment">//将当前信息记录入其客户所对应的容器中</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p> 之后我们就需要遍历所有客户与其通话记录，将客户的通话记录按时间升序排序，根据排序后的通话记录，我们就可以获得该客户的所有完整通话（时间相邻最近的on_line与off-line，中间不能夹着其他on_line与off-line）。我们需要获得每一个完整通话并将其记录在对应用户名下，我们用结构体call记录每一个完整通话的信息，包括客户名，开始通话时间，结束通话时间，通话时长，通话消费。 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">call</span>&#123;</span></span><br><span class="line">    <span class="built_in">string</span> name;    <span class="comment">//客户名</span></span><br><span class="line">    <span class="keyword">int</span> onMonth, onDd, onHh, onMm;  <span class="comment">//开始通话时间</span></span><br><span class="line">    <span class="keyword">int</span> offMonth, offDd, offHh, offMm;  <span class="comment">//结束通话时间</span></span><br><span class="line">    <span class="keyword">int</span> sumTime;    <span class="comment">//通话时长</span></span><br><span class="line">    <span class="keyword">int</span> cost;   <span class="comment">//通话消耗</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>　为了记录每个客户的完整通话，我们可以采用和每个客户通话记录一样的记录方式，利用map将每个客户名映射到一个vector容器，只不过这次容器中装载的是完整通话。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;call&gt; &gt; costInf;</span><br><span class="line"><span class="comment">//costInf["张三"]现在就代表着姓名为张三的客户的所有完整通话</span></span><br></pre></td></tr></table></figure>
+<p>　　遍历信息　　</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> i : customer)&#123; <span class="comment">//遍历所有客户</span></span><br><span class="line">        sort((i.second).begin(), (i.second).end(), cmp);</span><br><span class="line">        <span class="comment">//将每个用户的通话记录按时间升序排序</span></span><br><span class="line">        <span class="keyword">bool</span> isOnLine = <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">//isOnLine用来标记客户当前是否正在通话</span></span><br><span class="line">        call temp;  <span class="comment">//temp记录一次完整通话</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> j : (i.second))&#123;   <span class="comment">//遍历该客户所有通话记录</span></span><br><span class="line">            <span class="keyword">if</span>(j.line)&#123; <span class="comment">//遇到开始通话的通话记录</span></span><br><span class="line">                isOnLine = <span class="literal">true</span>;    <span class="comment">//标记当前状态为正在通话</span></span><br><span class="line">                temp.onMonth = j.month, temp.onDd = j.dd, temp.onHh = j.hh, temp.onMm = j.mm;</span><br><span class="line">                <span class="comment">//记录开始通话时间</span></span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(!j.line &amp;&amp; isOnLine)&#123;  <span class="comment">//如果现在正在通话且当前通话记录为结束通话</span></span><br><span class="line">                isOnLine = <span class="literal">false</span>;   <span class="comment">//标记当前状态为结束通话</span></span><br><span class="line">                temp.offMonth = j.month, temp.offDd = j.dd, temp.offHh = j.hh, temp.offMm = j.mm;</span><br><span class="line">                <span class="comment">//记录通话结束时间</span></span><br><span class="line">                temp.sumTime = <span class="number">0</span>;</span><br><span class="line">                temp.cost = <span class="number">0</span>;</span><br><span class="line">                clt(temp.onDd, temp.onHh, temp.onMm, temp.offDd, temp.offHh, temp.offMm, temp.sumTime, temp.cost);</span><br><span class="line">                <span class="comment">//计算本次通话的时长于消耗</span></span><br><span class="line">                costInf[j.name].push_back(temp);</span><br><span class="line">                <span class="comment">//将当前完整通话信息记录入其客户所在容器中</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>　　由于我们之前已经将通话记录排序，所以获取的完整通话记录一定是时间升序。</p>
+<p>　　对与计算每次完整通话时间与消耗，我们只需要由开始通话时间开始，每次加一分钟，到开始时间等于结束时间为止，在过程中记录通话时间与花费金额即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clt</span><span class="params">(<span class="keyword">int</span> bgdd, <span class="keyword">int</span> bghh, <span class="keyword">int</span> bgmm, <span class="keyword">int</span> eddd, <span class="keyword">int</span> edhh, <span class="keyword">int</span> edmm, <span class="keyword">int</span> &amp;sumTime, <span class="keyword">int</span> &amp;cost)</span></span>&#123;</span><br><span class="line">    <span class="comment">//传入开始时间与结束时间，把我们要计算的两个值传引用。</span></span><br><span class="line">    <span class="keyword">while</span>(bgdd &lt; eddd || bghh &lt; edhh || bgmm &lt; edmm)&#123;   <span class="comment">//开始时间小于结束时间</span></span><br><span class="line">        sumTime++;  <span class="comment">//通话时间加一分钟</span></span><br><span class="line">        cost += toll[bghh]; <span class="comment">//将该分钟的收费计入消耗</span></span><br><span class="line">        bgmm++; <span class="comment">//开始时间加一分钟</span></span><br><span class="line">        <span class="keyword">if</span>(bgmm == <span class="number">60</span>)&#123; <span class="comment">//分钟进位</span></span><br><span class="line">            bgmm = <span class="number">0</span>;</span><br><span class="line">            bghh++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(bghh == <span class="number">24</span>)&#123; <span class="comment">//小时进位</span></span><br><span class="line">            bghh = <span class="number">0</span>;</span><br><span class="line">            bgdd++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p> AC代码 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e3</span>+<span class="number">100</span>;</span><br><span class="line"><span class="keyword">int</span> toll[<span class="number">25</span>];   <span class="comment">//记录每个小时每分钟通话的收费</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="built_in">string</span> name;    <span class="comment">//客户名</span></span><br><span class="line">    <span class="keyword">int</span> month, dd, hh,mm;   <span class="comment">//时间</span></span><br><span class="line">    <span class="keyword">bool</span> line;  <span class="comment">//结束通话标识 true表示on-line false表示off—line</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">call</span>&#123;</span></span><br><span class="line">    <span class="built_in">string</span> name;    <span class="comment">//客户名</span></span><br><span class="line">    <span class="keyword">int</span> onMonth, onDd, onHh, onMm;  <span class="comment">//开始通话时间</span></span><br><span class="line">    <span class="keyword">int</span> offMonth, offDd, offHh, offMm;  <span class="comment">//结束通话时间</span></span><br><span class="line">    <span class="keyword">int</span> sumTime;    <span class="comment">//通话时长</span></span><br><span class="line">    <span class="keyword">int</span> cost;   <span class="comment">//通话消耗</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">bool</span>&gt; mp;</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;node&gt; &gt; customer;</span><br><span class="line"><span class="comment">//customer["张三"]现在就代表着姓名为张三的用户的所有通话记录</span></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;call&gt; &gt; costInf;</span><br><span class="line"><span class="comment">//costInf["张三"]现在就代表着姓名为张三的客户的所有完整通话</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(node a, node b)</span></span>&#123;   <span class="comment">//按时间升序排序</span></span><br><span class="line">    <span class="keyword">if</span>(a.month != b.month)</span><br><span class="line">        <span class="keyword">return</span> a.month &lt; b.month;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(a.dd != b.dd)&#123;</span><br><span class="line">        <span class="keyword">return</span> a.dd &lt; b.dd;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(a.hh != b.hh)&#123;</span><br><span class="line">        <span class="keyword">return</span> a.hh &lt; b.hh;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(a.mm != b.mm)</span><br><span class="line">        <span class="keyword">return</span> a.mm &lt; b.mm;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clt</span><span class="params">(<span class="keyword">int</span> bgdd, <span class="keyword">int</span> bghh, <span class="keyword">int</span> bgmm, <span class="keyword">int</span> eddd, <span class="keyword">int</span> edhh, <span class="keyword">int</span> edmm, <span class="keyword">int</span> &amp;sumTime, <span class="keyword">int</span> &amp;cost)</span></span>&#123;</span><br><span class="line">    <span class="comment">//传入开始时间与结束时间，把我们要计算的两个值传引用。</span></span><br><span class="line">    <span class="keyword">while</span>(bgdd &lt; eddd || bghh &lt; edhh || bgmm &lt; edmm)&#123;   <span class="comment">//开始时间小于结束时间</span></span><br><span class="line">        sumTime++;  <span class="comment">//通话时间加一分钟</span></span><br><span class="line">        cost += toll[bghh]; <span class="comment">//将该分钟的收费计入消耗</span></span><br><span class="line">        bgmm++; <span class="comment">//开始时间加一分钟</span></span><br><span class="line">        <span class="keyword">if</span>(bgmm == <span class="number">60</span>)&#123; <span class="comment">//分钟进位</span></span><br><span class="line">            bgmm = <span class="number">0</span>;</span><br><span class="line">            bghh++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(bghh == <span class="number">24</span>)&#123; <span class="comment">//小时进位</span></span><br><span class="line">            bghh = <span class="number">0</span>;</span><br><span class="line">            bgdd++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    mp[<span class="string">"on-line"</span>] = <span class="literal">true</span>;</span><br><span class="line">    mp[<span class="string">"off-line"</span>] = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">24</span>; i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;toll[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        node temp;  <span class="comment">//temp记录当前输入的通话记录信息</span></span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; temp.name;   <span class="comment">//输入姓名</span></span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d:%d:%d:%d"</span>, &amp;temp.month, &amp;temp.dd, &amp;temp.hh, &amp;temp.mm);</span><br><span class="line">        <span class="comment">//输入时</span></span><br><span class="line">        <span class="built_in">string</span> tline;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; tline;   <span class="comment">//输入通话标识</span></span><br><span class="line">        temp.line = mp[tline];  <span class="comment">//这里的mp将"on-line"映射为true将"off-line"映射为false</span></span><br><span class="line">        customer[temp.name].push_back(temp);</span><br><span class="line">        <span class="comment">//将当前信息记录入其客户所对应的容器中</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> i : customer)&#123; <span class="comment">//遍历所有客户</span></span><br><span class="line">        sort((i.second).begin(), (i.second).end(), cmp);</span><br><span class="line">        <span class="comment">//将每个用户的通话记录按时间升序排序</span></span><br><span class="line">        <span class="keyword">bool</span> isOnLine = <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">//isOnLine用来标记客户当前是否正在通话</span></span><br><span class="line">        call temp;  <span class="comment">//temp记录一次完整通话</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> j : (i.second))&#123;   <span class="comment">//遍历该客户所有通话记录</span></span><br><span class="line">            <span class="keyword">if</span>(j.line)&#123; <span class="comment">//遇到开始通话的通话记录</span></span><br><span class="line">                isOnLine = <span class="literal">true</span>;    <span class="comment">//标记当前状态为正在通话</span></span><br><span class="line">                temp.onMonth = j.month, temp.onDd = j.dd, temp.onHh = j.hh, temp.onMm = j.mm;</span><br><span class="line">                <span class="comment">//记录开始通话时间</span></span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(!j.line &amp;&amp; isOnLine)&#123;  <span class="comment">//如果现在正在通话且当前通话记录为结束通话</span></span><br><span class="line">                isOnLine = <span class="literal">false</span>;   <span class="comment">//标记当前状态为结束通话</span></span><br><span class="line">                temp.offMonth = j.month, temp.offDd = j.dd, temp.offHh = j.hh, temp.offMm = j.mm;</span><br><span class="line">                <span class="comment">//记录通话结束时间</span></span><br><span class="line">                temp.sumTime = <span class="number">0</span>;</span><br><span class="line">                temp.cost = <span class="number">0</span>;</span><br><span class="line">                clt(temp.onDd, temp.onHh, temp.onMm, temp.offDd, temp.offHh, temp.offMm, temp.sumTime, temp.cost);</span><br><span class="line">                <span class="comment">//计算本次通话的时长于消耗</span></span><br><span class="line">                costInf[j.name].push_back(temp);</span><br><span class="line">                <span class="comment">//将当前完整通话信息记录入其客户所在容器中</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> i : costInf)&#123;  <span class="comment">//遍历所有客户，输出信息</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; (i.first) &lt;&lt; <span class="string">" "</span>;   <span class="comment">//输出客户名</span></span><br><span class="line">        <span class="keyword">bool</span> flag = <span class="literal">false</span>;  <span class="comment">//标记月份是否已经输出</span></span><br><span class="line">        <span class="keyword">double</span> tam = <span class="number">0.0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> j : (i.second))&#123;</span><br><span class="line">            <span class="keyword">if</span>(!flag)&#123;  <span class="comment">//没有输出月份</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%02d\n"</span>, j.onMonth);</span><br><span class="line">                flag = <span class="literal">true</span>;    <span class="comment">//格式化输出月份并将flag标记为true</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%02d:%02d:%02d %02d:%02d:%02d %d $%.2f\n"</span>, j.onDd, j.onHh, j.onMm, j.offDd, j.offHh, j.offMm, j.sumTime, j.cost / <span class="number">100.0</span>);</span><br><span class="line">            <span class="comment">//格式化输出开始时间 结束时间 通话时长 通话消耗（美分转为美元）</span></span><br><span class="line">            tam += j.cost/ <span class="number">100.0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Total amount: $%.2f\n"</span>, tam);</span><br><span class="line">        <span class="comment">//输出总消耗</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/STL/" rel="tag"># STL</a>
+              <a href="/tags/%E6%A8%A1%E6%8B%9F/" rel="tag"># 模拟</a>
+              <a href="/tags/PTA/" rel="tag"># PTA</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/18/PTA-Advanced-Level-1015-Reversible-Primes/" rel="prev" title="PTA (Advanced Level) 1015 Reversible Primes">
+      <i class="fa fa-chevron-left"></i> PTA (Advanced Level) 1015 Reversible Primes
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/01/01/PTA-Advanced-Level-1018-Public-Bike-Management/" rel="next" title="PTA (Advanced Level) 1018 Public Bike Management">
+      PTA (Advanced Level) 1018 Public Bike Management <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Input-Specification"><span class="nav-number">1.</span> <span class="nav-text">Input Specification:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Output-Specification"><span class="nav-number">2.</span> <span class="nav-text">Output Specification:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sample-Input"><span class="nav-number">3.</span> <span class="nav-text">Sample Input:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sample-Output"><span class="nav-number">4.</span> <span class="nav-text">Sample Output:</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SUVVM"
+      src="/images/ortrait.jpg">
+  <p class="site-author-name" itemprop="name">SUVVM</p>
+  <div class="site-description" itemprop="description">SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/suvvm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;suvvm" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/suvvm@foxmail.com" title="E-Mail → suvvm@foxmail.com"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SUVVM</span>
+	<a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鲁ICP备19040043号-2</a>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

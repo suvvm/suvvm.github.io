@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ortrait.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.suvvm.work","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Last night, little erriyue had a horrible nightmare. He dreamed that he and his girl friend were trapped in a big maze separately. More terribly, there are two ghosts in the maze. They will kill the">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HDU 3085 Nightmare Ⅱ">
+<meta property="og:url" content="https://www.suvvm.work/2018/12/05/HDU-3085-Nightmare-%E2%85%A1/index.html">
+<meta property="og:site_name" content="SUVVM">
+<meta property="og:description" content="Last night, little erriyue had a horrible nightmare. He dreamed that he and his girl friend were trapped in a big maze separately. More terribly, there are two ghosts in the maze. They will kill the">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181205191058576-1094477089.jpg">
+<meta property="article:published_time" content="2018-12-05T12:00:52.000Z">
+<meta property="article:modified_time" content="2020-12-19T14:05:00.632Z">
+<meta property="article:author" content="SUVVM">
+<meta property="article:tag" content="BFS（广度优先搜索)">
+<meta property="article:tag" content="HDU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181205191058576-1094477089.jpg">
+
+<link rel="canonical" href="https://www.suvvm.work/2018/12/05/HDU-3085-Nightmare-%E2%85%A1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>HDU 3085 Nightmare Ⅱ | SUVVM</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e5190116d64be66cac29daef18c94ac0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">SUVVM</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">呜嗷SUVVM</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/05/HDU-3085-Nightmare-%E2%85%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          HDU 3085 Nightmare Ⅱ
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-05 20:00:52" itemprop="dateCreated datePublished" datetime="2018-12-05T20:00:52+08:00">2018-12-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><meta name="referrer" content="no-referrer"><br>　　Last night, little erriyue had a horrible nightmare. He dreamed that he and his girl friend were trapped in a big maze separately. More terribly, there are two ghosts in the maze. They will kill the people. Now little erriyue wants to know if he could find his girl friend before the ghosts find them.<br>　　You may suppose that little erriyue and his girl friend can move in 4 directions. In each second, little erriyue can move 3 steps and his girl friend can move 1 step. The ghosts are evil, every second they will divide into several parts to occupy the grids within 2 steps to them until they occupy the whole maze. You can suppose that at every second the ghosts divide firstly then the little erriyue and his girl friend start to move, and if little erriyue or his girl friend arrive at a grid with a ghost, they will die.<br>　　Note: the new ghosts also can devide as the original ghost. </p>
+<p>Input</p>
+<p>　　The input starts with an integer T, means the number of test cases.<br>　　Each test case starts with a line contains two integers n and m, means the size of the maze. (1&lt;n, m&lt;800)<br>　　The next n lines describe the maze. Each line contains m characters. The characters may be:<br>　　‘.’ denotes an empty place, all can walk on.<br>　　‘X’ denotes a wall, only people can’t walk on.<br>　　‘M’ denotes little erriyue<br>　　‘G’ denotes the girl friend.<br>　　‘Z’ denotes the ghosts.<br>　　It is guaranteed that will contain exactly one letter M, one letter G and two letters Z.<br>Output</p>
+<p>　　Output a single integer S in one line, denotes erriyue and his girlfriend will meet in the minimum time S if they can meet successfully, or output -1 denotes they failed to meet.</p>
+<p>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">5 6</span><br><span class="line">XXXXXX</span><br><span class="line">XZ..ZX</span><br><span class="line">XXXXXX</span><br><span class="line">M.G...</span><br><span class="line">......</span><br><span class="line">5 6</span><br><span class="line">XXXXXX</span><br><span class="line">XZZ..X</span><br><span class="line">XXXXXX</span><br><span class="line">M.....</span><br><span class="line">..G...</span><br><span class="line"></span><br><span class="line">10 10</span><br><span class="line">..........</span><br><span class="line">..X.......</span><br><span class="line">..M.X...X.</span><br><span class="line">X.........</span><br><span class="line">.X..X.X.X.</span><br><span class="line">.........X</span><br><span class="line">..XX....X.</span><br><span class="line">X....G...X</span><br><span class="line">...ZX.X...</span><br><span class="line">...Z..X..X</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">1</span><br><span class="line">-1</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题给出测试数量t，每组测试包括两个整数n、m，之后给出一个n行m列的矩阵代表地图的初始状态。</p>
+<p>地图中 :</p>
+<p>　　“ . “代表空地；</p>
+<p>　　“X “代表墙；</p>
+<p>　　“M “代表 little erriyue的初始位置；</p>
+<p>　　“G “代表 女友的初始位置；</p>
+<p>　　“Z “代表鬼的初始位置</p>
+<p>　　每个图中M与G都只会有唯一的一个，Z有两个。little erriyue每一回合可以移动3个格子，女友每回合只可以移动1个格子，而鬼每回合会产生出分身（分身可以继续变出分身），覆盖周围2格内所有空地（本题所有行动只能向上下左右4个方向行动，不能斜着前进），行动的顺序是鬼先分身，之后little erriyue与女友行动。如果两人终的任何一人到达有鬼魂的格子就会被宰杀。每一回合算一个小时，要求输出little erriyue最短的汇合时间，若不能汇合输出-1.</p>
+<p>　　本题可以使用广域深度搜索，定义一个结构体node储存little erriyue、女友与鬼魂的位置。在输入后先确定little erriyue、女友与鬼魂的位置，用step记录回合数，每回合little erriyue、女友各行动一次，所搜所有可达位置，判断目标位置与鬼魂的曼哈顿距离。由于鬼每一次覆盖其周围所有距离为2的格子，即曼哈顿距离为2的所有位置，所以判断某位置是否已经被鬼的分身占据，只需判断当前的回合数<em>2与鬼位置的曼哈度距离大小即可。</em><br>*</p>
+<p>　　曼哈顿距离：</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181205191058576-1094477089.jpg" alt="img"></p>
+<p>　　上图红线、蓝线与黄线都为两点间等价的曼哈顿距离，绿线则代表欧氏距离（直线距离）。</p>
+<p>　　曼哈顿距离就是图中两点间水平距离加竖直距离，也就是只能上下左右四个方向移动时两点间的最短距离。</p>
+<p>　　本题与鬼魂曼哈顿距离判断函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> step)</span></span>&#123; <span class="comment">//传入值为要判断点的坐标与当前回合数</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">0</span> || y &lt; <span class="number">0</span> || x &gt;= n || y &gt;= m)  <span class="comment">//如果传入的点超过地图的边界，该点不能走，返回false</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(mapn[x][y] == <span class="string">'X'</span>)  <span class="comment">//如果该点是墙，该点不能走，返回false</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//如果该点与第一个鬼魂的曼哈顿距离小于回合数的两倍则第一个鬼魂已经覆盖了该点，该点不能走，返回false</span></span><br><span class="line">    <span class="comment">//鬼魂每回合可以覆盖两格所以是回合数的两倍</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>( (<span class="built_in">abs</span>(x - lghost1.x) + <span class="built_in">abs</span>(y - lghost1.y)) &lt;= step * <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//如果该点与第二个鬼魂的曼哈顿距离小于回合数的两倍则第而个鬼魂已经覆盖了该点，该点不能走，返回false</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>( (<span class="built_in">abs</span>(x - lghost2.x) + <span class="built_in">abs</span>(y - lghost2.y)) &lt;= step * <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//只有上述条件都不满足时返回true</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　对于little erriyue和女友我们可以利用广搜每回合搜索他们可以抵达的点判断是否可以汇合。</p>
+<p>　　分别用两个队列表示little erriyue与女友当前回合可用的起始位置（上一回合的可达位置）</p>
+<p>　　对于little erriyue，他每回合可以行动3格，我们就让他每次行动一格搜索3次即可</p>
+<p>　　little erriyue：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">bfsLE</span><span class="params">(<span class="keyword">int</span> step)</span></span>&#123;   <span class="comment">//传入的值为当前回合数</span></span><br><span class="line">    <span class="keyword">int</span> t = <span class="number">3</span>;  <span class="comment">//行动3次</span></span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = littleErriyue.size(); </span><br><span class="line">        <span class="comment">//sum为当前队列中元素的数量，代表当前回合的起始位置数量（即上一回合可达位置数量）</span></span><br><span class="line">        <span class="keyword">while</span>(sum--)&#123;   <span class="comment">//遍历所有起始位置</span></span><br><span class="line">            node top = littleErriyue.front();   </span><br><span class="line">            littleErriyue.pop();</span><br><span class="line">            <span class="comment">//记录当前首位并出队</span></span><br><span class="line">            <span class="keyword">if</span>(!judge(top.x, top.y, step))  </span><br><span class="line">                <span class="comment">//由于每回合开始都是鬼鬼魂先分身，所以如果这里被鬼魂覆盖这点就不能用了</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)&#123; <span class="comment">//遍历当前点可以到达的4个位置</span></span><br><span class="line">                <span class="keyword">int</span> NewX = top.x + X[i];</span><br><span class="line">                <span class="keyword">int</span> NewY = top.y + Y[i];</span><br><span class="line">                <span class="keyword">if</span>(!visLE[NewX][NewY] &amp;&amp; judge(NewX, NewY, step))&#123; </span><br><span class="line">                    <span class="comment">//判断四个位置是否可用，vis数组用来记录目标位置是否已经走过</span></span><br><span class="line">                    <span class="comment">//只有没有走过，且judge为true的位置才可以使用</span></span><br><span class="line">                    <span class="keyword">if</span>(visGF[NewX][NewY])   <span class="comment">//如果目标点本回合或之前女友亦可以抵达证明汇合成功</span></span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">true</span>;    <span class="comment">//返回true</span></span><br><span class="line">                    Node.x = NewX;</span><br><span class="line">                    Node.y = NewY;</span><br><span class="line">                    littleErriyue.push(Node);   <span class="comment">//新位置入队</span></span><br><span class="line">                    visLE[NewX][NewY] = <span class="literal">true</span>;   <span class="comment">//新位置标记为已经走过</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 　　女友： </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//女友行动与little erriyue类似，唯一的区别就是只行动一次</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">bfsGF</span><span class="params">(<span class="keyword">int</span> step)</span></span>&#123;   <span class="comment">//传入的值为当前回合数</span></span><br><span class="line">    <span class="keyword">int</span> sum = girlFriend.size();</span><br><span class="line">    <span class="comment">//sum为当前队列中元素的数量，代表当前回合的起始位置数量（即上一回合可达位置数量）</span></span><br><span class="line">    <span class="keyword">while</span>(sum--)&#123;<span class="comment">//遍历所有起始位置</span></span><br><span class="line">        node top = girlFriend.front();</span><br><span class="line">        girlFriend.pop();</span><br><span class="line">         <span class="comment">//记录当前首位并出队</span></span><br><span class="line">        <span class="keyword">if</span>(!judge(top.x, top.y, step))</span><br><span class="line">            <span class="comment">//由于每回合开始都是鬼鬼魂先分身，所以如果这里被鬼魂覆盖这点就不能用了</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)&#123;<span class="comment">//遍历当前点可以到达的4个位置</span></span><br><span class="line">            <span class="keyword">int</span> NewX = top.x + X[i];</span><br><span class="line">            <span class="keyword">int</span> NewY = top.y + Y[i];</span><br><span class="line">            <span class="keyword">if</span>(!visGF[NewX][NewY] &amp;&amp; judge(NewX, NewY, step))&#123;</span><br><span class="line">                <span class="comment">//判断四个位置是否可用，vis数组用来记录目标位置是否已经走过</span></span><br><span class="line">                    <span class="comment">//只有没有走过，且judge为true的位置才可以使用</span></span><br><span class="line">                <span class="keyword">if</span>(visLE[NewX][NewY])<span class="comment">//如果目标点本回合或之前littel erriyue亦可以抵达证明汇合成功</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;<span class="comment">//返回true</span></span><br><span class="line">                Node.x = NewX;</span><br><span class="line">                Node.y = NewY;</span><br><span class="line">                girlFriend.push(Node);<span class="comment">//新位置入队</span></span><br><span class="line">                visGF[NewX][NewY] = <span class="literal">true</span>; <span class="comment">//新位置标记为已经走过</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> AC代码 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">810</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> X[<span class="number">4</span>] = &#123;<span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> Y[<span class="number">4</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line"><span class="keyword">char</span> mapn[maxn][maxn];</span><br><span class="line"><span class="keyword">bool</span> visLE[maxn][maxn] = &#123;<span class="literal">false</span>&#125;;</span><br><span class="line"><span class="comment">//little erriyue走过的位置</span></span><br><span class="line"><span class="keyword">bool</span> visGF[maxn][maxn] = &#123;<span class="literal">false</span>&#125;;</span><br><span class="line"><span class="comment">//女友走过的位置</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> x;</span><br><span class="line">    <span class="keyword">int</span> y;</span><br><span class="line">&#125;Node, lLE, lGF, lghost1, lghost2;</span><br><span class="line"><span class="comment">//lLE little erriyue起始位置 lGF 女友起始位置 两个lghost分别为两个鬼魂的起始位置</span></span><br><span class="line"><span class="built_in">queue</span>&lt;node&gt; littleErriyue;<span class="comment">//little erriyue当前回合可用的起始位置（上一回合的可达位置）</span></span><br><span class="line"><span class="built_in">queue</span>&lt;node&gt; girlFriend;<span class="comment">//女友当前回合可用的起始位置（上一回合的可达位置）</span></span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getLocation</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">bool</span> g2 = <span class="literal">false</span>;    <span class="comment">//鬼魂2位置未获取</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(mapn[i][j] == <span class="string">'M'</span>)&#123;  <span class="comment">//获取little erriyue起始位置</span></span><br><span class="line">                lLE.x = i;</span><br><span class="line">                lLE.y = j;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(mapn[i][j] == <span class="string">'G'</span>)&#123;<span class="comment">//获取女友起始位置</span></span><br><span class="line">                lGF.x = i;</span><br><span class="line">                lGF.y = j;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(mapn[i][j] == <span class="string">'Z'</span>)&#123;    <span class="comment">//获取鬼魂起始位置</span></span><br><span class="line">                <span class="keyword">if</span>(!g2)&#123;</span><br><span class="line">                    lghost2.x = i;</span><br><span class="line">                    lghost2.y = j;</span><br><span class="line">                    g2 = <span class="literal">true</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    lghost1.x = i;</span><br><span class="line">                    lghost1.y = j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> step)</span></span>&#123; <span class="comment">//传入值为要判断点的坐标与当前回合数</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">0</span> || y &lt; <span class="number">0</span> || x &gt;= n || y &gt;= m)  <span class="comment">//如果传入的点超过地图的边界，该点不能走，返回false</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(mapn[x][y] == <span class="string">'X'</span>)  <span class="comment">//如果该点是墙，该点不能走，返回false</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//如果该点与第一个鬼魂的曼哈顿距离小于回合数的两倍则第一个鬼魂已经覆盖了该点，该点不能走，返回false</span></span><br><span class="line">    <span class="comment">//鬼魂每回合可以覆盖两格所以是回合数的两倍</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>( (<span class="built_in">abs</span>(x - lghost1.x) + <span class="built_in">abs</span>(y - lghost1.y)) &lt;= step * <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//如果该点与第二个鬼魂的曼哈顿距离小于回合数的两倍则第而个鬼魂已经覆盖了该点，该点不能走，返回false</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>( (<span class="built_in">abs</span>(x - lghost2.x) + <span class="built_in">abs</span>(y - lghost2.y)) &lt;= step * <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//只有上述条件都不满足时返回true</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">bfsLE</span><span class="params">(<span class="keyword">int</span> step)</span></span>&#123;   <span class="comment">//传入的值为当前回合数</span></span><br><span class="line">    <span class="keyword">int</span> t = <span class="number">3</span>;  <span class="comment">//行动3次</span></span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = littleErriyue.size(); </span><br><span class="line">        <span class="comment">//sum为当前队列中元素的数量，代表当前回合的起始位置数量（即上一回合可达位置数量）</span></span><br><span class="line">        <span class="keyword">while</span>(sum--)&#123;   <span class="comment">//遍历所有起始位置</span></span><br><span class="line">            node top = littleErriyue.front();   </span><br><span class="line">            littleErriyue.pop();</span><br><span class="line">            <span class="comment">//记录当前首位并出队</span></span><br><span class="line">            <span class="keyword">if</span>(!judge(top.x, top.y, step))  </span><br><span class="line">                <span class="comment">//由于每回合开始都是鬼鬼魂先分身，所以如果这里被鬼魂覆盖这点就不能用了</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)&#123; <span class="comment">//遍历当前点可以到达的4个位置</span></span><br><span class="line">                <span class="keyword">int</span> NewX = top.x + X[i];</span><br><span class="line">                <span class="keyword">int</span> NewY = top.y + Y[i];</span><br><span class="line">                <span class="keyword">if</span>(!visLE[NewX][NewY] &amp;&amp; judge(NewX, NewY, step))&#123; </span><br><span class="line">                    <span class="comment">//判断四个位置是否可用，vis数组用来记录目标位置是否已经走过</span></span><br><span class="line">                    <span class="comment">//只有没有走过，且judge为true的位置才可以使用</span></span><br><span class="line">                    <span class="keyword">if</span>(visGF[NewX][NewY])   <span class="comment">//如果目标点本回合或之前女友亦可以抵达证明汇合成功</span></span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">true</span>;    <span class="comment">//返回true</span></span><br><span class="line">                    Node.x = NewX;</span><br><span class="line">                    Node.y = NewY;</span><br><span class="line">                    littleErriyue.push(Node);   <span class="comment">//新位置入队</span></span><br><span class="line">                    visLE[NewX][NewY] = <span class="literal">true</span>;   <span class="comment">//新位置标记为已经走过</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//女友行动与little erriyue类似，唯一的区别就是只行动一次</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">bfsGF</span><span class="params">(<span class="keyword">int</span> step)</span></span>&#123;   <span class="comment">//传入的值为当前回合数</span></span><br><span class="line">    <span class="keyword">int</span> sum = girlFriend.size();</span><br><span class="line">    <span class="comment">//sum为当前队列中元素的数量，代表当前回合的起始位置数量（即上一回合可达位置数量）</span></span><br><span class="line">    <span class="keyword">while</span>(sum--)&#123;<span class="comment">//遍历所有起始位置</span></span><br><span class="line">        node top = girlFriend.front();</span><br><span class="line">        girlFriend.pop();</span><br><span class="line">         <span class="comment">//记录当前首位并出队</span></span><br><span class="line">        <span class="keyword">if</span>(!judge(top.x, top.y, step))</span><br><span class="line">            <span class="comment">//由于每回合开始都是鬼鬼魂先分身，所以如果这里被鬼魂覆盖这点就不能用了</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)&#123;<span class="comment">//遍历当前点可以到达的4个位置</span></span><br><span class="line">            <span class="keyword">int</span> NewX = top.x + X[i];</span><br><span class="line">            <span class="keyword">int</span> NewY = top.y + Y[i];</span><br><span class="line">            <span class="keyword">if</span>(!visGF[NewX][NewY] &amp;&amp; judge(NewX, NewY, step))&#123;</span><br><span class="line">                <span class="comment">//判断四个位置是否可用，vis数组用来记录目标位置是否已经走过</span></span><br><span class="line">                    <span class="comment">//只有没有走过，且judge为true的位置才可以使用</span></span><br><span class="line">                <span class="keyword">if</span>(visLE[NewX][NewY])<span class="comment">//如果目标点本回合或之前littel erriyue亦可以抵达证明汇合成功</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;<span class="comment">//返回true</span></span><br><span class="line">                Node.x = NewX;</span><br><span class="line">                Node.y = NewY;</span><br><span class="line">                girlFriend.push(Node);<span class="comment">//新位置入队</span></span><br><span class="line">                visGF[NewX][NewY] = <span class="literal">true</span>; <span class="comment">//新位置标记为已经走过</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);    <span class="comment">//输入测试数量</span></span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);  <span class="comment">//输入n与m</span></span><br><span class="line">        <span class="built_in">memset</span>(visLE, <span class="literal">false</span>, <span class="keyword">sizeof</span>(visLE));</span><br><span class="line">        <span class="built_in">memset</span>(visGF, <span class="literal">false</span>, <span class="keyword">sizeof</span>(visGF));</span><br><span class="line">        <span class="comment">//初始化两个vis数组为false</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;<span class="comment">//输入地图</span></span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%s"</span>, mapn[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        getLocation();  <span class="comment">//获得各特殊元素位置</span></span><br><span class="line">        <span class="comment">//清空两个队列</span></span><br><span class="line">        <span class="keyword">while</span>(!littleErriyue.empty())&#123;</span><br><span class="line">            littleErriyue.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(!girlFriend.empty())&#123;</span><br><span class="line">            girlFriend.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//little erriyue与女友的初始位置入队</span></span><br><span class="line">        littleErriyue.push(lLE);</span><br><span class="line">        girlFriend.push(lGF);</span><br><span class="line">        visLE[lLE.x][lLE.y] = <span class="literal">true</span>;</span><br><span class="line">        visGF[lGF.x][lGF.y] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">int</span> step = <span class="number">0</span>;   <span class="comment">//step记录时间（回合数）</span></span><br><span class="line">        <span class="keyword">bool</span> flag = <span class="literal">false</span>;  <span class="comment">//flag 记录是否可汇合</span></span><br><span class="line">        <span class="keyword">while</span>(!girlFriend.empty() || !littleErriyue.empty())&#123;</span><br><span class="line">            step++;</span><br><span class="line">            <span class="keyword">if</span>(bfsLE(step))&#123;    <span class="comment">//little erriyue行动</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, step);</span><br><span class="line">                flag = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(bfsGF(step))&#123;    <span class="comment">//女友行动</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, step);</span><br><span class="line">                flag = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!flag)&#123;  <span class="comment">//不能汇合</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"-1\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/BFS%EF%BC%88%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" rel="tag"># BFS（广度优先搜索)</a>
+              <a href="/tags/HDU/" rel="tag"># HDU</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/02/CodeForces-1060-B-Maximum-Sum-of-Digits/" rel="prev" title="CodeForces 1060 B Maximum Sum of Digits">
+      <i class="fa fa-chevron-left"></i> CodeForces 1060 B Maximum Sum of Digits
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/12/06/POJ-2251-Dungeon-Master/" rel="next" title="POJ 2251 Dungeon Master">
+      POJ 2251 Dungeon Master <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SUVVM"
+      src="/images/ortrait.jpg">
+  <p class="site-author-name" itemprop="name">SUVVM</p>
+  <div class="site-description" itemprop="description">SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/suvvm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;suvvm" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/suvvm@foxmail.com" title="E-Mail → suvvm@foxmail.com"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SUVVM</span>
+	<a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鲁ICP备19040043号-2</a>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

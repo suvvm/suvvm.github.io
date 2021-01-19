@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ortrait.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.suvvm.work","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="[TOC] 软件工程导论软件工程学概述什么是软件计算机程序、数据以及各种文档的集合 软件工程三要素 方法 工具 过程  软件危机(选择)软件危机介绍在计算机的开发和维护过程中所遇到的一系列严重问题 软件危机的表现 对开发成本和进度估计常常很不准确 用户对“已完成的”软件系统不满意的现象经常发生 软件产品质量往往靠不住 软件常常不可维护 软件通常没有适当的文档资料 软件成本在计算机系统中所占比例逐年">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件工程导论">
+<meta property="og:url" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/index.html">
+<meta property="og:site_name" content="SUVVM">
+<meta property="og:description" content="[TOC] 软件工程导论软件工程学概述什么是软件计算机程序、数据以及各种文档的集合 软件工程三要素 方法 工具 过程  软件危机(选择)软件危机介绍在计算机的开发和维护过程中所遇到的一系列严重问题 软件危机的表现 对开发成本和进度估计常常很不准确 用户对“已完成的”软件系统不满意的现象经常发生 软件产品质量往往靠不住 软件常常不可维护 软件通常没有适当的文档资料 软件成本在计算机系统中所占比例逐年">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%80%91%E5%B8%83%E6%A8%A1%E5%9E%8B.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%BF%AB%E9%80%9F%E5%8E%9F%E5%9E%8B.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%A2%9E%E9%87%8F%E6%A8%A1%E5%9E%8B.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%AE%80%E5%8D%95%E8%9E%BA%E6%97%8B%E6%A8%A1%E5%9E%8B.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%AE%8C%E6%95%B4%E7%9A%84%E8%9E%BA%E6%97%8B%E6%A8%A1%E5%9E%8B.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%96%B7%E6%B3%89%E6%A8%A1%E5%9E%8B.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%B3%BB%E7%BB%9F%E6%B5%81%E7%A8%8B%E5%9B%BE.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%B3%BB%E7%BB%9F%E6%B5%81%E7%A8%8B%E5%9B%BE2.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%B3%BB%E7%BB%9F%E6%B5%81%E7%A8%8B%E5%9B%BE3.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9B%BE.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9B%BE2.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%95%B0%E6%8D%AE%E5%AD%97%E5%85%B8.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%95%B0%E6%8D%AE%E5%AD%97%E5%85%B8%E6%95%B0%E6%8D%AE%E9%A1%B9.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%95%B0%E6%8D%AE%E5%AD%97%E5%85%B8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%95%B0%E6%8D%AE%E5%AD%97%E5%85%B8%E6%95%B0%E6%8D%AE%E6%B5%81.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%95%B0%E6%8D%AE%E5%AD%97%E5%85%B8%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%95%B0%E6%8D%AE%E5%AD%97%E5%85%B8%E5%8A%A0%E5%B7%A5%E9%80%BB%E8%BE%91.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%95%B0%E6%8D%AE%E5%AD%97%E5%85%B8%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%88%A4%E5%AE%9A%E6%A0%91.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%88%A4%E5%AE%9A%E6%A0%91%E4%BE%8B%E9%A2%98.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%88%A4%E5%AE%9A%E8%A1%A81.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%88%A4%E5%AE%9A%E8%A1%A82.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%88%A4%E5%AE%9A%E8%A1%A8%E7%9A%84%E7%AE%80%E5%8C%96.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%8A%B6%E6%80%81%E5%9B%BE%E7%AC%A6%E5%8F%B7.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%8A%B6%E6%80%81%E5%9B%BE.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%94%B5%E8%AF%9D%E7%8A%B6%E6%80%81%E5%9B%BE.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%AD%98%E6%AC%BE%E8%BF%87%E7%A8%8B%E7%8A%B6%E6%80%81%E5%9B%BE.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%BB%93%E6%9E%84%E5%9B%BE.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%BB%93%E6%9E%84%E5%9B%BE2.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%BB%93%E6%9E%84%E5%9B%BE3.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%BB%93%E6%9E%84%E5%9B%BE4.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E8%80%A6%E5%90%88%E6%80%A7.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E4%BD%9C%E7%94%A8%E8%8C%83%E5%9B%B4%E4%B8%8E%E6%8E%A7%E5%88%B6%E8%8C%83%E5%9B%B4.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E4%BD%9C%E7%94%A8%E8%8C%83%E5%9B%B4%E4%B8%8E%E6%8E%A7%E5%88%B6%E8%8C%83%E5%9B%B42.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%8F%98%E6%8D%A2%E6%B5%81.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%8F%98%E6%8D%A2%E5%9E%8B%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%9B%BE.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E4%BA%8B%E5%8A%A1%E6%B5%81.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E4%BA%8B%E5%8A%A1%E5%9E%8B%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%9B%BE.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B%E5%9B%BE%E5%AE%9E%E4%BE%8B.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%9B%92%E5%9B%BE.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%9B%92%E5%9B%BE%E5%AE%9E%E4%BE%8B1.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%9B%92%E5%9B%BE%E5%AE%9E%E4%BE%8B2.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/PAD%E5%9B%BE.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%88%A4%E5%AE%9A%E8%A1%A8%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%88%A4%E5%AE%9A%E6%A0%91%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/Jacksion%E9%A1%BA%E5%BA%8F.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/Jacksion%E9%80%89%E6%8B%A9.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/Jacksion%E9%87%8D%E5%A4%8D.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%99%BD%E7%9B%92%E5%9F%BA%E6%9C%AC%E8%B7%AF%E5%BE%84.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%BB%B4%E6%8A%A4%E7%BB%84%E7%BB%87.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%85%B3%E8%81%94.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%8C%85%E5%90%AB.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%89%A9%E5%B1%95.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%B3%9B%E5%8C%96.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%94%A8%E4%BE%8B%E5%9B%BE.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%B3%9B%E5%8C%96.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%85%B3%E8%81%94%E7%B1%BB%E5%9B%BE.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%B1%BB%E5%9B%BE%E5%AE%9E%E7%8E%B0.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%B1%BB%E5%9B%BE%E8%81%9A%E5%90%88.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%B1%BB%E5%9B%BE%E7%BB%84%E5%90%88.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%B1%BB%E5%9B%BE%E4%BE%9D%E8%B5%96.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%B1%BB%E5%9B%BE.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E9%A1%BA%E5%BA%8F%E5%9B%BE%E5%8F%82%E4%B8%8E%E8%80%85.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E9%A1%BA%E5%BA%8F%E5%9B%BE%E5%AF%B9%E8%B1%A1.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E9%A1%BA%E5%BA%8F%E5%9B%BE%E7%94%9F%E5%91%BD%E7%BA%BF.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E9%A1%BA%E5%BA%8F%E5%9B%BE%E6%B6%88%E6%81%AF.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E9%A1%BA%E5%BA%8F%E5%9B%BE.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%8D%8F%E4%BD%9C%E5%9B%BE.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%88%9D%E6%80%81.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%BB%88%E6%80%81.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E4%B8%AD%E9%97%B4%E6%80%81.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%8A%B6%E6%80%81%E5%9B%BE%E6%B6%88%E6%81%AF.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%94%AF%E7%A5%A8%E7%8A%B6%E6%80%81%E5%9B%BE.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%AD%98%E6%AC%BE%E8%BF%87%E7%A8%8B%E7%8A%B6%E6%80%81%E5%9B%BE.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%94%B5%E6%A2%AF%E7%8A%B6%E6%80%81%E5%9B%BE.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%88%9D%E6%80%81.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%BB%88%E6%80%81.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%B4%BB%E5%8A%A8%E5%9B%BE%E6%B4%BB%E5%8A%A8.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%B4%BB%E5%8A%A8%E5%9B%BE%E5%AF%B9%E8%B1%A1%E6%B5%81.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%8F%91%E9%80%81%E4%BF%A1%E5%8F%B7.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%B4%BB%E5%8A%A8%E5%9B%BE%E6%8E%A5%E6%94%B6%E4%BF%A1%E5%8F%B7.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%B4%BB%E5%8A%A8%E5%9B%BE%E6%B3%B3%E9%81%93.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%B4%BB%E5%8A%A8%E5%9B%BE%E8%BF%81%E7%A7%BB.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%B4%BB%E5%8A%A8%E5%9B%BE%E5%88%86%E6%94%AF.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%B4%BB%E5%8A%A8%E5%9B%BE%E5%88%86%E5%8F%89.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%B4%BB%E5%8A%A8%E5%9B%BE%E7%BB%93%E5%90%88.png">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%B4%BB%E5%8A%A8%E5%9B%BE%E5%8F%96%E6%AC%BE.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E6%9E%84%E4%BB%B6%E5%9B%BE.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E9%83%A8%E7%BD%B2%E5%9B%BE.JPG">
+<meta property="og:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E5%AF%B9%E8%B1%A1%E5%9B%BE.JPG">
+<meta property="article:published_time" content="2020-01-05T10:33:59.000Z">
+<meta property="article:modified_time" content="2020-12-19T14:05:00.704Z">
+<meta property="article:author" content="SUVVM">
+<meta property="article:tag" content="软件工程导论">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/%E7%80%91%E5%B8%83%E6%A8%A1%E5%9E%8B.JPG">
+
+<link rel="canonical" href="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>软件工程导论 | SUVVM</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e5190116d64be66cac29daef18c94ac0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">SUVVM</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">呜嗷SUVVM</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          软件工程导论
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-05 18:33:59" itemprop="dateCreated datePublished" datetime="2020-01-05T18:33:59+08:00">2020-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>[TOC]</p>
+<h1 id="软件工程导论"><a href="#软件工程导论" class="headerlink" title="软件工程导论"></a>软件工程导论</h1><h2 id="软件工程学概述"><a href="#软件工程学概述" class="headerlink" title="软件工程学概述"></a>软件工程学概述</h2><h3 id="什么是软件"><a href="#什么是软件" class="headerlink" title="什么是软件"></a>什么是软件</h3><p>计算机程序、数据以及各种文档的集合</p>
+<h3 id="软件工程三要素"><a href="#软件工程三要素" class="headerlink" title="软件工程三要素"></a>软件工程三要素</h3><ul>
+<li>方法</li>
+<li>工具</li>
+<li>过程</li>
+</ul>
+<h3 id="软件危机-选择"><a href="#软件危机-选择" class="headerlink" title="软件危机(选择)"></a>软件危机(选择)</h3><h4 id="软件危机介绍"><a href="#软件危机介绍" class="headerlink" title="软件危机介绍"></a>软件危机介绍</h4><p>在计算机的开发和维护过程中所遇到的一系列严重问题</p>
+<h4 id="软件危机的表现"><a href="#软件危机的表现" class="headerlink" title="软件危机的表现"></a>软件危机的表现</h4><ul>
+<li>对开发成本和进度估计常常很不准确</li>
+<li>用户对“已完成的”软件系统不满意的现象经常发生</li>
+<li>软件产品质量往往靠不住</li>
+<li>软件常常不可维护</li>
+<li>软件通常没有适当的文档资料</li>
+<li>软件成本在计算机系统中所占比例逐年上升</li>
+<li>软件开发生产率提高的速度远远跟不上计算机应用的啤机及深入的趋势</li>
+</ul>
+<h4 id="软件危机的产生原因"><a href="#软件危机的产生原因" class="headerlink" title="软件危机的产生原因"></a>软件危机的产生原因</h4><ul>
+<li>与软件本身特点有关</li>
+<li>与开发和维护不正确有关</li>
+</ul>
+<h4 id="消除软件危机的途径"><a href="#消除软件危机的途径" class="headerlink" title="消除软件危机的途径"></a>消除软件危机的途径</h4><ul>
+<li>对计算机软件有正确的认识</li>
+<li>充分认识协同配合的重要性</li>
+<li>推广使用在实践中总结出来的开发软件的成功方法和技术，并探索研究更有效的方法和技术</li>
+<li>使用更好的开发工具</li>
+</ul>
+<h3 id="工程化原理开发（软件生存周期）"><a href="#工程化原理开发（软件生存周期）" class="headerlink" title="工程化原理开发（软件生存周期）"></a>工程化原理开发（软件生存周期）</h3><h4 id="必要性（优点）"><a href="#必要性（优点）" class="headerlink" title="必要性（优点）"></a>必要性（优点）</h4><ul>
+<li>有利于软件开发工程的组织和管理</li>
+<li>降低了整个软件开发过程的困难程度</li>
+<li>对每个阶段都可选用最优的管理方法</li>
+<li>保证软件质量，提高生产效率</li>
+</ul>
+<h4 id="原则"><a href="#原则" class="headerlink" title="原则"></a>原则</h4><ul>
+<li><p>各阶段任务应尽可能相互独立</p>
+</li>
+<li><p>同一阶段任务性质尽可能相同</p>
+</li>
+</ul>
+<h4 id="软件8个生存周期"><a href="#软件8个生存周期" class="headerlink" title="软件8个生存周期"></a>软件8个生存周期</h4><ul>
+<li>软件定义<ul>
+<li>问题定义</li>
+<li>可行性研究</li>
+<li>需求分析</li>
+</ul>
+</li>
+<li>软件开发<ul>
+<li>软件设计</li>
+<li>程序编码</li>
+<li>软件测试</li>
+</ul>
+</li>
+<li>软件维护<ul>
+<li>运行维护</li>
+</ul>
+</li>
+</ul>
+<h2 id="软件过程"><a href="#软件过程" class="headerlink" title="软件过程"></a>软件过程</h2><p>为了获得高质量软件所需完成的一系列任务的框架，规定了完成各项任务的工作步骤</p>
+<p>为了开发出客户需要的软件，什么人who、在什么时候when、做什么what、怎样做how以实现某一个特定的具体目标</p>
+<h4 id="瀑布模型（必考）"><a href="#瀑布模型（必考）" class="headerlink" title="瀑布模型（必考）"></a>瀑布模型（必考）</h4><p>瀑布模型（线性模型）一直是唯一被广泛采用的生命周期模型，现在它仍是软件工程中应用的最为广泛的过程模型</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/瀑布模型.JPG" alt="img"></p>
+<h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h5><ul>
+<li><p>阶段间具有顺序性和依赖性</p>
+<ul>
+<li>必须等待前一阶段工作完成后才能开始后一阶段工作</li>
+<li>前一阶段的输出文档就是后一阶段的输入文档，只有前一阶段的输出文档正确，后一阶段的工作才能获得正确结果</li>
+</ul>
+</li>
+<li><p>推迟实现的观点</p>
+<p>分析与设计阶段主要考虑目标系统的逻辑模型，不涉及物理实现</p>
+</li>
+<li><p>质量保证的观点</p>
+<p>为了保证软件质量每个阶段都要坚持</p>
+<ul>
+<li>奥力给！！！（大雾）</li>
+<li>每个阶段都必须完成规定的文档，没有交出合格文档就是没有完成任务</li>
+<li>每个阶段结束前都要对完成的文档进行评审，以便尽早发生问题并改正</li>
+</ul>
+</li>
+</ul>
+<h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h5><ul>
+<li>可强迫开发人员采用规范方法</li>
+<li>严格规定了每个阶段必须提交的文档</li>
+<li>要求每个阶段交出的所有产品都必须经过质量保证小组的仔细检验</li>
+</ul>
+<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5><ul>
+<li>几乎完全依赖于书面规格说明，很可能导致最终开发出的软件产品不能真正满足用户的需要（需求规格说明与用户需求之间有差异）</li>
+<li>瀑布模型只适用于项目开始时需求已确定的情况</li>
+</ul>
+<h4 id="快速原型"><a href="#快速原型" class="headerlink" title="快速原型"></a>快速原型</h4><p>快速建立起来的可以在计算机上运行的程序，完成的功能往往是最终产品能完成的功能的一个子集（实现核心功能的工作机）</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/快速原型.JPG" alt="img"></p>
+<ul>
+<li>原型系统已经与用户交互而得到验证，据此产生的规格说明文档正确的描述了用户需求，因此，在开发过程后续阶段不会因为发现规格说明文档的错误而进行较大的返工</li>
+<li>开发人员通过建立原型系统已经学到了许多东西，因此在设计和编码阶段发生错误的可能性也比较小，减少了后续阶段需要改正前面阶段所犯错误的可能性。</li>
+</ul>
+<h4 id="增量模型（渐增模型）"><a href="#增量模型（渐增模型）" class="headerlink" title="增量模型（渐增模型）"></a>增量模型（渐增模型）</h4><p>把软件产品作为一系列的增量构件来设计、编码、集成和测试。每个构件由多个相互作用的模块构成，并且能够完成特定的功能，使用增量模型时，第一构件往往实现软件的基本需求，提供最核心的功能</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/增量模型.JPG" alt="img"></p>
+<h5 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h5><ul>
+<li>能在较短时间内向用户提交可完成部分工作的产品</li>
+<li>逐步增加产品功能可以使用户有较充裕的时间学习和适应新产品，从而减少一个全新的软件可能给客户组织带来的冲击</li>
+</ul>
+<h5 id="困难"><a href="#困难" class="headerlink" title="困难"></a>困难</h5><ul>
+<li>在把每个新的增量构建集成到现有软件体系结构中时，必须不破坏原来已经开发出的产品</li>
+<li>必须把软件的体系结构设计的便于进行扩充，向现有产品加入新构件的过程必须简单方便，软件体系结构必须是开放的。</li>
+</ul>
+<h4 id="螺旋模型（唯一有风险分析）"><a href="#螺旋模型（唯一有风险分析）" class="headerlink" title="螺旋模型（唯一有风险分析）"></a>螺旋模型（唯一有风险分析）</h4><p>使用原型及其他方法来尽量降低风险。理解这种模型的一个简便方法，是把它看作在每个阶段之前都增加风险分析过程的快速原型。</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/简单螺旋模型.JPG" alt="img"></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/完整的螺旋模型.JPG" alt="img"></p>
+<h4 id="喷泉模型"><a href="#喷泉模型" class="headerlink" title="喷泉模型"></a>喷泉模型</h4><p>“喷泉”体现了面向对象软件开发过程迭代和无缝的特征，迭代是软件开发过程中普遍存在的一种内在属性，用面向对象方法开发软件时，工作重点应该放在生命周期中的分析阶段。</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/喷泉模型.JPG" alt="img"></p>
+<h2 id="问题定义"><a href="#问题定义" class="headerlink" title="问题定义"></a>问题定义</h2><p>确定要解决的问题是什么</p>
+<p>通过 客户访问调查，写出问题性质工程目标工程规模 应得到客户确认。</p>
+<h2 id="可行性研究"><a href="#可行性研究" class="headerlink" title="可行性研究"></a>可行性研究</h2><h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p>不是解决问题，而是确定问题是否值得解决</p>
+<h3 id="4个方面"><a href="#4个方面" class="headerlink" title="4个方面"></a>4个方面</h3><ul>
+<li>技术可行性</li>
+<li>经济可行性</li>
+<li>操作可行性</li>
+<li>法律可行性</li>
+</ul>
+<h3 id="可行性分析研究过程"><a href="#可行性分析研究过程" class="headerlink" title="可行性分析研究过程"></a>可行性分析研究过程</h3><ul>
+<li>复查系统规模和目标</li>
+<li>研究目前正在使用的系统</li>
+<li>导出新系统的高层逻辑模型</li>
+<li>进一步定义问题</li>
+<li>导出评价供选择的解法</li>
+<li>推荐行动方针</li>
+<li>草拟开发计划书</li>
+<li>写文档提交审查</li>
+</ul>
+<h3 id="系统流程图（业务流程图）"><a href="#系统流程图（业务流程图）" class="headerlink" title="系统流程图（业务流程图）"></a>系统流程图（业务流程图）</h3><p>概括地描绘物理系统的传统工具</p>
+<p>用图形符号以黑盒子形式描绘组成系统的每个部件（程序、文档、数据库、人工过程）</p>
+<p>是一种<strong>物理数据流图</strong>不是程序流程图</p>
+<h4 id="符号"><a href="#符号" class="headerlink" title="符号"></a>符号</h4><p>利用符号可以把广义的输入输出操作具体化为读写存储在特殊设备上的文件（或数据库），把抽象处理具体化为特定的程序或手工操作</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/系统流程图.JPG" alt="img"></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/系统流程图2.JPG" alt="img"></p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>装配厂有一座存放零件的仓库，仓库中现有的各种零件的数量以及每种零件的库存量临界值等数据记录在库存清单主文件中。仓库中零件数量变化时，应该及时修改库存清单主文件，如果那种零件的库存少于它的库存临界值，应该报告给采购部门，每天向采购部门送一次订货报告。</p>
+<ul>
+<li>使用一台小型计算机处理更新库存清单主文件和产生订货报告的任务</li>
+<li>零件库存量的每一次变化称为一个事务，由放在仓库中的CRT终端输入到计算机中</li>
+<li>系统中的库存清单程序对事务进行处理，更新存储在磁盘上的库存清单文件，并把必要的订货信息写在磁带上</li>
+<li>每天由报告生成程序读一次磁带，并打印出订货报告</li>
+</ul>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/系统流程图3.JPG" alt="img"></p>
+<h3 id="成本-效益分析"><a href="#成本-效益分析" class="headerlink" title="成本/效益分析"></a>成本/效益分析</h3><h4 id="四个方面"><a href="#四个方面" class="headerlink" title="四个方面"></a>四个方面</h4><ul>
+<li><p>货币的时间价值</p>
+</li>
+<li><p>投资回收期</p>
+<p>累计的经济效益等于最初投资所需要的时间，也就是达到估计开发总成本加上运行维护费用所需要的时间</p>
+</li>
+<li><p>纯收入</p>
+<p>累计经济效益（折合成现在值）－ 投资额</p>
+</li>
+<li><p>投资回收率</p>
+<p>年经营净现金流量或年均经营净现金流量 / 原始投资额</p>
+</li>
+</ul>
+<p>通常用利率的形式表示货币的时间价值。假设年利率为i， 如果现在存入P元，则n年后可以得到的钱数为</p>
+<p>$F = P(1+i)^n$</p>
+<p>这也就是P元钱在n年后的价值</p>
+<p>反过来，现在的价值</p>
+<p>$P = \frac F{(1+i)^n}$</p>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><p>需求分析是软件定义时期的最后一个阶段，它的基本任务是准确地回答“系统必须做什么”这个问题。</p>
+<h3 id="综合要求"><a href="#综合要求" class="headerlink" title="综合要求"></a>综合要求</h3><ul>
+<li>功能需求</li>
+<li>性能需求</li>
+<li>可靠性和可用性需求</li>
+<li>出错处理需求</li>
+<li>接口需求</li>
+<li>约束</li>
+<li>逆向需求</li>
+<li>将来可能提出的要求</li>
+</ul>
+<p>与用户沟通获取需求的方法：访谈</p>
+<h3 id="结构化分析方法（SA）"><a href="#结构化分析方法（SA）" class="headerlink" title="结构化分析方法（SA）"></a>结构化分析方法（SA）</h3><p>面向数据流的需求分析方法</p>
+<h4 id="数据流图DFD"><a href="#数据流图DFD" class="headerlink" title="数据流图DFD"></a>数据流图DFD</h4><p>是一种功能模型</p>
+<p>数据流图是一种图形化技术，它描绘信息流和数据从输入移动到输出的过程中所经受的变换</p>
+<h5 id="符号-1"><a href="#符号-1" class="headerlink" title="符号"></a>符号</h5><p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/数据流图.JPG" alt="img"></p>
+<h5 id="多个数据流之间的关系"><a href="#多个数据流之间的关系" class="headerlink" title="多个数据流之间的关系"></a>多个数据流之间的关系</h5><p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/数据流图2.JPG" alt="img"></p>
+<h5 id="数据流图的四个元素"><a href="#数据流图的四个元素" class="headerlink" title="数据流图的四个元素"></a>数据流图的四个元素</h5><ul>
+<li><p>数据流</p>
+<p>数据在系统内传播，由一组固定的数据项组成。除了与数据存储之间的数据流不用命名外，数据流应该用名词或名词短语命名</p>
+</li>
+<li><p>加工</p>
+<p>也成为数据处理，它对数据流进行某些操作或变换。每个加工也要有名字，通常是动词短语，在分层的数据流图中加工还要有编号。</p>
+</li>
+<li><p>数据存储</p>
+<p>暂时保存的数据，可以是数据库文件或以任何形式的数据组织，流向数据存储的数据流可理解为写入文件或查询文件，从数据存储流出的数据可理解为从文件读数据或得到的查询结果。</p>
+</li>
+<li><p>数据源点和终点</p>
+<p>统称为外部实体，指系统外部环境中的实体（包括人员、组织、或其他系统）是数据的始发点和终止点，是系统与外部环境的接口</p>
+</li>
+</ul>
+<h5 id="画图方法"><a href="#画图方法" class="headerlink" title="画图方法"></a>画图方法</h5><ul>
+<li>确定外部实体及输入、输出数据流</li>
+<li>确定分解顶层的加工</li>
+<li>确定使用的文件</li>
+<li>用数据流将各部分链接起来，形成数据封闭</li>
+<li>如果需要，继续分解加工直至达到“基本加工”</li>
+</ul>
+<h5 id="环境图"><a href="#环境图" class="headerlink" title="环境图"></a>环境图</h5><p>也称顶层数据流图（0层数据流图），仅包括一个数据处理过程，也是要开发的目标系统。</p>
+<p>环境图的作用是确定系统在其环境中的位置，通过确定系统输入和输出与外部实体的关系确定其边界。</p>
+<h5 id="分解原则"><a href="#分解原则" class="headerlink" title="分解原则"></a>分解原则</h5><p>分解到不能再分</p>
+<p>自然性：概念上合理清晰</p>
+<p>均匀性：理想的分解是将一个问题分解成大小均匀的几个部分</p>
+<p>分解度：每个加工分解一般不超过7 +- 2个子加工，分解到基本加工为止（不能再分）</p>
+<h4 id="数据字典"><a href="#数据字典" class="headerlink" title="数据字典"></a>数据字典</h4><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>数据字典是关于数据的信息的集合，也就是对数据流图中包含的所有元素的定义的集合。</p>
+<p>数据字典可以把不同的需求文档和分析模型紧密结合在一起，如果所有的开发人员在数据字典上取得一致意见，那么就可以缓和集成性问题。为了避免冗余和不一致性，应该在项目中创建一个独立的数据字典，而不是在每个需求出现的地方定义每一个数据项</p>
+<h5 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h5><ul>
+<li>作为分析阶段的工具</li>
+<li>包含每个元素的控制信息</li>
+<li>是开发数据库的第一步</li>
+</ul>
+<h5 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h5><p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/数据字典.JPG" alt="img"></p>
+<p>对数据流图中包含的所有元素的定义的集合构成了数据词典。 数据词典和数据流图共同构成系统的逻辑模型</p>
+<ul>
+<li><p>数据项也称数据元素，是数据的最小单位。</p>
+<p>数据项名称及其编号、别名、取值范围和取值含义、备注。</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/数据字典数据项.JPG" alt="img"></p>
+</li>
+<li><p>数据结构</p>
+<p>一个数据结构由若干个数据项或者由若干个数据结构组成——它把关 系“密切”的数据组合在一起。</p>
+<p>名称及其编号，数据结构的组成。 若是一个简单的数据结构，只列出数据项； 若嵌套了数据结构，只列出数据结构的名称</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/数据字典数据结构.JPG" alt="img"></p>
+</li>
+<li><p>数据流</p>
+<p>在数据流图中，数据以数据流为单位进行传输</p>
+<p>数据流名称及其编号、别名 数据流的来源（或是外部实体或是加工或是数据存储） 数据流的去向（或是外部实体或是加工或是数据存储） 数据流的组成（可以包含若干个数据结构，若只有一个数据结构， 就不需要专门定义）。</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/数据字典数据流.JPG" alt="img"></p>
+</li>
+<li><p>数据存储</p>
+<p>保留或保存数据的地方</p>
+<p>数据存储名称及其编号、数据存储的组成（包含的数据项或数据结 构）、组织方式</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/数据字典数据存储.JPG" alt="img"></p>
+</li>
+<li><p>加工逻辑</p>
+<p>名称及其编号、加工逻辑的输入和输出、加工逻辑的说明（对加 工逻辑的功能做明确的描述。</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/数据字典加工逻辑.JPG" alt="img"></p>
+</li>
+<li><p>外部实体</p>
+<p>人机界面</p>
+<p>外部实体的名称、编号及外部实体的简述，与外部实体有关的数据流</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/数据字典外部实体.JPG" alt="img"></p>
+</li>
+</ul>
+<h4 id="判定树（决策树）"><a href="#判定树（决策树）" class="headerlink" title="判定树（决策树）"></a>判定树（决策树）</h4><p>用于描述分类过程的二叉树</p>
+<p>一图书销售系统，其中一加工为“优惠处理” ，条件是：顾客的 营业额大于1000元，同时必须信誉好；或者虽然信誉不好，但是20年以上 的老主顾。</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/判定树.JPG" alt="img"></p>
+<p>例题</p>
+<p>某数据流图中有一个“确定保险类别”的加工，指的 是申请汽车驾驶保险时，要根据申请者的情况确定不同的 保险类别。加工逻辑为：如果申请者的年龄在21岁以下， 要额外收费；如果申请者是21岁以上并是26岁以下的女性 ，适用于A类保险；如果申请者是26岁以下的已婚男性， 或者是26岁以上的男性，适用于B类保险；如果申请者是 21岁以下的女性或是26岁以下的单身男性，适用于C类保 险。除此之外的其他申请者都适用于A类保险。 画出相应的判定树。</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/判定树例题.JPG" alt="img"></p>
+<h4 id="判定表"><a href="#判定表" class="headerlink" title="判定表"></a>判定表</h4><p>判定表是一种二维的表格，常用于较复杂的组合条件（与结构化语 言比较），通常由四部分组成：条件、行动方案、状态、选择规则</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/判定表1.JPG" alt="img"></p>
+<p>优化后</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/判定表2.JPG" alt="img"></p>
+<p>判定表的简化</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/判定表的简化.JPG" alt="img"></p>
+<h3 id="状态图-状态转换图"><a href="#状态图-状态转换图" class="headerlink" title="状态图(状态转换图)"></a>状态图(状态转换图)</h3><p>状态转换图通过描绘系统的状态及引起系统状态转换的事件，来表示系统的行为。指明了作为特定事件的结果系统将做那些动作。</p>
+<h4 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h4><p>状态是任何可以被观察到的系统行为模式，一个状态代表系统的一种行为模式。状态图指明了作为特定事件的结果系统将做那些动作。</p>
+<p>在状态图中定义的状态主要有：</p>
+<ul>
+<li>初态（初始状态）</li>
+<li>终态（最终状态）</li>
+<li>中间态</li>
+</ul>
+<p>只能有一个初态，终态可以有0至多个。</p>
+<h4 id="符号-2"><a href="#符号-2" class="headerlink" title="符号"></a>符号</h4><p>初态用实心圆表示，终态用牛眼图形表示，中间态用圆角矩形表示</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/状态图符号.JPG" alt="img"></p>
+<h4 id="状态转换"><a href="#状态转换" class="headerlink" title="状态转换"></a>状态转换</h4><ul>
+<li><p>两个状态之间带箭头的连线称为状态转换</p>
+</li>
+<li><p>状态变迁通常由事件触发，应在表示状态转换的箭头线上标出触发转换的事件表达式。</p>
+<p>事件表达式：事件说明[守卫条件]/动作表达式</p>
+</li>
+<li><p>如果箭头线上未标明事件，则表示在源状态的内部活动执行完之后自动触发转换</p>
+</li>
+</ul>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/状态图.JPG" alt="img"></p>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><p>电话系统状态图</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/电话状态图.png" alt="img"></p>
+<p>存款过程状态图</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/存款过程状态图.png" alt="img"></p>
+<h3 id="软件需求规格说明书"><a href="#软件需求规格说明书" class="headerlink" title="软件需求规格说明书"></a>软件需求规格说明书</h3><p>软件需求规模说明是需求分析阶段得出的最主要的文档。</p>
+<p>通常用自然语言完整、准确、具体地描述系统的数据要求、功能需求、性能需求、可靠性和可用性要求、出错处理需求、接口需求、约束、逆向需求以及将来可能提出的要求。</p>
+<h2 id="软件设计"><a href="#软件设计" class="headerlink" title="软件设计"></a>软件设计</h2><h3 id="总体设计（概要设计）"><a href="#总体设计（概要设计）" class="headerlink" title="总体设计（概要设计）"></a>总体设计（概要设计）</h3><p>最关键步骤：确定软件体系结构</p>
+<h4 id="总体设计的九大任务"><a href="#总体设计的九大任务" class="headerlink" title="总体设计的九大任务"></a>总体设计的九大任务</h4><ul>
+<li>设想供选择的方案</li>
+<li>选取合理的方案</li>
+<li>推荐最佳方案</li>
+<li>功能分解</li>
+<li>设计软件结构</li>
+<li>设计数据库</li>
+<li>制定测试计划</li>
+<li>书写文档</li>
+<li>审查和复审</li>
+</ul>
+<h4 id="设计原理"><a href="#设计原理" class="headerlink" title="设计原理"></a>设计原理</h4><h5 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h5><p>把程序划分成独立命名且可独立访问的模块，每个模块完成一个子功能，把这些模块集成构成一个整体，可以完成指定的功能满足用户的需求。</p>
+<h5 id="结构图"><a href="#结构图" class="headerlink" title="结构图"></a>结构图</h5><p>精确表达模块结构的图形表示工具</p>
+<ul>
+<li>调用关系和接口：在结构图中两个模块之间用单向箭头连接</li>
+<li>模块之间的信息传递：当一个模块调用另一个模块时，调用模块把数据或控制信息传送给被调用的模块，以使被调用模块能够运行</li>
+</ul>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/结构图.JPG" alt="img"></p>
+<ul>
+<li>有条件调用在箭头尾部加菱形</li>
+<li>反复调用加弧形</li>
+</ul>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/结构图2.JPG" alt="img"></p>
+<ul>
+<li>深度：表示从顶层模块到底层模块的层数</li>
+<li>宽度：同一层次上的模块总数</li>
+<li>扇出数：一个模块直接控制的下属模块数</li>
+<li>扇入数：一个模块直接上属模块个数</li>
+</ul>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/结构图3.JPG" alt="img"></p>
+<ul>
+<li>选择调用：根据判断决定是否调用（空心菱形）</li>
+</ul>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/结构图4.JPG" alt="img"></p>
+<h4 id="耦合"><a href="#耦合" class="headerlink" title="耦合"></a>耦合</h4><p>耦合性指软件结构中模块连接的紧密程度，是模块间相互连接性的度量。耦合强度的大小是由模块间<strong>接口的复杂程度</strong>决定的。</p>
+<h5 id="耦合的类型"><a href="#耦合的类型" class="headerlink" title="耦合的类型"></a>耦合的类型</h5><ul>
+<li><p>内容耦合 高耦合</p>
+<ul>
+<li>一个模块直接访问另一模块的内部数据</li>
+<li>一个模块不通过正常入口转到另一模块内部</li>
+<li>一个模块由多个入口</li>
+<li>两个模块由部分代码重迭</li>
+</ul>
+<p>高级语言中不允许出现，但汇编语言中可能出现</p>
+</li>
+<li><p>公共耦合</p>
+<p>若干模块访问一个公共的数据环境（全局数据结构、共享的通信区、内存的公共覆盖区）耦合的复杂度随耦合模块的数量增加而增加</p>
+<ul>
+<li><p>松散公共耦合</p>
+<p>模块同时只对公共数据环境进行读或写一种操作（目前使用较多的低耦合方式）</p>
+</li>
+<li><p>紧密公共耦合</p>
+<p>若干模块对公共数据环境同时读和写</p>
+<p>使公共数据区的变化影响所有公共耦合模块，严重影响模块可靠性和可适应性，降低软件可读写（强耦合）</p>
+</li>
+</ul>
+<p>问题</p>
+<ul>
+<li>无法控制各个模块对公共数据的存取，严重影响软件模块的可靠性和适应性</li>
+<li>使软件可维护性变差</li>
+<li>降低软件的可理解性</li>
+</ul>
+<p>只有共享数据过多，传参不方便时使用公共耦合</p>
+</li>
+<li><p>外部耦合 </p>
+<p>一组模块都通过访问同一全局<strong>简单变量</strong>，而不是通过传参传递该信息。</p>
+</li>
+<li><p>控制耦合 中耦合</p>
+<p>一个模块传递给另一个模块的信息是用于控制该模块内部的控制信号，对被控制模块的任何修改都会影响到控制模块</p>
+</li>
+<li><p>标记耦合 </p>
+<p>一个模块传给另一个模块的参数是一个复合的数据结构（如高级语言的数组名、记录名，其实传递的是地址）会使某些本来无关的模块产生相互依赖性</p>
+</li>
+<li><p>数据耦合 低耦合</p>
+<p>一个模块传给另一个模块的参数是单个的数据项或单个数据项组成的数组，模块间传递的是简单数据值，相当于高级语言中的值传递</p>
+</li>
+<li><p>非直接耦合 低耦合</p>
+<p>两个模块间没有直接的关系，它们分别从属于不同模块的控制与调用，之间不传递任何信息，这种耦合程度最弱，模块独立性最高</p>
+</li>
+</ul>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/耦合性.png" alt="img"></p>
+<p>尽量使用数据耦合，少用控制耦合和特征耦合（把整个数据结构作为参数传递而被调用的模块只需要 使用其中一部分数据元素），限制公 共环境耦合的范围，完全不用内容耦合</p>
+<h4 id="内聚"><a href="#内聚" class="headerlink" title="内聚"></a>内聚</h4><p>内聚性表示一个模块内部各个元素（数据、处理）之间联系的紧密程度。它是信息隐蔽和局部化概念的自然扩展，是从功能的角度来度量模块间的联系。块内联系愈紧，即内聚性愈高，模块独立性愈好。</p>
+<h5 id="内聚的类型"><a href="#内聚的类型" class="headerlink" title="内聚的类型"></a>内聚的类型</h5><ul>
+<li><p>偶然内聚（巧合） 低内聚</p>
+<p>为了节约空间，将毫无关系或联系不多的各元素放在一个模块中。模块元素关系松散，不易理解，不易修改</p>
+</li>
+<li><p>逻辑内聚 低内聚</p>
+<p>将几个逻辑上相似的功能放在一个模块中，使用时由调用模块传递的参数确定执行的功能。由于由传递控制参数，影响了模块的内聚性</p>
+</li>
+<li><p>时间内聚（经典内聚） 低内聚</p>
+<p>把需要同时执行的成分放在一个模块中。如初始化、终止操作这一类内部结构比较简单的模块。由于判定较少，所以比逻辑内聚高，但由于内含多个功能，修改和维护困难</p>
+</li>
+<li><p>过程内聚 中内聚</p>
+<p>一个模块内的除了元素是相关的，而且必须以特定的次序执行。一个模块内有多个功能成分。</p>
+</li>
+<li><p>通信内聚 中内聚</p>
+<p>模块中的成分引用共同的输入数据，或者产生相同的输出数据，则称为通信内聚。</p>
+</li>
+<li><p>顺序内聚 高内聚</p>
+<p>一个模块内的处理元素都密切相关于同一功能，模块中的某个成分的输出是另一成分的输入。由于这类模块是按数据执行顺序，模块的一部分依赖于另一部分，因此具有较好的内聚性。</p>
+</li>
+<li><p>功能内聚 高内聚</p>
+<p>一个模块仅包括完成某一具体功能所必须的所有部分。模块的所有成分都是为完成该功能而协同工作、紧密联系、不可分割的。</p>
+<p>如 求平方根、判断素数、求解一元二次方程、计算利息等。</p>
+</li>
+</ul>
+<h4 id="启发设计规则"><a href="#启发设计规则" class="headerlink" title="启发设计规则"></a>启发设计规则</h4><h5 id="改进软件结构提高模块独立性"><a href="#改进软件结构提高模块独立性" class="headerlink" title="改进软件结构提高模块独立性"></a>改进软件结构提高模块独立性</h5><p>设计出初步结构后应审查分析，通过模块分解或合并，力求降低耦合提高内聚</p>
+<h5 id="模块规模应该适中"><a href="#模块规模应该适中" class="headerlink" title="模块规模应该适中"></a>模块规模应该适中</h5><p>模块规模不应过大（60行）</p>
+<h5 id="深度、宽度、扇出、扇入都应适当"><a href="#深度、宽度、扇出、扇入都应适当" class="headerlink" title="深度、宽度、扇出、扇入都应适当"></a>深度、宽度、扇出、扇入都应适当</h5><h5 id="模块的作用域应该在控制域内"><a href="#模块的作用域应该在控制域内" class="headerlink" title="模块的作用域应该在控制域内"></a>模块的作用域应该在控制域内</h5><p>作用域：受该模块内一个判定影响的所有模块的集合</p>
+<p>控制域：模块本身以及所有直接或间接从属于它的模块的集合</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/作用范围与控制范围.JPG" alt="img"></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/作用范围与控制范围2.JPG" alt="img"></p>
+<p>菱形代表判定所在模块，蓝色代表判定影响模块</p>
+<p>d的设计最合理</p>
+<h5 id="力争降低接口的复杂度"><a href="#力争降低接口的复杂度" class="headerlink" title="力争降低接口的复杂度"></a>力争降低接口的复杂度</h5><p>接口复杂是软件发生错误的主要原因之一，应使信息传递简单且和模块功能一致</p>
+<h5 id="设计单入口单出口的模块"><a href="#设计单入口单出口的模块" class="headerlink" title="设计单入口单出口的模块"></a>设计单入口单出口的模块</h5><p>这条启发式规则警告不要出现内容耦合</p>
+<h5 id="模块功能应该可以预测"><a href="#模块功能应该可以预测" class="headerlink" title="模块功能应该可以预测"></a>模块功能应该可以预测</h5><p>模块功能应该可以预测，但也要防止模块功能过于局限</p>
+<h4 id="面向数据流的设计方法（注意判断结构图类型）"><a href="#面向数据流的设计方法（注意判断结构图类型）" class="headerlink" title="面向数据流的设计方法（注意判断结构图类型）"></a>面向数据流的设计方法（注意判断结构图类型）</h4><p>把信息流映射成软件结构，信息流的类型决定了映射的方法</p>
+<h5 id="信息流的两种类型"><a href="#信息流的两种类型" class="headerlink" title="信息流的两种类型"></a>信息流的两种类型</h5><ul>
+<li><p>变换流</p>
+<p>信息沿输入通路进入系统，由外部形式变换为内部形式，进入系统的信息经过变换中心，经加工处理后再沿输出通路变换为外部形式离开软件系统</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/变换流.JPG" alt="img"></p>
+<p>通过<strong>变换分析</strong>技术将中心变换型的数据流图（DFD）变为结构图（SC），得到的的SC图称为变换型系统结构图，相应于取得的数据、变换数据、给出数据，系统的结构体由<strong>输入、中心变换和输出</strong>三部分组成。</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/变换型系统结构图.JPG" alt="img"></p>
+<p><strong>变换分析技术</strong></p>
+<ul>
+<li>确定主加工及逻辑输入输出</li>
+<li>进行一级分解，设计上层模块</li>
+<li>进行二级分解设计中下层模块</li>
+<li>进一步细化</li>
+</ul>
+</li>
+<li><p>事务流</p>
+<p>数据沿输入通路到达一个处理T，这个处理根据输入数据的类型在若干个动作序列中选出一个来执行</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/事务流.JPG" alt="img"></p>
+<p>处理T称为数据中心</p>
+<ul>
+<li>接收输入数据</li>
+<li>分析每个事务以确定它的类型</li>
+<li>根据事务类型选择活动通路</li>
+</ul>
+<p>通过<strong>事务分析</strong>技术将中心变换型的数据流图（DFD）变为结构图（SC），得到的的SC图称为事务型系统结构图，事务中心模块按所接受的事务类型选择某一个事务处理模块执行，各个事务处理模块是并列的，依赖于一定的选择条件，分别完成不同的事务处理工作。</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/事务型系统结构图.JPG" alt="img"></p>
+<p><strong>事务分析技术</strong></p>
+<ul>
+<li>确定流界</li>
+<li>进行一级分析，设计上层模块</li>
+<li>进行二级分解，设计中下层模块</li>
+</ul>
+</li>
+</ul>
+<h3 id="详细设计"><a href="#详细设计" class="headerlink" title="详细设计"></a>详细设计</h3><h4 id="根本目标"><a href="#根本目标" class="headerlink" title="根本目标"></a>根本目标</h4><p>确定应该怎样具体地实现所要求的系统，任务不是具体地编写程序，而是要设计出程序的“蓝图”</p>
+<p>详细设计的结果基本决定了最终程序代码的质量</p>
+<h4 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h4><ul>
+<li>结构程序设计</li>
+<li>人机界面设计</li>
+<li>过程设计的工具</li>
+<li>面向数据结构的设计方法</li>
+<li>程序复杂程度的定量度量</li>
+</ul>
+<h4 id="结构程序设计"><a href="#结构程序设计" class="headerlink" title="结构程序设计"></a>结构程序设计</h4><ul>
+<li>少用goto</li>
+<li>代码块单入单出</li>
+<li>使用顺序选择循环</li>
+<li>自顶向下逐步求精</li>
+</ul>
+<p>顺序、选择和循环</p>
+<p>结构程序设计经典定义：一个程序的代码块仅由顺序选择和循环三种基本控制连接，且每个代码块只有一个入口和一个出口，则称这个程序是结构化的。</p>
+<p>扩展的结构程序设计：在以上基础上允许 DO-CASE和DO-UNTIL</p>
+<p>修正的结构程序设计：在以上基础上允许使用LEAVE（或BREAK）结构  </p>
+<h4 id="人机界面设计"><a href="#人机界面设计" class="headerlink" title="人机界面设计"></a>人机界面设计</h4><ul>
+<li>系统响应时间</li>
+<li>用户帮助设施</li>
+<li>出错信息处理</li>
+<li>命令交互</li>
+</ul>
+<h4 id="过程设计工具（三种图）"><a href="#过程设计工具（三种图）" class="headerlink" title="过程设计工具（三种图）"></a>过程设计工具（三种图）</h4><h5 id="程序流程图"><a href="#程序流程图" class="headerlink" title="程序流程图"></a>程序流程图</h5><p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/程序流程图.png" alt="img"></p>
+<p><strong>缺点</strong></p>
+<ul>
+<li>本质上不是逐步求精的好工具，诱使程序员过早的考虑程序的控制流程，而不去考虑全局结构</li>
+<li>程序流程图中用箭头代表控制流，程序员不受任何约束，可以完全不顾结构程序设计的精神，随意转移控制</li>
+<li>程序流程图不易表示数据结构</li>
+</ul>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/程序流程图实例.JPG" alt="img"></p>
+<h5 id="盒图（N-S图）"><a href="#盒图（N-S图）" class="headerlink" title="盒图（N-S图）"></a>盒图（N-S图）</h5><p>不允许违背结构程序设计精神的图形工具</p>
+<p><strong>特点</strong></p>
+<ul>
+<li>功能域（特定控制结构的作用域）明确</li>
+<li>不可能任意转移控制</li>
+<li>很容易确定局部和全程数据的作用域</li>
+<li>很容易表现嵌套关系，也可以表示模块的层次结构![]</li>
+</ul>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/盒图.png" alt="img"></p>
+<p><strong>实例</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/盒图实例1.JPG" alt="img"></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/盒图实例2.JPG" alt="img"></p>
+<h5 id="PAD图（问题分析图）"><a href="#PAD图（问题分析图）" class="headerlink" title="PAD图（问题分析图）"></a>PAD图（问题分析图）</h5><p>用二维树形结构的图来表示程序的控制流</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/PAD图.png" alt="img"></p>
+<p><strong>优点</strong></p>
+<ul>
+<li>使用表示结构化控制的PAD符号设计出的程序必然是结构化程序</li>
+<li>PAD图所描绘的程序结构十分清晰</li>
+<li>PAD图表现程序逻辑，易读、易懂、易记</li>
+<li>容易将PAD图转换为高级语言</li>
+<li>既可用于表示程序逻辑，也可以用于描绘数据</li>
+<li>PAD图符号支持自顶向下、逐步求精方法的使用</li>
+</ul>
+<h5 id="判定表-1"><a href="#判定表-1" class="headerlink" title="判定表"></a>判定表</h5><p>总体设计中有提到，判定表能够清晰地表示复杂的条件组合与应做的动作之间的对应关系</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/判定表详细设计.JPG" alt="img"></p>
+<h5 id="判定树"><a href="#判定树" class="headerlink" title="判定树"></a>判定树</h5><p>判定树是判定表的变种，它也能清晰的表示复杂的条件组合与应做的动作之间的对应关系</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/判定树详细设计.JPG" alt="img"></p>
+<h5 id="过程设计语言（PDL）"><a href="#过程设计语言（PDL）" class="headerlink" title="过程设计语言（PDL）"></a>过程设计语言（PDL）</h5><p>PDL也称为伪码，是用正文形式表示数据处理和处理过程的设计工具</p>
+<p><strong>特点</strong></p>
+<ul>
+<li>关键字固定语法，提供了结构化控制结构、数据说明和模块化的特点</li>
+<li>自然语言自由语法，描述处理特点</li>
+<li>数据说明的手段，包括简单的数据结构，也包含复杂的数据结构</li>
+<li>模块定义和调用的技术，应提供各种接口描述模式。</li>
+</ul>
+<p><strong>优点</strong></p>
+<ul>
+<li>可作为注释之间插在源程序中间</li>
+<li>可使用普通的正文编辑程序或文字处理系统完成书写工作</li>
+<li>可自动由PDL生成代码</li>
+</ul>
+<h4 id="面向数据结构的设计方法"><a href="#面向数据结构的设计方法" class="headerlink" title="面向数据结构的设计方法"></a>面向数据结构的设计方法</h4><h5 id="Jacksion图"><a href="#Jacksion图" class="headerlink" title="Jacksion图"></a>Jacksion图</h5><p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/Jacksion顺序.JPG" alt="img"></p>
+<p>A由B、C、D三个元素顺序组成，每个元素只出现一次，顺序为B$\rightarrow$C$\rightarrow$D</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/Jacksion选择.JPG" alt="img"></p>
+<p>根据条件A决定是B、C或D中的某一个</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/Jacksion重复.JPG" alt="img"></p>
+<p>A由B出现N次组成</p>
+<p><strong>Jackson法</strong></p>
+<ul>
+<li><p>分析并确定输入输出属性和输出数据的逻辑结构，用Jackson图描绘这些数据结构</p>
+</li>
+<li><p>找出输入数据结构和输出数据结构中有对应关系的数据单元</p>
+</li>
+<li><p>用下述3条规则从描绘数据结构的Jackson图导出描绘程序 结构的Jackson图</p>
+<ul>
+<li>为每对有对应关系的数据单元，按照它们在数据结构图中的 层次在程序结构图的相应层次画一个处理框</li>
+<li>根据输入数据结构中剩余的每个数据单元所处的层次，在程 序结构图的相应层次分别为它们画上对应的处理框</li>
+<li>根据输出数据结构中剩余的每个数据单元所处的层次，在程 序结构图的相应层次分别为它们画上对应的处理框</li>
+</ul>
+</li>
+<li><p>列出所有操作和条件，并把它们分配到程序结构图的适当位置</p>
+</li>
+<li><p>用伪码表示程序</p>
+<ul>
+<li><p>```c<br>// 顺序结构<br>A seq</p>
+<pre><code>B
+C
+D
+</code></pre><p>A end</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- &#96;&#96;&#96;c</span><br><span class="line">  &#x2F;&#x2F; 选择结构</span><br><span class="line">  A select cond1</span><br><span class="line">      B</span><br><span class="line">  A or cond2</span><br><span class="line">      C</span><br><span class="line">  A or cond3</span><br><span class="line">      D</span><br><span class="line">  A end</span><br></pre></td></tr></table></figure>
+</li>
+<li><pre><code class="lang-c">// 重复结构
+A iter until(while) cond
+    B
+A end
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="程序复杂度定理度量"><a href="#程序复杂度定理度量" class="headerlink" title="程序复杂度定理度量"></a>程序复杂度定理度量</h4><p>把程序的复杂程度乘以适当常数即可估算出软件中错误的数量以及软件开发需要用的工作量</p>
+<p>定量度量的结果可以用来比较两个不同的设计或两个不同算法的优劣</p>
+<p>程序的定量的复杂程度可以作为模块规模的精确限度</p>
+<h5 id="计算环形复杂度的方法"><a href="#计算环形复杂度的方法" class="headerlink" title="计算环形复杂度的方法"></a>计算环形复杂度的方法</h5><ul>
+<li>流图中线性无关的区域数等于环形复杂度</li>
+<li>流图G的环形复杂度V(G) = E - N + 2，E为边数，N为结点数</li>
+<li>G的环形复杂度V(G) = P + 1，P为流图中判定结点的数量</li>
+</ul>
+<h2 id="软件测试"><a href="#软件测试" class="headerlink" title="软件测试"></a>软件测试</h2><p>软件生命周期的每个阶段不可避免地会产生错误，测试是对软件分析、设计、编码进行查错纠错的活动。软件测试是有<strong>破坏性</strong>的</p>
+<h3 id="测试目标"><a href="#测试目标" class="headerlink" title="测试目标"></a>测试目标</h3><p><strong>根本目标</strong>：尽可能多地发现并排除软件中潜藏的错误，最终把一个高质量的软件系统交给用户</p>
+<p><strong>具体目标</strong></p>
+<ul>
+<li>测试是为了发现程序中的错误而执行的过程</li>
+<li>好的测试方案是极可能发现迄今为止尚未发现的错误的测试方案</li>
+<li>成功的测试是发现了至今为止尚未发现的错误的测试</li>
+</ul>
+<h3 id="测试过程"><a href="#测试过程" class="headerlink" title="测试过程"></a>测试过程</h3><ul>
+<li>单元测试：用设计的测试用例，测试模块是否正确实现了功能</li>
+<li>集成测试：把通过单元测试的模块组装在一起，看能不能实现功能</li>
+<li>系统测试：把经过确认的软件纳入实际运行环境与相应环境组合在一起进行测试，以检查软件是否能正确稳定地运行</li>
+<li>验收测试：检查已经组装完成的软件是否能实现需求说明规定功能以及功能是否完整正确</li>
+</ul>
+<h4 id="测试词汇"><a href="#测试词汇" class="headerlink" title="测试词汇"></a>测试词汇</h4><p><strong>测试工具</strong>：测试用例 + 测试数据 + 预期结果 + 测试环境</p>
+<p><strong>测试结束</strong>：数据 + 期望结果 + 实际结果</p>
+<h3 id="测试方法"><a href="#测试方法" class="headerlink" title="测试方法"></a>测试方法</h3><ul>
+<li><p>静态分析</p>
+<p>人工的、非形式化的方法对程序进行分析测试</p>
+</li>
+<li><p>动态测试</p>
+<p>选择适当的测试用例，执行程序</p>
+<ul>
+<li>黑盒测试</li>
+<li>白盒测试</li>
+</ul>
+</li>
+</ul>
+<h4 id="黑盒测试"><a href="#黑盒测试" class="headerlink" title="黑盒测试"></a>黑盒测试</h4><p>不考虑程序内部结构与特性，只根据程序功能或程序的外部特性设计测试用例</p>
+<h5 id="等价类"><a href="#等价类" class="headerlink" title="等价类"></a>等价类</h5><p>把被测对象的输入域分为有限个等价区段——“等价类”，以有针对性的等价类少量测试，代替漫无边际的、数量大的“穷尽”测试或随机测试。</p>
+<p><strong>等价类划分</strong></p>
+<ul>
+<li><p>有效等价类</p>
+<p>对于程序的规格说明是合理的、有意义的输入数据的集合。</p>
+</li>
+<li><p>无效等价类</p>
+<p>对于程序的规格说明是不合理、没有意义的输入数据集合。</p>
+</li>
+</ul>
+<p><strong>选择测试用例</strong></p>
+<p>测试用例要尽量多覆盖有效等价类，每个无效等价类要有对应测试用例</p>
+<p><strong>边界值分析法</strong></p>
+<p>边界类型：下标、数据结构、循环、选择等的边界附近</p>
+<p>使程序运行在边界附近的测试方案更容易暴露程序错误</p>
+<p>一般选取刚好等于、稍小于和稍大于等价类边界值的数据作为测试数据</p>
+<p><strong>错误推测法</strong></p>
+<p>列举出程 序中可能有的错误和容易发生错误的特殊情况，并且根据它们选择测试方案</p>
+<h4 id="白盒测试（结构测试）"><a href="#白盒测试（结构测试）" class="headerlink" title="白盒测试（结构测试）"></a>白盒测试（结构测试）</h4><p>分析程序的内部逻辑结构，根据适当的覆盖标准设计测试用例，对主要路径进行尽可能多的测试</p>
+<h5 id="六个标准（弱到强）"><a href="#六个标准（弱到强）" class="headerlink" title="六个标准（弱到强）"></a>六个标准（弱到强）</h5><ul>
+<li>语句覆盖：每条语句至少执行一次</li>
+<li>判定覆盖：每个判定的每个分支至少执行一次</li>
+<li>条件覆盖：每个判定的每个条件应取到各种可能的值</li>
+<li>判断条件覆盖：同时满足判定覆盖和条件覆盖</li>
+<li>条件组合覆盖：每个判定中各条件的每一种组合至少出现一次</li>
+<li>路径覆盖：使程序中每一条可能的路径至少执行一次</li>
+</ul>
+<p>一般以条件组合覆盖为主测试用例，然后补充部分用例以达到路径覆盖测试标准。</p>
+<h5 id="基本路径测试"><a href="#基本路径测试" class="headerlink" title="基本路径测试"></a>基本路径测试</h5><p>在程序控制流图的基础上通过分析构造的环路复杂性，导出基本可执行路径的集合。</p>
+<p>设计出的测试用例保证在测试中程序的每一给可执行语句至少执行一次</p>
+<ul>
+<li><p>先画控制流图</p>
+</li>
+<li><p>计算复杂度</p>
+<p>从程序的环路复杂性可导出程序基本路径集合中的独立路径条数，这是确定程序中每个可执行语句至少执行一次所必须的测试用例数目的上界</p>
+<p>计算区域时应包括图外部的范围。</p>
+</li>
+<li><p>写出基本路径</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/白盒基本路径.JPG" alt="img"></p>
+</li>
+<li><p>设计测试用例</p>
+</li>
+</ul>
+<p>注意如果判断语句由多条语句复合而成，需要将其单独分开成为多个条件</p>
+<h2 id="软件维护"><a href="#软件维护" class="headerlink" title="软件维护"></a>软件维护</h2><p>在软件已经交付使用之后，为了改正错误或满足新的需要而修改软件的过程</p>
+<h3 id="软件可靠性"><a href="#软件可靠性" class="headerlink" title="软件可靠性"></a>软件可靠性</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>程序在给定时间间隔内，按照规格说明书的规定成功运行的概率</p>
+<h4 id="软件可用性"><a href="#软件可用性" class="headerlink" title="软件可用性"></a>软件可用性</h4><p>程序在给定时间点，按照规格说明书的规定，成功运行的概率</p>
+<h4 id="平均无故障时间MTTF"><a href="#平均无故障时间MTTF" class="headerlink" title="平均无故障时间MTTF"></a>平均无故障时间MTTF</h4><h5 id="符号-3"><a href="#符号-3" class="headerlink" title="符号"></a>符号</h5><p>$E_T$——测试之前程序中的错误总数</p>
+<p>$I_T$——程序长度（机器指令总数）</p>
+<p>$\tau$——测试（包括调试）时间</p>
+<p>$E_d(\tau)$——在0至$\tau$期间发现的错误数</p>
+<p>$E_c(\tau)$——在0至$\tau$期间改正的错误数</p>
+<p>$MTTF=\frac{1}{K(\frac{E_T}{I_t}-\frac{E_c(\tau)}{I_T})}$</p>
+<p>K的典型值是200</p>
+<h3 id="维护的四种类型"><a href="#维护的四种类型" class="headerlink" title="维护的四种类型"></a>维护的四种类型</h3><ul>
+<li>改正性维护</li>
+<li>适应性维护</li>
+<li>完善性维护</li>
+<li>预防性维护</li>
+</ul>
+<h3 id="维护的过程"><a href="#维护的过程" class="headerlink" title="维护的过程"></a>维护的过程</h3><h4 id="维护过程的本质"><a href="#维护过程的本质" class="headerlink" title="维护过程的本质"></a>维护过程的本质</h4><p>修改和压缩了的软件定义和开发过程</p>
+<ul>
+<li><p>维护组织</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/维护组织.JPG" alt="img"></p>
+</li>
+<li><p>维护报告</p>
+<p>用标准化格式表达所有软件维护要求</p>
+</li>
+<li><p>维护的事件流</p>
+<p>不管维护类型如何都包括</p>
+<p>修改软件设计、复查、必要的代码修改、单元测试和集成测试(包括使用以前的测试方案的回归测试)、验收测试和复审</p>
+</li>
+<li><p>保护维护记录</p>
+</li>
+<li><p>评价维护活动</p>
+</li>
+</ul>
+<h3 id="维护的副作用"><a href="#维护的副作用" class="headerlink" title="维护的副作用"></a>维护的副作用</h3><ul>
+<li><p>修改代码的副作用</p>
+<p>可能引入新的错误</p>
+</li>
+<li><p>修改数据的副作用</p>
+<p>原有软件设计可能对这些数据不在适应从而产生错误</p>
+</li>
+<li><p>修改文档的副作用</p>
+<p>如果源代码的修改没有反映在设计文档或用户手册中，就会产生文档的副作用</p>
+</li>
+</ul>
+<h3 id="软件的可维护性"><a href="#软件的可维护性" class="headerlink" title="软件的可维护性"></a>软件的可维护性</h3><ul>
+<li>可理解性</li>
+<li>可测试性</li>
+<li>可修改性</li>
+<li>可移植性</li>
+<li>可重用性</li>
+</ul>
+<h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><h3 id="基本特征"><a href="#基本特征" class="headerlink" title="基本特征"></a>基本特征</h3><ul>
+<li>封装：隐藏对象的属性和实现细节，仅对外公开接口</li>
+<li>继承：子类继承父类的特征和行为</li>
+<li>多态：是指一个类实例（对象）的相同方法在不同情形有不同表现形式</li>
+</ul>
+<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><h3 id="UML9种图"><a href="#UML9种图" class="headerlink" title="UML9种图"></a>UML9种图</h3><ul>
+<li>动态<ul>
+<li>顺序图</li>
+<li>活动图</li>
+<li>协作图</li>
+<li>状态图</li>
+</ul>
+</li>
+<li>静态<ul>
+<li>用例图</li>
+<li>类图</li>
+<li>对象图</li>
+<li>构件图</li>
+<li>部署图</li>
+</ul>
+</li>
+</ul>
+<h4 id="用例图（静态）"><a href="#用例图（静态）" class="headerlink" title="用例图（静态）"></a>用例图（静态）</h4><p>用于描述用例模型，包括参与者用例之间的关系</p>
+<h5 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h5><p><strong>关联</strong> </p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/关联.png" alt="img"></p>
+<p>实线，参与者与用例之间的交互，表示通信（若带箭头可以表明发起者）</p>
+<p><strong>包含</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/包含.png" alt="img"></p>
+<p>带箭头虚线，指向被包含用例，包含用例是必须的</p>
+<p><strong>扩展</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/扩展.png" alt="img"></p>
+<p>带箭头虚线，指向被扩展用例，扩展用例是可选的</p>
+<p><strong>泛化</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/泛化.png" alt="img"></p>
+<p>空心三角实线，特殊方（子类）指向一般方（父类），就是继承的逆过程</p>
+<p>用例和参与者：关联 </p>
+<p>用例：包含（include）扩展（extend）  泛化</p>
+<p>参与者： 继承（泛化的逆过程）</p>
+<h5 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h5><p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/用例图.JPG" alt="img"></p>
+<h4 id="类图（静态）"><a href="#类图（静态）" class="headerlink" title="类图（静态）"></a>类图（静态）</h4><p>描述了类与类之间的静态关系。</p>
+<h5 id="关系-1"><a href="#关系-1" class="headerlink" title="关系"></a>关系</h5><p><strong>泛化</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/泛化.png" alt="img"></p>
+<p>空心三角实线，子类指向父类</p>
+<p><strong>关联</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/关联类图.png" alt="img"></p>
+<p>实线，两端写有对应关联方式，双向关联无箭头，单项关联有一个箭头</p>
+<p><strong>实现</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/类图实现.png" alt="img"></p>
+<p>空心三角+虚线，是整体与部分的关系，且部分可以离开整体而单独存在</p>
+<p><strong>聚合</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/类图聚合.png" alt="img"></p>
+<p>实线+空心菱形</p>
+<p><strong>组合</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/类图组合.png" alt="img"></p>
+<p>实心菱形+实线，是整体与部分的关系，但部分不能离开整体而单独存在</p>
+<p><strong>依赖</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/类图依赖.png" alt="img"></p>
+<p>带箭头虚线，指向被依赖的对象，一个类的实现需要另一个类的协助</p>
+<h5 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h5><p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/类图.JPG" alt="img"></p>
+<h4 id="顺序图-交互图-动态"><a href="#顺序图-交互图-动态" class="headerlink" title="顺序图(交互图 动态)"></a>顺序图(交互图 动态)</h4><ul>
+<li><p>表示用例中的行为顺序</p>
+</li>
+<li><p>展示对象之间的交互</p>
+</li>
+<li><p>顺序图重点在消息队列上</p>
+</li>
+<li>浏览顺序图的方法：从上到下查看对象间交互信息</li>
+</ul>
+<h5 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h5><p><strong>参与者</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/顺序图参与者.png" alt="img"></p>
+<p>与系统，子系统或类发生交互的外部用户</p>
+<p><strong>对象</strong></p>
+<p>顺序图横轴是有关对象，矩形框+对象名+下划线</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/顺序图对象.png" alt="img"></p>
+<p><strong>生命线</strong></p>
+<p>坐标轴纵向虚线表示对象在序列终点执行情况</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/顺序图生命线.png" alt="img"></p>
+<p><strong>消息符号</strong></p>
+<p>消息用从一个对象的上面写到另一个对象生命线的箭头表示</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/顺序图消息.png" alt="img"></p>
+<h5 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h5><p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/顺序图.JPG" alt="img"></p>
+<h4 id="协作图（交互图-动态）"><a href="#协作图（交互图-动态）" class="headerlink" title="协作图（交互图 动态）"></a>协作图（交互图 动态）</h4><p>顺序图的变化形式，描述相互协作的对象之间的交互关系和连接关系</p>
+<p>与顺序图的区别：顺序图侧重时间，但没有明确表示对象之间的关系</p>
+<h5 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h5><p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/协作图.JPG" alt="img"></p>
+<h4 id="状态图-动态"><a href="#状态图-动态" class="headerlink" title="状态图(动态)"></a>状态图(动态)</h4><p>描述一个特定对象的所有可能的状态以及引起状态转换的事件</p>
+<h5 id="事务-1"><a href="#事务-1" class="headerlink" title="事务"></a>事务</h5><ul>
+<li><p>初态</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/初态.png" alt="img"></p>
+</li>
+<li><p>终态</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/终态.png" alt="img"></p>
+</li>
+<li><p>中间状态</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/中间态.png" alt="img"></p>
+</li>
+<li><p>复合状态</p>
+</li>
+<li><p>消息</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/状态图消息.png" alt="img"></p>
+</li>
+</ul>
+<h5 id="示例-3"><a href="#示例-3" class="headerlink" title="示例"></a>示例</h5><p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/支票状态图.JPG" alt="img"></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/存款过程状态图.png" alt="img"></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/电梯状态图.JPG" alt="img"></p>
+<h4 id="活动图（动态）"><a href="#活动图（动态）" class="headerlink" title="活动图（动态）"></a>活动图（动态）</h4><p>用来捕捉用例的活动，使用框图的方式显示动作及其结果</p>
+<p>活动图是一种流图，描述了从活动到活动的流</p>
+<p>是另一种描述交互的方式，描述采取何种动作，动作的结果是什么（动作改变状态），何时发生（动作序列），在何处发生（泳道）</p>
+<h5 id="事务-2"><a href="#事务-2" class="headerlink" title="事务"></a>事务</h5><p><strong>起点</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/初态.png" alt="img"></p>
+<p><strong>终点</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/终态.png" alt="img"></p>
+<p><strong>活动</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/活动图活动.png" alt="img"></p>
+<p>动作的执行</p>
+<p><strong>对象流</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/活动图对象流.png" alt="img"></p>
+<p>活动之间交换的信息</p>
+<p><strong>发送信号</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/发送信号.png" alt="img"></p>
+<p>活动过程中发送的事件，触发另一伙的流程</p>
+<p><strong>接收信号</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/活动图接收信号.png" alt="img"></p>
+<p>活动过程中接收的事件，接收到信号的活动流程序开始执行</p>
+<p><strong>泳道</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/活动图泳道.png" alt="img"></p>
+<p>活动的负责者</p>
+<h5 id="关系-2"><a href="#关系-2" class="headerlink" title="关系"></a>关系</h5><p><strong>迁移</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/活动图迁移.png" alt="img"></p>
+<p>活动的完成与新活动的开始</p>
+<p><strong>分支</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/活动图分支.png" alt="img"></p>
+<p>根据条件，控制执行方向</p>
+<p><strong>分叉</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/活动图分叉.png" alt="img"></p>
+<p>以下的活动可并发执行</p>
+<p><strong>结合</strong></p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/活动图结合.png" alt="img"></p>
+<p>以上的并发活动在此结合</p>
+<h5 id="示例-4"><a href="#示例-4" class="headerlink" title="示例"></a>示例</h5><p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/活动图取款.JPG" alt="img"></p>
+<h4 id="构件图（静态）"><a href="#构件图（静态）" class="headerlink" title="构件图（静态）"></a>构件图（静态）</h4><p>描述构建之间的依赖关系，是面向对象思想的核体现</p>
+<p>构建是逻辑交给中定义的概念和功能（如类、对象与关系），在物理架构中的实现</p>
+<p>构件图中包含三种元素，构件、接口和关系，描述了系统各个构件终点依赖关系，构件接口以及调用关系，可以使用包来组织，使用注解与约束来解释和限定</p>
+<h5 id="示例-5"><a href="#示例-5" class="headerlink" title="示例"></a>示例</h5><p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/构件图.JPG" alt="img"></p>
+<h4 id="部署图（配置图-静态）"><a href="#部署图（配置图-静态）" class="headerlink" title="部署图（配置图 静态）"></a>部署图（配置图 静态）</h4><p>描述处理器、设备和连接，显示系统硬件的物理拓扑结构及在此结构上执行的软件，每个系统只有一个部署图</p>
+<p>部署图可以显示计算节点的拓扑结构和通信路径、节点上运行的软件以及软件包含的逻辑单元。</p>
+<h5 id="部署图与对象图"><a href="#部署图与对象图" class="headerlink" title="部署图与对象图"></a>部署图与对象图</h5><p>部署图编写构件实例</p>
+<p>构件图表现构件类型的定义</p>
+<p>部署图偏向于描述构件在结点中运行时的状态，描述了构件运行的环境</p>
+<p>构件图偏向于描述构件之间相互依赖支持的基本关系</p>
+<h5 id="示例-6"><a href="#示例-6" class="headerlink" title="示例"></a>示例</h5><p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/部署图.JPG" alt="img"></p>
+<h4 id="对象图"><a href="#对象图" class="headerlink" title="对象图"></a>对象图</h4><p>类图变化而来，显示一组对象和他们之间的关系</p>
+<p><img src="/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/对象图.JPG" alt="img"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/" rel="tag"># 软件工程导论</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/25/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/" rel="prev" title="算法设计与分析">
+      <i class="fa fa-chevron-left"></i> 算法设计与分析
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/15/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0/" rel="next" title="Java多线程的实现">
+      Java多线程的实现 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#软件工程导论"><span class="nav-number">1.</span> <span class="nav-text">软件工程导论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#软件工程学概述"><span class="nav-number">1.1.</span> <span class="nav-text">软件工程学概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是软件"><span class="nav-number">1.1.1.</span> <span class="nav-text">什么是软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#软件工程三要素"><span class="nav-number">1.1.2.</span> <span class="nav-text">软件工程三要素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#软件危机-选择"><span class="nav-number">1.1.3.</span> <span class="nav-text">软件危机(选择)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#软件危机介绍"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">软件危机介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#软件危机的表现"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">软件危机的表现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#软件危机的产生原因"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">软件危机的产生原因</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消除软件危机的途径"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">消除软件危机的途径</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工程化原理开发（软件生存周期）"><span class="nav-number">1.1.4.</span> <span class="nav-text">工程化原理开发（软件生存周期）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#必要性（优点）"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">必要性（优点）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原则"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#软件8个生存周期"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">软件8个生存周期</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件过程"><span class="nav-number">1.2.</span> <span class="nav-text">软件过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#瀑布模型（必考）"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">瀑布模型（必考）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#特点"><span class="nav-number">1.2.0.1.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#优点"><span class="nav-number">1.2.0.1.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缺点"><span class="nav-number">1.2.0.1.3.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#快速原型"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">快速原型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#增量模型（渐增模型）"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">增量模型（渐增模型）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#优点-1"><span class="nav-number">1.2.0.3.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#困难"><span class="nav-number">1.2.0.3.2.</span> <span class="nav-text">困难</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#螺旋模型（唯一有风险分析）"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">螺旋模型（唯一有风险分析）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#喷泉模型"><span class="nav-number">1.2.0.5.</span> <span class="nav-text">喷泉模型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题定义"><span class="nav-number">1.3.</span> <span class="nav-text">问题定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可行性研究"><span class="nav-number">1.4.</span> <span class="nav-text">可行性研究</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务"><span class="nav-number">1.4.1.</span> <span class="nav-text">任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4个方面"><span class="nav-number">1.4.2.</span> <span class="nav-text">4个方面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可行性分析研究过程"><span class="nav-number">1.4.3.</span> <span class="nav-text">可行性分析研究过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统流程图（业务流程图）"><span class="nav-number">1.4.4.</span> <span class="nav-text">系统流程图（业务流程图）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#符号"><span class="nav-number">1.4.4.1.</span> <span class="nav-text">符号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">1.4.4.2.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#成本-效益分析"><span class="nav-number">1.4.5.</span> <span class="nav-text">成本&#x2F;效益分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#四个方面"><span class="nav-number">1.4.5.1.</span> <span class="nav-text">四个方面</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需求分析"><span class="nav-number">1.5.</span> <span class="nav-text">需求分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#综合要求"><span class="nav-number">1.5.1.</span> <span class="nav-text">综合要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构化分析方法（SA）"><span class="nav-number">1.5.2.</span> <span class="nav-text">结构化分析方法（SA）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据流图DFD"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">数据流图DFD</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#符号-1"><span class="nav-number">1.5.2.1.1.</span> <span class="nav-text">符号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多个数据流之间的关系"><span class="nav-number">1.5.2.1.2.</span> <span class="nav-text">多个数据流之间的关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据流图的四个元素"><span class="nav-number">1.5.2.1.3.</span> <span class="nav-text">数据流图的四个元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#画图方法"><span class="nav-number">1.5.2.1.4.</span> <span class="nav-text">画图方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#环境图"><span class="nav-number">1.5.2.1.5.</span> <span class="nav-text">环境图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分解原则"><span class="nav-number">1.5.2.1.6.</span> <span class="nav-text">分解原则</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据字典"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">数据字典</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念"><span class="nav-number">1.5.2.2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用途"><span class="nav-number">1.5.2.2.2.</span> <span class="nav-text">用途</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#内容"><span class="nav-number">1.5.2.2.3.</span> <span class="nav-text">内容</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判定树（决策树）"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">判定树（决策树）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判定表"><span class="nav-number">1.5.2.4.</span> <span class="nav-text">判定表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态图-状态转换图"><span class="nav-number">1.5.3.</span> <span class="nav-text">状态图(状态转换图)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#状态"><span class="nav-number">1.5.3.1.</span> <span class="nav-text">状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#符号-2"><span class="nav-number">1.5.3.2.</span> <span class="nav-text">符号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态转换"><span class="nav-number">1.5.3.3.</span> <span class="nav-text">状态转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例"><span class="nav-number">1.5.3.4.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#软件需求规格说明书"><span class="nav-number">1.5.4.</span> <span class="nav-text">软件需求规格说明书</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件设计"><span class="nav-number">1.6.</span> <span class="nav-text">软件设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总体设计（概要设计）"><span class="nav-number">1.6.1.</span> <span class="nav-text">总体设计（概要设计）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#总体设计的九大任务"><span class="nav-number">1.6.1.1.</span> <span class="nav-text">总体设计的九大任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设计原理"><span class="nav-number">1.6.1.2.</span> <span class="nav-text">设计原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#模块化"><span class="nav-number">1.6.1.2.1.</span> <span class="nav-text">模块化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#结构图"><span class="nav-number">1.6.1.2.2.</span> <span class="nav-text">结构图</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#耦合"><span class="nav-number">1.6.1.3.</span> <span class="nav-text">耦合</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#耦合的类型"><span class="nav-number">1.6.1.3.1.</span> <span class="nav-text">耦合的类型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内聚"><span class="nav-number">1.6.1.4.</span> <span class="nav-text">内聚</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#内聚的类型"><span class="nav-number">1.6.1.4.1.</span> <span class="nav-text">内聚的类型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启发设计规则"><span class="nav-number">1.6.1.5.</span> <span class="nav-text">启发设计规则</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#改进软件结构提高模块独立性"><span class="nav-number">1.6.1.5.1.</span> <span class="nav-text">改进软件结构提高模块独立性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模块规模应该适中"><span class="nav-number">1.6.1.5.2.</span> <span class="nav-text">模块规模应该适中</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#深度、宽度、扇出、扇入都应适当"><span class="nav-number">1.6.1.5.3.</span> <span class="nav-text">深度、宽度、扇出、扇入都应适当</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模块的作用域应该在控制域内"><span class="nav-number">1.6.1.5.4.</span> <span class="nav-text">模块的作用域应该在控制域内</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#力争降低接口的复杂度"><span class="nav-number">1.6.1.5.5.</span> <span class="nav-text">力争降低接口的复杂度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设计单入口单出口的模块"><span class="nav-number">1.6.1.5.6.</span> <span class="nav-text">设计单入口单出口的模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模块功能应该可以预测"><span class="nav-number">1.6.1.5.7.</span> <span class="nav-text">模块功能应该可以预测</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#面向数据流的设计方法（注意判断结构图类型）"><span class="nav-number">1.6.1.6.</span> <span class="nav-text">面向数据流的设计方法（注意判断结构图类型）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#信息流的两种类型"><span class="nav-number">1.6.1.6.1.</span> <span class="nav-text">信息流的两种类型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#详细设计"><span class="nav-number">1.6.2.</span> <span class="nav-text">详细设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#根本目标"><span class="nav-number">1.6.2.1.</span> <span class="nav-text">根本目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主要内容"><span class="nav-number">1.6.2.2.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结构程序设计"><span class="nav-number">1.6.2.3.</span> <span class="nav-text">结构程序设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#人机界面设计"><span class="nav-number">1.6.2.4.</span> <span class="nav-text">人机界面设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过程设计工具（三种图）"><span class="nav-number">1.6.2.5.</span> <span class="nav-text">过程设计工具（三种图）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#程序流程图"><span class="nav-number">1.6.2.5.1.</span> <span class="nav-text">程序流程图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#盒图（N-S图）"><span class="nav-number">1.6.2.5.2.</span> <span class="nav-text">盒图（N-S图）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PAD图（问题分析图）"><span class="nav-number">1.6.2.5.3.</span> <span class="nav-text">PAD图（问题分析图）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#判定表-1"><span class="nav-number">1.6.2.5.4.</span> <span class="nav-text">判定表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#判定树"><span class="nav-number">1.6.2.5.5.</span> <span class="nav-text">判定树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#过程设计语言（PDL）"><span class="nav-number">1.6.2.5.6.</span> <span class="nav-text">过程设计语言（PDL）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#面向数据结构的设计方法"><span class="nav-number">1.6.2.6.</span> <span class="nav-text">面向数据结构的设计方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Jacksion图"><span class="nav-number">1.6.2.6.1.</span> <span class="nav-text">Jacksion图</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#程序复杂度定理度量"><span class="nav-number">1.6.2.7.</span> <span class="nav-text">程序复杂度定理度量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#计算环形复杂度的方法"><span class="nav-number">1.6.2.7.1.</span> <span class="nav-text">计算环形复杂度的方法</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件测试"><span class="nav-number">1.7.</span> <span class="nav-text">软件测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试目标"><span class="nav-number">1.7.1.</span> <span class="nav-text">测试目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试过程"><span class="nav-number">1.7.2.</span> <span class="nav-text">测试过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#测试词汇"><span class="nav-number">1.7.2.1.</span> <span class="nav-text">测试词汇</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试方法"><span class="nav-number">1.7.3.</span> <span class="nav-text">测试方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#黑盒测试"><span class="nav-number">1.7.3.1.</span> <span class="nav-text">黑盒测试</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#等价类"><span class="nav-number">1.7.3.1.1.</span> <span class="nav-text">等价类</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#白盒测试（结构测试）"><span class="nav-number">1.7.3.2.</span> <span class="nav-text">白盒测试（结构测试）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#六个标准（弱到强）"><span class="nav-number">1.7.3.2.1.</span> <span class="nav-text">六个标准（弱到强）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基本路径测试"><span class="nav-number">1.7.3.2.2.</span> <span class="nav-text">基本路径测试</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件维护"><span class="nav-number">1.8.</span> <span class="nav-text">软件维护</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#软件可靠性"><span class="nav-number">1.8.1.</span> <span class="nav-text">软件可靠性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义"><span class="nav-number">1.8.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#软件可用性"><span class="nav-number">1.8.1.2.</span> <span class="nav-text">软件可用性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#平均无故障时间MTTF"><span class="nav-number">1.8.1.3.</span> <span class="nav-text">平均无故障时间MTTF</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#符号-3"><span class="nav-number">1.8.1.3.1.</span> <span class="nav-text">符号</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#维护的四种类型"><span class="nav-number">1.8.2.</span> <span class="nav-text">维护的四种类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#维护的过程"><span class="nav-number">1.8.3.</span> <span class="nav-text">维护的过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#维护过程的本质"><span class="nav-number">1.8.3.1.</span> <span class="nav-text">维护过程的本质</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#维护的副作用"><span class="nav-number">1.8.4.</span> <span class="nav-text">维护的副作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#软件的可维护性"><span class="nav-number">1.8.5.</span> <span class="nav-text">软件的可维护性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象"><span class="nav-number">1.9.</span> <span class="nav-text">面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本特征"><span class="nav-number">1.9.1.</span> <span class="nav-text">基本特征</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UML"><span class="nav-number">1.10.</span> <span class="nav-text">UML</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UML9种图"><span class="nav-number">1.10.1.</span> <span class="nav-text">UML9种图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用例图（静态）"><span class="nav-number">1.10.1.1.</span> <span class="nav-text">用例图（静态）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#关系"><span class="nav-number">1.10.1.1.1.</span> <span class="nav-text">关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实例"><span class="nav-number">1.10.1.1.2.</span> <span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类图（静态）"><span class="nav-number">1.10.1.2.</span> <span class="nav-text">类图（静态）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#关系-1"><span class="nav-number">1.10.1.2.1.</span> <span class="nav-text">关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实例-1"><span class="nav-number">1.10.1.2.2.</span> <span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#顺序图-交互图-动态"><span class="nav-number">1.10.1.3.</span> <span class="nav-text">顺序图(交互图 动态)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#事务"><span class="nav-number">1.10.1.3.1.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例-1"><span class="nav-number">1.10.1.3.2.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#协作图（交互图-动态）"><span class="nav-number">1.10.1.4.</span> <span class="nav-text">协作图（交互图 动态）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#示例-2"><span class="nav-number">1.10.1.4.1.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态图-动态"><span class="nav-number">1.10.1.5.</span> <span class="nav-text">状态图(动态)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#事务-1"><span class="nav-number">1.10.1.5.1.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例-3"><span class="nav-number">1.10.1.5.2.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#活动图（动态）"><span class="nav-number">1.10.1.6.</span> <span class="nav-text">活动图（动态）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#事务-2"><span class="nav-number">1.10.1.6.1.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#关系-2"><span class="nav-number">1.10.1.6.2.</span> <span class="nav-text">关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例-4"><span class="nav-number">1.10.1.6.3.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构件图（静态）"><span class="nav-number">1.10.1.7.</span> <span class="nav-text">构件图（静态）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#示例-5"><span class="nav-number">1.10.1.7.1.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#部署图（配置图-静态）"><span class="nav-number">1.10.1.8.</span> <span class="nav-text">部署图（配置图 静态）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#部署图与对象图"><span class="nav-number">1.10.1.8.1.</span> <span class="nav-text">部署图与对象图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例-6"><span class="nav-number">1.10.1.8.2.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对象图"><span class="nav-number">1.10.1.9.</span> <span class="nav-text">对象图</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SUVVM"
+      src="/images/ortrait.jpg">
+  <p class="site-author-name" itemprop="name">SUVVM</p>
+  <div class="site-description" itemprop="description">SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/suvvm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;suvvm" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/suvvm@foxmail.com" title="E-Mail → suvvm@foxmail.com"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SUVVM</span>
+	<a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鲁ICP备19040043号-2</a>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
