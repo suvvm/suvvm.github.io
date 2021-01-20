@@ -177,6 +177,103 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/05/05/Java-Object%E7%B1%BB%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/05/Java-Object%E7%B1%BB%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">Java Object类方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-05 15:58:42" itemprop="dateCreated datePublished" datetime="2020-05-05T15:58:42+08:00">2020-05-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Java-Object类方法"><a href="#Java-Object类方法" class="headerlink" title="Java Object类方法"></a>Java Object类方法</h1><h2 id="registerNatives"><a href="#registerNatives" class="headerlink" title="registerNatives"></a>registerNatives</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">registerNatives</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>本地方法，调用JNI函数用于注册本地方法。</p>
+<h2 id="getClass"><a href="#getClass" class="headerlink" title="getClass"></a>getClass</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> Class&lt;?&gt; getClass();</span><br></pre></td></tr></table></figure>
+<p>不可覆盖的本地方法，返回此Object的运行时类（java.lang.Class）</p>
+<h2 id="hashCode"><a href="#hashCode" class="headerlink" title="hashCode"></a>hashCode</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>本地方法，返回其对象存储地址</p>
+<h2 id="equals"><a href="#equals" class="headerlink" title="equals"></a>equals</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">this</span> == obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>equals用于比较两对象，Object中的equals直接对比在内存中是否为同一对象</p>
+<h2 id="clone"><a href="#clone" class="headerlink" title="clone"></a>clone</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span>;</span><br></pre></td></tr></table></figure>
+<p>本地方法，对目标对象进行浅拷贝，返回拷贝得到的对象</p>
+<h2 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="toString"></a>toString</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getClass().getName() + <span class="string">"@"</span> + Integer.toHexString(hashCode());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>返回类名与哈希值所组成的字符串</p>
+<h2 id="notify"><a href="#notify" class="headerlink" title="notify"></a>notify</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>本地方法，唤醒一个被当前对象wait()阻塞的线程并使其得锁</p>
+<h2 id="notifyAll"><a href="#notifyAll" class="headerlink" title="notifyAll"></a>notifyAll</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notifyAll</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>本地方法，唤醒所有等待该对象的线程</p>
+<h2 id="wait"><a href="#wait" class="headerlink" title="wait"></a>wait</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span></span><br></pre></td></tr></table></figure>
+<p>尝试获取对象排它锁，失败则阻塞</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeout)</span> <span class="keyword">throws</span> InterruptedException</span></span><br></pre></td></tr></table></figure>
+<p>尝试获取对象排它锁，失败则阻塞最长指定时间timeout</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeout, <span class="keyword">int</span> nanos)</span> <span class="keyword">throws</span> InterruptedException</span></span><br></pre></td></tr></table></figure>
+<p>尝试获取对象排它锁，失败时间控制达到毫秒级</p>
+<h2 id="finalize"><a href="#finalize" class="headerlink" title="finalize"></a>finalize</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
+<p>空方法实现，对象GC时会调用该方法，但是无法控制该方法被调用的时机，一般用于GC前判断目标对象状态并记录</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/05/03/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E5%85%AD%E7%A7%8D%E6%96%B9%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1161,88 +1258,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/20/Hash%E5%86%B2%E7%AA%81%E7%9A%84%E8%A7%A3%E5%86%B3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/20/Hash%E5%86%B2%E7%AA%81%E7%9A%84%E8%A7%A3%E5%86%B3/" class="post-title-link" itemprop="url">Hash冲突的解决</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-20 15:23:17" itemprop="dateCreated datePublished" datetime="2020-04-20T15:23:17+08:00">2020-04-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Hash冲突的解决"><a href="#Hash冲突的解决" class="headerlink" title="Hash冲突的解决"></a>Hash冲突的解决</h1><p>确定插入位置：根据指定的hash函数获取hash值后取模table的大小m，可以获得目标插入位置，但目标插入位置可能已被占用。</p>
-<h2 id="开放地址法"><a href="#开放地址法" class="headerlink" title="开放地址法"></a>开放地址法</h2><h3 id="线性探测"><a href="#线性探测" class="headerlink" title="线性探测"></a>线性探测</h3><p>若插入的某数据hash值已存在，则在原来的hash值位置向后线性探测，若探测到表尾则从表首开始探测，直到不发生hash冲突为止。</p>
-<h3 id="平方探测"><a href="#平方探测" class="headerlink" title="平方探测"></a>平方探测</h3><blockquote>
-<p>若插入的某数据hash值已存在，由i=1开始每次向前后探测$i^2(i = 1,2,3,…)$个位置，查看目标位置是否被占用，若探测位置超出table大小m则执行模m操作，直到不发生hash冲突为止。</p>
-</blockquote>
-<h3 id="伪随机探测法"><a href="#伪随机探测法" class="headerlink" title="伪随机探测法"></a>伪随机探测法</h3><p>若插入的某数据hash值已存在，根据设定的随机数种子进行向后进行探测，若探测位置超出table大小m则执行模m操作，直到不发生hash冲突为止。</p>
-<h2 id="链地址法"><a href="#链地址法" class="headerlink" title="链地址法"></a>链地址法</h2><p>若插入的某数据hash值已存在，将该位置所存储的，hash值相同的元素构成一个单链表，将插入值加入到链表尾。</p>
-<h2 id="再哈希法"><a href="#再哈希法" class="headerlink" title="再哈希法"></a>再哈希法</h2><p>构造多个不同的hash函数，若发生hash冲突则使用其他hash函数直到不发生冲突为止。</p>
-<h2 id="建立公共溢出区"><a href="#建立公共溢出区" class="headerlink" title="建立公共溢出区"></a>建立公共溢出区</h2><p>为hash表添加数据溢出区，若发生hash冲突则将冲突数据放入数据溢出区。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1314,7 +1329,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-count">146</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

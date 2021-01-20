@@ -177,6 +177,127 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/10/%E7%A8%8B%E5%BA%8F%E3%80%81%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%8D%8F%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/%E7%A8%8B%E5%BA%8F%E3%80%81%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%8D%8F%E7%A8%8B/" class="post-title-link" itemprop="url">程序、进程、线程与协程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-10 15:57:45" itemprop="dateCreated datePublished" datetime="2020-04-10T15:57:45+08:00">2020-04-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="程序、进程、线程与协程"><a href="#程序、进程、线程与协程" class="headerlink" title="程序、进程、线程与协程"></a>程序、进程、线程与协程</h1><h2 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h2><ul>
+<li>程序是一组计算机可识别的指令的有序集合</li>
+</ul>
+<h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>进程是程序在动态数据集合上的一次运行过程，是程序的实体</li>
+<li>进程是操作系统资源分配的基本单位</li>
+<li>进程是处理机调度的基本单位，进程调度时要陷入内核态，切换内容保存在内存中，调度时要切换全局目录、内核栈、硬件上下文</li>
+</ul>
+<h3 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h3><ul>
+<li>动态性：进程是程序的一次动态的执行过程（基本特征）</li>
+<li>并发性：多个进程可以同时存在在内存中，并且能与其他进程并发执行</li>
+<li>独立性：进程是可以独立运行、独立独立获取资源、独立接受调度的基本单位</li>
+<li>异步性：进程是按异步的方式运行的，按各自独立不可预知的速度向前推进</li>
+</ul>
+<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>线程是操作系统处理机调度的最小单位</li>
+<li>线程是进程的一部分，代表了一条顺序执行流</li>
+</ul>
+<h4 id="用户级线程"><a href="#用户级线程" class="headerlink" title="用户级线程"></a>用户级线程</h4><ul>
+<li>不依赖操作系统核心，内核无法感知到线程的存在</li>
+<li>用户级线程在用户态运行，创建调度与销毁都由应用程序完成</li>
+<li>处理机调度依旧由进程作为基本单位，进程被阻塞是所有的线程都将被阻塞</li>
+<li>不需要操作系统支持，只需实现线程库即可使用用户级线程</li>
+</ul>
+<h4 id="内核级线程"><a href="#内核级线程" class="headerlink" title="内核级线程"></a>内核级线程</h4><ul>
+<li>由操作系统内核管理线程，并向应用程序提供API接口</li>
+<li>由内核维护进程和内核级线程的上下文</li>
+<li>内核级线程的调度需要陷入内核态</li>
+<li>一个内核级线程被阻塞不会影响到其他内核级线程的运行</li>
+<li>由于线程共享进程资源，所以切换效率即使要陷入内核态也比切换进程效率高，切换内容保存在内核栈中，只需切换内核栈与硬件上下文</li>
+</ul>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
+<li>同一进程下的线程共享进程地址空间与资源</li>
+<li>线程有自己的栈与栈指针</li>
+<li>有状态与状态转换</li>
+<li>线程可以创建、撤销另一个线程，程序开始是是单线程的方式运行的</li>
+<li>一个线程只能属于一个进程，一个进程可以拥有多个线程</li>
+</ul>
+<h2 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h2><h3 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>协程是一种用户态的轻量级线程</li>
+<li>协程是线程的一部分，一个线程可以有多个协程</li>
+</ul>
+<h3 id="特性-1"><a href="#特性-1" class="headerlink" title="特性"></a>特性</h3><ul>
+<li>无需操作系统支持，只需实现协程库便可以使用协程</li>
+<li>协程调度用用户应用程序实现，无需陷入内核态，切换效率高</li>
+<li>协程是串行的，一个线程内的协程同一时间只能有一个运行</li>
+<li>由于协程是串行的，所以无需实现锁，也不存在同时读写变量的冲突</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/09/HTTP%E7%8A%B6%E6%80%81%E7%A0%81%E4%B8%8E%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1460,83 +1581,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/03/29/JVM%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/29/JVM%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="post-title-link" itemprop="url">JVM生命周期</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-29 18:29:00" itemprop="dateCreated datePublished" datetime="2020-03-29T18:29:00+08:00">2020-03-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="JVM的生命周期"><a href="#JVM的生命周期" class="headerlink" title="JVM的生命周期"></a>JVM的生命周期</h1><h2 id="JVM的启动"><a href="#JVM的启动" class="headerlink" title="JVM的启动"></a>JVM的启动</h2><p>通过引导类加载器（bootstrap class loader Object就是由其加载的）创建初始类（引导类加载器会加载很多类包括initial class与Object类）调用初始类对应main方法来完成JVM的启动，这个类由虚拟机的具体实现指定。</p>
-<h2 id="JVM的运行"><a href="#JVM的运行" class="headerlink" title="JVM的运行"></a>JVM的运行</h2><p>Java虚拟机为了执行Java程序而启动，其任务便是执行Java程序。JVM伴随Java程序执行而启动，伴随Java程序终止而终止。所以执行Java程序时系统中在运行的是JVM进程。<br>可以用Java虚拟机进程状态工具jps（Java Virtual Machine Process Status Tool）命令来产看当前有权访问的HotSpot虚拟机进程。</p>
-<h2 id="JVM的退出"><a href="#JVM的退出" class="headerlink" title="JVM的退出"></a>JVM的退出</h2><p>JVM会在Java程序运行结束时退出（包括执行结束退出、异常终止退出、exit主动退出等）。<br>操作系统错误也可能导致JVM退出。</p>
-<p>使用JNI Invocation API。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1608,7 +1652,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-count">146</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -177,6 +177,115 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/10/31/POJ-3481-Double-Queue%EF%BC%88set%E5%AE%9E%E7%8E%B0%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/31/POJ-3481-Double-Queue%EF%BC%88set%E5%AE%9E%E7%8E%B0%EF%BC%89/" class="post-title-link" itemprop="url">POJ 3481 Double Queue（set实现）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-31 23:21:05" itemprop="dateCreated datePublished" datetime="2018-10-31T23:21:05+08:00">2018-10-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>The new founded Balkan Investment Group Bank (BIG-Bank) opened a new office in Bucharest, equipped with a modern computing environment provided by IBM Romania, and using modern information technologies. As usual, each client of the bank is identified by a positive integer Kand, upon arriving to the bank for some services, he or she receives a positive integer priority P. One of the inventions of the young managers of the bank shocked the software engineer of the serving system. They proposed to break the tradition by sometimes calling the serving desk with the lowest priority instead of that with the highest priority. Thus, the system will receive the following types of request:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>The system needs to stop serving</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1<em>K</em> <em>P</em></td>
+<td>Add client <em>K</em> to the waiting list with priority <em>P</em></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Serve the client with the highest priority and drop him or her from the waiting list</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Serve the client with the lowest priority and drop him or her from the waiting list</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Input</p>
+<p>　　Each line of the input contains one of the possible requests; only the last line contains the stop-request (code 0). You may assume that when there is a request to include a new client in the list (code 1), there is no other request in the list of the same client or with the same priority. An identifier K is always less than 106, and a priority P is less than 107. The client may arrive for being served multiple times, and each time may obtain a different priority.</p>
+<p>Output</p>
+<p>　　For each request with code 2 or 3, the program has to print, in a separate line of the standard output, the identifier of the served client. If the request arrives when the waiting list is empty, then the program prints zero (0) to the output.</p>
+<p>Sample Input</p>
+<p>2<br>1 20 14<br>1 30 3<br>2<br>1 10 99<br>3<br>2<br>2<br>0<br>Sample Output</p>
+<p>0<br>20<br>30<br>10<br>0<br>解题思路：<br>　　本题要求处理银行排队问题，根据每行的输入处理数据；若输入为1则继续输入两个整数，以第一个数为权值，第二个数为优先级（数值越大优先级越高）加入排队系统中；若输入为2 则处理当前优先级最高的用户，并输出用户的权值；若输入为3 则处理当前优先级最低的用户，并输出用户权值；若输入为0结束运行。若当没有排队人数则无论输入2、3都输出0。</p>
+<p>　　利用set自带红黑树排序的性质，可以在集合中直接获取最高与最低优先级，用pair记录权值和优先级，将pair传入集合。用迭代器可以获得集合首位（最大优先级）和集合末尾（最小优先级），数据处理完毕后可以通过erase()删除当前用户以便后续操作。</p>
+<p>样例分析：<br>Sample Input</p>
+<p>2　　　　　　　　　　//处理高优先级用户，当前无人排队输出0<br>1 20 14　　　　　　//优先级为14的用户20开始排队<br>1 30 3　　　　　　 //优先级为3的用户30开始排队<br>2　　　　　　　　　　//处理高优先级用户，当前队列中有 20 14   30 3 最高优先级14 输出20<br>1 10 99　　　　　　//优先级为99的用户10开始排队<br>3　　　　　　　　　　//处理低优先级用户，当前队列中有 10 99   30 3 最低优先级3 输出30<br>2　　　　　　　　　　//处理高优先级用户，当前队列中有 10 99 最高优先级99 输出10<br>2　　　　　　　　　　//处理高优先级用户， 当前无人排队输出0<br>0　　　　　　　　　　//输入为0结束</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iterator&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="comment">//bits/stdc++.h编译错误</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//利用set的排序性质</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cmp</span>&#123;</span> <span class="comment">//set比较方法以pair的第二个成员为基准，数值越大的在前</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span> <span class="params">(<span class="keyword">const</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; &amp;a, <span class="keyword">const</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; &amp;b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a.second &gt; b.second;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">set</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;, cmp&gt; waitingList;  <span class="comment">//用set记录当前队列</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n) != EOF)&#123;  <span class="comment">//输入数据</span></span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>)  <span class="comment">//输入为0结束运行</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">1</span>)&#123; <span class="comment">//输入为1</span></span><br><span class="line">            pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; temp;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;temp.first, &amp;temp.second);   <span class="comment">//记录用户权值与优先级</span></span><br><span class="line">            waitingList.insert(temp);   <span class="comment">//用户开始排队</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">2</span>)&#123; <span class="comment">//输入为2</span></span><br><span class="line">            <span class="keyword">if</span>(!waitingList.empty())&#123;</span><br><span class="line">                <span class="built_in">set</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;, cmp&gt;::iterator it = waitingList.begin();</span><br><span class="line">                <span class="comment">//获取优先级最高的用户</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, (*it).first);    <span class="comment">//输出用户权值</span></span><br><span class="line">                waitingList.erase(it);  <span class="comment">//删除用户</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"0\n"</span>);  <span class="comment">//队中无人</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">3</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!waitingList.empty())&#123;</span><br><span class="line">                <span class="built_in">set</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;, cmp&gt;::iterator it = waitingList.end();</span><br><span class="line">                it--;</span><br><span class="line">                <span class="comment">//获取优先级最小的用户</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, (*it).first);    <span class="comment">//输出用户权值</span></span><br><span class="line">                waitingList.erase(it);  <span class="comment">//删除用户</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"0\n"</span>);<span class="comment">//队中无人</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/10/30/sgu-203-Hyperhuffman%EF%BC%88%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -683,7 +792,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-count">146</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

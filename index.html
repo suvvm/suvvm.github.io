@@ -177,6 +177,111 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/01/20/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/20/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">推荐系统</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-20 14:33:51 / 修改时间：14:33:55" itemprop="dateCreated datePublished" datetime="2021-01-20T14:33:51+08:00">2021-01-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><p>​    推荐系统是一个子类信息过滤系统，旨在根据目标角色过去的行为以及其他角色所做出的类似决策来构建模型，并使用该模型推荐具有相似属性的项目。当前推荐系统大多是组合了多种推荐算法的混合系统。</p>
+<h2 id="一、推荐算法"><a href="#一、推荐算法" class="headerlink" title="一、推荐算法"></a>一、推荐算法</h2><h3 id="1、协同过滤（Collaborative-Filtering）"><a href="#1、协同过滤（Collaborative-Filtering）" class="headerlink" title="1、协同过滤（Collaborative Filtering）"></a>1、协同过滤（Collaborative Filtering）</h3><p>​    协同过滤的理论基于一种假设：用户过去的决策与未来的决策不会发生变动，过去认同的属性在将来也会得到认同。推荐算法使用不同用户对目标项目的评级历史集来生成建议，通过在历史集中查找与当前用户有相似评级的用户，使用邻域（测试用户相似性与项目相似性如k-NN）生成推荐。</p>
+<p><img src="https://en.wikipedia.org/wiki/File:Collaborative_filtering.gif" alt="img"></p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>不依赖于机器可分析内容</li>
+<li>可以准确推荐复杂项目</li>
+<li>无需了解被推荐项目本身属性</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>对于历史集中未给出的新项目，没有足够数据来给出准确建议（冷启动）</li>
+<li>若历史集项目和用户数量巨大，则每次推荐都需要大量的计算能力（可伸缩性）</li>
+<li>大部分用户不会对全部项目进行评级，只会对一小部分项目进行评级（稀疏性）</li>
+</ul>
+<h3 id="2、基于内容的过滤（Content-based-Filtering）"><a href="#2、基于内容的过滤（Content-based-Filtering）" class="headerlink" title="2、基于内容的过滤（Content-based Filtering）"></a>2、基于内容的过滤（Content-based Filtering）</h3><p>​    基于内容的过滤使用项目属性和用户偏好通过机器学习的方法来进行推荐，一般适用于在项目有已知属性（名称、位置、描述等等）但用户没有已知数据的情况。基于内容的过滤最关键问题就是针对用户偏好的建模。</p>
+<h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>只需要用户对特征属性的偏好，而不需要用户对项目的评价（可以分析新项目）</li>
+<li>可以通过控制项目特征属性的维度来控制推荐精度</li>
+</ul>
+<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>物品属性最大纬度有限切提取属性困难</li>
+<li>可分析内容有限，推荐内容僵化</li>
+</ul>
+<h3 id="3、多标准推荐系统（Multi-criteria-recommender-systems）"><a href="#3、多标准推荐系统（Multi-criteria-recommender-systems）" class="headerlink" title="3、多标准推荐系统（Multi-criteria recommender systems）"></a>3、多标准推荐系统（Multi-criteria recommender systems）</h3><p>​    可以将多标准推荐系统（MCRS）定义为在多个标准上包含首选项信息的推荐系统。多标准推荐系统是基于对影响用户对项目总体偏好的多个标准来预测用户对新新项目的评级。</p>
+<h3 id="4、有风险意识的推荐系统（Risk-aware-recommender-systems）"><a href="#4、有风险意识的推荐系统（Risk-aware-recommender-systems）" class="headerlink" title="4、有风险意识的推荐系统（Risk-aware recommender systems）"></a>4、有风险意识的推荐系统（Risk-aware recommender systems）</h3><p>​    有风险意识的推荐系统不止根据上下文信息而产出推荐内容，而且考虑了某些情况下产出推荐的风险。多采用DRARS，将上下文感知建通过<a href="https://en.wikipedia.org/wiki/Multi-armed_bandit" target="_blank" rel="noopener">多臂老虎机算法</a>进行建模。</p>
+<h3 id="5、移动推荐系统（Mobile-recommender-systems）"><a href="#5、移动推荐系统（Mobile-recommender-systems）" class="headerlink" title="5、移动推荐系统（Mobile recommender systems）"></a>5、移动推荐系统（Mobile recommender systems）</h3><p>​    移动推荐系统通过可以访问互联网等我移动设备提供个性化推荐（如驾驶路线推荐）其需要处理的数据异构而嘈杂。一般存在四个关键因素：上下文、推荐方法、隐私和地方政策。</p>
+<h3 id="6、基于会话的推荐系统（Session-based-recommender-systems）"><a href="#6、基于会话的推荐系统（Session-based-recommender-systems）" class="headerlink" title="6、基于会话的推荐系统（Session-based recommender systems）"></a>6、基于会话的推荐系统（Session-based recommender systems）</h3><p>​    基于会话的推荐系统使用会话中与用户的交互，在无需用户行为历史记录的情况下，根据最近会话交互顺序使用例如递归神经网络之类的深度学习算法生成顺序模型。</p>
+<h3 id="7、强化学习推荐系统（Reinforcement-learning-for-recommender-systems）"><a href="#7、强化学习推荐系统（Reinforcement-learning-for-recommender-systems）" class="headerlink" title="7、强化学习推荐系统（Reinforcement learning for recommender systems）"></a>7、强化学习推荐系统（Reinforcement learning for recommender systems）</h3><p>​    强化学习推荐系统通过直接训练用户参与度对用户兴趣模型进行优化（如有奖调查💪👴👉爪巴）通过向被推荐对象提供奖励来学习模型或策略。</p>
+<h3 id="8、混合推荐系统（Hybrid-recommender-systems）"><a href="#8、混合推荐系统（Hybrid-recommender-systems）" class="headerlink" title="8、混合推荐系统（Hybrid recommender systems）"></a>8、混合推荐系统（Hybrid recommender systems）</h3><p>​    混合推荐系统是当前大多数推荐系统使用的方法，其主要策略是将协作过滤、基于内容过滤等和其他方法结合在一起，对不同技术进行杂交混合。</p>
+<p>​    混合方法：</p>
+<ul>
+<li>加权（Weighted）：将不同推荐成分加权进行组合</li>
+<li>变换（Switching）：推荐时在不同推荐算法组件中进行切换</li>
+<li>混合（Mixed）：将来自不同算法的结果混合显示给用户</li>
+<li>特征组合（Feature Combination）：将不同知识来源的特征进行组合，提供给单个推荐算法</li>
+<li>特征增强（Feature Augmentation）：将一种算法产生的附加的特征信息嵌入另一种推荐算法的特征输入中</li>
+<li>级联（Cascade）：一个算法的结果作为另一个算法的输入</li>
+<li>元级别（Meta-Ievel)）：用一种推荐方法产生的模型作为另一种推荐方法的输入</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/01/19/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%A9%E6%95%88%E8%A1%A1%E9%87%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -972,103 +1077,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/05/05/Java-Object%E7%B1%BB%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/05/Java-Object%E7%B1%BB%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">Java Object类方法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-05 15:58:42" itemprop="dateCreated datePublished" datetime="2020-05-05T15:58:42+08:00">2020-05-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Java-Object类方法"><a href="#Java-Object类方法" class="headerlink" title="Java Object类方法"></a>Java Object类方法</h1><h2 id="registerNatives"><a href="#registerNatives" class="headerlink" title="registerNatives"></a>registerNatives</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">registerNatives</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
-<p>本地方法，调用JNI函数用于注册本地方法。</p>
-<h2 id="getClass"><a href="#getClass" class="headerlink" title="getClass"></a>getClass</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> Class&lt;?&gt; getClass();</span><br></pre></td></tr></table></figure>
-<p>不可覆盖的本地方法，返回此Object的运行时类（java.lang.Class）</p>
-<h2 id="hashCode"><a href="#hashCode" class="headerlink" title="hashCode"></a>hashCode</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
-<p>本地方法，返回其对象存储地址</p>
-<h2 id="equals"><a href="#equals" class="headerlink" title="equals"></a>equals</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">this</span> == obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>equals用于比较两对象，Object中的equals直接对比在内存中是否为同一对象</p>
-<h2 id="clone"><a href="#clone" class="headerlink" title="clone"></a>clone</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span>;</span><br></pre></td></tr></table></figure>
-<p>本地方法，对目标对象进行浅拷贝，返回拷贝得到的对象</p>
-<h2 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="toString"></a>toString</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getClass().getName() + <span class="string">"@"</span> + Integer.toHexString(hashCode());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>返回类名与哈希值所组成的字符串</p>
-<h2 id="notify"><a href="#notify" class="headerlink" title="notify"></a>notify</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
-<p>本地方法，唤醒一个被当前对象wait()阻塞的线程并使其得锁</p>
-<h2 id="notifyAll"><a href="#notifyAll" class="headerlink" title="notifyAll"></a>notifyAll</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notifyAll</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
-<p>本地方法，唤醒所有等待该对象的线程</p>
-<h2 id="wait"><a href="#wait" class="headerlink" title="wait"></a>wait</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span></span><br></pre></td></tr></table></figure>
-<p>尝试获取对象排它锁，失败则阻塞</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeout)</span> <span class="keyword">throws</span> InterruptedException</span></span><br></pre></td></tr></table></figure>
-<p>尝试获取对象排它锁，失败则阻塞最长指定时间timeout</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeout, <span class="keyword">int</span> nanos)</span> <span class="keyword">throws</span> InterruptedException</span></span><br></pre></td></tr></table></figure>
-<p>尝试获取对象排它锁，失败时间控制达到毫秒级</p>
-<h2 id="finalize"><a href="#finalize" class="headerlink" title="finalize"></a>finalize</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
-<p>空方法实现，对象GC时会调用该方法，但是无法控制该方法被调用的时机，一般用于GC前判断目标对象状态并记录</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1140,7 +1148,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-count">146</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

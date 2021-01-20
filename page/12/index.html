@@ -177,6 +177,92 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/28/HDU-5879-Cure/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/28/HDU-5879-Cure/" class="post-title-link" itemprop="url">HDU 5879 Cure</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-28 20:32:31" itemprop="dateCreated datePublished" datetime="2018-11-28T20:32:31+08:00">2018-11-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　Given an integer nn, we only want to know the sum of 1/k21/k2 where kk from 11 to nn.</p>
+<p>Input</p>
+<p>　　There are multiple cases.<br>　　For each test case, there is a single line, containing a single positive integer nn.<br>　　The input file is at most 1M.<br>Output</p>
+<p>　　The required sum, rounded to the fifth digits after the decimal point.</p>
+<p>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">4</span><br><span class="line">8</span><br><span class="line">15</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.00000</span><br><span class="line">1.25000</span><br><span class="line">1.42361</span><br><span class="line">1.52742</span><br><span class="line">1.58044</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题有多组测试数据，每组数据给出一个数n，数字k为从1到n所有整数，要求求和所有1/k^2。</p>
+<p>　　由于k越来越大，1/k^2越来越小，而我们只需要输出小数点后5位，在疯狂wa11次尝试之后我发现当k到1e6左右，对于加上所有k&gt;1e6时的1/k^2对答案都没用影响了，小数点后5位就不会变动了。那么我们只需要将所有1~1e6的结果打表计算一次，如果输入的数大于1e6那之间输出1e6时的结果即可。</p>
+<p>　　还有一个坑就是，本题没有给出输入的数n的范围，这证明什么？n无限大！还是用字符串存吧。</p>
+<p>AC代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e6</span>;</span><br><span class="line"><span class="keyword">double</span> sum[maxn];   <span class="comment">//sum记录对于从1~1e6所有n的答案</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> s;   <span class="comment">//s记录输入的数</span></span><br><span class="line">    <span class="keyword">double</span> ans = <span class="number">1.0</span>;</span><br><span class="line">    sum[<span class="number">1</span>] = <span class="number">1.0</span>;   <span class="comment">//n为1时1/1^2 = 1.0</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= maxn; i++)&#123;</span><br><span class="line">            ans += (<span class="keyword">double</span>)(<span class="number">1.0</span> / i )* (<span class="keyword">double</span>)(<span class="number">1.0</span> / i );</span><br><span class="line">            sum[i] = ans;   <span class="comment">//打表所有1~1e6的答案</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; s)&#123;    <span class="comment">//输入字符串s</span></span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(s.size() &lt;= <span class="number">6</span>)&#123;  <span class="comment">//判断s所代表的数字长度是否超过6</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.size(); i++)&#123;</span><br><span class="line">                n = n * <span class="number">10</span> + s[i] - <span class="string">'0'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//字符串长度不超过6将转换为数字后判断与1e6的关系</span></span><br><span class="line">            <span class="keyword">if</span>(n &lt; maxn)&#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%.5f\n"</span>, sum[n]);</span><br><span class="line">                <span class="comment">//n小于1e6直接输出答案</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="comment">//n大于1e6直接输出1e6时的答案</span></span><br><span class="line">                ans = sum[maxn];</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%.5f\n"</span>, ans);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//长度超过6连拆成数字都不用直接输出1e6时的答案</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%.5f\n"</span>, sum[maxn]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/28/HDU-1878-%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1025,95 +1111,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/22/HDU-2197-%E6%9C%AC%E5%8E%9F%E4%B8%B2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/22/HDU-2197-%E6%9C%AC%E5%8E%9F%E4%B8%B2/" class="post-title-link" itemprop="url">HDU 2197 本原串</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-22 00:34:17" itemprop="dateCreated datePublished" datetime="2018-11-22T00:34:17+08:00">2018-11-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>由0和1组成的串中，不能表示为由几个相同的较小的串连接成的串，称为本原串，有多少个长为n（n&lt;=100000000)的本原串？<br>答案mod2008.<br>　　例如，100100不是本原串，因为他是由两个100组成，而1101是本原串。 </p>
-<p>Input</p>
-<p>　　输入包括多个数据，每个数据一行，包括一个整数n，代表串的长度。</p>
-<p>Output</p>
-<p>　　对于每个测试数据，输出一行，代表有多少个符合要求本原串，答案mod2008. </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
-<p>Sample Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">2</span><br><span class="line">6</span><br><span class="line">12</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　本题是一个数学问题，串的每一位不是0就是1，给出一个数字n为串的长度，要求计算这个长度的本原串数量。</p>
-<p>　　由于串的每一位都是0或1，所以n长度下最多有n^2个不同的串。我们用ans[n]表示当前长度下的本原串数量，若想获得本原串数量，可以用当前串的总数减去不是本原串的数量。当n不等于1时，全由1或全由0组成的串肯定不是本源串。所以当前ans[n] = 2^n - 2,回想题中对本原串的定义，非本源串是由某一个长度的本原串重复数次得到的，我们设n的因子为m，则m长度的本原串重复n / m 次一定可以得到n长度的非本原串，且n/ m也为n的因子，长度为n / m的本原串重复m次也一定可以得到长度为n的非本原串，那么我们只需找到当前串长度的所有因子长度的本原串数量即可找到其余所有非本原串数量。</p>
-<p>　　由于n较大所以使用快速幂</p>
-<p>　　快速幂思想：求2^11，11的二进制位1011,11 = 1<em>2^3 + 0</em>2^2 + 1<em>2^1 + 1</em>2^0，所以可以将2^11转化为2^(2^0) <em> 2^(2^1) </em> 2(2^3)。将原先的11次 O(n)优化为了3次O(logn)，本题要求取模，又因为积的取余等于取余的积的取余，我们可以直接在快速幂的过程中取模以得到取模后的答案。</p>
-<p>　　快速幂取模：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LL <span class="title">power</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> mod)</span></span>&#123;    <span class="comment">//快速幂</span></span><br><span class="line">    LL ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(b)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>)&#123;  <span class="comment">//从b的二进制末位开始判断</span></span><br><span class="line">            ans = ans * a % mod;  <span class="comment">//如果为1更新取模后的答案</span></span><br><span class="line">        &#125;</span><br><span class="line">        a = a * a % mod;    <span class="comment">//更新底数取模</span></span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;    <span class="comment">//b右移一位</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> AC代码 </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100000005</span>;</span><br><span class="line"><span class="keyword">int</span> ans[maxn];</span><br><span class="line"><span class="function">LL <span class="title">power</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> mod)</span></span>&#123;    <span class="comment">//快速幂</span></span><br><span class="line">    LL ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(b)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>)&#123;  <span class="comment">//从b的二进制末位开始判断</span></span><br><span class="line">            ans = ans * a % mod;  <span class="comment">//如果为1更新取模后的答案</span></span><br><span class="line">        &#125;</span><br><span class="line">        a = a * a % mod;    <span class="comment">//更新底数取模</span></span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;    <span class="comment">//b右移一位</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">LL <span class="title">clt</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;  <span class="comment">//传入当前长度</span></span><br><span class="line">    <span class="keyword">if</span>(ans[n] != <span class="number">0</span>) <span class="comment">//如果ans[n]不为0证明之前的计算已经计算完成当前长度的本原串数量直接返回答案</span></span><br><span class="line">        <span class="keyword">return</span> ans[n];</span><br><span class="line">    ans[n] = power(<span class="number">2</span>, n, <span class="number">2008</span>) - <span class="number">2</span>; <span class="comment">//减去全0与全1</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i * i &lt;= n; i++)&#123;    <span class="comment">//寻找因子</span></span><br><span class="line">        <span class="keyword">if</span>(n % i == <span class="number">0</span>)&#123; <span class="comment">//i为因子</span></span><br><span class="line">            ans[n] = (ans[n] - clt(i) + <span class="number">2008</span>) % <span class="number">2008</span>;</span><br><span class="line">            <span class="comment">//当前数量减去因子长度的本原串数量，由于做减运算可能出现负数所以加上取模数再取模</span></span><br><span class="line">            <span class="keyword">if</span>(i * i != n)</span><br><span class="line">                ans[n] = (ans[n] - clt(n / i) + <span class="number">2008</span>) % <span class="number">2008</span>;</span><br><span class="line">                <span class="comment">//随便计算另一个因子</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans[n];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ans[<span class="number">0</span>] = <span class="number">0</span>, ans[<span class="number">1</span>] = <span class="number">2</span>, ans[<span class="number">2</span>] = <span class="number">2</span>; <span class="comment">//初始化长度为0 1 2时的本原串数量</span></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="comment">//clt(100000005);本题不能打表，会超时</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n) != EOF)&#123;</span><br><span class="line">        <span class="keyword">if</span>(n &gt; <span class="number">2</span>)   <span class="comment">//n大于2进行运算</span></span><br><span class="line">            ans[n] = clt(n);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans[n]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1185,7 +1182,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-count">146</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

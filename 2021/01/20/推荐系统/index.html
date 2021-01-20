@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ortrait.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.suvvm.work","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="推荐系统​    推荐系统是一个子类信息过滤系统，旨在根据目标角色过去的行为以及其他角色所做出的类似决策来构建模型，并使用该模型推荐具有相似属性的项目。当前推荐系统大多是组合了多种推荐算法的混合系统。 一、推荐算法1、协同过滤（Collaborative Filtering）​    协同过滤的理论基于一种假设：用户过去的决策与未来的决策不会发生变动，过去认同的属性在将来也会得到认同。推荐算法使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="推荐系统">
+<meta property="og:url" content="https://www.suvvm.work/2021/01/20/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="SUVVM">
+<meta property="og:description" content="推荐系统​    推荐系统是一个子类信息过滤系统，旨在根据目标角色过去的行为以及其他角色所做出的类似决策来构建模型，并使用该模型推荐具有相似属性的项目。当前推荐系统大多是组合了多种推荐算法的混合系统。 一、推荐算法1、协同过滤（Collaborative Filtering）​    协同过滤的理论基于一种假设：用户过去的决策与未来的决策不会发生变动，过去认同的属性在将来也会得到认同。推荐算法使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://en.wikipedia.org/wiki/File:Collaborative_filtering.gif">
+<meta property="article:published_time" content="2021-01-20T06:33:51.000Z">
+<meta property="article:modified_time" content="2021-01-20T06:33:55.738Z">
+<meta property="article:author" content="SUVVM">
+<meta property="article:tag" content="推荐系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://en.wikipedia.org/wiki/File:Collaborative_filtering.gif">
+
+<link rel="canonical" href="https://www.suvvm.work/2021/01/20/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>推荐系统 | SUVVM</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e5190116d64be66cac29daef18c94ac0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">SUVVM</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">呜嗷SUVVM</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/01/20/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          推荐系统
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-20 14:33:51 / 修改时间：14:33:55" itemprop="dateCreated datePublished" datetime="2021-01-20T14:33:51+08:00">2021-01-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><p>​    推荐系统是一个子类信息过滤系统，旨在根据目标角色过去的行为以及其他角色所做出的类似决策来构建模型，并使用该模型推荐具有相似属性的项目。当前推荐系统大多是组合了多种推荐算法的混合系统。</p>
+<h2 id="一、推荐算法"><a href="#一、推荐算法" class="headerlink" title="一、推荐算法"></a>一、推荐算法</h2><h3 id="1、协同过滤（Collaborative-Filtering）"><a href="#1、协同过滤（Collaborative-Filtering）" class="headerlink" title="1、协同过滤（Collaborative Filtering）"></a>1、协同过滤（Collaborative Filtering）</h3><p>​    协同过滤的理论基于一种假设：用户过去的决策与未来的决策不会发生变动，过去认同的属性在将来也会得到认同。推荐算法使用不同用户对目标项目的评级历史集来生成建议，通过在历史集中查找与当前用户有相似评级的用户，使用邻域（测试用户相似性与项目相似性如k-NN）生成推荐。</p>
+<p><img src="https://en.wikipedia.org/wiki/File:Collaborative_filtering.gif" alt="img"></p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>不依赖于机器可分析内容</li>
+<li>可以准确推荐复杂项目</li>
+<li>无需了解被推荐项目本身属性</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>对于历史集中未给出的新项目，没有足够数据来给出准确建议（冷启动）</li>
+<li>若历史集项目和用户数量巨大，则每次推荐都需要大量的计算能力（可伸缩性）</li>
+<li>大部分用户不会对全部项目进行评级，只会对一小部分项目进行评级（稀疏性）</li>
+</ul>
+<h3 id="2、基于内容的过滤（Content-based-Filtering）"><a href="#2、基于内容的过滤（Content-based-Filtering）" class="headerlink" title="2、基于内容的过滤（Content-based Filtering）"></a>2、基于内容的过滤（Content-based Filtering）</h3><p>​    基于内容的过滤使用项目属性和用户偏好通过机器学习的方法来进行推荐，一般适用于在项目有已知属性（名称、位置、描述等等）但用户没有已知数据的情况。基于内容的过滤最关键问题就是针对用户偏好的建模。</p>
+<h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>只需要用户对特征属性的偏好，而不需要用户对项目的评价（可以分析新项目）</li>
+<li>可以通过控制项目特征属性的维度来控制推荐精度</li>
+</ul>
+<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>物品属性最大纬度有限切提取属性困难</li>
+<li>可分析内容有限，推荐内容僵化</li>
+</ul>
+<h3 id="3、多标准推荐系统（Multi-criteria-recommender-systems）"><a href="#3、多标准推荐系统（Multi-criteria-recommender-systems）" class="headerlink" title="3、多标准推荐系统（Multi-criteria recommender systems）"></a>3、多标准推荐系统（Multi-criteria recommender systems）</h3><p>​    可以将多标准推荐系统（MCRS）定义为在多个标准上包含首选项信息的推荐系统。多标准推荐系统是基于对影响用户对项目总体偏好的多个标准来预测用户对新新项目的评级。</p>
+<h3 id="4、有风险意识的推荐系统（Risk-aware-recommender-systems）"><a href="#4、有风险意识的推荐系统（Risk-aware-recommender-systems）" class="headerlink" title="4、有风险意识的推荐系统（Risk-aware recommender systems）"></a>4、有风险意识的推荐系统（Risk-aware recommender systems）</h3><p>​    有风险意识的推荐系统不止根据上下文信息而产出推荐内容，而且考虑了某些情况下产出推荐的风险。多采用DRARS，将上下文感知建通过<a href="https://en.wikipedia.org/wiki/Multi-armed_bandit" target="_blank" rel="noopener">多臂老虎机算法</a>进行建模。</p>
+<h3 id="5、移动推荐系统（Mobile-recommender-systems）"><a href="#5、移动推荐系统（Mobile-recommender-systems）" class="headerlink" title="5、移动推荐系统（Mobile recommender systems）"></a>5、移动推荐系统（Mobile recommender systems）</h3><p>​    移动推荐系统通过可以访问互联网等我移动设备提供个性化推荐（如驾驶路线推荐）其需要处理的数据异构而嘈杂。一般存在四个关键因素：上下文、推荐方法、隐私和地方政策。</p>
+<h3 id="6、基于会话的推荐系统（Session-based-recommender-systems）"><a href="#6、基于会话的推荐系统（Session-based-recommender-systems）" class="headerlink" title="6、基于会话的推荐系统（Session-based recommender systems）"></a>6、基于会话的推荐系统（Session-based recommender systems）</h3><p>​    基于会话的推荐系统使用会话中与用户的交互，在无需用户行为历史记录的情况下，根据最近会话交互顺序使用例如递归神经网络之类的深度学习算法生成顺序模型。</p>
+<h3 id="7、强化学习推荐系统（Reinforcement-learning-for-recommender-systems）"><a href="#7、强化学习推荐系统（Reinforcement-learning-for-recommender-systems）" class="headerlink" title="7、强化学习推荐系统（Reinforcement learning for recommender systems）"></a>7、强化学习推荐系统（Reinforcement learning for recommender systems）</h3><p>​    强化学习推荐系统通过直接训练用户参与度对用户兴趣模型进行优化（如有奖调查💪👴👉爪巴）通过向被推荐对象提供奖励来学习模型或策略。</p>
+<h3 id="8、混合推荐系统（Hybrid-recommender-systems）"><a href="#8、混合推荐系统（Hybrid-recommender-systems）" class="headerlink" title="8、混合推荐系统（Hybrid recommender systems）"></a>8、混合推荐系统（Hybrid recommender systems）</h3><p>​    混合推荐系统是当前大多数推荐系统使用的方法，其主要策略是将协作过滤、基于内容过滤等和其他方法结合在一起，对不同技术进行杂交混合。</p>
+<p>​    混合方法：</p>
+<ul>
+<li>加权（Weighted）：将不同推荐成分加权进行组合</li>
+<li>变换（Switching）：推荐时在不同推荐算法组件中进行切换</li>
+<li>混合（Mixed）：将来自不同算法的结果混合显示给用户</li>
+<li>特征组合（Feature Combination）：将不同知识来源的特征进行组合，提供给单个推荐算法</li>
+<li>特征增强（Feature Augmentation）：将一种算法产生的附加的特征信息嵌入另一种推荐算法的特征输入中</li>
+<li>级联（Cascade）：一个算法的结果作为另一个算法的输入</li>
+<li>元级别（Meta-Ievel)）：用一种推荐方法产生的模型作为另一种推荐方法的输入</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" rel="tag"># 推荐系统</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/19/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%A9%E6%95%88%E8%A1%A1%E9%87%8F/" rel="prev" title="推荐系统的绩效衡量">
+      <i class="fa fa-chevron-left"></i> 推荐系统的绩效衡量
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#推荐系统"><span class="nav-number">1.</span> <span class="nav-text">推荐系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、推荐算法"><span class="nav-number">1.1.</span> <span class="nav-text">一、推荐算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、协同过滤（Collaborative-Filtering）"><span class="nav-number">1.1.1.</span> <span class="nav-text">1、协同过滤（Collaborative Filtering）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、基于内容的过滤（Content-based-Filtering）"><span class="nav-number">1.1.2.</span> <span class="nav-text">2、基于内容的过滤（Content-based Filtering）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点-1"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点-1"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、多标准推荐系统（Multi-criteria-recommender-systems）"><span class="nav-number">1.1.3.</span> <span class="nav-text">3、多标准推荐系统（Multi-criteria recommender systems）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、有风险意识的推荐系统（Risk-aware-recommender-systems）"><span class="nav-number">1.1.4.</span> <span class="nav-text">4、有风险意识的推荐系统（Risk-aware recommender systems）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、移动推荐系统（Mobile-recommender-systems）"><span class="nav-number">1.1.5.</span> <span class="nav-text">5、移动推荐系统（Mobile recommender systems）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、基于会话的推荐系统（Session-based-recommender-systems）"><span class="nav-number">1.1.6.</span> <span class="nav-text">6、基于会话的推荐系统（Session-based recommender systems）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、强化学习推荐系统（Reinforcement-learning-for-recommender-systems）"><span class="nav-number">1.1.7.</span> <span class="nav-text">7、强化学习推荐系统（Reinforcement learning for recommender systems）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8、混合推荐系统（Hybrid-recommender-systems）"><span class="nav-number">1.1.8.</span> <span class="nav-text">8、混合推荐系统（Hybrid recommender systems）</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SUVVM"
+      src="/images/ortrait.jpg">
+  <p class="site-author-name" itemprop="name">SUVVM</p>
+  <div class="site-description" itemprop="description">SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/suvvm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;suvvm" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/suvvm@foxmail.com" title="E-Mail → suvvm@foxmail.com"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SUVVM</span>
+	<a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鲁ICP备19040043号-2</a>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

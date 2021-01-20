@@ -177,6 +177,93 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/03/28/PTA-Advanced-Level-1001-A-B-Format/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/28/PTA-Advanced-Level-1001-A-B-Format/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1001 A+B Format</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-28 19:24:33" itemprop="dateCreated datePublished" datetime="2019-03-28T19:24:33+08:00">2019-03-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　Calculate a+b and output the sum in standard format — that is, the digits must be separated into groups of three by commas (unless there are less than four digits).</p>
+<p><strong>Input Specification:</strong></p>
+<p>　　Each input file contains one test case. Each case contains a pair of integers a and b where −. The numbers are separated by a space.</p>
+<p><strong>Output Specification:</strong></p>
+<p>　　For each test case, you should output the sum of a and b in one line. The sum must be written in the standard format.</p>
+<p><strong>Sample Input:</strong></p>
+<p>-1000000 9</p>
+<p><strong>Sample Output:</strong></p>
+<p>-999,991</p>
+<p>题目解析</p>
+<p>​    本题给出两个正整数，要求将其和由最后一位的数字开始每隔三位加一个,但是首尾与负数的符号后第一位都不可以有,</p>
+<p>​    可以使用头文件string中的to_string()函数将两数加和转化为字符串。</p>
+<p>​    将其反转，反转后首位便是和的最后一位，遍历反转后字符串，将其加入ans，每隔3位向ans中添加一位 , 对末位与符号前位进行特判即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a, b;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);  <span class="comment">//输入a b</span></span><br><span class="line">    <span class="built_in">string</span> str = to_string(a + b);</span><br><span class="line">    <span class="comment">//将a与b的和转换为字符串储存在str中</span></span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">string</span> ans = <span class="string">""</span>;</span><br><span class="line">    <span class="comment">//ans记录最终答案</span></span><br><span class="line">    reverse(str.begin(),str.end());</span><br><span class="line">    <span class="comment">//由于要从最后一个数字开始每隔三个数字添加一个 ,</span></span><br><span class="line">    <span class="comment">//将str反转</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> i : str)&#123;</span><br><span class="line">        ans += i;</span><br><span class="line">        <span class="comment">//每隔3个数字添加一个 , 最后一个位置与-前的位置不能添加 ,</span></span><br><span class="line">        <span class="keyword">if</span>(cnt % <span class="number">3</span> == <span class="number">0</span> &amp;&amp; cnt != str.size() &amp;&amp; !(cnt == str.size() - <span class="number">1</span> &amp;&amp; str[str.size() - <span class="number">1</span>] == <span class="string">'-'</span>))</span><br><span class="line">            ans += <span class="string">','</span>;</span><br><span class="line">        cnt++;</span><br><span class="line">    &#125;</span><br><span class="line">    reverse(ans.begin(),ans.end());</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/02/25/HDU-1272-%E5%B0%8F%E5%B8%8C%E7%9A%84%E8%BF%B7%E5%AE%AB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -953,111 +1040,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/01/22/PTA-Advanced-Level-1022-Digital-Library/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/01/22/PTA-Advanced-Level-1022-Digital-Library/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1022 Digital Library</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-01-22 21:43:53" itemprop="dateCreated datePublished" datetime="2019-01-22T21:43:53+08:00">2019-01-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>　　A Digital Library contains millions of books, stored according to their titles, authors, key words of their abstracts, publishers, and published years. Each book is assigned an unique 7-digit number as its ID. Given any query from a reader, you are supposed to output the resulting books, sorted in increasing order of their ID’s.</p>
-<h3 id="Input-Specification"><a href="#Input-Specification" class="headerlink" title="Input Specification:"></a>Input Specification:</h3><p>　　Each input file contains one test case. For each case, the first line contains a positive integer N (≤) which is the total number of books. Then N blocks follow, each contains the information of a book in 6 lines:</p>
-<ul>
-<li>Line #1: the 7-digit ID number;</li>
-<li>Line #2: the book title — a string of no more than 80 characters;</li>
-<li>Line #3: the author — a string of no more than 80 characters;</li>
-<li>Line #4: the key words — each word is a string of no more than 10 characters without any white space, and the keywords are separated by exactly one space;</li>
-<li>Line #5: the publisher — a string of no more than 80 characters;</li>
-<li>Line #6: the published year — a 4-digit number which is in the range [1000, 3000].</li>
-</ul>
-<p>　　It is assumed that each book belongs to one author only, and contains no more than 5 key words; there are no more than 1000 distinct key words in total; and there are no more than 1000 distinct publishers.</p>
-<p>　　After the book information, there is a line containing a positive integer M (≤) which is the number of user’s search queries. Then M lines follow, each in one of the formats shown below:</p>
-<ul>
-<li>1: a book title</li>
-<li>2: name of an author</li>
-<li>3: a key word</li>
-<li>4: name of a publisher</li>
-<li>5: a 4-digit number representing the year</li>
-</ul>
-<h3 id="Output-Specification"><a href="#Output-Specification" class="headerlink" title="Output Specification:"></a>Output Specification:</h3><p>　　For each query, first print the original query in a line, then output the resulting book ID’s in increasing order, each occupying a line. If no book is found, print <code>Not Found</code> instead.</p>
-<h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input:"></a>Sample Input:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">1111111</span><br><span class="line">The Testing Book</span><br><span class="line">Yue Chen</span><br><span class="line">test code debug sort keywords</span><br><span class="line">ZUCS Print</span><br><span class="line">2011</span><br><span class="line">3333333</span><br><span class="line">Another Testing Book</span><br><span class="line">Yue Chen</span><br><span class="line">test code sort keywords</span><br><span class="line">ZUCS Print2</span><br><span class="line">2012</span><br><span class="line">2222222</span><br><span class="line">The Testing Book</span><br><span class="line">CYLL</span><br><span class="line">keywords debug book</span><br><span class="line">ZUCS Print2</span><br><span class="line">2011</span><br><span class="line">6</span><br><span class="line">1: The Testing Book</span><br><span class="line">2: Yue Chen</span><br><span class="line">3: keywords</span><br><span class="line">4: ZUCS Print</span><br><span class="line">5: 2011</span><br><span class="line">3: blablabla</span><br></pre></td></tr></table></figure>
-<h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output:"></a>Sample Output:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">1: The Testing Book</span><br><span class="line">1111111</span><br><span class="line">2222222</span><br><span class="line">2: Yue Chen</span><br><span class="line">1111111</span><br><span class="line">3333333</span><br><span class="line">3: keywords</span><br><span class="line">1111111</span><br><span class="line">2222222</span><br><span class="line">3333333</span><br><span class="line">4: ZUCS Print</span><br><span class="line">1111111</span><br><span class="line">5: 2011</span><br><span class="line">1111111</span><br><span class="line">2222222</span><br><span class="line">3: blablabla</span><br><span class="line">Not Found</span><br></pre></td></tr></table></figure>
-<p>题目解析<br>　　本题给出n个书本信息，每个书本给出id，书名，作者，关键词，出版社，发行年份，这五个信息，要求分别按照五个信息建立索引，之后给出m行查询，查询格式如下：</p>
-<p>1：书名</p>
-<p>2：作者</p>
-<p>3：<strong><em>一个\</em></strong>关键词</p>
-<p>4：出版商</p>
-<p>5：年份</p>
-<p>　　要求输出查询信息所包含的所有书的id。</p>
-<p>　　虽然这是一个30分的题目但是它并不是膨胀困难，书名，作者，关键词，出版社，发行年份我们都可以用string类型保存，对于书籍id我们则用int进行存储，这里可以用map建立string与set<int>的对应关系，set<int>里储存的便是对应string所包含所有书的id（由于书的id一定不重复，且最后要求由小到大输出id，用set会方便很多）。注意关键词有很多个，每个都需要建立对应关系。</int></int></p>
-<p>AC代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; &gt; title, author, keyWord, publisher, year;</span><br><span class="line"><span class="comment">//分别对应 同名的书 同作者的书 同关键词的书 同出版社的书 同年的书</span></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);    <span class="comment">//输入书的个数；</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> id;</span><br><span class="line">        <span class="built_in">string</span>  tTitle, tAuthor, tKeyWord, tPublisher, tYear;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; id;  <span class="comment">//输入id</span></span><br><span class="line">        getchar();  <span class="comment">//吸收换行符</span></span><br><span class="line">        getline(<span class="built_in">cin</span>, tTitle);   <span class="comment">//输入书名</span></span><br><span class="line">        getline(<span class="built_in">cin</span>, tAuthor);  <span class="comment">//输入作者</span></span><br><span class="line">        getline(<span class="built_in">cin</span>, tKeyWord); <span class="comment">//输入该书所有关键词</span></span><br><span class="line">        getline(<span class="built_in">cin</span>, tPublisher); <span class="comment">//输入出版社</span></span><br><span class="line">        getline(<span class="built_in">cin</span>, tYear);    <span class="comment">//输入年份</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        title[tTitle].insert(id);   <span class="comment">//对应书名的集合中加入id</span></span><br><span class="line">        author[tAuthor].insert(id); <span class="comment">//对应作者的集合中加入id</span></span><br><span class="line">        <span class="built_in">string</span> temp;    <span class="comment">//temp用来获取每一个关键词</span></span><br><span class="line">        <span class="function"><span class="built_in">istringstream</span> <span class="title">cinKeyWord</span><span class="params">(tKeyWord)</span></span>; <span class="comment">//用tKeyWord作为输入流输入每一个关键词</span></span><br><span class="line">        <span class="keyword">while</span>(cinKeyWord &gt;&gt; temp)&#123;</span><br><span class="line">            keyWord[temp].insert(id);   <span class="comment">//每一个关键词对应的集合中都加入id</span></span><br><span class="line">        &#125;</span><br><span class="line">        publisher[tPublisher].insert(id);   <span class="comment">//对应出版社的集合加入id</span></span><br><span class="line">        year[tYear].insert(id); <span class="comment">//对应年份的集合加入id</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);    <span class="comment">//输入查询个数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> query;</span><br><span class="line">        <span class="built_in">string</span> temp;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d: "</span>, &amp;query);  <span class="comment">//输入查询控制符</span></span><br><span class="line">        getline(<span class="built_in">cin</span>, temp); <span class="comment">//输入查询内容</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; query &lt;&lt; <span class="string">": "</span> &lt;&lt; temp &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="comment">//由于string传送速度较慢，若将查询过程包装为一个函数，最后一个结点会超时</span></span><br><span class="line">        <span class="comment">//不过传引用仿佛可以解决这个问题</span></span><br><span class="line">        <span class="keyword">if</span>(query == <span class="number">1</span>)&#123; <span class="comment">//控制符为1 输出 对应书名集合中包含的书</span></span><br><span class="line">            <span class="keyword">if</span>(title.find(temp) == title.end())</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Not Found\n"</span>);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">auto</span> i : title[temp])</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"%07d\n"</span>, i);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(query == <span class="number">2</span>)&#123;   <span class="comment">//控制符为2 输出 对应作者集合中包含的书</span></span><br><span class="line">            <span class="keyword">if</span>(author.find(temp) == author.end())</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Not Found\n"</span>);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">auto</span> i : author[temp])</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"%07d\n"</span>, i);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(query == <span class="number">3</span>)&#123;   <span class="comment">//控制符为3 输出 对应关键词集合中包含的书</span></span><br><span class="line">            <span class="keyword">if</span>(keyWord.find(temp) == keyWord.end())</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Not Found\n"</span>);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">auto</span> i : keyWord[temp])</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"%07d\n"</span>, i);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(query == <span class="number">4</span>)&#123;   <span class="comment">//控制符为4 输出 对应出版社集合中包含的书</span></span><br><span class="line">            <span class="keyword">if</span>(publisher.find(temp) == publisher.end())</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Not Found\n"</span>);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">auto</span> i : publisher[temp])</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"%07d\n"</span>, i);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(query == <span class="number">5</span>)&#123;   <span class="comment">//控制符为5 输出 对应年份集合中包含的书</span></span><br><span class="line">            <span class="keyword">if</span>(year.find(temp) == year.end())</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Not Found\n"</span>);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">auto</span> i : year[temp])</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"%07d\n"</span>, i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1129,7 +1111,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-count">146</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
