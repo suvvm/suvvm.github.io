@@ -177,6 +177,98 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/28/HDOJ-2050-%E6%8A%98%E7%BA%BF%E5%88%86%E5%89%B2%E5%B9%B3%E9%9D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/28/HDOJ-2050-%E6%8A%98%E7%BA%BF%E5%88%86%E5%89%B2%E5%B9%B3%E9%9D%A2/" class="post-title-link" itemprop="url">HDOJ 2050 折线分割平面</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-28 21:13:14" itemprop="dateCreated datePublished" datetime="2018-11-28T21:13:14+08:00">2018-11-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><meta name="referrer" content="no-referrer"><br>我们看到过很多直线分割平面的题目，今天的这个题目稍微有些变化，我们要求的是n条折线分割平面的最大数目。比如，一条折线可以将平面分成两部分，两条折线最多可以将平面分成7部分，具体如下所示。<br><img src="http://acm.hdu.edu.cn/data/images/C40-1008-1.jpg" alt="img"> </p>
+<p>Input输入数据的第一行是一个整数C,表示测试实例的个数，然后是C 行数据，每行包含一个整数n(0&lt;n&lt;=10000),表示折线的数量。 </p>
+<p>Output对于每个测试实例，请输出平面的最大分割数，每个实例的输出占一行。 </p>
+<p>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">1</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">7</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题给出测试数量c，每组测试给出一个数字n为折线的数量。要求计算出平面的最大分割数。</p>
+<p>　　我们先不管折线，我们分析一下2n条直线可以将可以将平面分为多少份</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">直线数量：0    分割数量：1</span><br><span class="line">直线数量：1    分割数量：1 + 1 &#x3D; 2</span><br><span class="line">直线数量：2    分割数量：2 + 2 &#x3D; 4</span><br><span class="line">直线数量：3    分割数量：4 + 3 &#x3D; 7</span><br><span class="line">直线数量：4    分割数量：7 + 4 &#x3D; 11</span><br><span class="line">直线数量：5    分割数量：11 + 5 &#x3D; 16</span><br><span class="line">直线数量：6    分割数量：16 + 6 &#x3D; 22</span><br><span class="line">……</span><br><span class="line">直线数量：n    分割数量：1 + 1 + 2 + 3 + 4 + …… + n</span><br></pre></td></tr></table></figure>
+<p>现在在看一下折线</p>
+<p>　　一条折线可以看作2条直线，现在再看这个图仿佛变了些什么</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201811/1447131-20181128205529962-1876256551.png" alt="img"></p>
+<p>　　每捏起一个点便会少分割两个平面，而一条折线相当与两条直线捏起一个点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">直线数量：0    分割数量：1                                    </span><br><span class="line">直线数量：1    分割数量：1 + 1 &#x3D; 2                                 </span><br><span class="line">直线数量：2    分割数量：2 + 2 &#x3D; 4       斜线数量：1     分割数量：2 &#x3D; 4 - 2  </span><br><span class="line">直线数量：3    分割数量：4 + 3 &#x3D; 7</span><br><span class="line">直线数量：4    分割数量：7 + 4 &#x3D; 11     斜线数量：2     分割数量：7 &#x3D; 11 - 4  </span><br><span class="line">直线数量：5    分割数量：11 + 5 &#x3D; 16</span><br><span class="line">直线数量：6    分割数量：16 + 6 &#x3D; 22   斜线数量：3     分割数量：16 &#x3D; 22 - 6 </span><br><span class="line">……</span><br><span class="line">直线数量：2n    分割数量：1 + 1 + 2 + …… + 2n   </span><br><span class="line">斜线数量：n   分割数量：1 + 1 + 2 + …… + 2n - 1</span><br><span class="line">找到了规律，获得了巨大的快乐</span><br></pre></td></tr></table></figure>
+<p>　　这样求n条折线分割平面数量就转化为了求2n - 1条直线分割平面数量</p>
+<p>　　而且n最大为1e4而且有多组数据，这当然要快乐打表。</p>
+<p>AC代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;bits&#x2F;stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int maxn &#x3D; 1e4+10;</span><br><span class="line">int temp[2 * maxn + 100];   &#x2F;&#x2F;temp[i]记录i条直线最大分割平面数</span><br><span class="line">int ans[maxn + 10]; &#x2F;&#x2F;ans[i]记录i条折线最大分割平面数</span><br><span class="line">void init()&#123;</span><br><span class="line">    ans[1] &#x3D; 2;</span><br><span class="line">    temp[1] &#x3D; 2;</span><br><span class="line">    int cnt &#x3D; 1;    &#x2F;&#x2F;cnt记录直线数量</span><br><span class="line">    for(int i &#x3D; 2; i &lt; 2 * maxn; i++)&#123;  &#x2F;&#x2F;直线数量1~2 * maxn</span><br><span class="line">        temp[i] &#x3D; temp[i - 1] + i;</span><br><span class="line">        if(i % 2 &#x3D;&#x3D; 0 &amp;&amp; i &gt; 2)&#123;    &#x2F;&#x2F;每当i为2的倍数时记录折线答案</span><br><span class="line">            cnt++;</span><br><span class="line">            ans[cnt] &#x3D; temp[i - 1];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int c;</span><br><span class="line">    init(); &#x2F;&#x2F;快乐打表</span><br><span class="line">    while(scanf(&quot;%d&quot;, &amp;c) !&#x3D; EOF)&#123;  &#x2F;&#x2F;输入测试数量</span><br><span class="line">        for(int i &#x3D; 0; i &lt; c; i++)&#123;</span><br><span class="line">            int n;</span><br><span class="line">            scanf(&quot;%d&quot;, &amp;n);    &#x2F;&#x2F;输入折线数量</span><br><span class="line">            printf(&quot;%d\n&quot;, ans[n]); &#x2F;&#x2F;输出答案</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/28/HDU-5879-Cure/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1018,99 +1110,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/22/HDOJ-5019-Revenge-of-GCD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/22/HDOJ-5019-Revenge-of-GCD/" class="post-title-link" itemprop="url">HDOJ 5019 Revenge of GCD</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-22 20:16:52" itemprop="dateCreated datePublished" datetime="2018-11-22T20:16:52+08:00">2018-11-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>　　In mathematics, the greatest common divisor (gcd), also known as the greatest common factor (gcf), highest common factor (hcf), or greatest common measure (gcm), of two or more integers (when at least one of them is not zero), is the largest positive integer that divides the numbers without a remainder.<br>—-Wikipedia </p>
-<p>　　Today, GCD takes revenge on you. You have to figure out the k-th GCD of X and Y.</p>
-<p>Input</p>
-<p>　　The first line contains a single integer T, indicating the number of test cases. </p>
-<p>　　Each test case only contains three integers X, Y and K. </p>
-<p>[Technical Specification]<br>　　1. 1 &lt;= T &lt;= 100<br>　　2. 1 &lt;= X, Y, K &lt;= 1 000 000 000 000<br>Output</p>
-<p>　　For each test case, output the k-th GCD of X and Y. If no such integer exists, output -1.</p>
-<p>Sample Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">2 3 1</span><br><span class="line">2 3 2</span><br><span class="line">8 16 3</span><br></pre></td></tr></table></figure>
-<p>Sample Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">-1</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　本题可恶的最大公约数要向你复仇，给你测试数量t与3个整数x, y, k要求你求出x与y的第k大的公约数，如果不存在就输出-1。</p>
-<p>　　x与y的第1大的公约数就是最大公约数，记为gcdxy，x与y小于gcdxy的其他公约数一定是gcdxy的约数。本题就是求两个数的最大公约数的约数的问题。</p>
-<p>　　我们可以用一个容器记录x与y的所有约数，由小到大排序后如果k &gt; 容器元素数量则不存在，若存在，则下标为容量 - k的元素即为所求。</p>
-<p>　　注意在求解时直接遍历小于gcdxy的所有数字会超时，但由于我们找到 i 为gcdxy的约数时也可以确定 gcdxy / i 也是gcdxy的约数，这样我们只需找2-sqrt(gcdxy)即可找全所有约数。</p>
-<p>样例解析：</p>
-<p>　　2 3 1　　2 与 3 的最大公约数是1，1的约数只有自身，所以2 与 3 只有一个公约数1，第1大的公约数为 1；</p>
-<p>　　2 3 2 　同上2 与 3 只有一个公约数1，第2大的公约数不存在；</p>
-<p>　　8 16 3　　8 与 16 的最大公约数是8，8有约数 8 4 2 1，8 与 16的所有公约数有 8 4 2 1，第3大的公约数为2。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">0x7fffffff</span>;</span><br><span class="line"><span class="built_in">vector</span>&lt;LL&gt; h;   <span class="comment">//h记录x与y所有公约数</span></span><br><span class="line"><span class="function">LL <span class="title">gcd</span><span class="params">(LL a, LL b)</span></span>&#123; <span class="comment">//求x与y的最大公约数</span></span><br><span class="line">    <span class="keyword">if</span>(b == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> gcd(b , a % b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);    <span class="comment">//输入测试数量</span></span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        LL x, y, k;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lld%lld%lld"</span>, &amp;x, &amp;y, &amp;k);  <span class="comment">//输入x y与k</span></span><br><span class="line">        LL gcdxy = gcd(x, y);   <span class="comment">//求出x与y的最大公约数</span></span><br><span class="line">        h.clear();  <span class="comment">//清空容器</span></span><br><span class="line">        <span class="keyword">if</span>(gcdxy != <span class="number">1</span>)  <span class="comment">//判断最大公约数是否为1以免重复加入容器</span></span><br><span class="line">            h.push_back(gcdxy);</span><br><span class="line">        h.push_back(<span class="number">1</span>); <span class="comment">//1肯定是x与y的公约数</span></span><br><span class="line">        <span class="keyword">int</span> sqrtGcd = <span class="built_in">sqrt</span>(gcdxy);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= sqrtGcd; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(gcdxy % i == <span class="number">0</span>)&#123; <span class="comment">//若i为gcdxy的约数</span></span><br><span class="line">                h.push_back(i); <span class="comment">//i加入容器</span></span><br><span class="line">                h.push_back(gcdxy / i); <span class="comment">//顺便计算并记录另一个约数</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        sort(h.begin(), h.end());   <span class="comment">//由小到大排序</span></span><br><span class="line">        <span class="comment">//我做过从大到小的排序但是wa，诸位强力人要是了解为什么请指导我</span></span><br><span class="line">        <span class="keyword">if</span>(k &gt; h.size())&#123;   <span class="comment">//判断是否存在第k大的公约数</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"-1\n"</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%lld\n"</span> , h[h.size() - k]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1182,7 +1181,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">147</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1195,7 +1194,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-count">83</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

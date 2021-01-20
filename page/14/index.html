@@ -177,6 +177,99 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/11/HDU-2955-Robberies/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/11/HDU-2955-Robberies/" class="post-title-link" itemprop="url">HDU 2955 Robberies</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-11 23:55:21" itemprop="dateCreated datePublished" datetime="2018-11-11T23:55:21+08:00">2018-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><meta name="referrer" content="no-referrer"><br>　　The aspiring Roy the Robber has seen a lot of American movies, and knows that the bad guys usually gets caught in the end, often because they become too greedy. He has decided to work in the lucrative business of bank robbery only for a short while, before retiring to a comfortable job at a university. </p>
+<p> <img src="http://acm.hdu.edu.cn/data/images/con211-1010-1.jpg" alt="img"><br>　　For a few months now, Roy has been assessing the security of various banks and the amount of cash they hold. He wants to make a calculated risk, and grab as much money as possible. </p>
+<p>　　His mother, Ola, has decided upon a tolerable probability of getting caught. She feels that he is safe enough if the banks he robs together give a probability less than this.</p>
+<p>Input</p>
+<p>　　The first line of input gives T, the number of cases. For each scenario, the first line of input gives a floating point number P, the probability Roy needs to be below, and an integer N, the number of banks he has plans for. Then follow N lines, where line j gives an integer Mj and a floating point number Pj .<br>Bank j contains Mj millions, and the probability of getting caught from robbing it is Pj .</p>
+<p>Output</p>
+<p>　　For each test case, output a line with the maximum number of millions he can expect to get while the probability of getting caught is less than the limit set. </p>
+<p>Notes and Constraints<br>0 &lt; T &lt;= 100<br>0.0 &lt;= P &lt;= 1.0<br>0 &lt; N &lt;= 100<br>0 &lt; Mj &lt;= 100<br>0.0 &lt;= Pj &lt;= 1.0 </p>
+<p>　　A bank goes bankrupt if it is robbed, and you may assume that all probabilities are independent as the police have very low funds.</p>
+<p>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">0.04 3</span><br><span class="line">1 0.02</span><br><span class="line">2 0.03</span><br><span class="line">3 0.05</span><br><span class="line">0.06 3</span><br><span class="line">2 0.03</span><br><span class="line">2 0.03</span><br><span class="line">3 0.05</span><br><span class="line">0.10 3</span><br><span class="line">1 0.03</span><br><span class="line">2 0.02</span><br><span class="line">3 0.05</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">4</span><br><span class="line">6</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题是讲抢劫犯母亲帮助抢劫犯计算抢银行，题目给出一个数字T为测试数量，之后给出一行包括两个数字P与N，P为抢劫犯母亲认为安全的最大被抓概率，N为银行数量，之后N行跟随，每行包括两个数字，Mj抢劫这家银行可以获得的钱财，Pj抢劫这家银行被抓的概率，每家银行只能抢一次。要求输出低于抢劫犯母亲预计被抓几率所能获得的最大收益。</p>
+<p>　　我们可以计算出抢劫银行的所有获利情况所对应的最大逃脱率，1 - 最大逃脱率便是当前获利对应最低被抓率。与抢劫犯母亲的预期进行比较便可以获得最大收益。</p>
+<p>　　基本思路是动态规划01背包问题背包最大容量为抢劫所有银行可以获得的收益，背包内容物价值为逃脱率。</p>
+<p>　　用dp[ j ]记录收益为 j 时的最大逃脱率，这样就可以写出动态转移方程：</p>
+<p>　　　　dp[ j ] = max(dp[ j ], dp[ j - p[ i ] ] * (1 - m[ i ])</p>
+<p>　　之后遍历dp找到被抓率低于抢劫犯母亲预计的最大收益即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100</span>  * <span class="number">100</span>;    </span><br><span class="line"><span class="comment">//整个程序中最大的数组为dp其元素个数最多为最多银行个数乘以最大获益金额</span></span><br><span class="line"><span class="keyword">int</span> money[maxn];    <span class="comment">//money保存抢劫每个银行的收益</span></span><br><span class="line"><span class="keyword">double</span> probability[maxn];   <span class="comment">//probability保存抢劫每个银行被抓概率</span></span><br><span class="line"><span class="keyword">double</span> dp[maxn];    <span class="comment">//dp保存每个获益金额对应的最高逃脱率</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t) != EOF)&#123;  <span class="comment">//输入测试数量</span></span><br><span class="line">        <span class="keyword">double</span> p;</span><br><span class="line">        <span class="keyword">int</span> n, maxMoney = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lf%d"</span>, &amp;p, &amp;n); <span class="comment">//输入母亲预计值与银行数量</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%lf"</span>, &amp;money[i], &amp;probability[i]);</span><br><span class="line">            maxMoney += money[i];   <span class="comment">//记录最大获益金额</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= maxMoney; i++)&#123; <span class="comment">//初始化dp为0</span></span><br><span class="line">            dp[i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">1</span>;  <span class="comment">//不抢银行不会被警察叔叔抓</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++)&#123;    <span class="comment">//遍历银行</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = maxMoney; j &gt;= money[i]; j--)&#123;  <span class="comment">//01背包逆序遍历背包容量</span></span><br><span class="line">                dp[j] = max(dp[j], dp[j - money[i]] *(<span class="number">1</span> - probability[i]));</span><br><span class="line">                <span class="comment">//动态转移方程</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= maxMoney; i++)&#123; </span><br><span class="line">            <span class="comment">//遍历dp找到低于母亲预计值的最大收益</span></span><br><span class="line">            <span class="keyword">if</span>(dp[i] &gt; <span class="number">1</span> - p)</span><br><span class="line">                ans = max(ans, i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/10/PTA-Advanced-Level-1040-Longest-Symmetric-String/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -993,107 +1086,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/10/31/HDU-2193-AVL-Tree/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/10/31/HDU-2193-AVL-Tree/" class="post-title-link" itemprop="url">HDU 2193 AVL Tree</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-10-31 23:52:37" itemprop="dateCreated datePublished" datetime="2018-10-31T23:52:37+08:00">2018-10-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><meta name="referrer" content="no-referrer"><br>An AVL tree is a kind of balanced binary search tree. Named after their inventors, Adelson-Velskii and Landis, they were the first dynamically balanced trees to be proposed. Like red-black trees, they are not perfectly balanced, but pairs of sub-trees differ in height by at most 1, maintaining an O(logn) search time. Addition and deletion operations also take O(logn) time.<br>Definition of an AVL tree<br>An AVL tree is a binary search tree which has the following properties:<br>\1. The sub-trees of every node differ in height by at most one.<br>\2. Every sub-tree is an AVL tree.<br><img src="http://acm.hdu.edu.cn/data/images/C128-1002-1.jpg" alt="img"><br>Balance requirement for an AVL tree: the left and right sub-trees differ by at most 1 in height.An AVL tree of n nodes can have different height.<br>For example, n = 7:<br><img src="http://acm.hdu.edu.cn/data/images/C128-1002-2.jpg" alt="img"><br>So the maximal height of the AVL Tree with 7 nodes is 3.<br>Given n,the number of vertices, you are to calculate the maximal hight of the AVL tree with n nodes.</p>
-<p>Input</p>
-<p>　　Input file contains multiple test cases. Each line of the input is an integer n(0&lt;n&lt;=10^9).<br>A line with a zero ends the input.<br>Output</p>
-<p>　　An integer each line representing the maximal height of the AVL tree with n nodes.Sample Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
-<p>Sample Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　本题给出一个整数，要求输出其能建立的最高的平衡二叉树的高度。</p>
-<p>　　关于平衡二叉树最小节点最大高度有一个公式，设height[i]为高度为i的平衡二叉树的最小结点数，则height[i] = height[i - 1] + height[i - 2] + 1；</p>
-<p>因为高度为0时平衡二叉树：</p>
-<p>　　#</p>
-<p>　　高度为1时平衡二叉树：</p>
-<p>0　　　　#　　或　　#</p>
-<p>　　   /　　　　　　　 \</p>
-<p>1　　#　　　　　　　　   #</p>
-<p>　　</p>
-<p>　　高度为2时平衡二叉树：</p>
-<p>0　　　　　　#　　　　或　　　　#</p>
-<p>　　　　  /　  \　　　　　 　 / 　　\</p>
-<p>1　　　　#　　　 #　　　　　#　 　　#</p>
-<p>　　 　/　　　　　　　　　　　　　　　 \</p>
-<p>2　　#　　　　　　　　　　　　　　　　　#</p>
-<p>　　高度为i时平衡二叉树：</p>
-<p>　　　　　　#　　　　或　　　　#</p>
-<p>　　     /　  \　　　　　 　 / 　\</p>
-<p>　　　　i - 2　 i - 1　　　　  i - 1　  i - 2</p>
-<p>　　所以只需要将10^9内的数据记录后让输入的数据与之比较就可得到答案。（高度不会超过46）</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">50</span>;</span><br><span class="line"><span class="keyword">int</span> height[maxn];   </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    height[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    height[<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; maxn; i++)&#123;  <span class="comment">//记录1 - 50层最小需要多少节点</span></span><br><span class="line">        height[i] = height[i - <span class="number">1</span>] + height[i - <span class="number">2</span>] + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n) != EOF)&#123;  <span class="comment">//输入数据</span></span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>)  <span class="comment">//如果为0结束程序</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; maxn; i++)&#123;  <span class="comment">//从第0层开始比较</span></span><br><span class="line">            <span class="keyword">if</span>(n &gt;= height[i])  <span class="comment">//只要输入的数据大于等于该点的最小需求答案高度加一</span></span><br><span class="line">                ans++;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">break</span>;  <span class="comment">//否则结束循环</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);    <span class="comment">//输出答案</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1165,7 +1157,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">147</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1178,7 +1170,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-count">83</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

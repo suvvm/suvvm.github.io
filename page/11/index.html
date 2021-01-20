@@ -177,6 +177,93 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/14/PTA-Advanced-Level-1010-Radix/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/14/PTA-Advanced-Level-1010-Radix/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1010 Radix</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-14 14:38:12" itemprop="dateCreated datePublished" datetime="2018-12-14T14:38:12+08:00">2018-12-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　Given a pair of positive integers, for example, 6 and 110, can this equation 6 = 110 be true? The answer is <code>yes</code>, if 6 is a decimal number and 110 is a binary number.</p>
+<p>　　Now for any pair of positive integers N1 and N2, your task is to find the radix of one number while that of the other is given.</p>
+<h3 id="Input-Specification"><a href="#Input-Specification" class="headerlink" title="Input Specification:"></a>Input Specification:</h3><p>　　Each input file contains one test case. Each case occupies a line which contains 4 positive integers:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">N1 N2 tag radix</span><br></pre></td></tr></table></figure>
+<p>　　Here <code>N1</code> and <code>N2</code> each has no more than 10 digits. A digit is less than its radix and is chosen from the set { 0-9, <code>a</code>-<code>z</code> } where 0-9 represent the decimal numbers 0-9, and <code>a</code>-<code>z</code> represent the decimal numbers 10-35. The last number <code>radix</code> is the radix of <code>N1</code> if <code>tag</code> is 1, or of <code>N2</code> if <code>tag</code> is 2.</p>
+<h3 id="Output-Specification"><a href="#Output-Specification" class="headerlink" title="Output Specification:"></a>Output Specification:</h3><p>　　For each test case, print in one line the radix of the other number so that the equation <code>N1</code> = <code>N2</code> is true. If the equation is impossible, print <code>Impossible</code>. If the solution is not unique, output the smallest possible radix.</p>
+<h3 id="Sample-Input-1"><a href="#Sample-Input-1" class="headerlink" title="Sample Input 1:"></a>Sample Input 1:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6 110 1 10</span><br></pre></td></tr></table></figure>
+<h3 id="Sample-Output-1"><a href="#Sample-Output-1" class="headerlink" title="Sample Output 1:"></a>Sample Output 1:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2</span><br></pre></td></tr></table></figure>
+<h3 id="Sample-Input-2"><a href="#Sample-Input-2" class="headerlink" title="Sample Input 2:"></a>Sample Input 2:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 ab 1 2</span><br></pre></td></tr></table></figure>
+<h3 id="Sample-Output-2"><a href="#Sample-Output-2" class="headerlink" title="Sample Output 2:"></a>Sample Output 2:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Impossible</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题给出两个数字n1、n2，给出其中一个数字tag的进制radix，要求判断是否存在某一进制可以使另一个数字与给定数字相等。</p>
+<p>　　为了方便运算，用字符串tn1、tn2记录输入的两个数字，字符串n1记录给定进制的数字，字符串n2记录未确定数字。用map<char, int> mp，记录每个字符所对应的数值，之后，可以先将给定进制的数字n1转化为10进制，n2的进制最小为其包含的最大数字+1记为leftn，且由于n2是整数，所以其进制最大不会超过n1的十进制与leftn中较大的一个+1，记为rightn。以leftn和rightn分别为左右边界二分所有进制，记mid为中点进制，将n2按mid进制转化为10进制与n1的十进制进行比较，如果n2较大证明mid取值过大，将rightn记为mid - 1；若小了，证明mid取值过小，leftn记为mid+1，若正好相等则找到答案。若无法找到某进制使得n1与n2相等，返回-1，如果返回的答案不为-1，输出答案，否则输出Impossible。</char,></p>
+<p>　　AC代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">char</span>, LL&gt; mp;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">char</span> i = <span class="string">'0'</span>; i &lt;= <span class="string">'9'</span>; i++)&#123;</span><br><span class="line">        mp[i] = i - <span class="string">'0'</span>;    <span class="comment">//初始化0 - 9</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">char</span> i = <span class="string">'a'</span>; i &lt;= <span class="string">'z'</span>; i++)&#123;</span><br><span class="line">        mp[i] = i - <span class="string">'a'</span> + <span class="number">10</span>;   <span class="comment">//初始化a - z</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">LL <span class="title">toDecimal</span><span class="params">(<span class="built_in">string</span> a, LL radix, LL maxn)</span></span>&#123;  <span class="comment">//转化为10进制的函数，所转化后的数不会超过给出的maxn</span></span><br><span class="line">    <span class="keyword">int</span> len = a.size();</span><br><span class="line">    LL ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">        ans = ans * radix + mp[a[i]];</span><br><span class="line">        <span class="keyword">if</span>(ans &lt; <span class="number">0</span> || ans &gt; maxn)&#123;  <span class="comment">//如果数据溢出了或超过上限</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;<span class="comment">//返回-1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;<span class="comment">//返回转化后的值</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cmp</span><span class="params">(<span class="built_in">string</span> a, LL radix, LL n1)</span></span>&#123; <span class="comment">//比较函数，用于比较n2的radix进制转化为10进制后与n1的十进制的大小</span></span><br><span class="line">    LL n2_10 = toDecimal(a, radix, n1);</span><br><span class="line">    <span class="comment">//获得n2转化为10进制的值</span></span><br><span class="line">    <span class="keyword">if</span>(n2_10 == n1) <span class="comment">//如果n2的10进制与n1的十进制相同证明该进制是我们要获得的进制，返回0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(n2_10 &lt; <span class="number">0</span>)  <span class="comment">//如果toDecimal函数返回的n2小于0，证明n2在该进制下转化为十进制后大于n1的十进制</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;   <span class="comment">//进制过大返回1</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(n1 &gt; n2_10) <span class="comment">//如果n2在当前进制下转化为10进制小于n1的十进制</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;  <span class="comment">//进制过小返回-1</span></span><br><span class="line">    <span class="keyword">else</span>    <span class="comment">//否则返回1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">LL <span class="title">getRadix</span><span class="params">(<span class="built_in">string</span> a, LL leftn, LL rightn, LL n1)</span></span>&#123;</span><br><span class="line">    <span class="comment">//二分函数传入n2字符串，最小进制，最大进制，n1的十进制值</span></span><br><span class="line">    <span class="keyword">while</span>(leftn &lt;= rightn)&#123;</span><br><span class="line">        LL mid = (leftn + rightn) / <span class="number">2</span>;</span><br><span class="line">        <span class="comment">//获得中点</span></span><br><span class="line">        LL flag = cmp(a, mid, n1);</span><br><span class="line">        <span class="comment">//判断终点进制n1与n2状态</span></span><br><span class="line">        <span class="keyword">if</span>(flag == <span class="number">0</span>)   <span class="comment">//若比较函数返回了0，证明在mid进制下n1与n2相等</span></span><br><span class="line">            <span class="keyword">return</span> mid; <span class="comment">//返回mid</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(flag == <span class="number">-1</span>)&#123;    <span class="comment">//进制过小</span></span><br><span class="line">            leftn = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(flag == <span class="number">1</span>)&#123;    <span class="comment">//进制过大</span></span><br><span class="line">            rightn = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getMaxNum</span><span class="params">(<span class="built_in">string</span> a)</span></span>&#123;    <span class="comment">//获得n2中最大的数字</span></span><br><span class="line">    LL ans = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">string</span>::iterator it = a.begin(); it != a.end(); it++)&#123;</span><br><span class="line">        ans = max(ans, mp[*it]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    init(); <span class="comment">//初始化mp</span></span><br><span class="line">    <span class="built_in">string</span> tn1, tn2, n1, n2;</span><br><span class="line">    <span class="keyword">int</span> tag, radix;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; tn1 &gt;&gt; tn2 &gt;&gt; tag &gt;&gt; radix;</span><br><span class="line">    <span class="comment">//输入 tn1 tn2 tag radix;</span></span><br><span class="line">    <span class="keyword">if</span>(tag == <span class="number">1</span>)&#123;</span><br><span class="line">        n1 = tn1;</span><br><span class="line">        n2 = tn2;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        n1 = tn2;</span><br><span class="line">        n2 = tn1;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//n1记录已经确定进制的数字，n2记录未确定的数字</span></span><br><span class="line">    LL n1_10 = toDecimal(n1, radix, INT_MAX);</span><br><span class="line">    <span class="comment">//将n1转化为10进制其上限为无穷大</span></span><br><span class="line">    LL leftn = getMaxNum(n2) + <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//获得n2的最小进制</span></span><br><span class="line">    LL rightn = max(leftn, n1_10) + <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//获得n2的最大进制</span></span><br><span class="line">    LL ans = getRadix(n2, leftn, rightn, n1_10);</span><br><span class="line">    <span class="comment">//二分所有进制</span></span><br><span class="line">    <span class="keyword">if</span>(tn1 == tn2)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, radix);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(ans == <span class="number">-1</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Impossible\n"</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/12/PTA-Advanced-Level-1009-Product-of-Polynomials/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1022,98 +1109,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/28/HDOJ-2050-%E6%8A%98%E7%BA%BF%E5%88%86%E5%89%B2%E5%B9%B3%E9%9D%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/28/HDOJ-2050-%E6%8A%98%E7%BA%BF%E5%88%86%E5%89%B2%E5%B9%B3%E9%9D%A2/" class="post-title-link" itemprop="url">HDOJ 2050 折线分割平面</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-28 21:13:14" itemprop="dateCreated datePublished" datetime="2018-11-28T21:13:14+08:00">2018-11-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><meta name="referrer" content="no-referrer"><br>我们看到过很多直线分割平面的题目，今天的这个题目稍微有些变化，我们要求的是n条折线分割平面的最大数目。比如，一条折线可以将平面分成两部分，两条折线最多可以将平面分成7部分，具体如下所示。<br><img src="http://acm.hdu.edu.cn/data/images/C40-1008-1.jpg" alt="img"> </p>
-<p>Input输入数据的第一行是一个整数C,表示测试实例的个数，然后是C 行数据，每行包含一个整数n(0&lt;n&lt;=10000),表示折线的数量。 </p>
-<p>Output对于每个测试实例，请输出平面的最大分割数，每个实例的输出占一行。 </p>
-<p>Sample Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">1</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
-<p>Sample Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">7</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　本题给出测试数量c，每组测试给出一个数字n为折线的数量。要求计算出平面的最大分割数。</p>
-<p>　　我们先不管折线，我们分析一下2n条直线可以将可以将平面分为多少份</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">直线数量：0    分割数量：1</span><br><span class="line">直线数量：1    分割数量：1 + 1 &#x3D; 2</span><br><span class="line">直线数量：2    分割数量：2 + 2 &#x3D; 4</span><br><span class="line">直线数量：3    分割数量：4 + 3 &#x3D; 7</span><br><span class="line">直线数量：4    分割数量：7 + 4 &#x3D; 11</span><br><span class="line">直线数量：5    分割数量：11 + 5 &#x3D; 16</span><br><span class="line">直线数量：6    分割数量：16 + 6 &#x3D; 22</span><br><span class="line">……</span><br><span class="line">直线数量：n    分割数量：1 + 1 + 2 + 3 + 4 + …… + n</span><br></pre></td></tr></table></figure>
-<p>现在在看一下折线</p>
-<p>　　一条折线可以看作2条直线，现在再看这个图仿佛变了些什么</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201811/1447131-20181128205529962-1876256551.png" alt="img"></p>
-<p>　　每捏起一个点便会少分割两个平面，而一条折线相当与两条直线捏起一个点。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">直线数量：0    分割数量：1                                    </span><br><span class="line">直线数量：1    分割数量：1 + 1 &#x3D; 2                                 </span><br><span class="line">直线数量：2    分割数量：2 + 2 &#x3D; 4       斜线数量：1     分割数量：2 &#x3D; 4 - 2  </span><br><span class="line">直线数量：3    分割数量：4 + 3 &#x3D; 7</span><br><span class="line">直线数量：4    分割数量：7 + 4 &#x3D; 11     斜线数量：2     分割数量：7 &#x3D; 11 - 4  </span><br><span class="line">直线数量：5    分割数量：11 + 5 &#x3D; 16</span><br><span class="line">直线数量：6    分割数量：16 + 6 &#x3D; 22   斜线数量：3     分割数量：16 &#x3D; 22 - 6 </span><br><span class="line">……</span><br><span class="line">直线数量：2n    分割数量：1 + 1 + 2 + …… + 2n   </span><br><span class="line">斜线数量：n   分割数量：1 + 1 + 2 + …… + 2n - 1</span><br><span class="line">找到了规律，获得了巨大的快乐</span><br></pre></td></tr></table></figure>
-<p>　　这样求n条折线分割平面数量就转化为了求2n - 1条直线分割平面数量</p>
-<p>　　而且n最大为1e4而且有多组数据，这当然要快乐打表。</p>
-<p>AC代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;bits&#x2F;stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int maxn &#x3D; 1e4+10;</span><br><span class="line">int temp[2 * maxn + 100];   &#x2F;&#x2F;temp[i]记录i条直线最大分割平面数</span><br><span class="line">int ans[maxn + 10]; &#x2F;&#x2F;ans[i]记录i条折线最大分割平面数</span><br><span class="line">void init()&#123;</span><br><span class="line">    ans[1] &#x3D; 2;</span><br><span class="line">    temp[1] &#x3D; 2;</span><br><span class="line">    int cnt &#x3D; 1;    &#x2F;&#x2F;cnt记录直线数量</span><br><span class="line">    for(int i &#x3D; 2; i &lt; 2 * maxn; i++)&#123;  &#x2F;&#x2F;直线数量1~2 * maxn</span><br><span class="line">        temp[i] &#x3D; temp[i - 1] + i;</span><br><span class="line">        if(i % 2 &#x3D;&#x3D; 0 &amp;&amp; i &gt; 2)&#123;    &#x2F;&#x2F;每当i为2的倍数时记录折线答案</span><br><span class="line">            cnt++;</span><br><span class="line">            ans[cnt] &#x3D; temp[i - 1];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int c;</span><br><span class="line">    init(); &#x2F;&#x2F;快乐打表</span><br><span class="line">    while(scanf(&quot;%d&quot;, &amp;c) !&#x3D; EOF)&#123;  &#x2F;&#x2F;输入测试数量</span><br><span class="line">        for(int i &#x3D; 0; i &lt; c; i++)&#123;</span><br><span class="line">            int n;</span><br><span class="line">            scanf(&quot;%d&quot;, &amp;n);    &#x2F;&#x2F;输入折线数量</span><br><span class="line">            printf(&quot;%d\n&quot;, ans[n]); &#x2F;&#x2F;输出答案</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1185,7 +1180,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">147</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1198,7 +1193,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-count">83</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

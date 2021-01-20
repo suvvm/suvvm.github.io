@@ -177,6 +177,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/10/31/HDU-2193-AVL-Tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/31/HDU-2193-AVL-Tree/" class="post-title-link" itemprop="url">HDU 2193 AVL Tree</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-31 23:52:37" itemprop="dateCreated datePublished" datetime="2018-10-31T23:52:37+08:00">2018-10-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><meta name="referrer" content="no-referrer"><br>An AVL tree is a kind of balanced binary search tree. Named after their inventors, Adelson-Velskii and Landis, they were the first dynamically balanced trees to be proposed. Like red-black trees, they are not perfectly balanced, but pairs of sub-trees differ in height by at most 1, maintaining an O(logn) search time. Addition and deletion operations also take O(logn) time.<br>Definition of an AVL tree<br>An AVL tree is a binary search tree which has the following properties:<br>\1. The sub-trees of every node differ in height by at most one.<br>\2. Every sub-tree is an AVL tree.<br><img src="http://acm.hdu.edu.cn/data/images/C128-1002-1.jpg" alt="img"><br>Balance requirement for an AVL tree: the left and right sub-trees differ by at most 1 in height.An AVL tree of n nodes can have different height.<br>For example, n = 7:<br><img src="http://acm.hdu.edu.cn/data/images/C128-1002-2.jpg" alt="img"><br>So the maximal height of the AVL Tree with 7 nodes is 3.<br>Given n,the number of vertices, you are to calculate the maximal hight of the AVL tree with n nodes.</p>
+<p>Input</p>
+<p>　　Input file contains multiple test cases. Each line of the input is an integer n(0&lt;n&lt;=10^9).<br>A line with a zero ends the input.<br>Output</p>
+<p>　　An integer each line representing the maximal height of the AVL tree with n nodes.Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题给出一个整数，要求输出其能建立的最高的平衡二叉树的高度。</p>
+<p>　　关于平衡二叉树最小节点最大高度有一个公式，设height[i]为高度为i的平衡二叉树的最小结点数，则height[i] = height[i - 1] + height[i - 2] + 1；</p>
+<p>因为高度为0时平衡二叉树：</p>
+<p>　　#</p>
+<p>　　高度为1时平衡二叉树：</p>
+<p>0　　　　#　　或　　#</p>
+<p>　　   /　　　　　　　 \</p>
+<p>1　　#　　　　　　　　   #</p>
+<p>　　</p>
+<p>　　高度为2时平衡二叉树：</p>
+<p>0　　　　　　#　　　　或　　　　#</p>
+<p>　　　　  /　  \　　　　　 　 / 　　\</p>
+<p>1　　　　#　　　 #　　　　　#　 　　#</p>
+<p>　　 　/　　　　　　　　　　　　　　　 \</p>
+<p>2　　#　　　　　　　　　　　　　　　　　#</p>
+<p>　　高度为i时平衡二叉树：</p>
+<p>　　　　　　#　　　　或　　　　#</p>
+<p>　　     /　  \　　　　　 　 / 　\</p>
+<p>　　　　i - 2　 i - 1　　　　  i - 1　  i - 2</p>
+<p>　　所以只需要将10^9内的数据记录后让输入的数据与之比较就可得到答案。（高度不会超过46）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">50</span>;</span><br><span class="line"><span class="keyword">int</span> height[maxn];   </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    height[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    height[<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; maxn; i++)&#123;  <span class="comment">//记录1 - 50层最小需要多少节点</span></span><br><span class="line">        height[i] = height[i - <span class="number">1</span>] + height[i - <span class="number">2</span>] + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n) != EOF)&#123;  <span class="comment">//输入数据</span></span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>)  <span class="comment">//如果为0结束程序</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; maxn; i++)&#123;  <span class="comment">//从第0层开始比较</span></span><br><span class="line">            <span class="keyword">if</span>(n &gt;= height[i])  <span class="comment">//只要输入的数据大于等于该点的最小需求答案高度加一</span></span><br><span class="line">                ans++;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">break</span>;  <span class="comment">//否则结束循环</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);    <span class="comment">//输出答案</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/10/31/POJ-3481-Double-Queue%EF%BC%88set%E5%AE%9E%E7%8E%B0%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -792,7 +893,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">147</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -805,7 +906,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-count">83</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

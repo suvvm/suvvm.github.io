@@ -177,6 +177,104 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/20/LRU%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/20/LRU%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">LRU页面置换算法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-20 17:26:11" itemprop="dateCreated datePublished" datetime="2020-04-20T17:26:11+08:00">2020-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="LRU页面置换算法"><a href="#LRU页面置换算法" class="headerlink" title="LRU页面置换算法"></a>LRU页面置换算法</h1><p>最近最久未使用（LRU）置换算法</p>
+<p>选择最近最久未使用的页面予以淘汰。</p>
+<h2 id="栈实现"><a href="#栈实现" class="headerlink" title="栈实现"></a>栈实现</h2><p>利用栈来保存当前使用的各页面页号。</p>
+<ul>
+<li>如果栈中没有目标页面且栈还有空余空间，直接将页面标号入栈</li>
+<li><p>如果栈中没有目标页面且栈没有空余空间，直接将页面标号入栈，将栈底元素出栈</p>
+</li>
+<li><p>如果栈中有目标页面时，便将该页的页号从栈中移出，将它压入栈顶。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: LRU</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: TODO</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/4/20 17:35</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LRU</span> </span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack;   <span class="comment">// 页标栈</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> capacity;   <span class="comment">// 容量</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> capacity;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LRU</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</span><br><span class="line">        stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="keyword">this</span>.capacity = capacity;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (stack.contains(val)) &#123;  <span class="comment">// 栈中存在指定页标</span></span><br><span class="line">            stack.remove(Integer.valueOf(val)); <span class="comment">// 移除目标页标</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (stack.size() == capacity) &#123;  <span class="comment">// 容量满</span></span><br><span class="line">            stack.remove(<span class="number">0</span>);    <span class="comment">// 移除栈底</span></span><br><span class="line">        &#125;</span><br><span class="line">        stack.push(val);    <span class="comment">// 指定页标入栈</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(stack);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试数据</p>
+<p><img src="/2020/04/20/LRU%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95/LRU栈.JPG" alt="img"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: LRUTest</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: TODO</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/4/20 17:49</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LRUTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        LRU lru = <span class="keyword">new</span> LRU(<span class="number">5</span>);</span><br><span class="line">        <span class="keyword">int</span>[] testValues = &#123;<span class="number">4</span>,<span class="number">7</span>,<span class="number">0</span>,<span class="number">7</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">6</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i : testValues) &#123;</span><br><span class="line">            lru.add(i);</span><br><span class="line">            lru.show();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[4]</span><br><span class="line">[4, 7]</span><br><span class="line">[4, 7, 0]</span><br><span class="line">[4, 0, 7]</span><br><span class="line">[4, 0, 7, 1]</span><br><span class="line">[4, 7, 1, 0]</span><br><span class="line">[4, 7, 0, 1]</span><br><span class="line">[4, 7, 0, 1, 2]</span><br><span class="line">[4, 7, 0, 2, 1]</span><br><span class="line">[4, 7, 0, 1, 2]</span><br><span class="line">[7, 0, 1, 2, 6]</span><br></pre></td></tr></table></figure>
+<h2 id="LinkedHashMap实现"><a href="#LinkedHashMap实现" class="headerlink" title="LinkedHashMap实现"></a>LinkedHashMap实现</h2><p>LinkedHashMap已经实现了按访问顺序存储，其存在方法removeElfestEntry()用于移除最久未使用数据，极为简便。这个方法将在map的put与putAll方法中被调用，如果返回true就将移除最久未使用数据，原本用于删除过时条目以减少map内存消耗，默认返回false，这里可以利用其特性覆盖该函数实现移除最久未使用数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Returns &lt;tt&gt;true&lt;/tt&gt; if this map should remove its eldest entry.</span></span><br><span class="line"><span class="comment">* This method is invoked by &lt;tt&gt;put&lt;/tt&gt; and &lt;tt&gt;putAll&lt;/tt&gt; after</span></span><br><span class="line"><span class="comment">* inserting a new entry into the map.  It provides the implementor</span></span><br><span class="line"><span class="comment">* with the opportunity to remove the eldest entry each time a new one</span></span><br><span class="line"><span class="comment">* is added.  This is useful if the map represents a cache: it allows</span></span><br><span class="line"><span class="comment">* the map to reduce memory consumption by deleting stale entries.</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* &lt;p&gt;Sample use: this override will allow the map to grow up to 100</span></span><br><span class="line"><span class="comment">* entries and then delete the eldest entry each time a new entry is</span></span><br><span class="line"><span class="comment">* added, maintaining a steady state of 100 entries.</span></span><br><span class="line"><span class="comment">* &lt;pre&gt;</span></span><br><span class="line"><span class="comment">*     private static final int MAX_ENTRIES = 100;</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">*     protected boolean removeEldestEntry(Map.Entry eldest) &#123;</span></span><br><span class="line"><span class="comment">*        return size() &amp;gt; MAX_ENTRIES;</span></span><br><span class="line"><span class="comment">*     &#125;</span></span><br><span class="line"><span class="comment">* &lt;/pre&gt;</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* &lt;p&gt;This method typically does not modify the map in any way,</span></span><br><span class="line"><span class="comment">* instead allowing the map to modify itself as directed by its</span></span><br><span class="line"><span class="comment">* return value.  It &lt;i&gt;is&lt;/i&gt; permitted for this method to modify</span></span><br><span class="line"><span class="comment">* the map directly, but if it does so, it &lt;i&gt;must&lt;/i&gt; return</span></span><br><span class="line"><span class="comment">* &lt;tt&gt;false&lt;/tt&gt; (indicating that the map should not attempt any</span></span><br><span class="line"><span class="comment">* further modification).  The effects of returning &lt;tt&gt;true&lt;/tt&gt;</span></span><br><span class="line"><span class="comment">* after modifying the map from within this method are unspecified.</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* &lt;p&gt;This implementation merely returns &lt;tt&gt;false&lt;/tt&gt; (so that this</span></span><br><span class="line"><span class="comment">* map acts like a normal map - the eldest element is never removed).</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span>    eldest The least recently inserted entry in the map, or if</span></span><br><span class="line"><span class="comment">*           this is an access-ordered map, the least recently accessed</span></span><br><span class="line"><span class="comment">*           entry.  This is the entry that will be removed it this</span></span><br><span class="line"><span class="comment">*           method returns &lt;tt&gt;true&lt;/tt&gt;.  If the map was empty prior</span></span><br><span class="line"><span class="comment">*           to the &lt;tt&gt;put&lt;/tt&gt; or &lt;tt&gt;putAll&lt;/tt&gt; invocation resulting</span></span><br><span class="line"><span class="comment">*           in this invocation, this will be the entry that was just</span></span><br><span class="line"><span class="comment">*           inserted; in other words, if the map contains a single</span></span><br><span class="line"><span class="comment">*           entry, the eldest entry is also the newest.</span></span><br><span class="line"><span class="comment">* <span class="doctag">@return</span>   &lt;tt&gt;true&lt;/tt&gt; if the eldest entry should be removed</span></span><br><span class="line"><span class="comment">*           from the map; &lt;tt&gt;false&lt;/tt&gt; if it should be retained.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">removeEldestEntry</span><span class="params">(Map.Entry&lt;K,V&gt; eldest)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.LinkedHashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: LRULinkedHashMap</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: TODO</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/4/20 18:02</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LRULinkedHashMap</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> LinkedHashMap&lt;Integer, Object&gt; map;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> capacity;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LRULinkedHashMap</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</span><br><span class="line">        map = <span class="keyword">new</span> LinkedHashMap&lt;Integer, Object&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">removeEldestEntry</span><span class="params">(Map.Entry eldest)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> size() &gt; LRULinkedHashMap.<span class="keyword">this</span>.capacity;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">this</span>.capacity = capacity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        map.put(val, <span class="keyword">new</span> Object());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.print(<span class="string">"["</span>);</span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;Integer, Object&gt; i : map.entrySet()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cnt != <span class="number">0</span>)</span><br><span class="line">                System.out.print(<span class="string">", "</span>);</span><br><span class="line">            cnt++;</span><br><span class="line">            System.out.print(i.getKey());</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"]"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试数据</p>
+<p><img src="/2020/04/20/LRU%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95/LRU栈.JPG" alt="img"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: LRUTest</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: TODO</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/4/20 17:49</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LRUTest</span> </span>&#123;</span><br><span class="line"><span class="comment">//    @Test</span></span><br><span class="line"><span class="comment">//    public void test() &#123;</span></span><br><span class="line"><span class="comment">//        LRU lru = new LRU(5);</span></span><br><span class="line"><span class="comment">//        int[] testValues = &#123;4,7,0,7,1,0,1,2,1,2,6&#125;;</span></span><br><span class="line"><span class="comment">//        for(int i : testValues) &#123;</span></span><br><span class="line"><span class="comment">//            lru.add(i);</span></span><br><span class="line"><span class="comment">//            lru.show();</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLinkedHashMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        LRULinkedHashMap lru = <span class="keyword">new</span> LRULinkedHashMap(<span class="number">5</span>);</span><br><span class="line">        <span class="keyword">int</span>[] testValues = &#123;<span class="number">4</span>,<span class="number">7</span>,<span class="number">0</span>,<span class="number">7</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">6</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i : testValues) &#123;</span><br><span class="line">            lru.add(i);</span><br><span class="line">            lru.show();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[4]</span><br><span class="line">[4, 7]</span><br><span class="line">[4, 7, 0]</span><br><span class="line">[4, 7, 0]</span><br><span class="line">[4, 7, 0, 1]</span><br><span class="line">[4, 7, 0, 1]</span><br><span class="line">[4, 7, 0, 1]</span><br><span class="line">[4, 7, 0, 1, 2]</span><br><span class="line">[4, 7, 0, 1, 2]</span><br><span class="line">[4, 7, 0, 1, 2]</span><br><span class="line">[7, 0, 1, 2, 6]</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/20/Hash%E5%86%B2%E7%AA%81%E7%9A%84%E8%A7%A3%E5%86%B3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1217,178 +1315,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/12/Java-Thread%E8%AF%A6%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/12/Java-Thread%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Java Thread详解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-12 17:52:27" itemprop="dateCreated datePublished" datetime="2020-04-12T17:52:27+08:00">2020-04-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Java-Thread详解"><a href="#Java-Thread详解" class="headerlink" title="Java Thread详解"></a>Java Thread详解</h1><h2 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h2><p>Thread.State有6种状态</p>
-<ul>
-<li>NEW<ul>
-<li>新生态</li>
-</ul>
-</li>
-<li>RUNNABLE<ul>
-<li>就绪态</li>
-<li>运行态</li>
-</ul>
-</li>
-<li>BLOCKED<ul>
-<li>阻塞态（wait IO阻塞）</li>
-</ul>
-</li>
-<li>WAITING<ul>
-<li>阻塞态（join 等阻塞）</li>
-</ul>
-</li>
-<li>TIMED_WITING<ul>
-<li>阻塞态（sleep 指定时间等待）</li>
-</ul>
-</li>
-<li>TERMINATED<ul>
-<li>销毁态</li>
-</ul>
-</li>
-</ul>
-<h2 id="线程的优先级"><a href="#线程的优先级" class="headerlink" title="线程的优先级"></a>线程的优先级</h2><p>Thread.priority代表线程的优先级，范围从1到10.</p>
-<ul>
-<li><p>Thread.MIN_PRIORITY = 1</p>
-<p>代表线程的最低优先级</p>
-</li>
-<li><p>Thread.MAX_PRIORITY = 10</p>
-<p>代表线程的最高优先级</p>
-</li>
-<li><p>Thread.NORM_PRIORITY = 5</p>
-<p>代表线程的通常优先级</p>
-</li>
-</ul>
-<p>优先级不是绝对的，只影响获得处理机的概率与时间片长短。</p>
-<h2 id="用户线程与守护线程"><a href="#用户线程与守护线程" class="headerlink" title="用户线程与守护线程"></a>用户线程与守护线程</h2><p>默认所有线程都是用户线程，在线程启动前使用setDaemon(true)将线程设为守护线程。</p>
-<ul>
-<li>守护线程为用户线程服务</li>
-<li>JVM确保用户线程执行完毕</li>
-<li>JVM不需要等待守护线程执行完毕</li>
-</ul>
-<h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><ul>
-<li><p>yield</p>
-<p>用于礼让，使当前线程转为就绪态</p>
-</li>
-<li><p>sleep</p>
-<p>将当前线程阻塞指定时间（state转为TIME_WATING）</p>
-</li>
-<li><p>join</p>
-<p>执行目标线程，阻塞当前线程直至目标线程执行完毕</p>
-</li>
-<li><p>无参wait</p>
-<p>多与synchronized一同使用，等价于wait(0)，使当前线程阻塞并放锁直到另一线程在对应对象上调用notify或notifyAll</p>
-</li>
-<li><p>wait(long timeout)</p>
-<p>多与synchronized一同使用，使当前线程阻塞并放锁直到另一线程在对应对象上调用notify或notifyAll，或是指定的时间超时</p>
-</li>
-<li><p>notify</p>
-<p>唤醒等待该对象的<strong>一个</strong>线程，线程选择取决于调度算法，用户无法干涉</p>
-</li>
-<li><p>notifyAll</p>
-<p>唤醒等待该对象的所有线程</p>
-</li>
-<li><p>interrupt</p>
-<p>用于中断线程，将中断标志设为true，其他操作由用户程序决定</p>
-</li>
-<li><p>interrupted</p>
-<p>探测线程中断标志状态，若为true则清除中断标志并返回true，否则返回false</p>
-</li>
-<li><p>isInterrupted</p>
-<p>探测线程中断标志状态，不影响中断标志位</p>
-</li>
-<li><p>setPriority</p>
-<p>设置线程优先级</p>
-</li>
-<li><p>setDaemon</p>
-<p>设置线程为守护线程</p>
-</li>
-<li><p>currentThread</p>
-<p>获取当前正在运行的线程对象（获取自身）</p>
-</li>
-<li><p>isAlive</p>
-<p>判断线程是否存活</p>
-</li>
-<li><p>setName、getName</p>
-<p>设置、获取线程代理对象名称</p>
-</li>
-</ul>
-<h2 id="线程的同步"><a href="#线程的同步" class="headerlink" title="线程的同步"></a>线程的同步</h2><p>每个对象都有一个排它锁</p>
-<p>synchronized可以锁定具体对象，若标识在成员变量上则锁的是this，若标识在静态变量上锁的则是该类在内存中的模板。</p>
-<p>synchronized方法，若执行synchronized方法必须获得调用该方法的对象(this)的锁才可执行，否则所属线程阻塞，方法执行后独占锁直到方法返回。</p>
-<p>synchornized(obj){}块，锁定指定的同步监视器obj，执行syhchornized块必须获得同步监视器的锁，否才所属线程阻塞，执行时独占同步监视器锁直至synchronized块执行完毕。</p>
-<h2 id="实现多线程与同步示例"><a href="#实现多线程与同步示例" class="headerlink" title="实现多线程与同步示例"></a>实现多线程与同步示例</h2><p><a href="https://www.suvvm.work/2020/03/15/Java多线程的实现/">Java多线程的实现</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1460,7 +1386,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">147</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1473,7 +1399,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-count">83</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
