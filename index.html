@@ -202,7 +202,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-01-27 16:39:14 / 修改时间：17:13:09" itemprop="dateCreated datePublished" datetime="2021-01-27T16:39:14+08:00">2021-01-27</time>
+              <time title="创建时间：2021-01-27 16:39:14 / 修改时间：18:13:26" itemprop="dateCreated datePublished" datetime="2021-01-27T16:39:14+08:00">2021-01-27</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -225,13 +225,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="代理指南"><a href="#代理指南" class="headerlink" title="代理指南"></a>代理指南</h1><p>​    基于已有实体服务器/vps实现代理，下方一切操作都需要在服务器终端完成。</p>
+          <h1 id="代理指南"><a href="#代理指南" class="headerlink" title="代理指南"></a>代理指南</h1><p>​    基于已有实体服务器/vps实现代理。</p>
+<h2 id="一、get代理示例"><a href="#一、get代理示例" class="headerlink" title="一、get代理示例"></a>一、get代理示例</h2><ul>
+<li>谷歌云创建账号-&gt;嫖赠金-&gt;谷歌云控制台 -&gt; Compute Engine -&gt; 虚拟机实例 -&gt; 搞台能ping通的实例</li>
+<li>配置2核1G最捞配置还是其他配置随便，看好300刀赠金和每月消耗就行，谷歌云的价格是动态的，http和https都允许，配好安全规则。</li>
+</ul>
+<p><strong>下方操作需要在服务器终端完成。配置过程中切忌要在防火墙和运营商安全规则组中放行所需端口</strong></p>
 <h2 id="一、伪装主页"><a href="#一、伪装主页" class="headerlink" title="一、伪装主页"></a>一、伪装主页</h2><p>​    搭建伪装主页tomcat、nginx、caddy用啥都没关系，用caddy为例。</p>
 <ul>
 <li><p><a href="https://caddyserver.com/docs/install#linux-service" target="_blank" rel="noopener">安装caddy</a></p>
 </li>
 <li><p>创建并进入伪装主页目录</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/local/caddy/hk/ &amp;&amp; cd /usr/local/caddy/hk/</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/local/caddy/hkg/ &amp;&amp; cd /usr/local/caddy/hkg/</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <ul>
@@ -247,10 +252,70 @@
 <p><a href="http://服务端实例IP:2015" target="_blank" rel="noopener">http://服务端实例IP:2015</a></p>
 <p>能访问成功就ctrl c停止运行</p>
 </li>
-<li><p>干掉测试主页然后把“臭菠萝腐苹果烂橘子”模版下到上方/usr/local/caddy/hk/</p>
+<li><p>干掉测试主页然后把“臭菠萝腐苹果烂橘子”模版下到上方/usr/local/caddy/hkg/</p>
+<ul>
+<li><p>Curl</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">curl 'https://www.suvvm.work/OrganicFood/OrganicFood.zip' \</span><br><span class="line">  -H 'authority: www.suvvm.work' \</span><br><span class="line">  -H 'upgrade-insecure-requests: 1' \</span><br><span class="line">  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36' \</span><br><span class="line">  -H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \</span><br><span class="line">  -H 'sec-fetch-site: none' \</span><br><span class="line">  -H 'sec-fetch-mode: navigate' \</span><br><span class="line">  -H 'sec-fetch-user: ?1' \</span><br><span class="line">  -H 'sec-fetch-dest: document' \</span><br><span class="line">  -H 'accept-language: zh-CN,zh;q=0.9' \</span><br><span class="line">  -H 'cookie: serverType=nginx; order=id%20desc; uploadSize=1073741824; rank=a; memRealUsed=658; mem-before=658/1839%20%28MB%29; memSize=1839; one=0.07; five=0.08; fifteen=0.06; conterError=; upNet=2.68; downNet=26.83; Path=/; softType=0; __cfduid=d1a0fd2bc5fc508a1b743615597c9d6de1611470358; Hm_lvt_e5190116d64be66cac29daef18c94ac0=1611117039; Hm_lpvt_e5190116d64be66cac29daef18c94ac0=1611739086' \</span><br><span class="line">  -H 'if-none-match: "60112fa6-1a481e"' \</span><br><span class="line">  -H 'if-modified-since: Wed, 27 Jan 2021 09:17:26 GMT' \</span><br><span class="line">  --compressed</span><br></pre></td></tr></table></figure>
 </li>
-<li></li>
+<li><p>Wget</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt install wget -y</span><br><span class="line">wget https://www.suvvm.work/OrganicFood/OrganicFood.zip</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
+</li>
+<li><p>解压“臭..腐..烂..”模版并把所有内容移至/usr/local/caddy/hkg/</p>
+<ul>
+<li><p>安装unzip</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install unzip -y</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压模版</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip OrganicFood.zip</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>移动模版内容至前一目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv website/* .</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>创建Caddy配置文件</p>
+<ul>
+<li><p>有域名</p>
+<ul>
+<li><p>创建一条新的解析记录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">记录类型：A</span><br><span class="line">主机记录：ghk（自定义子域名名称）</span><br><span class="line">记录值：服务端IP</span><br><span class="line">TTL：随便配置</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">echo "https://hkg.suvvm.work:2333 &#123;</span><br><span class="line">root /usr/local/caddy/hkg/</span><br><span class="line">timeouts none</span><br><span class="line">tls suvvm@foxmail.com</span><br><span class="line">&#125;" &gt; /usr/local/caddy/Caddyfile</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>无域名（有暴毙风险）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">echo "http://服务端IP:2333 &#123;</span><br><span class="line">root /usr/local/caddy/hkg/</span><br><span class="line">timeouts none</span><br><span class="line">tls suvvm@foxmail.com</span><br><span class="line">&#125;" &gt; /usr/local/caddy/Caddyfile</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>切换到Caddyfile所在目录启动caddy服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/caddy/</span><br><span class="line">caddy</span><br></pre></td></tr></table></figure>
+<p>访问配置url判断是否成功</p>
+<p>成功后ctrl c停止</p>
+</li>
+<li><p>caddy后台常驻</p>
+<p>nohup或screen随便弄</p>
+</li>
+</ul>
+<h2 id="二、配置ShadowsocksR"><a href="#二、配置ShadowsocksR" class="headerlink" title="二、配置ShadowsocksR"></a>二、配置ShadowsocksR</h2><ul>
+<li><p>安装ShadowsocksR</p>
+<p>各种一键脚本，找个能用的就行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -N --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh &amp;&amp; chmod +x shadowsocksR.sh &amp;&amp; ./shadowsocksR.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改ssr配置文件</p>
+<p>server_port http的话就80 https的话就443 none加密良民</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOT &gt; /etc/shadowsocks.json</span><br><span class="line">&#123;</span><br><span class="line">    "server":"0.0.0.0",</span><br><span class="line">    "server_ipv6":"[::]",</span><br><span class="line">    "server_port":443,</span><br><span class="line">    "local_address":"127.0.0.1",</span><br><span class="line">    "local_port":1080,</span><br><span class="line">    "password":"随便啥密码",</span><br><span class="line">    "timeout":120,</span><br><span class="line">    "method":"none",</span><br><span class="line">    "protocol":"auth_chain_a",</span><br><span class="line">    "protocol_param":"",</span><br><span class="line">    "obfs":"tls1.2_ticket_auth",</span><br><span class="line">    "obfs_param":"",</span><br><span class="line">    "redirect":["*:443#127.0.0.1:2333"],</span><br><span class="line">    "dns_ipv6":false,</span><br><span class="line">    "fast_open":false,</span><br><span class="line">    "workers":1</span><br><span class="line">&#125;</span><br><span class="line">EOT</span><br></pre></td></tr></table></figure>
+<p>修改完重启ssr</p>
+</li>
+<li><p>对应客户端配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ip: hkg.suvvm.work</span><br><span class="line">端口号: 443</span><br><span class="line">密码: 随便啥密码</span><br><span class="line">加密: none</span><br><span class="line">协议: auth_chain_a</span><br><span class="line">混淆: tls1.2_ticket_auth</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>iptables 实现客户端 &lt;=&gt; 国内实例 &lt;=国内运营商内网=&gt; 国内实例 &lt;==&gt; 外网实例中继下次快乐了再写。</p>
 
       
     </div>
