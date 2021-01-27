@@ -177,6 +177,95 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/12/HDU-2159-FATE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/12/HDU-2159-FATE/" class="post-title-link" itemprop="url">HDU 2159 FATE</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-12 08:59:57" itemprop="dateCreated datePublished" datetime="2018-11-12T08:59:57+08:00">2018-11-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近xhd正在玩一款叫做FATE的游戏，为了得到极品装备，xhd在不停的杀怪做任务。久而久之xhd开始对杀怪产生的厌恶感，但又不得不通过杀怪来升完这最后一级。现在的问题是，xhd升掉最后一级还需n的经验值，xhd还留有m的忍耐度，每杀一个怪xhd会得到相应的经验，并减掉相应的忍耐度。当忍耐度降到0或者0以下时，xhd就不会玩这游戏。xhd还说了他最多只杀s只怪。请问他能升掉这最后一级吗？</p>
+<p>Input</p>
+<p>　　输入数据有多组，对于每组数据第一行输入n，m，k，s(0 &lt; n,m,k,s &lt; 100)四个正整数。分别表示还需的经验值，保留的忍耐度，怪的种数和最多的杀怪数。接下来输入k行数据。每行数据输入两个正整数a，b(0 &lt; a,b &lt; 20)；分别表示杀掉一只这种怪xhd会得到的经验值和会减掉的忍耐度。(每种怪都有无数个)</p>
+<p>Output</p>
+<p>　　输出升完这级还能保留的最大忍耐度，如果无法升完这级输出-1。Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">10 10 1 10</span><br><span class="line">1 1</span><br><span class="line">10 10 1 9</span><br><span class="line">1 1</span><br><span class="line">9 10 2 10</span><br><span class="line">1 1</span><br><span class="line">2 2</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">-1</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题要求处理杀怪升级问题，有多组数据，每组第一行给出4个整数，分别为升级所需的经验n，忍耐度（体力）m，怪物种类k，最多杀怪数s，之后k行跟随，每行输入两个整数,分别为杀掉这种怪会得到的经验值，杀掉这种怪消耗的体力。要求输出升完级后能保留的最大体力。</p>
+<p>　　基本思路为完全背包，用数组dp记录消耗每个数量的体力所能获得的最大经验值，dp2记录该种情况下的杀怪数。根据dp与dp2寻找答案。</p>
+<p>　　根据描述可以写出动态转移方程：</p>
+<p>　　　　dp[ j ] = max(dp[ j ], dp[ j - engn[ i ] ] + expn[ i ] )</p>
+<p>　　　　if(dp[ j ] == dp[ j - engn[ i ] ] + expn[ i ] )</p>
+<p>　　　　　　dp2[ j ] = dp2[ j - eng[ i ] ] + 1</p>
+<p>　　之后遍历最大体力值找到获得经验值可以达到升级要求且杀怪数低于限制的体力消耗值最小值，并用最大体力值减去它便可以得到答案，若没有符合要求的情况输出-1。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e2</span>+<span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> engn[maxn];</span><br><span class="line"><span class="keyword">int</span> expn[maxn];</span><br><span class="line"><span class="keyword">int</span> dp[maxn], dp2[maxn];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m, k, s;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>, &amp;n, &amp;m, &amp;k, &amp;s) !=  EOF)&#123;</span><br><span class="line">        <span class="comment">//输入升级经验，忍耐度，怪物种类，最多杀怪数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;expn[i], &amp;engn[i]);</span><br><span class="line">            <span class="comment">//输入每种怪物经验值与消耗忍耐度</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m; i++)&#123;</span><br><span class="line">            <span class="comment">//初始dp与dp2为0</span></span><br><span class="line">            dp[i] = dp2[i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++)&#123;    <span class="comment">//完全背包</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = engn[i]; j &lt;= m; j++)&#123;  <span class="comment">//正向遍历背包容量</span></span><br><span class="line">                dp[j] = max(dp[j], dp[j - engn[i]] + expn[i]);  <span class="comment">//动态转移方程</span></span><br><span class="line">                <span class="keyword">if</span>(dp[j] == dp[j - engn[i]] + expn[i])&#123;</span><br><span class="line">                    dp2[j] = dp2[j - engn[i]] + <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">-1</span>;   <span class="comment">//初始化答案为-1</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dp[i] &gt;= n &amp;&amp; dp2[i] &lt;= s)&#123;  <span class="comment">//找到符合升级条件与杀怪条件的消耗值</span></span><br><span class="line">                ans = m - i;    <span class="comment">//记录最大剩余忍耐度</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/11/HDU-2955-Robberies/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -994,98 +1083,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/01/PTA-Advanced-Level-1066-Root-of-AVL-Tree/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/01/PTA-Advanced-Level-1066-Root-of-AVL-Tree/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1066 Root of AVL Tree</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-01 23:18:37" itemprop="dateCreated datePublished" datetime="2018-11-01T23:18:37+08:00">2018-11-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><meta name="referrer" content="no-referrer"><br>An AVL tree is a self-balancing binary search tree. In an AVL tree, the heights of the two child subtrees of any node differ by at most one; if at any time they differ by more than one, rebalancing is done to restore this property. Figures 1-4 illustrate the rotation rules.</p>
-<p><img src="https://images.ptausercontent.com/31" alt="img"><img src="https://images.ptausercontent.com/32" alt="img"></p>
-<p><img src="https://images.ptausercontent.com/33" alt="img"> <img src="https://images.ptausercontent.com/34" alt="img"></p>
-<p>Now given a sequence of insertions, you are supposed to tell the root of the resulting AVL tree.</p>
-<h3 id="Input-Specification"><a href="#Input-Specification" class="headerlink" title="Input Specification:"></a>Input Specification:</h3><p>Each input file contains one test case. For each case, the first line contains a positive integer N (≤) which is the total number of keys to be inserted. Then Ndistinct integer keys are given in the next line. All the numbers in a line are separated by a space.</p>
-<h3 id="Output-Specification"><a href="#Output-Specification" class="headerlink" title="Output Specification:"></a>Output Specification:</h3><p>For each test case, print the root of the resulting AVL tree in one line.</p>
-<h3 id="Sample-Input-1"><a href="#Sample-Input-1" class="headerlink" title="Sample Input 1:"></a>Sample Input 1:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">5</span><br><span class="line">88 70 61 96 120</span><br></pre></td></tr></table></figure>
-<h3 id="Sample-Output-1"><a href="#Sample-Output-1" class="headerlink" title="Sample Output 1:"></a>Sample Output 1:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">70</span><br></pre></td></tr></table></figure>
-<h3 id="Sample-Input-2"><a href="#Sample-Input-2" class="headerlink" title="Sample Input 2:"></a>Sample Input 2:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">7</span><br><span class="line">88 70 61 96 120 90 65</span><br></pre></td></tr></table></figure>
-<h3 id="Sample-Output-2"><a href="#Sample-Output-2" class="headerlink" title="Sample Output 2:"></a>Sample Output 2:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">88</span><br></pre></td></tr></table></figure>
-<p>AVL树作用：<br>　　对于正常二叉搜索树建立过程，以第一个结点为根结点，若输入的结点权值大于第一个结点则插入右子树，小于第一个结点则插入左子树。若遇到出入数据为有序的情况，普通二叉搜索树就会建立一个长链式的树，其查询复杂度就会达到O(n)，如以{1， 2， 3， 4 ，5 ，6， 7， 8， 9， 10}建立的二叉搜索树：</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201811/1447131-20181102213013498-1251399768.png" alt="img"></p>
-<p>若要保持查询复杂度为O(logn)则需要建立AVL树，只需在插入过程中通过左旋右旋操作保证叶子结点的最大高度差不超过1，以{1， 2， 3， 4 ，5 ，6， 7， 8， 9， 10}建立AVL树：</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201811/1447131-20181102213306307-2093137586.png" alt="img"><br>解题思路：<br>　　AVL树模板题要求按输入建立AVL树即在二叉搜索树叶子结点最大高度差大于等于二的时候进行左旋或右旋进行结构优化使结点深度保持在O(logn)的级别,输出AVL树根结点。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> dataType;</span><br><span class="line"><span class="built_in">vector</span>&lt;dataType&gt; data;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    dataType data;</span><br><span class="line">    <span class="keyword">int</span> height; <span class="comment">//AVL树结点比起普通二叉搜索树需要记录height</span></span><br><span class="line">    node *leftChild;</span><br><span class="line">    node * rightChild;</span><br><span class="line">    node()&#123;</span><br><span class="line">        height = <span class="number">1</span>;</span><br><span class="line">        leftChild = <span class="literal">NULL</span>;</span><br><span class="line">        rightChild = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getHeight</span><span class="params">(node *root)</span></span>&#123;  <span class="comment">//获取高度</span></span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>)  </span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> root-&gt;height;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getBalanceFactor</span><span class="params">(node *root)</span></span>&#123;   <span class="comment">//获取树的叶子结点高度差左高为正右高为负</span></span><br><span class="line">    <span class="keyword">return</span> getHeight(root-&gt;leftChild) - getHeight(root-&gt;rightChild);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">updateHeight</span><span class="params">(node *root)</span></span>&#123;   <span class="comment">//更新高度</span></span><br><span class="line">    root-&gt;height = max(getHeight(root-&gt;leftChild),getHeight(root-&gt;rightChild)) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">leftRotation</span><span class="params">(node *&amp;root)</span></span>&#123; <span class="comment">//左旋</span></span><br><span class="line">    node *temp = root-&gt;rightChild;      <span class="comment">//root指向先前根结点temp指向右子树根结点</span></span><br><span class="line">    root-&gt;rightChild = temp-&gt;leftChild; <span class="comment">//temp指向根结点的右子树，所以其所有结点都大于根结点</span></span><br><span class="line">    <span class="comment">//由于在左旋中需要使temp成为新的根结点，所以将root右子树指向temp左子树，再让temp左子树指向root</span></span><br><span class="line">    temp-&gt;leftChild = root;</span><br><span class="line">    <span class="comment">//更新root与temp的树高</span></span><br><span class="line">    updateHeight(root);</span><br><span class="line">    updateHeight(temp);</span><br><span class="line">    root = temp;    <span class="comment">//temp成为新的根结点</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rightRotation</span><span class="params">(node *&amp;root)</span></span>&#123;    <span class="comment">//右旋思路同左旋</span></span><br><span class="line">    node *temp = root-&gt;leftChild;</span><br><span class="line">    root-&gt;leftChild = temp-&gt;rightChild;</span><br><span class="line">    temp-&gt;rightChild = root;</span><br><span class="line">    updateHeight(root);</span><br><span class="line">    updateHeight(temp);</span><br><span class="line">    root = temp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertAVLTree</span><span class="params">(node *&amp;root, <span class="keyword">int</span> x)</span></span>&#123; <span class="comment">//插入结点</span></span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>)&#123;   <span class="comment">//找到插入位置</span></span><br><span class="line">        root = <span class="keyword">new</span> node();</span><br><span class="line">        root-&gt;data = x;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(root-&gt;data == x)&#123;    <span class="comment">//结点已存在</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(root-&gt;data &gt; x)&#123;   <span class="comment">//要插入的数据比根结点权值小</span></span><br><span class="line">        insertAVLTree(root-&gt;leftChild, x);  <span class="comment">//插入左子树</span></span><br><span class="line">        updateHeight(root);</span><br><span class="line">        <span class="keyword">if</span>(getBalanceFactor(root) == <span class="number">2</span>)&#123;　　<span class="comment">//插入左子树时只可能出现左子树比右子树高的情况</span></span><br><span class="line">            <span class="keyword">if</span>(getBalanceFactor(root-&gt;leftChild) == <span class="number">1</span>)&#123;　　<span class="comment">//若左子树的左子树较高直接右旋</span></span><br><span class="line">                rightRotation(root);</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(getBalanceFactor(root-&gt;leftChild) == <span class="number">-1</span>)&#123;　　<span class="comment">//若左子树中右子树较高则将其通过右旋转化为左子树高的情况　　种情况详见下图</span></span><br><span class="line">                leftRotation(root-&gt;leftChild);</span><br><span class="line">                rightRotation(root);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(root-&gt;data &lt; x)&#123;   <span class="comment">//要插入的数据比根结点权值大</span></span><br><span class="line">        insertAVLTree(root-&gt;rightChild, x); <span class="comment">//插入右子树</span></span><br><span class="line">        updateHeight(root);</span><br><span class="line">        <span class="keyword">if</span>(getBalanceFactor(root) == <span class="number">-2</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(getBalanceFactor(root-&gt;rightChild) == <span class="number">-1</span>)&#123;</span><br><span class="line">                leftRotation(root);</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(getBalanceFactor(root-&gt;rightChild) == <span class="number">1</span>)&#123;</span><br><span class="line">                rightRotation(root-&gt;rightChild);</span><br><span class="line">                leftRotation(root);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">node *<span class="title">createAVLTree</span><span class="params">()</span></span>&#123;</span><br><span class="line">    node *root = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">vector</span>&lt;dataType&gt;::iterator it = data.begin(); it != data.end(); it++)&#123;</span><br><span class="line">        insertAVLTree(root, *it);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*void preorder(node *root)&#123;</span></span><br><span class="line"><span class="comment">    if(root == NULL)</span></span><br><span class="line"><span class="comment">        return;</span></span><br><span class="line"><span class="comment">    cout &lt;&lt; root -&gt; data &lt;&lt; " ";</span></span><br><span class="line"><span class="comment">    preorder(root -&gt; leftChild);</span></span><br><span class="line"><span class="comment">    preorder(root -&gt; rightChild);</span></span><br><span class="line"><span class="comment">&#125;*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n) != EOF)&#123;</span><br><span class="line">        data.clear();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            dataType temp;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;temp);</span><br><span class="line">            data.push_back(temp);</span><br><span class="line">        &#125;</span><br><span class="line">        node *root = createAVLTree();</span><br><span class="line">        <span class="comment">//preorder(root);</span></span><br><span class="line">        <span class="comment">//cout &lt;&lt; endl;</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, root-&gt;data);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>左子树的左子树较高</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201811/1447131-20181102214830714-561437459.png" alt="img"></p>
-<p>左子树的右子树较高</p>
-<p> <img src="https://img2018.cnblogs.com/blog/1447131/201811/1447131-20181102215548311-750974049.png" alt="img"> </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1157,7 +1154,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1170,7 +1167,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">84</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

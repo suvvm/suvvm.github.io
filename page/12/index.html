@@ -177,6 +177,111 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/01/HDU-1166-%E6%95%8C%E5%85%B5%E5%B8%83%E9%98%B5-%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/01/HDU-1166-%E6%95%8C%E5%85%B5%E5%B8%83%E9%98%B5-%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/" class="post-title-link" itemprop="url">HDU 1166 敌兵布阵(树状数组)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-01 18:42:15" itemprop="dateCreated datePublished" datetime="2018-12-01T18:42:15+08:00">2018-12-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><meta name="referrer" content="no-referrer"><br>C国的死对头A国这段时间正在进行军事演习，所以C国间谍头子Derek和他手下Tidy又开始忙乎了。A国在海岸线沿直线布置了N个工兵营地,Derek和Tidy的任务就是要监视这些工兵营地的活动情况。由于采取了某种先进的监测手段，所以每个工兵营地的人数C国都掌握的一清二楚,每个工兵营地的人数都有可能发生变动，可能增加或减少若干人手,但这些都逃不过C国的监视。<br>中央情报局要研究敌人究竟演习什么战术,所以Tidy要随时向Derek汇报某一段连续的工兵营地一共有多少人,例如Derek问:“Tidy,马上汇报第3个营地到第10个营地共有多少人!”Tidy就要马上开始计算这一段的总人数并汇报。但敌兵营地的人数经常变动，而Derek每次询问的段都不一样，所以Tidy不得不每次都一个一个营地的去数，很快就精疲力尽了，Derek对Tidy的计算速度越来越不满:”你个死肥仔，算得这么慢，我炒你鱿鱼!”Tidy想：“你自己来算算看，这可真是一项累人的工作!我恨不得你炒我鱿鱼呢!”无奈之下，Tidy只好打电话向计算机专家Windbreaker求救,Windbreaker说：“死肥仔，叫你平时做多点acm题和看多点算法书，现在尝到苦果了吧!”Tidy说：”我知错了。。。”但Windbreaker已经挂掉电话了。Tidy很苦恼，这么算他真的会崩溃的，聪明的读者，你能写个程序帮他完成这项工作吗？不过如果你的程序效率不够高的话，Tidy还是会受到Derek的责骂的. </p>
+<p>Input</p>
+<p>　　第一行一个整数T，表示有T组数据。<br>　　每组数据第一行一个正整数N（N&lt;=50000）,表示敌人有N个工兵营地，接下来有N个正整数,第i个正整数ai代表第i个工兵营地里开始时有ai个人（1&lt;=ai&lt;=50）。<br>　　接下来每行有一条命令，命令有4种形式：<br>　　(1)Add i j,i和j为正整数,表示第i个营地增加j个人（j不超过30）<br>　　(2)Sub i j ,i和j为正整数,表示第i个营地减少j个人（j不超过30）;<br>　　(3)Query i j ,i和j为正整数,i&lt;=j，表示询问第i到第j个营地的总人数;<br>　　(4)End 表示结束，这条命令在每组数据最后出现;<br>　　每组数据最多有40000条命令<br>Output</p>
+<p>　　对第i组数据,首先输出“Case i:”和回车,<br>　　对于每个Query询问，输出一个整数并回车,表示询问的段中的总人数,这个数保持在int以内。<br>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">10</span><br><span class="line">1 2 3 4 5 6 7 8 9 10</span><br><span class="line">Query 1 3</span><br><span class="line">Add 3 6</span><br><span class="line">Query 2 7</span><br><span class="line">Sub 10 2</span><br><span class="line">Add 6 3</span><br><span class="line">Query 3 10</span><br><span class="line">End</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Case 1:</span><br><span class="line">6</span><br><span class="line">33</span><br><span class="line">59</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题有多组测试数据，给出测试数量t，元素个数n，之后给出一个有n个元素的整数序列a，之后给出操作语句以End为结束标值。</p>
+<p>　　首先，对于查询一个整数序列前n个数之和，一般的做法是开一个sum[i]数组记录前i个整数之和可以将每次查询时间复杂度降至O(1)，但是在此处，Add与Sub操作随时可能对整除序列中的元素造成影响，假设更改了x号元素，若想继续维护sum数组就需要更新sum[x]、sum[x+1]、sum[x+2] …… sum[n]，这时虽然保证了查询的时间复杂度为O(1)，但是维护sum却需要O(n)的时间复杂度，对于本题来说是不可承受的。</p>
+<p>　　这时便需要用到树状数组，我们用c[i]，来存放元素的和，c与sum的区别是，c[i]不是前i个元素的元素和而是下图的样子。</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181201170741378-1507510862.png" alt="图1"></p>
+<p>　　不难发现其中c[i]中的元素数量为i可以整除的最大的2的次幂数+1，我们称其为lowbit( i )。</p>
+<p>　　如何快速计算出lowbit？如果了解计算机组成原理可以得知，整数在计算机中的存储采用的是补码，若把 i 的二进制位每一位都取反后末位+1，便可得到-i，，这其实相当于把 i 的二进制位右起第一个1左方的所有位取反，之后 i &amp;( -i )便可取得最右位的1与其右方所有的0，这显然是2的次幂。这样我们就获得了lowbit( i )，例如12（1100）取反（0011）加一（0100），最右方的1与其右方的0（100）= 4。</p>
+<p>　　根据上图分析数组c。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">长度：1 c[1] &#x3D; a[1]</span><br><span class="line">长度：2 c[2] &#x3D; a[1] + a[2]                                         &#x3D; c[1] + a[2]</span><br><span class="line">长度：1 c[3] &#x3D; a[3]</span><br><span class="line">长度：4 c[4] &#x3D; a[1] + a[2] + a[3] + a[4]                           &#x3D; c[2] + c[3] + c[1] + a[4]</span><br><span class="line">长度：1 c[5] &#x3D; a[5]</span><br><span class="line">长度：2 c[6] &#x3D; a[5] + a[6]                                         &#x3D; c[5] + a[6]</span><br><span class="line">长度：1 c[7] &#x3D; a[7]</span><br><span class="line">长度：8 c[8] &#x3D; a[1] + a[2] + a[3] + a[4] + a[5] +a[6] + a[7] +a[8] &#x3D; c[4] + c[6] + c[7] + a[8]</span><br></pre></td></tr></table></figure>
+<p>　　由于c[ i ]的长度为lowbit( i )可以总结出c[ i ] = a[i - lowbit( i ) + 1] + a[i - lowbit( i ) + 2] + …… + a[ i ]。</p>
+<p>　　从1 ~ i a的和为a[1] + a[2] + a[3] + …… + a[ i ]，将它疯狂拆分。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  a[1] + a[2] + a[3] + …… + a[ i ]</span><br><span class="line">&#x3D; a[1] + a[2] + a[3] + …… + a[i - lowbit(i)] + a[i - lowbit(i) + 1] + …… + a[ i ]</span><br><span class="line">&#x3D; a[1] + a[2] + a[3] + …… + a[i - lowbit(i)] + c[i]</span><br><span class="line">&#x3D; a[1] + a[2] + a[3] + …… + a[ (i - lowbit(i) ) - lowbit(i - lowbit(i)) ]  + c[i - lowbit(i)] + c[ i ]</span><br></pre></td></tr></table></figure>
+<p>找到了规律，获得了巨大的快乐。</p>
+<p>　　之后我们写出获取从1 ~ i a的元素和的函数，至于题中要查询i ~ j的元素和，我等只需要查出1 ~ j的元素和与1 ~ i - 1的元素和即可，这样我们只需要O(logn)的时间复杂度就可以完成一次查询。</p>
+<p>getSum函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getSum</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;    <span class="comment">//sum记录和</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = x; i &gt; <span class="number">0</span>; i -= lowbit(i))&#123;  <span class="comment">//拆分每一个C[i]</span></span><br><span class="line">        sum += C[i];    <span class="comment">//累计C[i]将求和范围缩小至</span></span><br><span class="line">        <span class="comment">//a[1] + a[2] + a[3] + …… + a[i - lowbit(i)] + c[i]</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　解决了查询的问题就要开始处理题目中要求的加与减了。</p>
+<p>　　如果我们想将a[ i ]加或减去一个数值，那么我们需要将所有包含a[ i ]的c[ i ]都加上或减去一个同样的值。</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181201181210054-926081251.png" alt="img"></p>
+<p>　　也就是说若将a[3] + 1对应的c[3] c[4] c[8]都要+1，我们要想办法确定覆盖c[3]的最近的c[x]，由于c[x]中每个元素包含的a的数量为lowbit(x)，若想让c[x]包含c[3]，那必定lowbit(x) &gt; lowbit(3)，否则不可能覆盖。之后我们设x = 3 + y，当y = 3时根据我们之前对lowbit来源的解释，3 与 y相等，它们转化为二进制后最右方的1的位置一定相等，x 的最右方1的位置即为y最右方1左侧的第一个0的位置，那么lowbit(x)定然大于lowbit(3)，即x = 6时，这个3 + lowbit(6) = 4就是我们能找到的第一个包含c[3]的c的元素。</p>
+<p>　　之后我们便可以写出更新函数update</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> v)</span></span>&#123;  <span class="comment">//传入要更改的元素位置与要更改的数值</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = x; i &lt;= n; i += lowbit(i))&#123; <span class="comment">//让找到的每一个c[i]都加上v</span></span><br><span class="line">        C[i] += v;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　有了getSum与update函数我们就可以做到本题一切要求了。</p>
+<p>　　之后只需要根据输入的是Query、Add还是Sub进行操作即可。</p>
+<p>AC代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> lowbit(i) ((i)&amp;(-i))</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">5e4</span>+<span class="number">100</span>;</span><br><span class="line"><span class="keyword">int</span> c[maxn];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> v)</span></span>&#123;<span class="comment">//传入要更改的元素位置与要更改的数值</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = x; i &lt; maxn; i += lowbit(i))&#123;<span class="comment">//让找到的每一个c[i]都加上v</span></span><br><span class="line">        c[i] += v;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getSum</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;    <span class="comment">//sum记录和</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = x; i &gt; <span class="number">0</span>; i -= lowbit(i))&#123;  <span class="comment">//拆分每一个C[i]</span></span><br><span class="line">        sum += c[i];</span><br><span class="line">        <span class="comment">//累计C[i]将求和范围缩小至a[1] + a[2] + a[3] + …… + a[i - lowbit(i)] + c[i]</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, x, t;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t) != EOF)&#123;  <span class="comment">//输入测试数量</span></span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">1</span>; <span class="comment">//cnt记录当前测试编号</span></span><br><span class="line">        <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);    <span class="comment">//输入敌人工兵营地数量</span></span><br><span class="line">            <span class="built_in">memset</span>(c, <span class="number">0</span>, <span class="keyword">sizeof</span>(c));    <span class="comment">//初始化数组0的元素值都为0</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">                <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;x);    <span class="comment">//输入每个营地的初始人数</span></span><br><span class="line">                update(i, x);   <span class="comment">//更新c[i]增加x个人</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">string</span> s;   <span class="comment">//s记录输入的命令</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Case %d:\n"</span>, cnt++);</span><br><span class="line">            <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">                <span class="keyword">if</span>(s == <span class="string">"Query"</span>)&#123;   <span class="comment">//查询</span></span><br><span class="line">                        <span class="keyword">int</span> a, b;</span><br><span class="line">                        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">                        <span class="keyword">int</span> ansa, ansb;</span><br><span class="line">                        ansa = getSum(a - <span class="number">1</span>);</span><br><span class="line">                        ansb = getSum(b);</span><br><span class="line">                        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ansb - ansa);</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(s == <span class="string">"Add"</span>)&#123;   <span class="comment">//增加</span></span><br><span class="line">                    <span class="keyword">int</span> a, b;</span><br><span class="line">                        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">                        update(a, b);</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(s == <span class="string">"Sub"</span>)&#123;   <span class="comment">//减少</span></span><br><span class="line">                    <span class="keyword">int</span> a, b;</span><br><span class="line">                        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">                        update(a, -b);</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;  <span class="comment">//收到End结束</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/28/HDOJ-2050-%E6%8A%98%E7%BA%BF%E5%88%86%E5%89%B2%E5%B9%B3%E9%9D%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1011,105 +1116,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/22/HDU-4549-M%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/22/HDU-4549-M%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/" class="post-title-link" itemprop="url">HDU 4549 M斐波那契数列</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-22 23:35:45" itemprop="dateCreated datePublished" datetime="2018-11-22T23:35:45+08:00">2018-11-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><meta name="referrer" content="no-referrer"><br>M斐波那契数列F[n]是一种整数数列，它的定义如下： </p>
-<p>　　F[0] = a<br>　　F[1] = b<br>　　F[n] = F[n-1] * F[n-2] ( n &gt; 1 ) </p>
-<p>　　现在给出a, b, n，你能求出F[n]的值吗？</p>
-<p>Input</p>
-<p>　　输入包含多组测试数据；<br>　　每组数据占一行，包含3个整数a, b, n（ 0 &lt;= a, b, n &lt;= 10^9 ）Output对每组测试数据请输出一个整数F[n]，由于F[n]可能很大，你只需输出F[n]对1000000007取模后的值即可，每组数据输出一行。</p>
-<p>Sample Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0 1 0</span><br><span class="line">6 10 2</span><br></pre></td></tr></table></figure>
-<p>Sample Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">60</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　本题有多组测试，给定公式F[n] = F[n-1] * F[n-2] ( n &gt; 1 ) ，每组测试给出三个整数a，b，n，a与b分别为第一位与第二位的值，n为需要求出的位。</p>
-<p>　　我们根据给出的公式继续向下寻找规律</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">F[0] &#x3D; a 　</span><br><span class="line">F[1] &#x3D; b</span><br><span class="line">F[2] &#x3D; a * b</span><br><span class="line">F[3] &#x3D; a * b * b &#x3D; a * b^2</span><br><span class="line">F[4] &#x3D; a * b^2 * a * b &#x3D; a ^2 * b ^3</span><br><span class="line">F[5] &#x3D; a ^2 * b^3 * a * b^2 &#x3D; a^3 * b^5</span><br><span class="line">F[6] &#x3D; a^3 * b^5 * a^2 * b^3 &#x3D; a^5 * b^8</span><br><span class="line">F[7] &#x3D; a^5 * b^8 * a^3 * b^5 &#x3D; a^8 * b^13</span><br><span class="line">F[8] &#x3D; a^8 * b^13 * a^5 * b^8 &#x3D; a^13 * b^21</span><br><span class="line">……</span><br><span class="line"></span><br><span class="line">再观察一手斐波那契数列f(n)</span><br><span class="line">1、1、2、3、5、8、13、21……</span><br><span class="line"></span><br><span class="line">哦，天哪！！！</span><br><span class="line"></span><br><span class="line">F[n] &#x3D; a^f(n-1) * b^f(n) ( n &gt; 1 ) </span><br><span class="line"></span><br><span class="line">找到了规律！获得了巨大的快乐</span><br></pre></td></tr></table></figure>
-<p>　　这个题已经简化为了求a的斐波那契数列n-1项次幂 * b的斐波那契数列n项次幂。</p>
-<p>　　斐波那契数列第n项和n-1项怎么求，递归？——不行，n &lt; 1e9 太庞大。</p>
-<p>　　斐波那契数列公式f(n) = f(n - 1) + f(n - 2)，我们拿出相邻的两项建立一个2 * 1的矩阵</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201811/1447131-20181128233600736-1075241154.png" alt="img"></p>
-<p>　　想要求斐波那契数列的第n项与第n-1项只需求出初始矩阵的n-1次幂即可，之后求出a的第n-1项次幂与b的第n项次幂即可。</p>
-<p>　　这里就要用到快速幂，与矩阵快速幂。</p>
-<p>　　</p>
-<p>　　快速幂思想：求2^11，11的二进制位1011,11 = 1<em>2^3 + 0</em>2^2 + 1<em>2^1 + 1</em>2^0，所以可以将2^11转化为2^(2^0) <em> 2^(2^1) </em> 2(2^3)。将原先的11次 O(n)优化为了3次O(logn)，本题要求取模，又因为积的取余等于取余的积的取余，我们可以直接在快速幂的过程中取模以得到取模后的答案。</p>
-<p>　　快速幂取模：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LL <span class="title">power</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> mod)</span></span>&#123;    <span class="comment">//快速幂</span></span><br><span class="line">    LL ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(b)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>)&#123;  <span class="comment">//从b的二进制末位开始判断</span></span><br><span class="line">            ans = ans * a % mod;  <span class="comment">//如果为1更新取模后的答案</span></span><br><span class="line">        &#125;</span><br><span class="line">        a = a * a % mod;    <span class="comment">//更新底数取模</span></span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;    <span class="comment">//b右移一位</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> 　　矩阵快速幂与快速幂思想基本一直，只是传入的底数变为了矩阵，乘法也变成了矩阵相乘，这时我们只要开一个结构体记录矩阵并重载<em>运算符为矩阵乘法即可，根据矩阵乘法运算规则，对于新的</em>运算我们只要两层for循环，依次计算答案矩阵，之后再内部一层for循环让第一个矩阵只移动行第二个矩阵只移动列，对应相乘再求和即可得出答案。 </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">matrix</span>&#123;</span></span><br><span class="line">    LL mat[maxn][maxn]; <span class="comment">//mat记录当前矩阵</span></span><br><span class="line">    matrix <span class="keyword">operator</span> *(<span class="keyword">const</span> matrix &amp;a)<span class="keyword">const</span>&#123;    <span class="comment">//重载运算符*</span></span><br><span class="line">        matrix ans;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++)&#123; <span class="comment">//遍历行</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">2</span>; j++)&#123; <span class="comment">//遍历列</span></span><br><span class="line">                ans.mat[i][j] = <span class="number">0</span>;  <span class="comment">//初始化答案矩阵该位置为0</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k =<span class="number">0</span>; k &lt; <span class="number">2</span>; k++)&#123;</span><br><span class="line">                    <span class="comment">//第一个矩阵第i行与第二个矩阵第j列对应相乘</span></span><br><span class="line">                    ans.mat[i][j] = (ans.mat[i][j] + mat[i][k] * a.mat[k][j]) % (mod<span class="number">-1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans; <span class="comment">//返回答案矩阵</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">matrix <span class="title">power</span><span class="params">(matrix a, LL b)</span></span>&#123;   <span class="comment">//矩阵快速幂</span></span><br><span class="line">    matrix ans; <span class="comment">//答案矩阵</span></span><br><span class="line">    <span class="built_in">memset</span>(ans.mat, <span class="number">0</span>, <span class="keyword">sizeof</span>(ans.mat));    <span class="comment">//初始答案矩阵为单位矩阵    </span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++)&#123;</span><br><span class="line">        ans.mat[i][i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(b)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>)&#123;</span><br><span class="line">            ans = ans * a;</span><br><span class="line">        &#125;</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        a = a * a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> AC代码 </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> LL mod = <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">2</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">matrix</span>&#123;</span></span><br><span class="line">    LL mat[maxn][maxn]; <span class="comment">//mat记录当前矩阵</span></span><br><span class="line">    matrix <span class="keyword">operator</span> *(<span class="keyword">const</span> matrix &amp;a)<span class="keyword">const</span>&#123;    <span class="comment">//重载运算符*</span></span><br><span class="line">        matrix ans;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++)&#123; <span class="comment">//遍历行</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">2</span>; j++)&#123; <span class="comment">//遍历列</span></span><br><span class="line">                ans.mat[i][j] = <span class="number">0</span>;  <span class="comment">//初始化答案矩阵该位置为0</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k =<span class="number">0</span>; k &lt; <span class="number">2</span>; k++)&#123;</span><br><span class="line">                    <span class="comment">//第一个矩阵第i行与第二个矩阵第j列对应相乘</span></span><br><span class="line">                    ans.mat[i][j] = (ans.mat[i][j] + mat[i][k] * a.mat[k][j]) % (mod<span class="number">-1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans; <span class="comment">//返回答案矩阵</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">matrix <span class="title">power</span><span class="params">(matrix a, LL b)</span></span>&#123;   <span class="comment">//矩阵快速幂</span></span><br><span class="line">    matrix ans; <span class="comment">//答案矩阵</span></span><br><span class="line">    <span class="built_in">memset</span>(ans.mat, <span class="number">0</span>, <span class="keyword">sizeof</span>(ans.mat));    <span class="comment">//初始答案矩阵为单位矩阵    </span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++)&#123;</span><br><span class="line">        ans.mat[i][i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(b)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>)&#123;</span><br><span class="line">            ans = ans * a;</span><br><span class="line">        &#125;</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        a = a * a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">LL <span class="title">pownum</span><span class="params">(LL a, LL b)</span></span>&#123;</span><br><span class="line">    LL ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(b)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>)&#123;</span><br><span class="line">            ans = ans * a % mod;</span><br><span class="line">        &#125;</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        a = a * a % mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    LL a ,b, n;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%lld%lld"</span>, &amp;a, &amp;b) != EOF)&#123;    <span class="comment">//输入a与b的值</span></span><br><span class="line">        matrix a;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lld"</span>, &amp;n);  <span class="comment">//输入n</span></span><br><span class="line">        a.mat[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        a.mat[<span class="number">0</span>][<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        a.mat[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        a.mat[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//初始矩阵</span></span><br><span class="line">        <span class="comment">//特判0与1</span></span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, a);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(n == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, b);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            a = power(a, n - <span class="number">1</span>);    <span class="comment">//矩阵快速幂计算斐波那契数列第n-1项与第n项</span></span><br><span class="line">            LL ta = a.mat[<span class="number">0</span>][<span class="number">1</span>];    <span class="comment">//第n-1项</span></span><br><span class="line">            LL tb = a.mat[<span class="number">0</span>][<span class="number">0</span>];    <span class="comment">//第n项</span></span><br><span class="line">            LL ans = (pownum(a, ta) * pownum(b, tb)) % mod;</span><br><span class="line">            <span class="comment">//计算答案</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, ans);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1181,7 +1187,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1194,7 +1200,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">84</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

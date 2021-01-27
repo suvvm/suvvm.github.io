@@ -177,6 +177,105 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/22/HDU-4549-M%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/22/HDU-4549-M%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/" class="post-title-link" itemprop="url">HDU 4549 M斐波那契数列</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-22 23:35:45" itemprop="dateCreated datePublished" datetime="2018-11-22T23:35:45+08:00">2018-11-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><meta name="referrer" content="no-referrer"><br>M斐波那契数列F[n]是一种整数数列，它的定义如下： </p>
+<p>　　F[0] = a<br>　　F[1] = b<br>　　F[n] = F[n-1] * F[n-2] ( n &gt; 1 ) </p>
+<p>　　现在给出a, b, n，你能求出F[n]的值吗？</p>
+<p>Input</p>
+<p>　　输入包含多组测试数据；<br>　　每组数据占一行，包含3个整数a, b, n（ 0 &lt;= a, b, n &lt;= 10^9 ）Output对每组测试数据请输出一个整数F[n]，由于F[n]可能很大，你只需输出F[n]对1000000007取模后的值即可，每组数据输出一行。</p>
+<p>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0 1 0</span><br><span class="line">6 10 2</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">60</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题有多组测试，给定公式F[n] = F[n-1] * F[n-2] ( n &gt; 1 ) ，每组测试给出三个整数a，b，n，a与b分别为第一位与第二位的值，n为需要求出的位。</p>
+<p>　　我们根据给出的公式继续向下寻找规律</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">F[0] &#x3D; a 　</span><br><span class="line">F[1] &#x3D; b</span><br><span class="line">F[2] &#x3D; a * b</span><br><span class="line">F[3] &#x3D; a * b * b &#x3D; a * b^2</span><br><span class="line">F[4] &#x3D; a * b^2 * a * b &#x3D; a ^2 * b ^3</span><br><span class="line">F[5] &#x3D; a ^2 * b^3 * a * b^2 &#x3D; a^3 * b^5</span><br><span class="line">F[6] &#x3D; a^3 * b^5 * a^2 * b^3 &#x3D; a^5 * b^8</span><br><span class="line">F[7] &#x3D; a^5 * b^8 * a^3 * b^5 &#x3D; a^8 * b^13</span><br><span class="line">F[8] &#x3D; a^8 * b^13 * a^5 * b^8 &#x3D; a^13 * b^21</span><br><span class="line">……</span><br><span class="line"></span><br><span class="line">再观察一手斐波那契数列f(n)</span><br><span class="line">1、1、2、3、5、8、13、21……</span><br><span class="line"></span><br><span class="line">哦，天哪！！！</span><br><span class="line"></span><br><span class="line">F[n] &#x3D; a^f(n-1) * b^f(n) ( n &gt; 1 ) </span><br><span class="line"></span><br><span class="line">找到了规律！获得了巨大的快乐</span><br></pre></td></tr></table></figure>
+<p>　　这个题已经简化为了求a的斐波那契数列n-1项次幂 * b的斐波那契数列n项次幂。</p>
+<p>　　斐波那契数列第n项和n-1项怎么求，递归？——不行，n &lt; 1e9 太庞大。</p>
+<p>　　斐波那契数列公式f(n) = f(n - 1) + f(n - 2)，我们拿出相邻的两项建立一个2 * 1的矩阵</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201811/1447131-20181128233600736-1075241154.png" alt="img"></p>
+<p>　　想要求斐波那契数列的第n项与第n-1项只需求出初始矩阵的n-1次幂即可，之后求出a的第n-1项次幂与b的第n项次幂即可。</p>
+<p>　　这里就要用到快速幂，与矩阵快速幂。</p>
+<p>　　</p>
+<p>　　快速幂思想：求2^11，11的二进制位1011,11 = 1<em>2^3 + 0</em>2^2 + 1<em>2^1 + 1</em>2^0，所以可以将2^11转化为2^(2^0) <em> 2^(2^1) </em> 2(2^3)。将原先的11次 O(n)优化为了3次O(logn)，本题要求取模，又因为积的取余等于取余的积的取余，我们可以直接在快速幂的过程中取模以得到取模后的答案。</p>
+<p>　　快速幂取模：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LL <span class="title">power</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> mod)</span></span>&#123;    <span class="comment">//快速幂</span></span><br><span class="line">    LL ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(b)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>)&#123;  <span class="comment">//从b的二进制末位开始判断</span></span><br><span class="line">            ans = ans * a % mod;  <span class="comment">//如果为1更新取模后的答案</span></span><br><span class="line">        &#125;</span><br><span class="line">        a = a * a % mod;    <span class="comment">//更新底数取模</span></span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;    <span class="comment">//b右移一位</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 　　矩阵快速幂与快速幂思想基本一直，只是传入的底数变为了矩阵，乘法也变成了矩阵相乘，这时我们只要开一个结构体记录矩阵并重载<em>运算符为矩阵乘法即可，根据矩阵乘法运算规则，对于新的</em>运算我们只要两层for循环，依次计算答案矩阵，之后再内部一层for循环让第一个矩阵只移动行第二个矩阵只移动列，对应相乘再求和即可得出答案。 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">matrix</span>&#123;</span></span><br><span class="line">    LL mat[maxn][maxn]; <span class="comment">//mat记录当前矩阵</span></span><br><span class="line">    matrix <span class="keyword">operator</span> *(<span class="keyword">const</span> matrix &amp;a)<span class="keyword">const</span>&#123;    <span class="comment">//重载运算符*</span></span><br><span class="line">        matrix ans;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++)&#123; <span class="comment">//遍历行</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">2</span>; j++)&#123; <span class="comment">//遍历列</span></span><br><span class="line">                ans.mat[i][j] = <span class="number">0</span>;  <span class="comment">//初始化答案矩阵该位置为0</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k =<span class="number">0</span>; k &lt; <span class="number">2</span>; k++)&#123;</span><br><span class="line">                    <span class="comment">//第一个矩阵第i行与第二个矩阵第j列对应相乘</span></span><br><span class="line">                    ans.mat[i][j] = (ans.mat[i][j] + mat[i][k] * a.mat[k][j]) % (mod<span class="number">-1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans; <span class="comment">//返回答案矩阵</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">matrix <span class="title">power</span><span class="params">(matrix a, LL b)</span></span>&#123;   <span class="comment">//矩阵快速幂</span></span><br><span class="line">    matrix ans; <span class="comment">//答案矩阵</span></span><br><span class="line">    <span class="built_in">memset</span>(ans.mat, <span class="number">0</span>, <span class="keyword">sizeof</span>(ans.mat));    <span class="comment">//初始答案矩阵为单位矩阵    </span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++)&#123;</span><br><span class="line">        ans.mat[i][i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(b)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>)&#123;</span><br><span class="line">            ans = ans * a;</span><br><span class="line">        &#125;</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        a = a * a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> AC代码 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> LL mod = <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">2</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">matrix</span>&#123;</span></span><br><span class="line">    LL mat[maxn][maxn]; <span class="comment">//mat记录当前矩阵</span></span><br><span class="line">    matrix <span class="keyword">operator</span> *(<span class="keyword">const</span> matrix &amp;a)<span class="keyword">const</span>&#123;    <span class="comment">//重载运算符*</span></span><br><span class="line">        matrix ans;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++)&#123; <span class="comment">//遍历行</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">2</span>; j++)&#123; <span class="comment">//遍历列</span></span><br><span class="line">                ans.mat[i][j] = <span class="number">0</span>;  <span class="comment">//初始化答案矩阵该位置为0</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k =<span class="number">0</span>; k &lt; <span class="number">2</span>; k++)&#123;</span><br><span class="line">                    <span class="comment">//第一个矩阵第i行与第二个矩阵第j列对应相乘</span></span><br><span class="line">                    ans.mat[i][j] = (ans.mat[i][j] + mat[i][k] * a.mat[k][j]) % (mod<span class="number">-1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans; <span class="comment">//返回答案矩阵</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">matrix <span class="title">power</span><span class="params">(matrix a, LL b)</span></span>&#123;   <span class="comment">//矩阵快速幂</span></span><br><span class="line">    matrix ans; <span class="comment">//答案矩阵</span></span><br><span class="line">    <span class="built_in">memset</span>(ans.mat, <span class="number">0</span>, <span class="keyword">sizeof</span>(ans.mat));    <span class="comment">//初始答案矩阵为单位矩阵    </span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++)&#123;</span><br><span class="line">        ans.mat[i][i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(b)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>)&#123;</span><br><span class="line">            ans = ans * a;</span><br><span class="line">        &#125;</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        a = a * a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">LL <span class="title">pownum</span><span class="params">(LL a, LL b)</span></span>&#123;</span><br><span class="line">    LL ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(b)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>)&#123;</span><br><span class="line">            ans = ans * a % mod;</span><br><span class="line">        &#125;</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        a = a * a % mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    LL a ,b, n;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%lld%lld"</span>, &amp;a, &amp;b) != EOF)&#123;    <span class="comment">//输入a与b的值</span></span><br><span class="line">        matrix a;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lld"</span>, &amp;n);  <span class="comment">//输入n</span></span><br><span class="line">        a.mat[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        a.mat[<span class="number">0</span>][<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        a.mat[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        a.mat[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//初始矩阵</span></span><br><span class="line">        <span class="comment">//特判0与1</span></span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, a);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(n == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, b);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            a = power(a, n - <span class="number">1</span>);    <span class="comment">//矩阵快速幂计算斐波那契数列第n-1项与第n项</span></span><br><span class="line">            LL ta = a.mat[<span class="number">0</span>][<span class="number">1</span>];    <span class="comment">//第n-1项</span></span><br><span class="line">            LL tb = a.mat[<span class="number">0</span>][<span class="number">0</span>];    <span class="comment">//第n项</span></span><br><span class="line">            LL ans = (pownum(a, ta) * pownum(b, tb)) % mod;</span><br><span class="line">            <span class="comment">//计算答案</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, ans);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/22/HDOJ-5019-Revenge-of-GCD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1035,95 +1134,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/12/HDU-2159-FATE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/12/HDU-2159-FATE/" class="post-title-link" itemprop="url">HDU 2159 FATE</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-12 08:59:57" itemprop="dateCreated datePublished" datetime="2018-11-12T08:59:57+08:00">2018-11-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>最近xhd正在玩一款叫做FATE的游戏，为了得到极品装备，xhd在不停的杀怪做任务。久而久之xhd开始对杀怪产生的厌恶感，但又不得不通过杀怪来升完这最后一级。现在的问题是，xhd升掉最后一级还需n的经验值，xhd还留有m的忍耐度，每杀一个怪xhd会得到相应的经验，并减掉相应的忍耐度。当忍耐度降到0或者0以下时，xhd就不会玩这游戏。xhd还说了他最多只杀s只怪。请问他能升掉这最后一级吗？</p>
-<p>Input</p>
-<p>　　输入数据有多组，对于每组数据第一行输入n，m，k，s(0 &lt; n,m,k,s &lt; 100)四个正整数。分别表示还需的经验值，保留的忍耐度，怪的种数和最多的杀怪数。接下来输入k行数据。每行数据输入两个正整数a，b(0 &lt; a,b &lt; 20)；分别表示杀掉一只这种怪xhd会得到的经验值和会减掉的忍耐度。(每种怪都有无数个)</p>
-<p>Output</p>
-<p>　　输出升完这级还能保留的最大忍耐度，如果无法升完这级输出-1。Sample Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">10 10 1 10</span><br><span class="line">1 1</span><br><span class="line">10 10 1 9</span><br><span class="line">1 1</span><br><span class="line">9 10 2 10</span><br><span class="line">1 1</span><br><span class="line">2 2</span><br></pre></td></tr></table></figure>
-<p>Sample Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">-1</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　本题要求处理杀怪升级问题，有多组数据，每组第一行给出4个整数，分别为升级所需的经验n，忍耐度（体力）m，怪物种类k，最多杀怪数s，之后k行跟随，每行输入两个整数,分别为杀掉这种怪会得到的经验值，杀掉这种怪消耗的体力。要求输出升完级后能保留的最大体力。</p>
-<p>　　基本思路为完全背包，用数组dp记录消耗每个数量的体力所能获得的最大经验值，dp2记录该种情况下的杀怪数。根据dp与dp2寻找答案。</p>
-<p>　　根据描述可以写出动态转移方程：</p>
-<p>　　　　dp[ j ] = max(dp[ j ], dp[ j - engn[ i ] ] + expn[ i ] )</p>
-<p>　　　　if(dp[ j ] == dp[ j - engn[ i ] ] + expn[ i ] )</p>
-<p>　　　　　　dp2[ j ] = dp2[ j - eng[ i ] ] + 1</p>
-<p>　　之后遍历最大体力值找到获得经验值可以达到升级要求且杀怪数低于限制的体力消耗值最小值，并用最大体力值减去它便可以得到答案，若没有符合要求的情况输出-1。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e2</span>+<span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> engn[maxn];</span><br><span class="line"><span class="keyword">int</span> expn[maxn];</span><br><span class="line"><span class="keyword">int</span> dp[maxn], dp2[maxn];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m, k, s;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>, &amp;n, &amp;m, &amp;k, &amp;s) !=  EOF)&#123;</span><br><span class="line">        <span class="comment">//输入升级经验，忍耐度，怪物种类，最多杀怪数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;expn[i], &amp;engn[i]);</span><br><span class="line">            <span class="comment">//输入每种怪物经验值与消耗忍耐度</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m; i++)&#123;</span><br><span class="line">            <span class="comment">//初始dp与dp2为0</span></span><br><span class="line">            dp[i] = dp2[i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++)&#123;    <span class="comment">//完全背包</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = engn[i]; j &lt;= m; j++)&#123;  <span class="comment">//正向遍历背包容量</span></span><br><span class="line">                dp[j] = max(dp[j], dp[j - engn[i]] + expn[i]);  <span class="comment">//动态转移方程</span></span><br><span class="line">                <span class="keyword">if</span>(dp[j] == dp[j - engn[i]] + expn[i])&#123;</span><br><span class="line">                    dp2[j] = dp2[j - engn[i]] + <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">-1</span>;   <span class="comment">//初始化答案为-1</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dp[i] &gt;= n &amp;&amp; dp2[i] &lt;= s)&#123;  <span class="comment">//找到符合升级条件与杀怪条件的消耗值</span></span><br><span class="line">                ans = m - i;    <span class="comment">//记录最大剩余忍耐度</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1195,7 +1205,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1208,7 +1218,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">84</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
