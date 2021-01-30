@@ -177,6 +177,158 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/01/30/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%A9%E6%95%88%E8%A1%A1%E9%87%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/30/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%A9%E6%95%88%E8%A1%A1%E9%87%8F/" class="post-title-link" itemprop="url">推荐系统的绩效衡量</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-30 15:24:21 / 修改时间：16:09:08" itemprop="dateCreated datePublished" datetime="2021-01-30T15:24:21+08:00">2021-01-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="推荐系统的绩效衡量"><a href="#推荐系统的绩效衡量" class="headerlink" title="推荐系统的绩效衡量"></a>推荐系统的绩效衡量</h1><h2 id="一、评测方法"><a href="#一、评测方法" class="headerlink" title="一、评测方法"></a>一、评测方法</h2><p>衡量推荐系统的有效性的方法主要分为三种</p>
+<ul>
+<li>用户研究</li>
+<li>在线估计（A/B测试）</li>
+<li>离线评估</li>
+</ul>
+<p>​    常用的度量方式为<a href="https://en.wikipedia.org/wiki/Mean_squared_error" target="_blank" rel="noopener">方差度量</a>和<a href="https://en.wikipedia.org/wiki/Root_mean_squared_error" target="_blank" rel="noopener">均方根差度量</a></p>
+<h3 id="1、用户研究"><a href="#1、用户研究" class="headerlink" title="1、用户研究"></a>1、用户研究</h3><p>​    用户研究是想数十个或数百个用户通过不同推荐策略创建推荐后由用户判断最佳的推荐策略，研究规模一般较小。</p>
+<h3 id="2、在线评估"><a href="#2、在线评估" class="headerlink" title="2、在线评估"></a>2、在线评估</h3><p>​    将不同推荐策略作为推荐系统的两个变体，通过受测用户的反映来评估变体的有效性故称之为A/B测试。在线评估过程中通常对将变体直接部署至部分生产环境，将真实产品向成千上万用户展示。</p>
+<h3 id="3、离线评估"><a href="#3、离线评估" class="headerlink" title="3、离线评估"></a>3、离线评估</h3><p>​    离线评估是基于历史数据的评估，通常是根据有现成结果的数据集来对推荐系统产出结果进行评估。可以基于一套数据集测试多种算法。</p>
+<ul>
+<li>通过体制系统获得用户行为数据，生成标准数据集</li>
+<li>见数据集按一定规则分为训练集和测试集</li>
+<li>使用训练集上训练对应用户/项目模型，使用测试集进行预测</li>
+<li>通过定义的离线指标评测推荐算法在测试集的预测结果</li>
+</ul>
+<h2 id="二、评测指标"><a href="#二、评测指标" class="headerlink" title="二、评测指标"></a>二、评测指标</h2><ul>
+<li>预测准确度</li>
+<li>信任度</li>
+<li>用户满意度</li>
+<li>实时性</li>
+<li>覆盖率（不要只覆盖热门）</li>
+<li>健壮性</li>
+<li>多样性（适度提升不相似性）</li>
+<li>商业目标（点击率、用户转化率）</li>
+<li>惊喜度</li>
+</ul>
+<h3 id="1、准确度评测"><a href="#1、准确度评测" class="headerlink" title="1、准确度评测"></a>1、准确度评测</h3><ul>
+<li><p>评分预测</p>
+<ul>
+<li><p>通过对获取用户对目标产品的评分历史，建立兴趣模型，预测用户对推荐新物品的可能评分</p>
+</li>
+<li><p>评分预测采用均方根差（RMSE 真实评分与预测评分的差的平方求和后处以预测的个数后开方）或平均绝对误差（MAE真实评分与预测评分的差的绝对值求和后处以预测的个数）计算</p>
+<script type="math/tex; mode=display">
+RMSE=
+\sqrt{ 
+    \frac{
+        \sum_{i<T}^{u} (r_{ui} - \hat{r}_{ui})
+    }{|T|
+    }
+}
+\qquad
+MAE=
+\frac{
+    \sum_{i\in T}^{u}|r_{ui}-\hat{r}_{ui}|
+}{
+    |T|
+}</script></li>
+</ul>
+</li>
+<li><p>Top-N推荐</p>
+<ul>
+<li>给用户一个大小为N的个性化推荐列表</li>
+<li>Top-N准确率一般使用精确率（precision）和召回率（recall）来度量<ul>
+<li>准确率（正确检索的元素数量与总数之比） $ A = \frac{TP + TN}{TP + FP + FN + TN} $</li>
+<li>精确率（正确检索的正类与被检索到的全部元素之比）$ P=\frac{TP}{TP+FP} $</li>
+<li>召回率（所有检索到的正类与全部正类的之比）$ R = \frac{TP}{TP+FP} $</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>相关(Relevant)正类</th>
+<th>无关(NonRelevant)负类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>被检索到(Retrieved)</td>
+<td>TP（正确检索的正类）</td>
+<td>FP（错误检索的负类）</td>
+</tr>
+<tr>
+<td>未被检索到(Not Retrieved)</td>
+<td>FN（错误检索的正类）</td>
+<td>TN（正确家检索的负类）</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/01/27/%E4%BB%A3%E7%90%86%E6%8C%87%E5%8D%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -557,83 +709,6 @@
 <li>自然语言理解NLU</li>
 <li>问题回答</li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/01/19/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%A9%E6%95%88%E8%A1%A1%E9%87%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/19/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%A9%E6%95%88%E8%A1%A1%E9%87%8F/" class="post-title-link" itemprop="url">推荐系统的绩效衡量</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-01-19 17:54:21 / 修改时间：17:55:07" itemprop="dateCreated datePublished" datetime="2021-01-19T17:54:21+08:00">2021-01-19</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="推荐系统的绩效衡量"><a href="#推荐系统的绩效衡量" class="headerlink" title="推荐系统的绩效衡量"></a>推荐系统的绩效衡量</h1><p>​    衡量推荐系统的有效性的方法主要分为三种</p>
-<ul>
-<li>用户研究</li>
-<li>在线估计（A/B测试）</li>
-<li>离线评估</li>
-</ul>
-<p>​    常用的度量方式为<a href="https://en.wikipedia.org/wiki/Mean_squared_error" target="_blank" rel="noopener">方差度量</a>和<a href="https://en.wikipedia.org/wiki/Root_mean_squared_error" target="_blank" rel="noopener">均方根差度量</a></p>
-<h2 id="用户研究"><a href="#用户研究" class="headerlink" title="用户研究"></a>用户研究</h2><p>​    用户研究是想数十个或数百个用户通过不同推荐策略创建推荐后由用户判断最佳的推荐策略，研究规模一般较小。</p>
-<h2 id="在线评估"><a href="#在线评估" class="headerlink" title="在线评估"></a>在线评估</h2><p>​    将不同推荐策略作为推荐系统的两个变体，通过受测用户的反映来评估变体的有效性故称之为A/B测试。在线评估过程中通常对将变体直接部署至部分生产环境，将真实产品向成千上万用户展示。</p>
-<h2 id="离线评估"><a href="#离线评估" class="headerlink" title="离线评估"></a>离线评估</h2><p>​    离线评估是基于历史数据的评估，通常是根据有现成结果的训练集来对推荐系统产出结果进行评估。</p>
 
       
     </div>
