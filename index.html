@@ -177,6 +177,141 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/01/31/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/31/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">推荐系统</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-31 15:38:51 / 修改时间：16:06:48" itemprop="dateCreated datePublished" datetime="2021-01-31T15:38:51+08:00">2021-01-31</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><p>​    推荐系统是一个子类信息过滤系统，旨在根据目标角色过去的行为以及其他角色所做出的类似决策来构建模型，并使用该模型推荐具有相似属性的项目。当前推荐系统大多是组合了多种推荐算法的混合系统。</p>
+<h2 id="一、推荐系统目的"><a href="#一、推荐系统目的" class="headerlink" title="一、推荐系统目的"></a>一、推荐系统目的</h2><p>​    一个出色的推荐系统最终要实现的是用户、内容（目标项目）、使用推荐系统的平台三方共赢，而不是成为资本家推送产品的帮凶。</p>
+<ol>
+<li>让用户更快速的获取到所需的目标内容</li>
+<li>让内容更快推送到具有特定偏好的用户中</li>
+<li>让使用推荐系统的平台更有效的保留用户资源</li>
+</ol>
+<h2 id="二、推荐算法"><a href="#二、推荐算法" class="headerlink" title="二、推荐算法"></a>二、推荐算法</h2><h3 id="1、协同过滤（Collaborative-Filtering）"><a href="#1、协同过滤（Collaborative-Filtering）" class="headerlink" title="1、协同过滤（Collaborative Filtering）"></a>1、协同过滤（Collaborative Filtering）</h3><p>​    协同过滤的理论基于一种假设：用户过去的决策与未来的决策不会发生变动，过去认同的属性在将来也会得到认同。推荐算法使用不同用户对目标项目的评级历史集来生成建议，通过在历史集中查找与当前用户有相似评级的用户，使用邻域（测试用户相似性与项目相似性如k-NN）生成推荐。</p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>不依赖于机器可分析内容</li>
+<li>可以准确推荐复杂项目</li>
+<li>无需了解被推荐项目本身属性</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>对于历史集中未给出的新项目，没有足够数据来给出准确建议（冷启动）</li>
+<li>若历史集项目和用户数量巨大，则每次推荐都需要大量的计算能力（可伸缩性）</li>
+<li>大部分用户不会对全部项目进行评级，只会对一小部分项目进行评级（稀疏性）</li>
+</ul>
+<h3 id="2、基于内容的过滤（Content-based-Filtering）"><a href="#2、基于内容的过滤（Content-based-Filtering）" class="headerlink" title="2、基于内容的过滤（Content-based Filtering）"></a>2、基于内容的过滤（Content-based Filtering）</h3><p>​    基于内容的过滤使用项目属性和用户偏好通过机器学习的方法来进行推荐，一般适用于在项目有已知属性（名称、位置、描述等等）但用户没有已知数据的情况。基于内容的过滤最关键问题就是针对用户偏好的建模与通过抽取项目内在或外在的特征值，实现相似度计算。</p>
+<h4 id="物品特征提取"><a href="#物品特征提取" class="headerlink" title="物品特征提取"></a>物品特征提取</h4><ul>
+<li>物品特征打标签（tag）<ul>
+<li>专家标签（PGC）</li>
+<li>用户自定义标签（UGC）</li>
+<li>降维分析数据，提取隐语义标签（LFM）</li>
+</ul>
+</li>
+<li>文本信息提取关键词<ul>
+<li>分词、语义处理、情感分析（NLP）</li>
+<li>潜在语义分析（LSA）</li>
+</ul>
+</li>
+</ul>
+<h4 id="相似度计算"><a href="#相似度计算" class="headerlink" title="相似度计算"></a>相似度计算</h4><p>​    相似度的评判一般用距离表示，最常使用的是余弦相似度</p>
+<p><img src="/2021/01/31/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/cos.png" alt="img"></p>
+<ul>
+<li><p>欧式距离</p>
+<script type="math/tex; mode=display">
+d(x,y)=\sqrt{\sum_i(x_i-y_i)^2}</script><p>差向量模长</p>
+</li>
+<li><p>余弦相似度</p>
+<script type="math/tex; mode=display">
+cos\theta = \frac{a·b}{||a||\times||b||} = \frac{\sum_{i}x_iy_i}{\sqrt{\sum_{i}x_i^2}\times\sqrt{\sum_{i}y_i^2}}</script><p>两个向量的点积除以两个向量模长的乘积</p>
+</li>
+</ul>
+<h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>只需要用户对特征属性的偏好，而不需要用户对项目的评价（可以分析新项目）</li>
+<li>可以通过控制项目特征属性的维度来控制推荐精度</li>
+</ul>
+<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>物品属性最大纬度有限切提取属性困难</li>
+<li>可分析内容有限，推荐内容僵化</li>
+</ul>
+<h3 id="3、多标准推荐系统（Multi-criteria-recommender-systems）"><a href="#3、多标准推荐系统（Multi-criteria-recommender-systems）" class="headerlink" title="3、多标准推荐系统（Multi-criteria recommender systems）"></a>3、多标准推荐系统（Multi-criteria recommender systems）</h3><p>​    可以将多标准推荐系统（MCRS）定义为在多个标准上包含首选项信息的推荐系统。多标准推荐系统是基于对影响用户对项目总体偏好的多个标准来预测用户对新新项目的评级。</p>
+<h3 id="4、有风险意识的推荐系统（Risk-aware-recommender-systems）"><a href="#4、有风险意识的推荐系统（Risk-aware-recommender-systems）" class="headerlink" title="4、有风险意识的推荐系统（Risk-aware recommender systems）"></a>4、有风险意识的推荐系统（Risk-aware recommender systems）</h3><p>​    有风险意识的推荐系统不止根据上下文信息而产出推荐内容，而且考虑了某些情况下产出推荐的风险。多采用DRARS，将上下文感知建通过<a href="https://en.wikipedia.org/wiki/Multi-armed_bandit" target="_blank" rel="noopener">多臂老虎机算法</a>进行建模。</p>
+<h3 id="5、移动推荐系统（Mobile-recommender-systems）"><a href="#5、移动推荐系统（Mobile-recommender-systems）" class="headerlink" title="5、移动推荐系统（Mobile recommender systems）"></a>5、移动推荐系统（Mobile recommender systems）</h3><p>​    移动推荐系统通过可以访问互联网等我移动设备提供个性化推荐（如驾驶路线推荐）其需要处理的数据异构而嘈杂。一般存在四个关键因素：上下文、推荐方法、隐私和地方政策。</p>
+<h3 id="6、基于会话的推荐系统（Session-based-recommender-systems）"><a href="#6、基于会话的推荐系统（Session-based-recommender-systems）" class="headerlink" title="6、基于会话的推荐系统（Session-based recommender systems）"></a>6、基于会话的推荐系统（Session-based recommender systems）</h3><p>​    基于会话的推荐系统使用会话中与用户的交互，在无需用户行为历史记录的情况下，根据最近会话交互顺序使用例如递归神经网络之类的深度学习算法生成顺序模型。</p>
+<h3 id="7、强化学习推荐系统（Reinforcement-learning-for-recommender-systems）"><a href="#7、强化学习推荐系统（Reinforcement-learning-for-recommender-systems）" class="headerlink" title="7、强化学习推荐系统（Reinforcement learning for recommender systems）"></a>7、强化学习推荐系统（Reinforcement learning for recommender systems）</h3><p>​    强化学习推荐系统通过直接训练用户参与度对用户兴趣模型进行优化（如有奖调查💪👴👉爪巴）通过向被推荐对象提供奖励来学习模型或策略。</p>
+<h3 id="8、混合推荐系统（Hybrid-recommender-systems）"><a href="#8、混合推荐系统（Hybrid-recommender-systems）" class="headerlink" title="8、混合推荐系统（Hybrid recommender systems）"></a>8、混合推荐系统（Hybrid recommender systems）</h3><p>​    混合推荐系统是当前大多数推荐系统使用的方法，其主要策略是将协作过滤、基于内容过滤等和其他方法结合在一起，对不同技术进行杂交混合。</p>
+<p>​    混合方法：</p>
+<ul>
+<li>加权（Weighted）：将不同推荐成分加权进行组合</li>
+<li>变换（Switching）：推荐时在不同推荐算法组件中进行切换</li>
+<li>混合（Mixed）：将来自不同算法的结果混合显示给用户</li>
+<li>特征组合（Feature Combination）：将不同知识来源的特征进行组合，提供给单个推荐算法</li>
+<li>特征增强（Feature Augmentation）：将一种算法产生的附加的特征信息嵌入另一种推荐算法的特征输入中</li>
+<li>级联（Cascade）：一个算法的结果作为另一个算法的输入</li>
+<li>元级别（Meta-Ievel)）：用一种推荐方法产生的模型作为另一种推荐方法的输入</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/01/30/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%A9%E6%95%88%E8%A1%A1%E9%87%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -468,116 +603,6 @@ MAE=
 </li>
 </ul>
 <p>iptables 实现客户端 &lt;=&gt; 国内实例 &lt;=国内运营商内网=&gt; 国内实例 &lt;==&gt; 外网实例中继下次快乐了再写。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/01/27/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/27/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">推荐系统</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-01-27 14:38:51 / 修改时间：15:32:40" itemprop="dateCreated datePublished" datetime="2021-01-27T14:38:51+08:00">2021-01-27</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><p>​    推荐系统是一个子类信息过滤系统，旨在根据目标角色过去的行为以及其他角色所做出的类似决策来构建模型，并使用该模型推荐具有相似属性的项目。当前推荐系统大多是组合了多种推荐算法的混合系统。</p>
-<h2 id="一、推荐系统目的"><a href="#一、推荐系统目的" class="headerlink" title="一、推荐系统目的"></a>一、推荐系统目的</h2><p>​    一个出色的推荐系统最终要实现的是用户、内容（目标项目）、使用推荐系统的平台三方共赢，而不是成为资本家推送产品的帮凶。</p>
-<ol>
-<li>让用户更快速的获取到所需的目标内容</li>
-<li>让内容更快推送到具有特定偏好的用户中</li>
-<li>让使用推荐系统的平台更有效的保留用户资源</li>
-</ol>
-<h2 id="二、推荐算法"><a href="#二、推荐算法" class="headerlink" title="二、推荐算法"></a>二、推荐算法</h2><h3 id="1、协同过滤（Collaborative-Filtering）"><a href="#1、协同过滤（Collaborative-Filtering）" class="headerlink" title="1、协同过滤（Collaborative Filtering）"></a>1、协同过滤（Collaborative Filtering）</h3><p>​    协同过滤的理论基于一种假设：用户过去的决策与未来的决策不会发生变动，过去认同的属性在将来也会得到认同。推荐算法使用不同用户对目标项目的评级历史集来生成建议，通过在历史集中查找与当前用户有相似评级的用户，使用邻域（测试用户相似性与项目相似性如k-NN）生成推荐。</p>
-<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
-<li>不依赖于机器可分析内容</li>
-<li>可以准确推荐复杂项目</li>
-<li>无需了解被推荐项目本身属性</li>
-</ul>
-<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
-<li>对于历史集中未给出的新项目，没有足够数据来给出准确建议（冷启动）</li>
-<li>若历史集项目和用户数量巨大，则每次推荐都需要大量的计算能力（可伸缩性）</li>
-<li>大部分用户不会对全部项目进行评级，只会对一小部分项目进行评级（稀疏性）</li>
-</ul>
-<h3 id="2、基于内容的过滤（Content-based-Filtering）"><a href="#2、基于内容的过滤（Content-based-Filtering）" class="headerlink" title="2、基于内容的过滤（Content-based Filtering）"></a>2、基于内容的过滤（Content-based Filtering）</h3><p>​    基于内容的过滤使用项目属性和用户偏好通过机器学习的方法来进行推荐，一般适用于在项目有已知属性（名称、位置、描述等等）但用户没有已知数据的情况。基于内容的过滤最关键问题就是针对用户偏好的建模。</p>
-<h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h4><ul>
-<li>只需要用户对特征属性的偏好，而不需要用户对项目的评价（可以分析新项目）</li>
-<li>可以通过控制项目特征属性的维度来控制推荐精度</li>
-</ul>
-<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><ul>
-<li>物品属性最大纬度有限切提取属性困难</li>
-<li>可分析内容有限，推荐内容僵化</li>
-</ul>
-<h3 id="3、多标准推荐系统（Multi-criteria-recommender-systems）"><a href="#3、多标准推荐系统（Multi-criteria-recommender-systems）" class="headerlink" title="3、多标准推荐系统（Multi-criteria recommender systems）"></a>3、多标准推荐系统（Multi-criteria recommender systems）</h3><p>​    可以将多标准推荐系统（MCRS）定义为在多个标准上包含首选项信息的推荐系统。多标准推荐系统是基于对影响用户对项目总体偏好的多个标准来预测用户对新新项目的评级。</p>
-<h3 id="4、有风险意识的推荐系统（Risk-aware-recommender-systems）"><a href="#4、有风险意识的推荐系统（Risk-aware-recommender-systems）" class="headerlink" title="4、有风险意识的推荐系统（Risk-aware recommender systems）"></a>4、有风险意识的推荐系统（Risk-aware recommender systems）</h3><p>​    有风险意识的推荐系统不止根据上下文信息而产出推荐内容，而且考虑了某些情况下产出推荐的风险。多采用DRARS，将上下文感知建通过<a href="https://en.wikipedia.org/wiki/Multi-armed_bandit" target="_blank" rel="noopener">多臂老虎机算法</a>进行建模。</p>
-<h3 id="5、移动推荐系统（Mobile-recommender-systems）"><a href="#5、移动推荐系统（Mobile-recommender-systems）" class="headerlink" title="5、移动推荐系统（Mobile recommender systems）"></a>5、移动推荐系统（Mobile recommender systems）</h3><p>​    移动推荐系统通过可以访问互联网等我移动设备提供个性化推荐（如驾驶路线推荐）其需要处理的数据异构而嘈杂。一般存在四个关键因素：上下文、推荐方法、隐私和地方政策。</p>
-<h3 id="6、基于会话的推荐系统（Session-based-recommender-systems）"><a href="#6、基于会话的推荐系统（Session-based-recommender-systems）" class="headerlink" title="6、基于会话的推荐系统（Session-based recommender systems）"></a>6、基于会话的推荐系统（Session-based recommender systems）</h3><p>​    基于会话的推荐系统使用会话中与用户的交互，在无需用户行为历史记录的情况下，根据最近会话交互顺序使用例如递归神经网络之类的深度学习算法生成顺序模型。</p>
-<h3 id="7、强化学习推荐系统（Reinforcement-learning-for-recommender-systems）"><a href="#7、强化学习推荐系统（Reinforcement-learning-for-recommender-systems）" class="headerlink" title="7、强化学习推荐系统（Reinforcement learning for recommender systems）"></a>7、强化学习推荐系统（Reinforcement learning for recommender systems）</h3><p>​    强化学习推荐系统通过直接训练用户参与度对用户兴趣模型进行优化（如有奖调查💪👴👉爪巴）通过向被推荐对象提供奖励来学习模型或策略。</p>
-<h3 id="8、混合推荐系统（Hybrid-recommender-systems）"><a href="#8、混合推荐系统（Hybrid-recommender-systems）" class="headerlink" title="8、混合推荐系统（Hybrid recommender systems）"></a>8、混合推荐系统（Hybrid recommender systems）</h3><p>​    混合推荐系统是当前大多数推荐系统使用的方法，其主要策略是将协作过滤、基于内容过滤等和其他方法结合在一起，对不同技术进行杂交混合。</p>
-<p>​    混合方法：</p>
-<ul>
-<li>加权（Weighted）：将不同推荐成分加权进行组合</li>
-<li>变换（Switching）：推荐时在不同推荐算法组件中进行切换</li>
-<li>混合（Mixed）：将来自不同算法的结果混合显示给用户</li>
-<li>特征组合（Feature Combination）：将不同知识来源的特征进行组合，提供给单个推荐算法</li>
-<li>特征增强（Feature Augmentation）：将一种算法产生的附加的特征信息嵌入另一种推荐算法的特征输入中</li>
-<li>级联（Cascade）：一个算法的结果作为另一个算法的输入</li>
-<li>元级别（Meta-Ievel)）：用一种推荐方法产生的模型作为另一种推荐方法的输入</li>
-</ul>
 
       
     </div>
