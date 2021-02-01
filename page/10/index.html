@@ -177,6 +177,354 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/01/28/HihoCoder-1040-%E7%9F%A9%E5%BD%A2%E5%88%A4%E6%96%AD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/01/28/HihoCoder-1040-%E7%9F%A9%E5%BD%A2%E5%88%A4%E6%96%AD/" class="post-title-link" itemprop="url">HihoCoder 1040 矩形判断</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-28 19:13:57" itemprop="dateCreated datePublished" datetime="2019-01-28T19:13:57+08:00">2019-01-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　给出平面上4条线段，判断这4条线段是否恰好围成一个面积大于0的矩形。</p>
+<p>Input</p>
+<p>　　输入第一行是一个整数T(1&lt;=T&lt;=100)，代表测试数据的数量。</p>
+<p>　　每组数据包含4行，每行包含4个整数x1, y1, x2, y2 (0 &lt;= x1, y1, x2, y2 &lt;= 100000)；其中(x1, y1), (x2,y2)代表一条线段的两个端点。</p>
+<p>Output</p>
+<p>　　每组数据输出一行YES或者NO，表示输入的4条线段是否恰好围成矩形。</p>
+<p>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">0 0 0 1</span><br><span class="line">1 0 1 1</span><br><span class="line">0 1 1 1</span><br><span class="line">1 0 0 0</span><br><span class="line">0 1 2 3</span><br><span class="line">1 0 3 2</span><br><span class="line">3 2 2 3</span><br><span class="line">1 0 0 1</span><br><span class="line">0 1 1 0</span><br><span class="line">1 0 2 0</span><br><span class="line">2 0 1 1</span><br><span class="line">1 1 0 1</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">YES</span><br><span class="line">YES</span><br><span class="line">NO</span><br></pre></td></tr></table></figure>
+<p>时间限制:1000ms</p>
+<p>单点时限:1000ms</p>
+<p>内存限制:256MB</p>
+<p>题目解析<br>　　本题给出测试数量t，每组测试给出4条线段，要求判断四条线段是否能围成矩形。</p>
+<p>　　本题的数据量t很少，不会超过100，且每条线段有两个端点每组数据4条线段，所以不同的点不会超过8个，所有测试数据中包含的不同的点不会超过800个，这样我们就可以放心大胆的浪费内存空间了。</p>
+<p>　　一、若给出的4条线段可以围成矩形，那么其中必定包含4个不同的端点，利用set的不重复性记录一下4条线段的所有端点，若最后set中的端点不为四个，那这4条线段肯定不能围成一个矩形。</p>
+<p>　　二、若给出的4条线段可以围成矩形，所以围成的图形一定是个封闭图形，4个端点的度一定为2，利用map建立每个端点和其连通端点集的映射，检查每个端点对应连通集合中是否只有两个端点，若不为两个端点，那这4条线段肯定不能围成一个矩形。</p>
+<p>　　三、若给出的4条线段可以围成矩形，则每条线段都会有另一条长度相等的线段与其平行，用vector保存每个线段对应的向量，则若存在两条长度相等且平行的线段，其对应向量相等或符号相反，之后遍历所有向量，与其相等或符号相反的向量定有其本身加上平行相等线段对应的向量共两条，若不为两条那这4条线段肯定不能围成一个矩形。</p>
+<p>　　四、若给出的4条线段可以围成矩形，则每条线段都会有两条与其垂直的线段，因此每条向量都会有两条与其垂直的向量，遍历所有向量获取与其垂直的向量数量，若不为两条那这4条线段肯定不能围成一个矩形。（向量(x1, y1)与(x2, y2)垂直 : x1 <em> y2 + x2 </em> y1 == 0）。</p>
+<p>　　若满足以上4条，给出的4条线段可以围成矩形。</p>
+<p>　　AC代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> t;  </span><br><span class="line"><span class="built_in">set</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; &gt; nodeSet;   <span class="comment">//nodeSet储存所有的端点</span></span><br><span class="line"><span class="built_in">map</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;, <span class="built_in">vector</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; &gt; &gt; edgeMap;  <span class="comment">//edgeMap[i] 储存与i相连的所有点的集合</span></span><br><span class="line"><span class="built_in">vector</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; &gt; vectors;    <span class="comment">//vectors 储存每条边对应的向量</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);    <span class="comment">//测试数量输入</span></span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="comment">//清空所有容器</span></span><br><span class="line">        nodeSet.clear();    </span><br><span class="line">        edgeMap.clear();</span><br><span class="line">        vectors.clear();</span><br><span class="line">        <span class="comment">//每条输入的信息包括两个点(x1, y1) (x2, y2)</span></span><br><span class="line">        <span class="keyword">int</span> x1, x2, y1, y2;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)&#123; <span class="comment">//输入四条线段</span></span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>, &amp;x1, &amp;y1, &amp;x2, &amp;y2);</span><br><span class="line">            pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; tempNode1, tempNode2, tempVectors;</span><br><span class="line">            <span class="comment">// pair&lt;int, int&gt; tempNode1 记录第一个点 tempNode1.first记录x坐标 tempNode1.second记录y坐标</span></span><br><span class="line">            <span class="comment">// pair&lt;int, int&gt; tempNode2 记录第二个点 tempNode2.first记录x坐标 tempNode2.second记录y坐标  </span></span><br><span class="line">            <span class="comment">// pair&lt;int, int&gt; tempVectors 记录当前线段对应的向量 tempVectors.first记录x轴位移量 tempVectors.second记录y轴位移量</span></span><br><span class="line">            tempNode1.first = x1;</span><br><span class="line">            tempNode1.second = y1;</span><br><span class="line">            nodeSet.insert(tempNode1);  <span class="comment">//nodeSet中加入tempNode1</span></span><br><span class="line">            tempNode2.first = x2;</span><br><span class="line">            tempNode2.second = y2;</span><br><span class="line">            nodeSet.insert(tempNode2);  <span class="comment">//nodeSet中加入tempNode2</span></span><br><span class="line">            edgeMap[tempNode1].push_back(tempNode2);    <span class="comment">//tempNode1的连通顶点集中加入tempNode2</span></span><br><span class="line">            edgeMap[tempNode2].push_back(tempNode1);    <span class="comment">//tempNode2的连通顶点集中加入tempNode1</span></span><br><span class="line">            tempVectors.first = x2 - x1;    <span class="comment">//计算x轴位移量</span></span><br><span class="line">            tempVectors.second = y2 - y1;   <span class="comment">//计算y轴位移量</span></span><br><span class="line">            vectors.push_back(tempVectors); <span class="comment">//向量集vectors中加入tempVectors</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(nodeSet.size() != <span class="number">4</span>)&#123;    <span class="comment">//判断端点是否为4个</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"NO\n"</span>);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">bool</span> isRectangle = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i : nodeSet)&#123;  <span class="comment">//判断每个端点的度是否为2</span></span><br><span class="line">            <span class="keyword">if</span>(edgeMap[i].size() != <span class="number">2</span>)&#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"NO\n"</span>);</span><br><span class="line">                isRectangle = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">                <span class="comment">//goto here; 保持气节不要用goto goto是程序的敌人 我一开始用的goto 虽然也AC了不过我改过自新，回头是岸</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!isRectangle)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        isRectangle = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">int</span> cnt;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i : vectors)&#123;  <span class="comment">//判断每条向量是否有一条向量与其平行且相等</span></span><br><span class="line">            cnt = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> j : vectors)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i == j || (i.first == -j.first &amp;&amp; i.second == -j.second))&#123;</span><br><span class="line">                    cnt++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(cnt != <span class="number">2</span>)&#123;   <span class="comment">//加上本身一共两个</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"NO\n"</span>);</span><br><span class="line">                isRectangle = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">                <span class="comment">//goto here;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!isRectangle)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        isRectangle = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i : vectors)&#123;  <span class="comment">//判断每条向量是否有两个与其垂直的向量</span></span><br><span class="line">            cnt = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> j : vectors)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i.first * j.second + j.first * i.second == <span class="number">0</span>)&#123;</span><br><span class="line">                    cnt++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(cnt != <span class="number">2</span>)&#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"NO\n"</span>);</span><br><span class="line">                isRectangle = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">                <span class="comment">//goto here;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!isRectangle)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"YES\n"</span>);</span><br><span class="line">        <span class="comment">//here:;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/01/26/PTA-Advanced-Level-1028-List-Sorting/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/01/26/PTA-Advanced-Level-1028-List-Sorting/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1028 List Sorting</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-26 15:44:09" itemprop="dateCreated datePublished" datetime="2019-01-26T15:44:09+08:00">2019-01-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　Excel can sort records according to any column. Now you are supposed to imitate this function.</p>
+<h3 id="Input-Specification"><a href="#Input-Specification" class="headerlink" title="Input Specification:"></a>Input Specification:</h3><p>　　Each input file contains one test case. For each case, the first line contains two integers N (≤) and C, where N is the number of records and C is the column that you are supposed to sort the records with. Then N lines follow, each contains a record of a student. A student’s record consists of his or her distinct ID (a 6-digit number), name (a string with no more than 8 characters without space), and grade (an integer between 0 and 100, inclusive).</p>
+<h3 id="Output-Specification"><a href="#Output-Specification" class="headerlink" title="Output Specification:"></a>Output Specification:</h3><p>　　For each test case, output the sorting result in N lines. That is, if C = 1 then the records must be sorted in increasing order according to ID’s; if C = 2 then the records must be sorted in non-decreasing order according to names; and if C = 3 then the records must be sorted in non-decreasing order according to grades. If there are several students who have the same name or grade, they must be sorted according to their ID’s in increasing order.</p>
+<h3 id="Sample-Input-1"><a href="#Sample-Input-1" class="headerlink" title="Sample Input 1:"></a>Sample Input 1:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3 1</span><br><span class="line">000007 James 85</span><br><span class="line">000010 Amy 90</span><br><span class="line">000001 Zoe 60</span><br></pre></td></tr></table></figure>
+<h3 id="Sample-Output-1"><a href="#Sample-Output-1" class="headerlink" title="Sample Output 1:"></a>Sample Output 1:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">000001 Zoe 60</span><br><span class="line">000007 James 85</span><br><span class="line">000010 Amy 90</span><br></pre></td></tr></table></figure>
+<h3 id="Sample-Input-2"><a href="#Sample-Input-2" class="headerlink" title="Sample Input 2:"></a>Sample Input 2:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">4 2</span><br><span class="line">000007 James 85</span><br><span class="line">000010 Amy 90</span><br><span class="line">000001 Zoe 60</span><br><span class="line">000002 James 98</span><br></pre></td></tr></table></figure>
+<h3 id="Sample-Output-2"><a href="#Sample-Output-2" class="headerlink" title="Sample Output 2:"></a>Sample Output 2:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">000010 Amy 90</span><br><span class="line">000002 James 98</span><br><span class="line">000007 James 85</span><br><span class="line">000001 Zoe 60</span><br></pre></td></tr></table></figure>
+<h3 id="Sample-Input-3"><a href="#Sample-Input-3" class="headerlink" title="Sample Input 3:"></a>Sample Input 3:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">4 3</span><br><span class="line">000007 James 85</span><br><span class="line">000010 Amy 90</span><br><span class="line">000001 Zoe 60</span><br><span class="line">000002 James 90</span><br></pre></td></tr></table></figure>
+<h3 id="Sample-Output-3"><a href="#Sample-Output-3" class="headerlink" title="Sample Output 3:"></a>Sample Output 3:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">000001 Zoe 60</span><br><span class="line">000007 James 85</span><br><span class="line">000002 James 90</span><br><span class="line">000010 Amy 90</span><br></pre></td></tr></table></figure>
+<p>题目解析<br>　　本题给出两个整数，n为学生数量，c为排序指令，之后n行为学生信息，每个学生的信息包括学生号码ID，学生姓名name与学生成绩grade，排序指令为1时要求按照id升序排序，指令为2时要求按照学生姓名name字典序升序排序，若两个学生姓名字典序相同则按id升序排序，指令为3时按成绩grade升序排序，成绩相同时按id升序排序。</p>
+<p>　　只需要将所有学生信息记录在一个容器vector中，根据题意对应的cmp函数，根据指令调用cmp函数即可。</p>
+<p>　　AC代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">student</span>&#123;</span> <span class="comment">//结构体student代表一个学生的信息</span></span><br><span class="line">    <span class="keyword">int</span> id; <span class="comment">//学号</span></span><br><span class="line">    <span class="built_in">string</span> name;    <span class="comment">//姓名</span></span><br><span class="line">    <span class="keyword">int</span> grade;  <span class="comment">//成绩</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;student&gt; V;  <span class="comment">//容器V记录所有学生信息</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp1</span><span class="params">(student a, student b)</span></span>&#123;    </span><br><span class="line">    <span class="comment">//指令为1时按学号升序排序</span></span><br><span class="line">    <span class="keyword">return</span> a.id &lt; b.id;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp2</span><span class="params">(student a, student b)</span></span>&#123;</span><br><span class="line">    <span class="comment">//指令为2时按姓名字典序升序排序</span></span><br><span class="line">    <span class="keyword">if</span>(a.name != b.name)</span><br><span class="line">        <span class="keyword">return</span> a.name &lt; b.name;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="comment">//姓名字典序相同时按照学号升序排序</span></span><br><span class="line">        <span class="keyword">return</span> a.id &lt; b.id;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp3</span><span class="params">(student a, student b)</span></span>&#123;</span><br><span class="line">    <span class="comment">//指令为3时按照成绩升序排序</span></span><br><span class="line">    <span class="keyword">if</span>(a.grade != b.grade)</span><br><span class="line">        <span class="keyword">return</span> a.grade &lt; b.grade;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="comment">//成绩相同时按照学号升序排序</span></span><br><span class="line">        <span class="keyword">return</span> a.id &lt; b.id;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> n, c;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;c);  <span class="comment">//输入学生数量与排序指令</span></span><br><span class="line">    student temp;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; temp.id &gt;&gt; temp.name &gt;&gt; temp.grade;</span><br><span class="line">        <span class="comment">//输入学生信息加入容器V</span></span><br><span class="line">        V.push_back(temp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//根据排序指令进行排序</span></span><br><span class="line">    <span class="keyword">if</span>(c == <span class="number">1</span>)</span><br><span class="line">        sort(V.begin(), V.end(), cmp1);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(c == <span class="number">2</span>)</span><br><span class="line">        sort(V.begin(), V.end(), cmp2);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        sort(V.begin(), V.end(), cmp3);</span><br><span class="line">    <span class="comment">//输出时使用cout会超时</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> i : V)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%06d %s %2d\n"</span>, i.id, (i.name).c_str(), i.grade);</span><br><span class="line">        <span class="comment">//格式化输出</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/01/26/PTA-Advanced-Level-1027-Colors-in-Mars/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/01/26/PTA-Advanced-Level-1027-Colors-in-Mars/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1027 Colors in Mars</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-26 15:26:45" itemprop="dateCreated datePublished" datetime="2019-01-26T15:26:45+08:00">2019-01-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　People in Mars represent the colors in their computers in a similar way as the Earth people. That is, a color is represented by a 6-digit number, where the first 2 digits are for <code>Red</code>, the middle 2 digits for <code>Green</code>, and the last 2 digits for <code>Blue</code>. The only difference is that they use radix 13 (0-9 and A-C) instead of 16. Now given a color in three decimal numbers (each between 0 and 168), you are supposed to output their Mars RGB values.</p>
+<h3 id="Input-Specification"><a href="#Input-Specification" class="headerlink" title="Input Specification:"></a>Input Specification:</h3><p>　　Each input file contains one test case which occupies a line containing the three decimal color values.</p>
+<h3 id="Output-Specification"><a href="#Output-Specification" class="headerlink" title="Output Specification:"></a>Output Specification:</h3><p>　　For each test case you should output the Mars RGB value in the following format: first output <code>#</code>, then followed by a 6-digit number where all the English characters must be upper-cased. If a single color is only 1-digit long, you must print a <code>0</code> to its left.</p>
+<h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input:"></a>Sample Input:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">15 43 71</span><br></pre></td></tr></table></figure>
+<h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output:"></a>Sample Output:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#123456</span><br></pre></td></tr></table></figure>
+<p>题目解析<br>　　本题给出3个10进制数字要求转换为13进制数字并输出，根据题意我们可以得出，转化后的每一个数字都不会超过两位。</p>
+<p>　　这样我们可以将十进制数字0~12与对应13进制数字利用map建立映射。之后将每个数字对应输出即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">char</span>&gt; radix;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;    <span class="comment">//建立十进制数与对应13进制数的映射</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">        radix[i] = i + <span class="string">'0'</span>;</span><br><span class="line">    radix[<span class="number">10</span>] = <span class="string">'A'</span>;</span><br><span class="line">    radix[<span class="number">11</span>] = <span class="string">'B'</span>;</span><br><span class="line">    radix[<span class="number">12</span>] = <span class="string">'C'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    init();</span><br><span class="line">    <span class="keyword">int</span> red, green, blue;   </span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;red, &amp;green, &amp;blue);</span><br><span class="line">    <span class="comment">//输入三个十进制数</span></span><br><span class="line">    <span class="comment">//输出时先输出#</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"#"</span> &lt;&lt; radix[red / <span class="number">13</span>] &lt;&lt; radix[red % <span class="number">13</span>];</span><br><span class="line">    <span class="comment">//输出转化后的两位数</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; radix[green / <span class="number">13</span>] &lt;&lt; radix[green % <span class="number">13</span>];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; radix[blue / <span class="number">13</span>] &lt;&lt; radix[blue % <span class="number">13</span>] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/01/25/PTA-Advanced-Level-1021-Deepest-Root/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/01/25/PTA-Advanced-Level-1021-Deepest-Root/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1021 Deepest Root</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-25 15:31:56" itemprop="dateCreated datePublished" datetime="2019-01-25T15:31:56+08:00">2019-01-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　A graph which is connected and acyclic can be considered a tree. The hight of the tree depends on the selected root. Now you are supposed to find the root that results in a highest tree. Such a root is called the deepest root.</p>
+<h3 id="Input-Specification"><a href="#Input-Specification" class="headerlink" title="Input Specification:"></a>Input Specification:</h3><p>　　Each input file contains one test case. For each case, the first line contains a positive integer N (≤10^4) which is the number of nodes, and hence the nodes are numbered from 1 to N. Then N−1 lines follow, each describes an edge by given the two adjacent nodes’ numbers.</p>
+<h3 id="Output-Specification"><a href="#Output-Specification" class="headerlink" title="Output Specification:"></a>Output Specification:</h3><p>　　For each test case, print each of the deepest roots in a line. If such a root is not unique, print them in increasing order of their numbers. In case that the given graph is not a tree, print <code>Error: K components</code> where <code>K</code> is the number of connected components in the graph.</p>
+<h3 id="Sample-Input-1"><a href="#Sample-Input-1" class="headerlink" title="Sample Input 1:"></a>Sample Input 1:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">5</span><br><span class="line">1 2</span><br><span class="line">1 3</span><br><span class="line">1 4</span><br><span class="line">2 5</span><br></pre></td></tr></table></figure>
+<h3 id="Sample-Output-1"><a href="#Sample-Output-1" class="headerlink" title="Sample Output 1:"></a>Sample Output 1:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td></tr></table></figure>
+<h3 id="Sample-Input-2"><a href="#Sample-Input-2" class="headerlink" title="Sample Input 2:"></a>Sample Input 2:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">5</span><br><span class="line">1 3</span><br><span class="line">1 4</span><br><span class="line">2 5</span><br><span class="line">3 4</span><br></pre></td></tr></table></figure>
+<h3 id="Sample-Output-2"><a href="#Sample-Output-2" class="headerlink" title="Sample Output 2:"></a>Sample Output 2:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error: 2 components</span><br></pre></td></tr></table></figure>
+<p>题目解析<br>　　本题给出一个无向图的信息，包括一个数字n，代表无向图有n个结点，之后跟随n-1行分别为n-1条边连接的两个结点。要求判断该无向图是否是一颗树，若是一棵树，由小到大输出以其为根结点时深度最大的点，若不是树则输出连通块数量。</p>
+<p>　　在解题之前首先看一下题目的限制</p>
+<p>　　时间限制: 2000 ms</p>
+<p>　　内存限制: 64 MB</p>
+<p>　　本题结点数量最多1e4个若用二维数组存储邻接矩阵，虽然数组没有超限但是当节点数取到最大1e4个结点时，需要的内存空间超过382MB，所以在这里使用邻接表来存储无向图。对于判断无向图是否为树，由于无向图有n个结点n-1条边，那么只要这个图是连通图，它便肯定是一颗树。我们只需要维护一个并查集便可以达到判断数与输出连通块数量，由于本题时间限制非常松，时间宽松使人暴力，所以在寻找深度最大的根结点时，这里以所有点为根结点暴力深搜获取深度，用set保存所有深度最大的点，之后将其输出即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX =<span class="number">1e4</span> + <span class="number">10</span>;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; G[MAX];</span><br><span class="line"><span class="keyword">int</span> f[MAX];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;    <span class="comment">//初始化并查集</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        f[i] = i;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getF</span><span class="params">(<span class="keyword">int</span> x)</span> <span class="comment">//并查集找爹函数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(f[x] == x)</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> f[x] = getF(f[x]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> maxH = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS_getH</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> height, <span class="keyword">int</span> preNode)</span></span>&#123;  <span class="comment">//深搜获取深度</span></span><br><span class="line">    maxH = max(maxH, height);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; G[u].size(); i++)</span><br><span class="line">        <span class="keyword">if</span>(G[u][i] != preNode)</span><br><span class="line">            DFS_getH(G[u][i], height + <span class="number">1</span>, u);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);    <span class="comment">//输入结点数量</span></span><br><span class="line">    init(); <span class="comment">//初始化并查集</span></span><br><span class="line">    <span class="built_in">memset</span>(G, <span class="number">0</span>, <span class="keyword">sizeof</span>(G));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i++)&#123; <span class="comment">//输入n-1条边</span></span><br><span class="line">        <span class="keyword">int</span> u, v;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;u, &amp;v);</span><br><span class="line">        G[u].push_back(v);</span><br><span class="line">        G[v].push_back(u);</span><br><span class="line">        <span class="keyword">int</span> fu = getF(u);</span><br><span class="line">        <span class="keyword">int</span> fv = getF(v);</span><br><span class="line">        <span class="keyword">if</span>(fu != fv)    <span class="comment">//合并一条的两个端点</span></span><br><span class="line">            f[fu] = fv;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>;    <span class="comment">//记录连通块个数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;    <span class="comment">//获取连通块个数</span></span><br><span class="line">        <span class="keyword">if</span>(f[i] == i)</span><br><span class="line">            cnt++;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">if</span>(cnt != <span class="number">1</span>)    <span class="comment">//若连通块个数不等于1证明给出的图不是一颗树</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Error: %d components\n"</span>, cnt);   <span class="comment">//输出连通块个数</span></span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; ans;</span><br><span class="line">        <span class="keyword">int</span> ansH = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">            maxH = <span class="number">0</span>;</span><br><span class="line">            DFS_getH(i, <span class="number">1</span>, <span class="number">0</span>);  <span class="comment">//获取每一个点为根时对应的树高（用maxH记录）</span></span><br><span class="line">            <span class="keyword">if</span>(maxH &gt; ansH)&#123;    <span class="comment">//ansH记录当前最高深度</span></span><br><span class="line">                ansH = maxH;    <span class="comment">//若找到深度更大的点便清空集合重新记录</span></span><br><span class="line">                ans.clear();</span><br><span class="line">                ans.insert(i);</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(maxH == ansH)&#123; <span class="comment">//找到深度与当前最大深度相同的点便加入集合</span></span><br><span class="line">                ans.insert(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i : ans)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/01/23/PTA-Advanced-Level-1024-Palindromic-Number/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -716,398 +1064,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/20/PTA-Advanced-Level-1016-Phone-Bills/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/12/20/PTA-Advanced-Level-1016-Phone-Bills/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1016 Phone Bills</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-12-20 19:33:16" itemprop="dateCreated datePublished" datetime="2018-12-20T19:33:16+08:00">2018-12-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>　　A long-distance telephone company charges its customers by the following rules:</p>
-<p>　　Making a long-distance call costs a certain amount per minute, depending on the time of day when the call is made. When a customer starts connecting a long-distance call, the time will be recorded, and so will be the time when the customer hangs up the phone. Every calendar month, a bill is sent to the customer for each minute called (at a rate determined by the time of day). Your job is to prepare the bills for each month, given a set of phone call records.</p>
-<h3 id="Input-Specification"><a href="#Input-Specification" class="headerlink" title="Input Specification:"></a>Input Specification:</h3><p>　　Each input file contains one test case. Each case has two parts: the rate structure, and the phone call records.</p>
-<p>　　The rate structure consists of a line with 24 non-negative integers denoting the toll (cents/minute) from 00:00 - 01:00, the toll from 01:00 - 02:00, and so on for each hour in the day.</p>
-<p>　　The next line contains a positive number N (≤), followed by N lines of records. Each phone call record consists of the name of the customer (string of up to 20 characters without space), the time and date (<code>mm:dd:hh:mm</code>), and the word <code>on-line</code>or <code>off-line</code>.</p>
-<p>　　For each test case, all dates will be within a single month. Each <code>on-line</code> record is paired with the chronologically next record for the same customer provided it is an <code>off-line</code> record. Any <code>on-line</code> records that are not paired with an <code>off-line</code> record are ignored, as are <code>off-line</code> records not paired with an <code>on-line</code> record. It is guaranteed that at least one call is well paired in the input. You may assume that no two records for the same customer have the same time. Times are recorded using a 24-hour clock.</p>
-<h3 id="Output-Specification"><a href="#Output-Specification" class="headerlink" title="Output Specification:"></a>Output Specification:</h3><p>　　For each test case, you must print a phone bill for each customer.</p>
-<p>　　Bills must be printed in alphabetical order of customers’ names. For each customer, first print in a line the name of the customer and the month of the bill in the format shown by the sample. Then for each time period of a call, print in one line the beginning and ending time and date (<code>dd:hh:mm</code>), the lasting time (in minute) and the charge of the call. The calls must be listed in chronological order. Finally, print the total charge for the month in the format shown by the sample.</p>
-<h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input:"></a>Sample Input:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">10 10 10 10 10 10 20 20 20 15 15 15 15 15 15 15 20 30 20 15 15 10 10 10</span><br><span class="line">10</span><br><span class="line">CYLL 01:01:06:01 on-line</span><br><span class="line">CYLL 01:28:16:05 off-line</span><br><span class="line">CYJJ 01:01:07:00 off-line</span><br><span class="line">CYLL 01:01:08:03 off-line</span><br><span class="line">CYJJ 01:01:05:59 on-line</span><br><span class="line">aaa 01:01:01:03 on-line</span><br><span class="line">aaa 01:02:00:01 on-line</span><br><span class="line">CYLL 01:28:15:41 on-line</span><br><span class="line">aaa 01:05:02:24 on-line</span><br><span class="line">aaa 01:04:23:59 off-line</span><br></pre></td></tr></table></figure>
-<h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output:"></a>Sample Output:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">CYJJ 01</span><br><span class="line">01:05:59 01:07:00 61 $12.10</span><br><span class="line">Total amount: $12.10</span><br><span class="line">CYLL 01</span><br><span class="line">01:06:01 01:08:03 122 $24.40</span><br><span class="line">28:15:41 28:16:05 24 $3.85</span><br><span class="line">Total amount: $28.25</span><br><span class="line">aaa 01</span><br><span class="line">02:00:01 04:23:59 4318 $638.80</span><br><span class="line">Total amount: $638.80</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　本题是一个计算电话费用的题目，每组测试首先给出24个整数，代表一天中00：00 ~ 24：00每个小时每分钟通话的收费（单位是美分），下一行给出一个整数n表示通话记录的数量，之后n行跟随表示每条通话记录的信息，包括用户名 时间（月:日:时:分） 开始通话或结束通话标识（on-line / off-line）。要求按时间输出所有用户的通话信息，格式为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">用户名  通话月份</span><br><span class="line">开始通话时间  结束通话时间  本次通话金额（单位为美元）</span><br><span class="line">……</span><br><span class="line">……</span><br><span class="line">Total amount: 全部通话金额总和单位为美元）</span><br></pre></td></tr></table></figure>
-<p>　　这里首先用一个数组toll[25]记录24小时通话各自的收费，用一个结构体node记录每条通话记录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int toll[25];   &#x2F;&#x2F;记录每个小时每分钟通话的收费</span><br><span class="line">struct node&#123;    </span><br><span class="line">    string name;    &#x2F;&#x2F;客户名</span><br><span class="line">    int month, dd, hh,mm;   &#x2F;&#x2F;时间</span><br><span class="line">    bool line;  &#x2F;&#x2F;结束通话标识 true表示on-line false表示off—line</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>　　我们想要在输入是将每个客户的通话记录都分开记录，这里可以利用map将每个客户名映射到一个vector容器，容器中装载通话记录。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map&lt;string, vector&lt;node&gt; &gt; customer;    </span><br><span class="line">&#x2F;&#x2F;customer[&quot;张三&quot;]现在就代表着姓名为张三的用户的所有通话记录</span><br></pre></td></tr></table></figure>
-<p>　　这样我们就可以开始录入通话记录了</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        node temp;  <span class="comment">//temp记录当前输入的通话记录信息</span></span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; temp.name;   <span class="comment">//输入姓名</span></span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d:%d:%d:%d"</span>, &amp;temp.month, &amp;temp.dd, &amp;temp.hh, &amp;temp.mm);</span><br><span class="line">        <span class="comment">//输入时</span></span><br><span class="line">        <span class="built_in">string</span> tline;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; tline;   <span class="comment">//输入通话标识</span></span><br><span class="line">        temp.line = mp[tline];  <span class="comment">//这里的mp将"on-line"映射为true将"off-line"映射为false</span></span><br><span class="line">        customer[temp.name].push_back(temp);</span><br><span class="line">        <span class="comment">//将当前信息记录入其客户所对应的容器中</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p> 之后我们就需要遍历所有客户与其通话记录，将客户的通话记录按时间升序排序，根据排序后的通话记录，我们就可以获得该客户的所有完整通话（时间相邻最近的on_line与off-line，中间不能夹着其他on_line与off-line）。我们需要获得每一个完整通话并将其记录在对应用户名下，我们用结构体call记录每一个完整通话的信息，包括客户名，开始通话时间，结束通话时间，通话时长，通话消费。 </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">call</span>&#123;</span></span><br><span class="line">    <span class="built_in">string</span> name;    <span class="comment">//客户名</span></span><br><span class="line">    <span class="keyword">int</span> onMonth, onDd, onHh, onMm;  <span class="comment">//开始通话时间</span></span><br><span class="line">    <span class="keyword">int</span> offMonth, offDd, offHh, offMm;  <span class="comment">//结束通话时间</span></span><br><span class="line">    <span class="keyword">int</span> sumTime;    <span class="comment">//通话时长</span></span><br><span class="line">    <span class="keyword">int</span> cost;   <span class="comment">//通话消耗</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>　为了记录每个客户的完整通话，我们可以采用和每个客户通话记录一样的记录方式，利用map将每个客户名映射到一个vector容器，只不过这次容器中装载的是完整通话。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;call&gt; &gt; costInf;</span><br><span class="line"><span class="comment">//costInf["张三"]现在就代表着姓名为张三的客户的所有完整通话</span></span><br></pre></td></tr></table></figure>
-<p>　　遍历信息　　</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> i : customer)&#123; <span class="comment">//遍历所有客户</span></span><br><span class="line">        sort((i.second).begin(), (i.second).end(), cmp);</span><br><span class="line">        <span class="comment">//将每个用户的通话记录按时间升序排序</span></span><br><span class="line">        <span class="keyword">bool</span> isOnLine = <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">//isOnLine用来标记客户当前是否正在通话</span></span><br><span class="line">        call temp;  <span class="comment">//temp记录一次完整通话</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> j : (i.second))&#123;   <span class="comment">//遍历该客户所有通话记录</span></span><br><span class="line">            <span class="keyword">if</span>(j.line)&#123; <span class="comment">//遇到开始通话的通话记录</span></span><br><span class="line">                isOnLine = <span class="literal">true</span>;    <span class="comment">//标记当前状态为正在通话</span></span><br><span class="line">                temp.onMonth = j.month, temp.onDd = j.dd, temp.onHh = j.hh, temp.onMm = j.mm;</span><br><span class="line">                <span class="comment">//记录开始通话时间</span></span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(!j.line &amp;&amp; isOnLine)&#123;  <span class="comment">//如果现在正在通话且当前通话记录为结束通话</span></span><br><span class="line">                isOnLine = <span class="literal">false</span>;   <span class="comment">//标记当前状态为结束通话</span></span><br><span class="line">                temp.offMonth = j.month, temp.offDd = j.dd, temp.offHh = j.hh, temp.offMm = j.mm;</span><br><span class="line">                <span class="comment">//记录通话结束时间</span></span><br><span class="line">                temp.sumTime = <span class="number">0</span>;</span><br><span class="line">                temp.cost = <span class="number">0</span>;</span><br><span class="line">                clt(temp.onDd, temp.onHh, temp.onMm, temp.offDd, temp.offHh, temp.offMm, temp.sumTime, temp.cost);</span><br><span class="line">                <span class="comment">//计算本次通话的时长于消耗</span></span><br><span class="line">                costInf[j.name].push_back(temp);</span><br><span class="line">                <span class="comment">//将当前完整通话信息记录入其客户所在容器中</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>　　由于我们之前已经将通话记录排序，所以获取的完整通话记录一定是时间升序。</p>
-<p>　　对与计算每次完整通话时间与消耗，我们只需要由开始通话时间开始，每次加一分钟，到开始时间等于结束时间为止，在过程中记录通话时间与花费金额即可。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clt</span><span class="params">(<span class="keyword">int</span> bgdd, <span class="keyword">int</span> bghh, <span class="keyword">int</span> bgmm, <span class="keyword">int</span> eddd, <span class="keyword">int</span> edhh, <span class="keyword">int</span> edmm, <span class="keyword">int</span> &amp;sumTime, <span class="keyword">int</span> &amp;cost)</span></span>&#123;</span><br><span class="line">    <span class="comment">//传入开始时间与结束时间，把我们要计算的两个值传引用。</span></span><br><span class="line">    <span class="keyword">while</span>(bgdd &lt; eddd || bghh &lt; edhh || bgmm &lt; edmm)&#123;   <span class="comment">//开始时间小于结束时间</span></span><br><span class="line">        sumTime++;  <span class="comment">//通话时间加一分钟</span></span><br><span class="line">        cost += toll[bghh]; <span class="comment">//将该分钟的收费计入消耗</span></span><br><span class="line">        bgmm++; <span class="comment">//开始时间加一分钟</span></span><br><span class="line">        <span class="keyword">if</span>(bgmm == <span class="number">60</span>)&#123; <span class="comment">//分钟进位</span></span><br><span class="line">            bgmm = <span class="number">0</span>;</span><br><span class="line">            bghh++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(bghh == <span class="number">24</span>)&#123; <span class="comment">//小时进位</span></span><br><span class="line">            bghh = <span class="number">0</span>;</span><br><span class="line">            bgdd++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p> AC代码 </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e3</span>+<span class="number">100</span>;</span><br><span class="line"><span class="keyword">int</span> toll[<span class="number">25</span>];   <span class="comment">//记录每个小时每分钟通话的收费</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="built_in">string</span> name;    <span class="comment">//客户名</span></span><br><span class="line">    <span class="keyword">int</span> month, dd, hh,mm;   <span class="comment">//时间</span></span><br><span class="line">    <span class="keyword">bool</span> line;  <span class="comment">//结束通话标识 true表示on-line false表示off—line</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">call</span>&#123;</span></span><br><span class="line">    <span class="built_in">string</span> name;    <span class="comment">//客户名</span></span><br><span class="line">    <span class="keyword">int</span> onMonth, onDd, onHh, onMm;  <span class="comment">//开始通话时间</span></span><br><span class="line">    <span class="keyword">int</span> offMonth, offDd, offHh, offMm;  <span class="comment">//结束通话时间</span></span><br><span class="line">    <span class="keyword">int</span> sumTime;    <span class="comment">//通话时长</span></span><br><span class="line">    <span class="keyword">int</span> cost;   <span class="comment">//通话消耗</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">bool</span>&gt; mp;</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;node&gt; &gt; customer;</span><br><span class="line"><span class="comment">//customer["张三"]现在就代表着姓名为张三的用户的所有通话记录</span></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;call&gt; &gt; costInf;</span><br><span class="line"><span class="comment">//costInf["张三"]现在就代表着姓名为张三的客户的所有完整通话</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(node a, node b)</span></span>&#123;   <span class="comment">//按时间升序排序</span></span><br><span class="line">    <span class="keyword">if</span>(a.month != b.month)</span><br><span class="line">        <span class="keyword">return</span> a.month &lt; b.month;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(a.dd != b.dd)&#123;</span><br><span class="line">        <span class="keyword">return</span> a.dd &lt; b.dd;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(a.hh != b.hh)&#123;</span><br><span class="line">        <span class="keyword">return</span> a.hh &lt; b.hh;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(a.mm != b.mm)</span><br><span class="line">        <span class="keyword">return</span> a.mm &lt; b.mm;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clt</span><span class="params">(<span class="keyword">int</span> bgdd, <span class="keyword">int</span> bghh, <span class="keyword">int</span> bgmm, <span class="keyword">int</span> eddd, <span class="keyword">int</span> edhh, <span class="keyword">int</span> edmm, <span class="keyword">int</span> &amp;sumTime, <span class="keyword">int</span> &amp;cost)</span></span>&#123;</span><br><span class="line">    <span class="comment">//传入开始时间与结束时间，把我们要计算的两个值传引用。</span></span><br><span class="line">    <span class="keyword">while</span>(bgdd &lt; eddd || bghh &lt; edhh || bgmm &lt; edmm)&#123;   <span class="comment">//开始时间小于结束时间</span></span><br><span class="line">        sumTime++;  <span class="comment">//通话时间加一分钟</span></span><br><span class="line">        cost += toll[bghh]; <span class="comment">//将该分钟的收费计入消耗</span></span><br><span class="line">        bgmm++; <span class="comment">//开始时间加一分钟</span></span><br><span class="line">        <span class="keyword">if</span>(bgmm == <span class="number">60</span>)&#123; <span class="comment">//分钟进位</span></span><br><span class="line">            bgmm = <span class="number">0</span>;</span><br><span class="line">            bghh++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(bghh == <span class="number">24</span>)&#123; <span class="comment">//小时进位</span></span><br><span class="line">            bghh = <span class="number">0</span>;</span><br><span class="line">            bgdd++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    mp[<span class="string">"on-line"</span>] = <span class="literal">true</span>;</span><br><span class="line">    mp[<span class="string">"off-line"</span>] = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">24</span>; i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;toll[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        node temp;  <span class="comment">//temp记录当前输入的通话记录信息</span></span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; temp.name;   <span class="comment">//输入姓名</span></span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d:%d:%d:%d"</span>, &amp;temp.month, &amp;temp.dd, &amp;temp.hh, &amp;temp.mm);</span><br><span class="line">        <span class="comment">//输入时</span></span><br><span class="line">        <span class="built_in">string</span> tline;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; tline;   <span class="comment">//输入通话标识</span></span><br><span class="line">        temp.line = mp[tline];  <span class="comment">//这里的mp将"on-line"映射为true将"off-line"映射为false</span></span><br><span class="line">        customer[temp.name].push_back(temp);</span><br><span class="line">        <span class="comment">//将当前信息记录入其客户所对应的容器中</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> i : customer)&#123; <span class="comment">//遍历所有客户</span></span><br><span class="line">        sort((i.second).begin(), (i.second).end(), cmp);</span><br><span class="line">        <span class="comment">//将每个用户的通话记录按时间升序排序</span></span><br><span class="line">        <span class="keyword">bool</span> isOnLine = <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">//isOnLine用来标记客户当前是否正在通话</span></span><br><span class="line">        call temp;  <span class="comment">//temp记录一次完整通话</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> j : (i.second))&#123;   <span class="comment">//遍历该客户所有通话记录</span></span><br><span class="line">            <span class="keyword">if</span>(j.line)&#123; <span class="comment">//遇到开始通话的通话记录</span></span><br><span class="line">                isOnLine = <span class="literal">true</span>;    <span class="comment">//标记当前状态为正在通话</span></span><br><span class="line">                temp.onMonth = j.month, temp.onDd = j.dd, temp.onHh = j.hh, temp.onMm = j.mm;</span><br><span class="line">                <span class="comment">//记录开始通话时间</span></span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(!j.line &amp;&amp; isOnLine)&#123;  <span class="comment">//如果现在正在通话且当前通话记录为结束通话</span></span><br><span class="line">                isOnLine = <span class="literal">false</span>;   <span class="comment">//标记当前状态为结束通话</span></span><br><span class="line">                temp.offMonth = j.month, temp.offDd = j.dd, temp.offHh = j.hh, temp.offMm = j.mm;</span><br><span class="line">                <span class="comment">//记录通话结束时间</span></span><br><span class="line">                temp.sumTime = <span class="number">0</span>;</span><br><span class="line">                temp.cost = <span class="number">0</span>;</span><br><span class="line">                clt(temp.onDd, temp.onHh, temp.onMm, temp.offDd, temp.offHh, temp.offMm, temp.sumTime, temp.cost);</span><br><span class="line">                <span class="comment">//计算本次通话的时长于消耗</span></span><br><span class="line">                costInf[j.name].push_back(temp);</span><br><span class="line">                <span class="comment">//将当前完整通话信息记录入其客户所在容器中</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> i : costInf)&#123;  <span class="comment">//遍历所有客户，输出信息</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; (i.first) &lt;&lt; <span class="string">" "</span>;   <span class="comment">//输出客户名</span></span><br><span class="line">        <span class="keyword">bool</span> flag = <span class="literal">false</span>;  <span class="comment">//标记月份是否已经输出</span></span><br><span class="line">        <span class="keyword">double</span> tam = <span class="number">0.0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> j : (i.second))&#123;</span><br><span class="line">            <span class="keyword">if</span>(!flag)&#123;  <span class="comment">//没有输出月份</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%02d\n"</span>, j.onMonth);</span><br><span class="line">                flag = <span class="literal">true</span>;    <span class="comment">//格式化输出月份并将flag标记为true</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%02d:%02d:%02d %02d:%02d:%02d %d $%.2f\n"</span>, j.onDd, j.onHh, j.onMm, j.offDd, j.offHh, j.offMm, j.sumTime, j.cost / <span class="number">100.0</span>);</span><br><span class="line">            <span class="comment">//格式化输出开始时间 结束时间 通话时长 通话消耗（美分转为美元）</span></span><br><span class="line">            tam += j.cost/ <span class="number">100.0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Total amount: $%.2f\n"</span>, tam);</span><br><span class="line">        <span class="comment">//输出总消耗</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/18/PTA-Advanced-Level-1015-Reversible-Primes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/12/18/PTA-Advanced-Level-1015-Reversible-Primes/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1015 Reversible Primes</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-12-18 16:47:54" itemprop="dateCreated datePublished" datetime="2018-12-18T16:47:54+08:00">2018-12-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>　　A reversible prime in any number system is a prime whose “reverse” in that number system is also a prime. For example in the decimal system 73 is a reversible prime because its reverse 37 is also a prime.</p>
-<p>　　Now given any two positive integers N (&lt;) and D (1), you are supposed to tell if N is a reversible prime with radix D.</p>
-<h3 id="Input-Specification"><a href="#Input-Specification" class="headerlink" title="Input Specification:"></a>Input Specification:</h3><p>　　The input file consists of several test cases. Each case occupies a line which contains two integers N and D. The input is finished by a negative N.</p>
-<h3 id="Output-Specification"><a href="#Output-Specification" class="headerlink" title="Output Specification:"></a>Output Specification:</h3><p>　　For each test case, print in one line <code>Yes</code> if N is a reversible prime with radix D, or <code>No</code> if not.</p>
-<h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input:"></a>Sample Input:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">73 10</span><br><span class="line">23 2</span><br><span class="line">23 10</span><br><span class="line">-2</span><br></pre></td></tr></table></figure>
-<h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output:"></a>Sample Output:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Yes</span><br><span class="line">Yes</span><br><span class="line">No</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　本题给出一个十进制数字n，之后给出其进制d，要求判断其是不是可逆素数，若是可逆素数输出Yes否则输出No。</p>
-<p>　　本题的可逆素数要求给出数字本身是素数且，将其转化为给出的进制，反转后重新转化为十进制还是素数。</p>
-<p>　　如：23的2进制为10111反转后为11101 = 29，29与23都是素数，所以23是可逆素数。</p>
-<p>　　由于本题有多组输入，所以可以用素数筛（埃氏筛法）先将素数打表。</p>
-<p>　　埃氏筛法:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> prime[maxn];</span><br><span class="line"><span class="keyword">bool</span> vis[maxn] = &#123;<span class="literal">false</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">findPrime</span><span class="params">()</span></span>&#123;   <span class="comment">//埃氏筛法</span></span><br><span class="line">    <span class="comment">//每找到一个一个素数将其倍数都标记为不是素数</span></span><br><span class="line">    <span class="comment">//时间复杂度O(n loglogn)</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; maxn; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(vis[i] == <span class="literal">false</span>)&#123;    <span class="comment">//i是素数</span></span><br><span class="line">            prime[cnt++] = i;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">2</span> * i; j &lt; maxn; j += i)&#123;</span><br><span class="line">                vis[j] = <span class="literal">true</span>;  <span class="comment">//标记所以i的倍数</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>之后根据我们得到的素数判断输入的数是否为素数，若不是素数直接输出No，若是素数则将其转化为对应进制的数字后反转，将反转后得到的数字重新转化为10进制，在判断其是不是素数，是的话输出Yes否则输出No。</p>
-<p>　　这样我们就需要两个函数，一个用来将其他进制数转化为10进制。另一个用来将10进制转化为其他进制并反转。</p>
-<p>转化为d进制：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">decimalToOther</span><span class="params">(<span class="keyword">int</span> num, <span class="keyword">int</span> radix)</span></span>&#123;  <span class="comment">//将十进制数转化为其他进制数</span></span><br><span class="line">    <span class="built_in">string</span> ans;</span><br><span class="line">    <span class="comment">//ans从最低位开始记录，结束后得到的直接就是转化后数字的反转</span></span><br><span class="line">    <span class="keyword">while</span>(num)&#123;</span><br><span class="line">        ans += (num % radix) + <span class="string">'0'</span>;</span><br><span class="line">        num /= radix;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> 转化为10进制 </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LL <span class="title">toDecimal</span><span class="params">(<span class="built_in">string</span> num, <span class="keyword">int</span> radix)</span></span>&#123;    <span class="comment">//将某进制数转化为10进制</span></span><br><span class="line">    LL ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num.size(); i++)&#123;</span><br><span class="line">        ans = ans * radix + (num[i] - <span class="string">'0'</span>);</span><br><span class="line">        <span class="keyword">if</span>(ans &lt; <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> AC代码 </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e6</span>+<span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> prime[maxn];</span><br><span class="line"><span class="keyword">bool</span> vis[maxn] = &#123;<span class="literal">false</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">findPrime</span><span class="params">()</span></span>&#123;   <span class="comment">//埃氏筛法</span></span><br><span class="line">    <span class="comment">//每找到一个一个素数将其倍数都标记为不是素数</span></span><br><span class="line">    <span class="comment">//时间复杂度O(n loglogn)</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; maxn; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(vis[i] == <span class="literal">false</span>)&#123;    <span class="comment">//i是素数</span></span><br><span class="line">            prime[cnt++] = i;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">2</span> * i; j &lt; maxn; j += i)&#123;</span><br><span class="line">                vis[j] = <span class="literal">true</span>;  <span class="comment">//标记所以i的倍数</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">LL <span class="title">toDecimal</span><span class="params">(<span class="built_in">string</span> num, <span class="keyword">int</span> radix)</span></span>&#123;    <span class="comment">//将某进制数转化为10进制</span></span><br><span class="line">    LL ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num.size(); i++)&#123;</span><br><span class="line">        ans = ans * radix + (num[i] - <span class="string">'0'</span>);</span><br><span class="line">        <span class="keyword">if</span>(ans &lt; <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">decimalToOther</span><span class="params">(<span class="keyword">int</span> num, <span class="keyword">int</span> radix)</span></span>&#123;  <span class="comment">//将十进制数转化为其他进制数</span></span><br><span class="line">    <span class="built_in">string</span> ans;</span><br><span class="line">    <span class="comment">//ans从最低位开始记录，结束后得到的直接就是转化后数字的反转</span></span><br><span class="line">    <span class="keyword">while</span>(num)&#123;</span><br><span class="line">        ans += (num % radix) + <span class="string">'0'</span>;</span><br><span class="line">        num /= radix;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> n, d;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    findPrime();    <span class="comment">//素数打表</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n) != EOF &amp;&amp; n &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="comment">//输入n，n &lt; 0时直接结束运算</span></span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;d);</span><br><span class="line">        <span class="comment">//输入进制d</span></span><br><span class="line">        <span class="keyword">if</span>(vis[n] == <span class="literal">true</span> || n &lt;= <span class="number">1</span>)&#123;   <span class="comment">//若n不是素数直接输出No进行下一次运算</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"No\n"</span>);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">string</span> toRadix = decimalToOther(n, d);</span><br><span class="line">        <span class="comment">//将n转化为d进制并反转</span></span><br><span class="line">        <span class="keyword">int</span> ans = toDecimal(toRadix, d);</span><br><span class="line">        <span class="comment">//将反转的数重新转化为10进制</span></span><br><span class="line">        <span class="keyword">if</span>(vis[ans] == <span class="literal">true</span> || ans &lt;= <span class="number">1</span>)&#123;<span class="comment">//若反转的数不是素数输出No</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"No\n"</span>);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Yes\n"</span>);    <span class="comment">//否则输出Yes</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/17/PTA-Advanced-Level-1014-Waiting-in-Line/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/12/17/PTA-Advanced-Level-1014-Waiting-in-Line/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1014 Waiting in Line</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-12-17 21:47:51" itemprop="dateCreated datePublished" datetime="2018-12-17T21:47:51+08:00">2018-12-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>　　Suppose a bank has N windows open for service. There is a yellow line in front of the windows which devides the waiting area into two parts. The rules for the customers to wait in line are:</p>
-<ul>
-<li>The space inside the yellow line in front of each window is enough to contain a line with Mcustomers. Hence when all the N lines are full, all the customers after (and including) the (st one will have to wait in a line behind the yellow line.</li>
-<li>Each customer will choose the shortest line to wait in when crossing the yellow line. If there are two or more lines with the same length, the customer will always choose the window with the smallest number.</li>
-<li>Customeri will take Ti minutes to have his/her transaction processed.</li>
-<li>The first N customers are assumed to be served at 8:00am.</li>
-</ul>
-<p>　　Now given the processing time of each customer, you are supposed to tell the exact time at which a customer has his/her business done.</p>
-<p>　　For example, suppose that a bank has 2 windows and each window may have 2 custmers waiting inside the yellow line. There are 5 customers waiting with transactions taking 1, 2, 6, 4 and 3 minutes, respectively. At 08:00 in the morning, customer1 is served at window1 while customer2 is served at window2. Customer3 will wait in front of window1 and customer4 will wait in front of window2. Customer5 will wait behind the yellow line.</p>
-<p>　　At 08:01, customer1 is done and customer5 enters the line in front of window1 since that line seems shorter now. Customer2 will leave at 08:02, customer4 at 08:06, customer3 at 08:07, and finally customer5 at 08:10.</p>
-<h3 id="Input-Specification"><a href="#Input-Specification" class="headerlink" title="Input Specification:"></a>Input Specification:</h3><p>　　Each input file contains one test case. Each case starts with a line containing 4 positive integers: N (≤, number of windows), M (≤, the maximum capacity of each line inside the yellow line), K (≤, number of customers), and Q (≤, number of customer queries).</p>
-<p>　　The next line contains K positive integers, which are the processing time of the K customers.</p>
-<p>　　The last line contains Q positive integers, which represent the customers who are asking about the time they can have their transactions done. The customers are numbered from 1 to K.</p>
-<h3 id="Output-Specification"><a href="#Output-Specification" class="headerlink" title="Output Specification:"></a>Output Specification:</h3><p>　　For each of the Q customers, print in one line the time at which his/her transaction is finished, in the format <code>HH:MM</code> where <code>HH</code> is in [08, 17] and <code>MM</code> is in [00, 59]. Note that since the bank is closed everyday after 17:00, for those customers who cannot be served before 17:00, you must output <code>Sorry</code> instead.</p>
-<h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input:"></a>Sample Input:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2 2 7 5</span><br><span class="line">1 2 6 4 3 534 2</span><br><span class="line">3 4 5 6 7</span><br></pre></td></tr></table></figure>
-<h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output:"></a>Sample Output:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">08:07</span><br><span class="line">08:06</span><br><span class="line">08:10</span><br><span class="line">17:00</span><br><span class="line">Sorry</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　本题意思是银行有n个窗口，每个窗口前最多可以排m个人，现在有k个人，所有窗口从8点开始服务，到17点停止<strong>接受</strong>服务，不过如果17点前接受了服务，无论多晚也会服务完该客户。要求按查询输出客户完成服务的时间（愚蠢的顾客们只要选定一个排队的窗口就会一直排到关门，即使其他窗口空了也不换）。</p>
-<p>　　本题每组测试数据首先给出4个整数，分别为窗口数量n、最大排队人数m、客户人数k、查询数量q，之后一行包括k个整数，代表服务每个客户所需要的时间（分钟），下一行包括q个整数，代表查询的客户。</p>
-<p>　　首先分析一下样例<br><img src="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181217204731686-2120059976.png" alt="img"><br><img src="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181217204906854-2084365850.png" alt="img"><br><img src="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181217205006622-109122127.png" alt="img"><br><img src="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181217205048366-1862476535.png" alt="img"><br><img src="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181217205127835-1367261046.png" alt="img"><br><img src="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181217205356305-1536761116.png" alt="img"><br><img src="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181217205504799-729189424.png" alt="img"><br><img src="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181217205639679-1335197869.png" alt="img"><br><img src="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181217205917604-2026796990.png" alt="img"><br><img src="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181217210136247-1425635367.png" alt="img"><br><img src="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181217210252125-877684797.png" alt="img"><br><img src="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181217210404646-320711987.png" alt="img"><br><img src="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181217210547699-456260582.png" alt="img"></p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181217211203699-1805800642.png" alt="img"></p>
-<p>我们可以吧每一个窗口看作一个先进先出的队列，队列的容量为m，一共有n个这样的队列。queue<int> win[maxw]　，win[ i ]便代表第i窗口的队列。由于客户总是会选择最短的队列，所以在所有队列被填满时不会有出队操作。每个队列在开始处理今天第一名客户时记录现在以及消耗的时间为0，在所有队列都被填满后就要执行出队操作了，我们需要找到哪个窗口的客户先处理完，对其所在的窗口进行出队，同时获得当前处理的客户的结束时间与下一名客户的开始时间，之后将下一名客户入队。</int></p>
-<p>　　在所有客户都入队后需要对所有窗口进行出队操作，这样便可以获得所有客户的开始时间与结束时间。</p>
-<p>找到排队最短的窗口</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getMinSize</span><span class="params">(<span class="keyword">int</span> &amp;w)</span></span>&#123; <span class="comment">//获得当前排队长度最短的窗口</span></span><br><span class="line">    <span class="keyword">int</span> minSize = INT_MAX;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(win[i].size() &lt; minSize)&#123;</span><br><span class="line">            minSize = win[i].size();</span><br><span class="line">            w = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> minSize;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> 找到最先处理完的客户所在的窗口并执行出队 </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dispose</span><span class="params">()</span></span>&#123; <span class="comment">//找到最先处理完的客户所在的窗口并执行出队</span></span><br><span class="line">    <span class="keyword">int</span> disWin; <span class="comment">//记录最先处理完的客户所在的窗口</span></span><br><span class="line">    <span class="keyword">int</span> disEdTime = INT_MAX;    <span class="comment">//记录记录最先处理完的客户的结束时间</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(disEdTime &gt; nowTime[i] + needTime[win[i].front()])&#123;</span><br><span class="line">            <span class="comment">//服务结束时间为当前窗口消耗时间假设处理该客户需要消耗的时间</span></span><br><span class="line">            disWin = i; <span class="comment">//记录窗口与结束时间</span></span><br><span class="line">            disEdTime = nowTime[i] + needTime[win[i].front()];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    edTime[win[disWin].front()] = disEdTime;    <span class="comment">//记录客户结束时间</span></span><br><span class="line">    win[disWin].pop();  <span class="comment">//出队</span></span><br><span class="line">    nowTime[disWin] = disEdTime;    <span class="comment">//记录该窗口现在已经消耗的时间</span></span><br><span class="line">    <span class="keyword">if</span>(!win[disWin].empty())</span><br><span class="line">        bgTime[win[disWin].front()] = disEdTime;</span><br><span class="line">        <span class="comment">//下一名客户的开始时间就是上一名客户的结束时间</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> 某窗口全部出队 </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">disposeAll</span><span class="params">(<span class="keyword">int</span> w)</span></span>&#123; <span class="comment">//处理某窗口全部出队</span></span><br><span class="line">    <span class="keyword">while</span>(!win[w].empty())&#123;</span><br><span class="line">        edTime[win[w].front()] = nowTime[w] + needTime[win[w].front()];</span><br><span class="line">        <span class="comment">//获得用户结束时间</span></span><br><span class="line">        nowTime[w] = edTime[win[w].front()];</span><br><span class="line">        <span class="comment">//记录当前窗口消耗时间</span></span><br><span class="line">        win[w].pop();</span><br><span class="line">        <span class="keyword">if</span>(!win[w].empty())<span class="comment">//记录下一个用户的开始时间</span></span><br><span class="line">            bgTime[win[w].front()] = nowTime[w];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>之后读入查询，判断所查询的客户的开始时间是否在17：00前，如果在17：00前输出其结束时间，否则输出Sorry。</p>
-<p>AC代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxw = <span class="number">25</span>;    <span class="comment">//最大窗口数</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxk = <span class="number">1e3</span>+<span class="number">10</span>;    <span class="comment">//最大客户数</span></span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; win[maxw];   <span class="comment">//窗口队列</span></span><br><span class="line"><span class="keyword">int</span> nowTime[maxw];  <span class="comment">//记录每个窗口当前服务客户已经消耗的时间</span></span><br><span class="line"><span class="keyword">int</span> needTime[maxk]; <span class="comment">//记录服务每个客户需要消耗的时间</span></span><br><span class="line"><span class="keyword">int</span> bgTime[maxk];   <span class="comment">//记录每个客户开始被服务的时间</span></span><br><span class="line"><span class="keyword">int</span> edTime[maxk];   <span class="comment">//记录每个客户服务结束的时间</span></span><br><span class="line"><span class="keyword">int</span> n, m, k, q; <span class="comment">//n窗口数，m队列长度，k客户数，q查询数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getMinSize</span><span class="params">(<span class="keyword">int</span> &amp;w)</span></span>&#123; <span class="comment">//获得当前排队长度最短的窗口</span></span><br><span class="line">    <span class="keyword">int</span> minSize = INT_MAX;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(win[i].size() &lt; minSize)&#123;</span><br><span class="line">            minSize = win[i].size();</span><br><span class="line">            w = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> minSize;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dispose</span><span class="params">()</span></span>&#123; <span class="comment">//找到最先处理完的客户所在的窗口并执行出队</span></span><br><span class="line">    <span class="keyword">int</span> disWin; <span class="comment">//记录最先处理完的客户所在的窗口</span></span><br><span class="line">    <span class="keyword">int</span> disEdTime = INT_MAX;    <span class="comment">//记录记录最先处理完的客户的结束时间</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(disEdTime &gt; nowTime[i] + needTime[win[i].front()])&#123;</span><br><span class="line">            <span class="comment">//服务结束时间为当前窗口消耗时间假设处理该客户需要消耗的时间</span></span><br><span class="line">            disWin = i; <span class="comment">//记录窗口与结束时间</span></span><br><span class="line">            disEdTime = nowTime[i] + needTime[win[i].front()];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    edTime[win[disWin].front()] = disEdTime;    <span class="comment">//记录客户结束时间</span></span><br><span class="line">    win[disWin].pop();  <span class="comment">//出队</span></span><br><span class="line">    nowTime[disWin] = disEdTime;    <span class="comment">//记录该窗口现在已经消耗的时间</span></span><br><span class="line">    <span class="keyword">if</span>(!win[disWin].empty())</span><br><span class="line">        bgTime[win[disWin].front()] = disEdTime;</span><br><span class="line">        <span class="comment">//下一名客户的开始时间就是上一名客户的结束时间</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">disposeAll</span><span class="params">(<span class="keyword">int</span> w)</span></span>&#123; <span class="comment">//处理某窗口全部出队</span></span><br><span class="line">    <span class="keyword">while</span>(!win[w].empty())&#123;</span><br><span class="line">        edTime[win[w].front()] = nowTime[w] + needTime[win[w].front()];</span><br><span class="line">        <span class="comment">//获得用户结束时间</span></span><br><span class="line">        nowTime[w] = edTime[win[w].front()];</span><br><span class="line">        <span class="comment">//记录当前窗口消耗时间</span></span><br><span class="line">        win[w].pop();</span><br><span class="line">        <span class="keyword">if</span>(!win[w].empty())<span class="comment">//记录下一个用户的开始时间</span></span><br><span class="line">            bgTime[win[w].front()] = nowTime[w];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>, &amp;n, &amp;m, &amp;k, &amp;q) != EOF)&#123;</span><br><span class="line">        <span class="comment">//输入n窗口数，m队列长度，k客户数，q查询数</span></span><br><span class="line">        <span class="built_in">memset</span>(nowTime, <span class="number">0</span>, <span class="keyword">sizeof</span>(nowTime));</span><br><span class="line">        <span class="built_in">memset</span>(needTime, <span class="number">0</span>, <span class="keyword">sizeof</span>(needTime));</span><br><span class="line">        <span class="built_in">memset</span>(edTime, <span class="number">0</span>, <span class="keyword">sizeof</span>(edTime));</span><br><span class="line">        <span class="built_in">memset</span>(bgTime, <span class="number">0</span>, <span class="keyword">sizeof</span>(bgTime));</span><br><span class="line">        <span class="comment">//将所有时间初始化为0</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;needTime[i]);</span><br><span class="line">            <span class="comment">//输入服务每个客户所需要的时间</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> minSize, minWin;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++)&#123;    <span class="comment">//遍历所有客户</span></span><br><span class="line">            minSize = getMinSize(minWin);   <span class="comment">//找到当前排队最短的窗口</span></span><br><span class="line">            <span class="keyword">if</span>(minSize &gt;= m)&#123;   <span class="comment">//如果所有窗口的队都满了</span></span><br><span class="line">                dispose();  <span class="comment">//执行最先处理完客户所在的窗口出队</span></span><br><span class="line">                minSize = getMinSize(minWin);   <span class="comment">//重新获得最短的队</span></span><br><span class="line">            &#125;</span><br><span class="line">            win[minWin].push(i);    <span class="comment">//入队</span></span><br><span class="line">            <span class="keyword">if</span>(win[minWin].empty())&#123;    <span class="comment">//每个窗口的第一个客户信息</span></span><br><span class="line">                nowTime[minSize] = <span class="number">0</span>;   <span class="comment">//当前窗口消耗时间为0</span></span><br><span class="line">                bgTime[i] = <span class="number">0</span>;  <span class="comment">//第一名客户的开始时间为0</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123; <span class="comment">//遍历所有窗口全部出队</span></span><br><span class="line">            <span class="keyword">if</span>(!win[i].empty())&#123;</span><br><span class="line">                disposeAll(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(q--)&#123; <span class="comment">//获得查询</span></span><br><span class="line">            <span class="keyword">int</span> query;</span><br><span class="line">            <span class="keyword">int</span> endtime, begintime;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;query);</span><br><span class="line">            endtime = edTime[query];</span><br><span class="line">            begintime = bgTime[query];</span><br><span class="line">            <span class="comment">//获得查询用户的开始与结束时间</span></span><br><span class="line">            <span class="keyword">int</span> beginhours = <span class="number">8</span> + (begintime / <span class="number">60</span>);</span><br><span class="line">            <span class="keyword">int</span> beginminutes = begintime % <span class="number">60</span>;</span><br><span class="line">            <span class="keyword">int</span> endhours = <span class="number">8</span> + (endtime / <span class="number">60</span>);</span><br><span class="line">            <span class="keyword">int</span> endminutes = endtime % <span class="number">60</span>;</span><br><span class="line">            <span class="keyword">if</span>(beginhours &gt;= <span class="number">17</span>)&#123;   <span class="comment">//开始时间大于17输出Sorry</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Sorry\n"</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%02d:%02d\n"</span>, endhours, endminutes);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/16/PTA-Advanced-Level-1013-Battle-Over-Cities/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/12/16/PTA-Advanced-Level-1013-Battle-Over-Cities/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1013 Battle Over Cities</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-12-16 20:34:57" itemprop="dateCreated datePublished" datetime="2018-12-16T20:34:57+08:00">2018-12-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>　　It is vitally important to have all the cities connected by highways in a war. If a city is occupied by the enemy, all the highways from/toward that city are closed. We must know immediately if we need to repair any other highways to keep the rest of the cities connected. Given the map of cities which have all the remaining highways marked, you are supposed to tell the number of highways need to be repaired, quickly.</p>
-<p>For example, if we have 3 cities and 2 highways connecting city1-city2 and city1-city3. Then if city1 is occupied by the enemy, we must have 1 highway repaired, that is the highway city2-city3.</p>
-<h3 id="Input-Specification"><a href="#Input-Specification" class="headerlink" title="Input Specification:"></a>Input Specification:</h3><p>Each input file contains one test case. Each case starts with a line containing 3 numbers N (&lt;), Mand K, which are the total number of cities, the number of remaining highways, and the number of cities to be checked, respectively. Then M lines follow, each describes a highway by 2 integers, which are the numbers of the cities the highway connects. The cities are numbered from 1 to N. Finally there is a line containing K numbers, which represent the cities we concern.</p>
-<h3 id="Output-Specification"><a href="#Output-Specification" class="headerlink" title="Output Specification:"></a>Output Specification:</h3><p>For each of the K cities, output in a line the number of highways need to be repaired if that city is lost.</p>
-<h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input:"></a>Sample Input:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3 2 3</span><br><span class="line">1 2</span><br><span class="line">1 3</span><br><span class="line">1 2 3</span><br></pre></td></tr></table></figure>
-<h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output:"></a>Sample Output:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">0</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
-<p>解题思路：</p>
-<p>　　城市之间本来有一些道路，现在有某个城市被攻陷了，与该城市连通的道路就都不能走了，如果剩下还在我们手里的城市不连通，就要修筑新道路使他们连通，任意两个城市都可以修筑新道路。<br>　　本题每组数据首先给出城市数量n，道路数量m，查询数量k，每次查询只有一个城市被攻陷，之后给出m行数据为每条道路连接的两个城市，随后一行有k个数，表示当前次查询中被攻陷的城市，要求输出最少需要新修筑多少条道路才可以使我们手里剩下的城市都连通。</p>
-<p>　　这里使用并查集解答本题。（本题需要路径压缩，否则会T）</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getFather</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x != father[x])</span><br><span class="line">        father[x] = getFather(father[x]);</span><br><span class="line">    <span class="keyword">return</span> father[x];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>　　首先使用邻接表记录所有道路信息，每次查询遍历所有道路，通过并查集合并所有不与被攻陷城市连接的道路两端的城市。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;    <span class="comment">//遍历所有道路</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">auto</span> it : G[i])&#123;</span><br><span class="line">                    <span class="keyword">if</span>(i != closed &amp;&amp; it != closed)&#123;    <span class="comment">//道路不能与被攻陷的城市相连</span></span><br><span class="line">                        <span class="keyword">int</span> fu = getFather(i);</span><br><span class="line">                        <span class="keyword">int</span> fv = getFather(it);</span><br><span class="line">                        <span class="keyword">if</span>(fu != fv)    <span class="comment">//如果两个城市不在同一个连通块中，合并这两个连通块</span></span><br><span class="line">                            father[fu] = fv;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
-<p> 之后对于还在我们手里的城市，获得合并后的连通块数量ans，ans - 1即可获得最少需要新修筑的道路数量。 </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;    <span class="comment">//获得连通块数量</span></span><br><span class="line">    <span class="keyword">if</span>(getFather(i) == i &amp;&amp; i != closed)&#123;   <span class="comment">//只要某个城市所在连通块父节点为自己且这个城市不是被攻陷的城市</span></span><br><span class="line">        ans++;  <span class="comment">//连通块加一</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>AC代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e3</span>+<span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> father[maxn];   <span class="comment">//father[i]记录i所在连通块的父节点</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; G[maxn];    <span class="comment">//临界表记录边信息</span></span><br><span class="line"><span class="keyword">int</span> n, m, k;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getFather</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;   <span class="comment">//并查集路径压缩找爹函数</span></span><br><span class="line">    <span class="keyword">if</span>(x != father[x])</span><br><span class="line">        father[x] = getFather(father[x]);</span><br><span class="line">    <span class="keyword">return</span> father[x];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;n, &amp;m, &amp;k) != EOF)&#123;  <span class="comment">//输入城市数量 道路数量 查询数量</span></span><br><span class="line">        <span class="keyword">while</span>(m--)&#123; <span class="comment">//输入道路信息</span></span><br><span class="line">            <span class="keyword">int</span> u, v;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;u, &amp;v);</span><br><span class="line">            <span class="comment">//G[i]记录与i城市连通的道路</span></span><br><span class="line">            G[u].push_back(v);</span><br><span class="line">            G[v].push_back(u);</span><br><span class="line">            <span class="comment">//道路是双向的，所以道路两端的城市都要记录这条道路</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> closed; <span class="comment">//closed记录当前被攻陷的城市</span></span><br><span class="line">        <span class="keyword">while</span>(k--)&#123; <span class="comment">//k条查询</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++)  <span class="comment">//初始化每个城市自己单独在一个连通块</span></span><br><span class="line">                father[i] = i;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;closed);   <span class="comment">//输入被攻陷的城市</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;    <span class="comment">//遍历所有道路</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">auto</span> it : G[i])&#123;</span><br><span class="line">                    <span class="keyword">if</span>(i != closed &amp;&amp; it != closed)&#123;    <span class="comment">//道路不能与被攻陷的城市相连</span></span><br><span class="line">                        <span class="keyword">int</span> fu = getFather(i);</span><br><span class="line">                        <span class="keyword">int</span> fv = getFather(it);</span><br><span class="line">                        <span class="keyword">if</span>(fu != fv)    <span class="comment">//如果两个城市不在同一个连通块中，合并这两个连通块</span></span><br><span class="line">                            father[fu] = fv;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;    <span class="comment">//获得连通块数量</span></span><br><span class="line">                <span class="keyword">if</span>(getFather(i) == i &amp;&amp; i != closed)&#123;   <span class="comment">//只要某个城市所在连通块父节点为自己且这个城市不是被攻陷的城市</span></span><br><span class="line">                    ans++;  <span class="comment">//连通块加一</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans - <span class="number">1</span>);    <span class="comment">//输出答案</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1175,7 +1135,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-count">152</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1188,7 +1148,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">84</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

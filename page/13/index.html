@@ -177,6 +177,382 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/26/Codeforces-450B-Jzzhu-and-Sequences/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/26/Codeforces-450B-Jzzhu-and-Sequences/" class="post-title-link" itemprop="url">Codeforces 450B Jzzhu and Sequences</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-26 21:53:16" itemprop="dateCreated datePublished" datetime="2018-11-26T21:53:16+08:00">2018-11-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><meta name="referrer" content="no-referrer"><br>Jzzhu has invented a kind of sequences, they meet the following property:</p>
+<p> <img src="http://espresso.codeforces.com/c84e959b7fd00c2ebce39e2b33db6bdb624ba8f3.png" alt="img"> </p>
+<p>　　You are given <em>x</em> and <em>y</em>, please calculate <em>f**n</em> modulo 1000000007 (109 + 7).</p>
+<p>Input</p>
+<p>　　The first line contains two integers <em>x</em> and <em>y</em>(|<em>x</em>|, |<em>y</em>| ≤ 109). The second line contains a single integer <em>n</em> (1 ≤ <em>n</em> ≤ 2·109).</p>
+<p>Output</p>
+<p>　　Output a single integer representing <em>f**n</em> modulo 1000000007 (109 + 7).</p>
+<p>Examples</p>
+<p>Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2 33</span><br></pre></td></tr></table></figure>
+<p>Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure>
+<p>Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 -12</span><br></pre></td></tr></table></figure>
+<p>Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1000000006</span><br></pre></td></tr></table></figure>
+<p>Note</p>
+<p>　　In the first sample, <em>f</em>2 = <em>f</em>1 + <em>f</em>3, 3 = 2 + <em>f</em>3, <em>f</em>3 = 1.</p>
+<p>　　In the second sample, <em>f</em>2 =  - 1; - 1 modulo (109 + 7)equals (109 + 6).</p>
+<p>解题思路：<br>　　本题给出一个运算公式 f( i ) = f( i - 1) + f(i + 1)给出两个整数分别为前两项的值，之后给出一个整数n，要求求出第n项的值。</p>
+<p>　　我们首先将公式变形一下</p>
+<p>　　</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    f( i ) &#x3D; f( i - 1 ) + f( i + 1 ) </span><br><span class="line">⇔  f( i + 1 ) &#x3D;  f( i ) - f( i - 1 )</span><br><span class="line">⇔  f( i ) &#x3D; f( i - 1 ) - f( i - 2 )</span><br></pre></td></tr></table></figure>
+<p>　　之后我们将相邻两项计入一个2 * 1的矩阵中</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201811/1447131-20181122211452205-500098852.png" alt="img"></p>
+<p>　　n大于3时计算n - 2次方即可得出答案</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> LL mod = <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">2</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">matrix</span>&#123;</span></span><br><span class="line">    LL mat[maxn][maxn]; <span class="comment">//mat存放矩阵</span></span><br><span class="line">    matrix <span class="keyword">operator</span> *(<span class="keyword">const</span> matrix &amp;a)<span class="keyword">const</span>&#123;    <span class="comment">//重载运算符*</span></span><br><span class="line">        matrix ans;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++)&#123; <span class="comment">//遍历行</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">2</span>; j++)&#123; <span class="comment">//遍历列</span></span><br><span class="line">                ans.mat[i][j] = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k =<span class="number">0</span>; k &lt; <span class="number">2</span>; k++)&#123;  <span class="comment">//固定k进行矩阵乘法</span></span><br><span class="line">                    ans.mat[i][j] = (ans.mat[i][j] + mat[i][k] * a.mat[k][j] % mod) % mod;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">matrix <span class="title">power</span><span class="params">(matrix a, LL b)</span></span>&#123;   <span class="comment">//矩阵快速幂，与普通快速幂几乎没有区别</span></span><br><span class="line">    matrix ans; <span class="comment">//答案矩阵</span></span><br><span class="line">    <span class="built_in">memset</span>(ans.mat, <span class="number">0</span>, <span class="keyword">sizeof</span>(ans.mat));    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++)&#123;</span><br><span class="line">        ans.mat[i][i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//以上为初始化单位矩阵</span></span><br><span class="line">    <span class="keyword">while</span>(b)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>)&#123;  <span class="comment">//b按位与1匹配</span></span><br><span class="line">            ans = ans * a;</span><br><span class="line">        &#125;</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        a = a * a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    LL x ,y, n;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%lld%lld"</span>, &amp;x, &amp;y) != EOF)&#123;    <span class="comment">//输入x与y</span></span><br><span class="line">        matrix a;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lld"</span>, &amp;n);  <span class="comment">//输入n</span></span><br><span class="line">        a.mat[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        a.mat[<span class="number">0</span>][<span class="number">1</span>] = <span class="number">-1</span>;</span><br><span class="line">        a.mat[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        a.mat[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//初始化矩阵</span></span><br><span class="line">        <span class="comment">//n为1或2单独判断</span></span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, (x % mod + mod) % mod);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(n == <span class="number">2</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, (y % mod + mod) % mod);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;  <span class="comment">//n&gt;=3</span></span><br><span class="line">            a = power(a, n - <span class="number">2</span>);    <span class="comment">//计算矩阵a的n - 2次方</span></span><br><span class="line">            LL ans = (((a.mat[<span class="number">0</span>][<span class="number">0</span>] * y + a.mat[<span class="number">0</span>][<span class="number">1</span>] * x) % mod) + mod ) % mod;</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, ans);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/24/HDU-2680-Choose-the-best-route/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/24/HDU-2680-Choose-the-best-route/" class="post-title-link" itemprop="url">HDU 2680 Choose the best route</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-24 16:51:04" itemprop="dateCreated datePublished" datetime="2018-11-24T16:51:04+08:00">2018-11-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　One day , Kiki wants to visit one of her friends. As she is liable to carsickness , she wants to arrive at her friend’s home as soon as possible . Now give you a map of the city’s traffic route, and the stations which are near Kiki’s home so that she can take. You may suppose Kiki can change the bus at any station. Please find out the least time Kiki needs to spend. To make it easy, if the city have n bus stations ,the stations will been expressed as an integer 1,2,3…n.</p>
+<p>Input</p>
+<p>　　There are several test cases.<br>　　Each case begins with three integers n, m and s,(n&lt;1000,m&lt;20000,1=&lt;s&lt;=n) n stands for the number of bus stations in this city and m stands for the number of directed ways between bus stations .(Maybe there are several ways between two bus stations .) s stands for the bus station that near Kiki’s friend’s home.<br>　　Then follow m lines ,each line contains three integers p , q , t (0&lt;t&lt;=1000). means from station p to station q there is a way and it will costs t minutes .<br>　　Then a line with an integer w(0&lt;w&lt;n), means the number of stations Kiki can take at the beginning. Then follows w integers stands for these stations.<br>Output</p>
+<p>　　The output contains one line for each data set : the least time Kiki needs to spend ,if it’s impossible to find such a route ,just output “-1”.Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">5 8 5</span><br><span class="line">1 2 2</span><br><span class="line">1 5 3</span><br><span class="line">1 3 4</span><br><span class="line">2 4 7</span><br><span class="line">2 5 6</span><br><span class="line">2 3 5</span><br><span class="line">3 5 1</span><br><span class="line">4 5 1</span><br><span class="line">2</span><br><span class="line">2 3</span><br><span class="line">4 3 4</span><br><span class="line">1 2 3</span><br><span class="line">1 3 4</span><br><span class="line">2 3 2</span><br><span class="line">1</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">-1</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题有多组测试数据，每组第一行给出三个整数，分别为车站数量n，公交线路数m，朋友家s，之后m行为公交线路信息，每行包含3个整数分别为起点站p，终点站q，需要时间t，输入完公交线路后下一行给出一个整数w代表可以使用的起点站数量，再下一行给出w个整数，为可用起点。要求输入到达朋友家少需要多长时间。</p>
+<p>　　通过分析可以得知本题是最短路问题，我们使用dijkstra寻找最短时间</p>
+<p>　　用一个数组minTime储存从起点到所有公交站的最短时间，一个布尔数组vis记录是否固定对应公交站的最短时间。初始状态将到所有公交站的最短时间都视为无穷大，从起点开始标记，记录起点到自己的最短时间为0，之后每次找到并固定到达起点用时最短的公交车站，固定一个公交站后查看以站为媒介是否能使还没有固定的车站到达起点的时间减短，如果能减短，将优化后的时间记入该车站对应的minTime中。</p>
+<p>　　由于本题初始可用车站有多个点，若依次以这些点为起点进行dijkstra运算会消耗大量的时间，我们不妨设立一个“超级原点”即（0，0）点，之后让“超级原点”到达所有初始可用车站的时间都为0，以“超级原点”为起点进行dijkstra运算即可得到前往所有车站的最短时间。</p>
+<p>AC代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">0x3fffffff</span>; <span class="comment">//无穷大</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e4</span>+<span class="number">100</span>;</span><br><span class="line"><span class="keyword">int</span> G[maxn][maxn];  <span class="comment">//G为车站邻接矩阵</span></span><br><span class="line"><span class="keyword">int</span> minTime[maxn];  <span class="comment">//minTime记录起点到每个车站的最短时间</span></span><br><span class="line"><span class="keyword">bool</span> vis[maxn] = &#123;<span class="literal">false</span>&#125;;   <span class="comment">//vis记录抵达当前车站的最短时间是否已经固定</span></span><br><span class="line"><span class="keyword">int</span> n, m;   <span class="comment">//n为车站数，m为线路数</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;   <span class="comment">//传入终点</span></span><br><span class="line">    <span class="comment">//由于可能出现无法抵达朋友家的情况（即起点终点不连通）</span></span><br><span class="line">    <span class="comment">//dijkstra设为bool类型若不连通返回false</span></span><br><span class="line">    <span class="built_in">memset</span>(vis, <span class="literal">false</span>, <span class="keyword">sizeof</span>(vis));    <span class="comment">//初始化所有车站为不固定</span></span><br><span class="line">    fill(minTime, minTime + n + <span class="number">1</span>, inf);    <span class="comment">//初始化起点到所有车站的最短时间为无穷大</span></span><br><span class="line">    minTime[<span class="number">0</span>] = <span class="number">0</span>; <span class="comment">//起点到本身最短时间为0</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++)&#123;    <span class="comment">//遍历所有车站</span></span><br><span class="line">        <span class="keyword">int</span> minStation = <span class="number">-1</span>;    <span class="comment">//minStation记录当前到起点用时最短的点</span></span><br><span class="line">        <span class="keyword">int</span> nowMinTime = inf;   <span class="comment">//nowMinTime记录起点到当前用时最短的点所需时间</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= n; j++)&#123;    <span class="comment">//寻找minStation与nowMinTime</span></span><br><span class="line">            <span class="keyword">if</span>(!vis[j] &amp;&amp; minTime[j] &lt; nowMinTime)&#123;</span><br><span class="line">                minStation = j;</span><br><span class="line">                nowMinTime = minTime[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(minStation == <span class="number">-1</span>)&#123;   <span class="comment">//如果找不到用时最短的点证明之后的点与起点不连通</span></span><br><span class="line">            <span class="keyword">if</span>(minTime[s] != inf)   <span class="comment">//判断朋友家与起点是否连通</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        vis[minStation] = <span class="literal">true</span>; <span class="comment">//将当前到起点用时最短的车站到起点的时间固定</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= n; j++)&#123;    <span class="comment">//以该站为媒介判断是否能优化</span></span><br><span class="line">            <span class="keyword">if</span>(!vis[j] &amp;&amp; G[minStation][j] != inf &amp;&amp; minTime[j] &gt; G[minStation][j] + minTime[minStation])&#123;</span><br><span class="line">                <span class="comment">//如果能找到</span></span><br><span class="line">                <span class="comment">//1、时间未固定</span></span><br><span class="line">                <span class="comment">//2、与该站之间有公交线路</span></span><br><span class="line">                <span class="comment">//3、以该点为媒介可以优化到起点的时间</span></span><br><span class="line">                <span class="comment">//就进行优化</span></span><br><span class="line">                minTime[j] = G[minStation][j] + minTime[minStation];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> s;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;n, &amp;m, &amp;s) != EOF)&#123;  <span class="comment">//输入车站数，线路数，朋友家所在的公交站</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++)&#123;    <span class="comment">//初始化每个公交站到除了自己之外的所有站的耗时都为无穷大</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= n; j++)&#123;</span><br><span class="line">                i == j ? G[i][j] = <span class="number">0</span> : G[i][j] = inf;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> p, q, t;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;p, &amp;q, &amp;t);    <span class="comment">//输入公交线路线路信息</span></span><br><span class="line">            <span class="keyword">if</span>(G[p][q] &lt; t) <span class="comment">//可能出现两个站之间有多条线路的情况，只取耗时最短的一条</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            G[p][q] = t;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> w;  <span class="comment">//输入初始可用车站数</span></span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;w);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; w; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> temp;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;temp); <span class="comment">//输入初始可用车站</span></span><br><span class="line">            G[<span class="number">0</span>][temp] = <span class="number">0</span>; <span class="comment">//超级原点到初始可用车站耗时为0</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(dijkstra(s))&#123;    <span class="comment">//如果朋友家可达</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, minTime[s]); <span class="comment">//输出最短耗时</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"-1\n"</span>); <span class="comment">//不可达输出-1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/23/HDU-1465-%E4%B8%8D%E5%AE%B9%E6%98%93%E7%B3%BB%E5%88%97%E4%B9%8B%E4%B8%80%EF%BC%88%E6%8E%92%E9%94%99%E5%85%AC%E5%BC%8F%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/23/HDU-1465-%E4%B8%8D%E5%AE%B9%E6%98%93%E7%B3%BB%E5%88%97%E4%B9%8B%E4%B8%80%EF%BC%88%E6%8E%92%E9%94%99%E5%85%AC%E5%BC%8F%EF%BC%89/" class="post-title-link" itemprop="url">HDU 1465 不容易系列之一（排错公式）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-23 15:07:04" itemprop="dateCreated datePublished" datetime="2018-11-23T15:07:04+08:00">2018-11-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>大家常常感慨，要做好一件事情真的不容易，确实，失败比成功容易多了！<br>做好“一件”事情尚且不易，若想永远成功而总从不失败，那更是难上加难了，就像花钱总是比挣钱容易的道理一样。<br>　　话虽这样说，我还是要告诉大家，要想失败到一定程度也是不容易的。比如，我高中的时候，就有一个神奇的女生，在英语考试的时候，竟然把40个单项选择题全部做错了！大家都学过概率论，应该知道出现这种情况的概率，所以至今我都觉得这是一件神奇的事情。如果套用一句经典的评语，我们可以这样总结：一个人做错一道选择题并不难，难的是全部做错，一个不对。 </p>
+<p>　　不幸的是，这种小概率事件又发生了，而且就在我们身边：<br>　　事情是这样的——HDU有个网名叫做8006的男性同学，结交网友无数，最近该同学玩起了浪漫，同时给n个网友每人写了一封信，这都没什么，要命的是，他竟然把所有的信都装错了信封！注意了，是全部装错哟！ </p>
+<p>　　现在的问题是：请大家帮可怜的8006同学计算一下，一共有多少种可能的错误方式呢？</p>
+<p>Input</p>
+<p>　　输入数据包含多个多个测试实例，每个测试实例占用一行，每行包含一个正整数n（1&lt;n&lt;=20），n表示8006的网友的人数。</p>
+<p>Output</p>
+<p>　　对于每行输入请输出可能的错误方式的数量，每个实例的输出占用一行。</p>
+<p>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题有多组测试，每组测试给出网友人数n，要求输出信全装错的方式数量。</p>
+<p>　　这是一个典型的错排问题</p>
+<p>　　错排思路，设我们正在对第1封信进行操作，我们只需要将第1封信与后面任意一封信交换位置，设被交换的信为看，就可以满足第1封信错放的条件，共有n - 1种方法，这时对于第k封信，有两种可能性，1、将k放到位置1，对于除了1与k的其他n-2封信，又可以进行同样的操作。2、k不在位置1，那么现在还剩n-1封信n-1个信封，那么对这n-1封信又可以进行同样的操作。</p>
+<p>　　我们只需开一个数组d，以d(n)记录n封信全放错的方法数量。</p>
+<p>　　根据上面分析，可以得出d(n) = (n - 1) * [ d( n - 1) + d( n - 2)]。</p>
+<p>　　这就是错排公式。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">25</span>;</span><br><span class="line">LL d[maxn];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">memset</span>(d, <span class="number">0</span>, <span class="keyword">sizeof</span>(d));    <span class="comment">//初始化所有全放错数量为0</span></span><br><span class="line">    d[<span class="number">2</span>] = <span class="number">1</span>;   <span class="comment">//两封信只有一冲全放错方法</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;= maxn; i++)&#123;</span><br><span class="line">        d[i] = (i - <span class="number">1</span>) *(d[i - <span class="number">1</span>] + d[i - <span class="number">2</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//根据错排公式计算25封信以内所有答案打表</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n) != EOF)&#123;  <span class="comment">//输入网友数量</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, d[n]); <span class="comment">//输出答案</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/23/HDU-2200-Eddy-s-AC%E9%9A%BE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/23/HDU-2200-Eddy-s-AC%E9%9A%BE%E9%A2%98/" class="post-title-link" itemprop="url">HDU 2200 Eddy's AC难题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-23 14:30:58" itemprop="dateCreated datePublished" datetime="2018-11-23T14:30:58+08:00">2018-11-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><meta name="referrer" content="no-referrer"><br>　　Eddy是个ACMer,他不仅喜欢做ACM题,而且对于Ranklist中每个人的ac数量也有一定的研究,他在无聊时经常在纸上把Ranklist上每个人的ac题目的数量摘录下来，然后从中选择一部分人(或者全部)按照ac的数量分成两组进行比较，他想使第一组中的最小ac数大于第二组中的最大ac数，但是这样的情况会有很多，聪明的你知道这样的情况有多少种吗? </p>
+<p>　　特别说明：为了问题的简化，我们这里假设摘录下的人数为n人，而且每个人ac的数量不会相等，最后结果在64位整数范围内. </p>
+<p>Input</p>
+<p>　　输入包含多组数据，每组包含一个整数n,表示从Ranklist上摘录的总人数。<br>Output</p>
+<p>　　对于每个实例，输出符合要求的总的方案数，每个输出占一行。<br>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">17</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题有多组测试，给出一个整数n为从Rank上摘录的人数，将摘录的人分为两组，其中一组的所有人的AC数大于另一组，保证每个人的AC数都不一致。</p>
+<p>　　选出了n人，但是在分组时不一定将所有人都分组，所以我们m从2 ~ n选择分组人数，选择的种数可以用组合数计算得到，将选出的所有人按AC数量排序，若将一组个数为m有序数拆分为两组，使其中一组的所有值大于另一组，可以在每两个数中间进行拆分这样便是求间隔的个数即为n-1。</p>
+<p>排列组合相关运算</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201811/1447131-20181123140731048-398786012.png" alt="img"></p>
+<p>样例分析：</p>
+<p>2：</p>
+<p>挑出2个数有2! / ((2 - 2)！ <em> 2!) = 2 / (1 </em> 2) = 1</p>
+<p>2个数分为两组有1种情况，答案 = 1 * 1 = 1</p>
+<p>4：</p>
+<p>挑出2个数有 4! / ((4 - 2)! * 2!) = 6</p>
+<p>2个数分为两组有1种情况 挑出2个数时所有分组情况为6 * 1 = 6；</p>
+<p>挑出3个数有 4! / ((4 - 3)! * 3! = 4</p>
+<p>3个数分为两组有3 - 1 = 2种情况 挑出3个数时所有分组情况为4 * 2 = 8</p>
+<p>挑出4个数有 4! / ((4 - 4)! * 4!) = 1</p>
+<p>4个数分为两组有4 - 1 = 3种情况 挑出4个数时所有分组情况为1 * 3 = 3</p>
+<p>答案 = 6 + 8 + 3 = 17</p>
+<p>AC代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="function">LL <span class="title">clt</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    LL ans = <span class="number">0</span>; <span class="comment">//初始化答案为0</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;    <span class="comment">//从2个到n个挑出数字</span></span><br><span class="line">        LL temp = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= i; j++)&#123;    <span class="comment">//计算组合数</span></span><br><span class="line">            temp = temp * (n - j + <span class="number">1</span>) / j;</span><br><span class="line">        &#125;</span><br><span class="line">        ans += temp * (i - <span class="number">1</span>);  <span class="comment">//计算答案</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n) != EOF)&#123;  <span class="comment">//输入摘录人数</span></span><br><span class="line">        <span class="keyword">if</span>(n &lt; <span class="number">2</span>)&#123; <span class="comment">//人数小于2无法分为两组输出0</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"0\n"</span>);  </span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        LL ans = clt(n);    <span class="comment">//人数大于2计算答案</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/22/HDU-4549-M%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -769,375 +1145,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/14/HDU-6187-Destroy-Walls/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/14/HDU-6187-Destroy-Walls/" class="post-title-link" itemprop="url">HDU 6187 Destroy Walls</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-14 23:52:30" itemprop="dateCreated datePublished" datetime="2018-11-14T23:52:30+08:00">2018-11-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Long times ago, there are beautiful historic walls in the city. These walls divide the city into many parts of area.<br>　　Since it was not convenient, the new king wants to destroy some of these walls, so he can arrive anywhere from his castle. We assume that his castle locates at (0.6∗2–√,0.6∗3–√).<br>　　There are n towers in the city, which numbered from 1 to n. The ith’s location is (xi,yi). Also, there are m walls connecting the towers. Specifically, the ith wall connects the tower ui and the tower vi(including the endpoint). The cost of destroying the ith wall is wi.<br>　　Now the king asks you to help him to divide the city. Firstly, the king wants to destroy as less walls as possible, and in addition, he wants to make the cost least.<br>　　The walls only intersect at the endpoint. It is guaranteed that no walls connects the same tower and no 2 walls connects the same pair of towers. Thait is to say, the given graph formed by the walls and towers doesn’t contain any multiple edges or self-loops.<br>　　Initially, you should tell the king how many walls he should destroy at least to achieve his goal, and the minimal cost under this condition.</p>
-<p>Input<br>　　There are several test cases.<br>　　For each test case:<br>　　The first line contains 2 integer n, m.<br>　　Then next n lines describe the coordinates of the points.<br>　　Each line contains 2 integers xi,yi.<br>　　Then m lines follow, the ith line contains 3 integers ui,vi,wi<br>　　|xi|,|yi|≤105<br>　　3≤n≤100000,1≤m≤200000<br>　　1≤ui,vi≤n,ui≠vi,0≤wi≤10000</p>
-<p>Output<br>　　For each test case outout one line with 2 integers sperate by a space, indicate how many walls the king should destroy at least to achieve his goal, and the minimal cost under this condition.</p>
-<p>Sample Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">4 4</span><br><span class="line">-1 -1</span><br><span class="line">-1 1</span><br><span class="line">1 1</span><br><span class="line">1 -1</span><br><span class="line">1 2 1</span><br><span class="line">2 3 2</span><br><span class="line">3 4 1</span><br><span class="line">4 1 2</span><br></pre></td></tr></table></figure>
-<p>Sample Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 1</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　首先，很重要的一点，本题给出的所有坐标值都没用，都是吓人的。</p>
-<p>　　本题的意思是有一个城堡，被数条城墙分隔为多个区域，城墙的端点只会是塔楼，并且城墙只在端点相交，一条城墙的两端不会连在同一个塔楼上（图没有自环），拆除每个城墙都会有一定消耗，国王希望通过最少的消耗，使城堡所有区域都连通。</p>
-<p>　　本题有多组测试用例，每组测试用例包括，塔楼数量（端点数量）n， 城墙数量（边数）m，首先跟随n行，每行包括两个整数x y为塔楼的坐标（没用），之后m行跟随，每行包括三个整数，分别为城墙连接的两个塔楼u ， v，拆毁该城墙的消耗w。</p>
-<p>　　要求输出使所有区域连通所需的最少的消耗。</p>
-<p>　　仔细思考一下就会发现，本题的最终要求就是让我们把给定的图通过抹去边变成无环图，而且抹去边的权值要尽可能的小。而将平面图变成无环图叫什么？——生成树！！</p>
-<p>　　提到生成树，我们想到两个算法Prim算法与Kruskal算法，因为本题可以通过将边由大到小排序求的最大生成树，在这里我们使用Kruskal算法。</p>
-<p>kruskal算法核心思想：　　</p>
-<p>　　既然已经给出了邻接表。初始视所有塔楼都为不连通（即拆除所有城墙），之后将城墙按消耗排序，从大到小枚举所有城墙，判断城墙两端的塔楼是否已经连通，若已经连通不做处理（即该墙需要拆除）拆除的墙数加一，若不连通则将该边记录入最大生成树（该墙无需拆除），并从拆毁所有城墙的总消耗里减去该城墙的消耗。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(edge a, edge b)</span></span>&#123;   <span class="comment">//城墙排序为拆除消耗由大到小</span></span><br><span class="line">    <span class="keyword">return</span> a.w &gt; b.w;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">LL <span class="title">kruskal</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m, LL sum, <span class="keyword">int</span> &amp;cnt)</span></span>&#123; <span class="comment">//kruskal算法</span></span><br><span class="line">    <span class="comment">//由于需要改变cnt的值所以在这里cnt传引用</span></span><br><span class="line">    LL ans = sum;   <span class="comment">//传入的sum为拆除所有城墙所需的总消耗</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">        father[i] = i;  <span class="comment">//初始化所有塔楼为不连通</span></span><br><span class="line">    &#125;</span><br><span class="line">    sort(Edge + <span class="number">1</span>, Edge + <span class="number">1</span> + m, cmp);  <span class="comment">//城墙权值从大到小排序</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> faNode1 = getFather(Edge[i].u);</span><br><span class="line">        <span class="keyword">int</span> faNode2 = getFather(Edge[i].v);</span><br><span class="line">        <span class="keyword">if</span>(faNode1 != faNode2)&#123; <span class="comment">//判断城墙连接的两个塔楼是否连通</span></span><br><span class="line">            father[faNode1] = faNode2;  <span class="comment">//不连通则标记为连通</span></span><br><span class="line">            ans -= Edge[i].w;   <span class="comment">//该城墙不需要拆数</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;  <span class="comment">//如果城墙两个端点塔楼已经连通则该城墙需要拆除</span></span><br><span class="line">            cnt++;  <span class="comment">//记录需要拆除的城墙数量</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans; <span class="comment">//返回的ans为拆除的最小消耗</span></span><br></pre></td></tr></table></figure>
-<p> 判断是否连通使用并查集 </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> father[maxn];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getFather</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(father[x] == x)</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> father[x] = getFather(father[x]);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> AC代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">2e5</span>+<span class="number">100</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span>&#123;</span>    <span class="comment">//edge储存城墙</span></span><br><span class="line">    <span class="keyword">int</span> u, v;   <span class="comment">//城墙连接的两个结点</span></span><br><span class="line">    LL w;   <span class="comment">//拆除的消耗</span></span><br><span class="line">&#125;Edge[maxn];</span><br><span class="line"><span class="keyword">int</span> father[maxn];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getFather</span><span class="params">(<span class="keyword">int</span> x)</span>    <span class="comment">//并查集部分</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(father[x] == x)</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> father[x] = getFather(father[x]);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(edge a, edge b)</span></span>&#123;   <span class="comment">//城墙排序为拆除消耗由大到小</span></span><br><span class="line">    <span class="keyword">return</span> a.w &gt; b.w;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">LL <span class="title">kruskal</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m, LL sum, <span class="keyword">int</span> &amp;cnt)</span></span>&#123; <span class="comment">//kruskal算法</span></span><br><span class="line">    <span class="comment">//由于需要改变cnt的值所以在这里cnt传引用</span></span><br><span class="line">    LL ans = sum;   <span class="comment">//传入的sum为拆除所有城墙所需的总消耗</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">        father[i] = i;  <span class="comment">//初始化所有塔楼为不连通</span></span><br><span class="line">    &#125;</span><br><span class="line">    sort(Edge + <span class="number">1</span>, Edge + <span class="number">1</span> + m, cmp);  <span class="comment">//城墙权值从大到小排序</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> faNode1 = getFather(Edge[i].u);</span><br><span class="line">        <span class="keyword">int</span> faNode2 = getFather(Edge[i].v);</span><br><span class="line">        <span class="keyword">if</span>(faNode1 != faNode2)&#123; <span class="comment">//判断城墙连接的两个塔楼是否连通</span></span><br><span class="line">            father[faNode1] = faNode2;  <span class="comment">//不连通则标记为连通</span></span><br><span class="line">            ans -= Edge[i].w;   <span class="comment">//该城墙不需要拆数</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;  <span class="comment">//如果城墙两个端点塔楼已经连通则该城墙需要拆除</span></span><br><span class="line">            cnt++;  <span class="comment">//记录需要拆除的城墙数量</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans; <span class="comment">//返回的ans为拆除的最小消耗</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m) != EOF)&#123;    <span class="comment">//输入塔楼数n与城墙数m</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> x, y;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;x, &amp;y);  <span class="comment">//吸收掉这些没用的坐标</span></span><br><span class="line">        &#125;</span><br><span class="line">        LL sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++)&#123;    <span class="comment">//输入邻接表</span></span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d%lld"</span>, &amp;Edge[i].u, &amp;Edge[i].v, &amp;Edge[i].w);</span><br><span class="line">            sum += Edge[i].w;   <span class="comment">//记录总权值（拆除所有城墙的消耗）</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;    <span class="comment">//cnt记录需要拆除的城墙</span></span><br><span class="line">        LL ans = kruskal(n, m, sum, cnt);   <span class="comment">//得到最小消耗</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d %lld\n"</span>,cnt, ans);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/13/HDU-1596-find-the-safest-road/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/13/HDU-1596-find-the-safest-road/" class="post-title-link" itemprop="url">HDU 1596 find the safest road</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-13 22:56:22" itemprop="dateCreated datePublished" datetime="2018-11-13T22:56:22+08:00">2018-11-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>XX星球有很多城市，每个城市之间有一条或多条飞行通道，但是并不是所有的路都是很安全的，每一条路有一个安全系数s,s是在 0 和 1 间的实数(包括0，1)，一条从u 到 v 的通道P 的安全度为Safe(P) = s(e1)<em>s(e2)…</em>s(ek) e1,e2,ek是P 上的边 ，现在8600 想出去旅游，面对这这么多的路，他想找一条最安全的路。但是8600 的数学不好，想请你帮忙 ^_^。</p>
-<p>Input</p>
-<p>　　输入包括多个测试实例，每个实例包括：<br>　　第一行：n。n表示城市的个数n&lt;=1000;<br>　　接着是一个n*n的矩阵表示两个城市之间的安全系数，(0可以理解为那两个城市之间没有直接的通道) 接着是Q个8600要旅游的路线,每行有两个数字，表示8600所在的城市和要去的城市。</p>
-<p>Output</p>
-<p>　　如果86无法达到他的目的地，输出”What a pity!”, 其他的输出这两个城市之间的最安全道路的安全系数,保留三位小数。</p>
-<p>Sample Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">1 0.5 0.5</span><br><span class="line">0.5 1 0.4</span><br><span class="line">0.5 0.4 1</span><br><span class="line">3</span><br><span class="line">1 2</span><br><span class="line">2 3</span><br><span class="line">1 3</span><br></pre></td></tr></table></figure>
-<p>Sample Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0.500</span><br><span class="line">0.400</span><br><span class="line">0.500</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　本题有多组测试数据，每组给出城市的数量与其安全系数邻接矩阵，之后给出旅游线路数量与每条线路的起点与终点。</p>
-<p>　　本题几乎是dijkstra模板题，本题是使用dijkstra寻找最大安全系数，注意对安全系数是进行乘法运算。</p>
-<p>　　用一个double数组safety储存从起点到所有城市的最大安全系数，一个布尔数组记录是否固定对应城市的最大安全系数。初始状态将到所有城市的安全系数视为0，从起点开始标记，记录起点到自己的安全系数为1并将其固定，之后每次找到并固定到达起点安全系数最大的城市，固定一个城市后查看以该城市为媒介是否能使还没有固定的城市到达起点的安全系数增高，如果能优化，将优化后的记入该城市对应的safety中。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e3</span>+<span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> n, q, s;</span><br><span class="line"><span class="keyword">double</span> G[maxn][maxn];   <span class="comment">//G记录邻接矩阵</span></span><br><span class="line"><span class="keyword">double</span> safety[maxn];    <span class="comment">//safety记录起点到各城市的最大安全系数</span></span><br><span class="line"><span class="keyword">bool</span> vis[maxn] = &#123;<span class="literal">false</span>&#125;;   <span class="comment">//vis记录城市最大安全系数是否已经固定</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;   <span class="comment">//传入起点</span></span><br><span class="line">    <span class="built_in">memset</span>(safety, <span class="number">0</span>, <span class="keyword">sizeof</span>(safety));  <span class="comment">//初始化起点到所有城市的最大安全系数为0</span></span><br><span class="line">    <span class="built_in">memset</span>(vis, <span class="literal">false</span>, <span class="keyword">sizeof</span>(vis));    <span class="comment">//所有城市都为未固定状态</span></span><br><span class="line">    safety[s] = <span class="number">1.0</span>;    <span class="comment">//起点到自己的最大安全系数为1</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="comment">//开始计算并固定城市最大安全系数，需要将每个城市都固定所以循环n次</span></span><br><span class="line">        <span class="keyword">int</span> maxSafetyCity = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">double</span> maxSafetyNum = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)&#123; <span class="comment">//找到还没有固定的城市中到起点安全系数最大的城市</span></span><br><span class="line">            <span class="keyword">if</span>(!vis[j] &amp;&amp; safety[j] &gt; maxSafetyNum)&#123;</span><br><span class="line">                maxSafetyCity = j;  <span class="comment">//maxSafeCity记录还没有固定的城市中到起点安全系数最大的城市</span></span><br><span class="line">                maxSafetyNum = safety[j];   <span class="comment">//maxSafetyNum记录当前最大安全系数</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(maxSafetyCity == <span class="number">-1</span>)&#123;    <span class="comment">//如果找不到符合条件的城市，证明其余城市与起点不连通</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        vis[maxSafetyCity] = <span class="literal">true</span>;  <span class="comment">//固定安全系数最大的城市</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)&#123; <span class="comment">//寻找以该城市为媒介可以优化的城市</span></span><br><span class="line">            <span class="keyword">if</span>(!vis[j] &amp;&amp; G[maxSafetyCity][j] != <span class="number">0</span> &amp;&amp; G[maxSafetyCity][j] * safety[maxSafetyCity] &gt; safety[j])&#123;</span><br><span class="line">                <span class="comment">//可以优化的条件为，该城市没有固定</span></span><br><span class="line">                <span class="comment">//该城市与媒介城市连通</span></span><br><span class="line">                <span class="comment">//从媒介城市到该城市的安全系数乘以媒介城市到起点的安全系数比不优化前该城市到达起点的安全系数高</span></span><br><span class="line">                safety[j] = safety[maxSafetyCity] * G[maxSafetyCity][j];</span><br><span class="line">                <span class="comment">//优化</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n) != EOF)&#123;  <span class="comment">//输入城市数量</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)&#123;</span><br><span class="line">                <span class="built_in">scanf</span>(<span class="string">"%lf"</span>, &amp;G[i][j]); <span class="comment">//输入邻接矩阵</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;q);    <span class="comment">//输入旅行路线</span></span><br><span class="line">        <span class="keyword">int</span> ed;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; q; i++)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;s, &amp;ed); <span class="comment">//输入起点与终点</span></span><br><span class="line">            dijkstra(s - <span class="number">1</span>);    <span class="comment">//计算起点到所有城市的最大安全系数</span></span><br><span class="line">            <span class="keyword">if</span>(safety[ed - <span class="number">1</span>] != <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%.3f\n"</span>, safety[ed - <span class="number">1</span>]);   <span class="comment">//格式化输出最大安全系数</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"What a pity!\n"</span>);   <span class="comment">//不连通</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/12/HDU-1102-Constructing-Roads-kruskal/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/12/HDU-1102-Constructing-Roads-kruskal/" class="post-title-link" itemprop="url">HDU 1102 Constructing Roads(kruskal)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-12 23:05:09" itemprop="dateCreated datePublished" datetime="2018-11-12T23:05:09+08:00">2018-11-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>There are N villages, which are numbered from 1 to N, and you should build some roads such that every two villages can connect to each other. We say two village A and B are connected, if and only if there is a road between A and B, or there exists a village C such that there is a road between A and C, and C and B are connected. </p>
-<p>　　We know that there are already some roads between some villages and your job is the build some roads such that all the villages are connect and the length of all the roads built is minimum. </p>
-<p>Input</p>
-<p>　　The first line is an integer N (3 &lt;= N &lt;= 100), which is the number of villages. Then come N lines, the i-th of which contains N integers, and the j-th of these N integers is the distance (the distance should be an integer within [1, 1000]) between village i and village j. </p>
-<p>Then there is an integer Q (0 &lt;= Q &lt;= N * (N + 1) / 2). Then come Q lines, each line contains two integers a and b (1 &lt;= a &lt; b &lt;= N), which means the road between village a and village b has been built.<br>Output</p>
-<p>　　You should output a line contains an integer, which is the length of all the roads to be built such that all the villages are connected, and this value is minimum.<br>Sample Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">0 990 692</span><br><span class="line">990 0 179</span><br><span class="line">692 179 0</span><br><span class="line">1</span><br><span class="line">1 2</span><br></pre></td></tr></table></figure>
-<p>Sample Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">179</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　本题有多组测试数据，每种数据第一行给出村子的数量n，跟随n行，每行为使该行对应的村子与其他村子联通所需要修筑的道路距离（其实就是所有村子的邻接矩阵），之后给出已经修好的道路数量q，之后q行跟随，每行包括两个整数分别为道路两端的两个村子。要求输出使所有村子联通还要修筑道路的最小长度。</p>
-<p>　　若不看已经修好的道路，本题就是一个最小生成树问题。在这里使用kruskal算法。</p>
-<p>　　kruskal算法核心思想：　　</p>
-<p>　　既然已经给出了邻接矩阵，那我们可以将其拆分为邻接表，即将每一条可以修筑的道路都记录下来。初始视所有结点都为不连通，之后将道路按长度排序，从小到大枚举所有边，判断边的两个顶点是否已经连通，若已经连通不做处理，若不连通则将该边记录入最小生成树，并记录当前总权值，最小生成树也是树，符合边数等于顶点数减一，所以结束条件为边数等于定点数减一，如果边数不等于顶点数减一则说明图不连通（当然在这里不存在不连通的情况，不过写上一定不会错，还能节约时间）。</p>
-<p>　　将邻接矩阵拆分为邻接表：用结构edge保存道路，其成员包括两个顶点村子node1，node2与道路长度len。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)&#123;</span><br><span class="line">                Edge[cnt].node1 = i;</span><br><span class="line">                Edge[cnt].node2 = j;</span><br><span class="line">                <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;Edge[cnt].len);</span><br><span class="line">                cnt++;</span><br><span class="line">            &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> 在判断是否连通使用并查集 </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> father[maxn];   <span class="comment">//记录父结点</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getFather</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> tempx = x;</span><br><span class="line">    <span class="keyword">while</span>(x != father[x])&#123;  <span class="comment">//寻找父结点</span></span><br><span class="line">        x = father[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(tempx != father[tempx])&#123;  <span class="comment">//将路径上所有的点的father值改为父结点</span></span><br><span class="line">        <span class="keyword">int</span> preTempx = tempx;</span><br><span class="line">        tempx = father[tempx];</span><br><span class="line">        father[preTempx] = tempx;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> kruskal算法 </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">kruskal</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span></span>&#123;  <span class="comment">//传入顶点数与边数</span></span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>, edgeCnt = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//ans记录道路长度和，edgeCnt记录当前最小生成树中边的数量</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        father[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(Edge, Edge + m, cmp);  <span class="comment">//将边排序</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123; <span class="comment">//从小到大枚举所有边</span></span><br><span class="line">        <span class="keyword">int</span> faNode1 = getFather(Edge[i].node1);</span><br><span class="line">        <span class="keyword">int</span> faNode2 = getFather(Edge[i].node2);</span><br><span class="line">        <span class="keyword">if</span>(faNode1 != faNode2)&#123; <span class="comment">//判断该边的两个顶点是否已经连通</span></span><br><span class="line">            father[faNode1] = faNode2;  <span class="comment">//不连通将其标记为连通</span></span><br><span class="line">            ans += Edge[i].len;    <span class="comment">//记录长度</span></span><br><span class="line">            edgeCnt++;  <span class="comment">//记录遍数</span></span><br><span class="line">            <span class="keyword">if</span>(edgeCnt == n - <span class="number">1</span>)    <span class="comment">//边数等于顶点数减一</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(edgeCnt == n - <span class="number">1</span>)&#123;   <span class="comment">//连通</span></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;  <span class="comment">//不连通</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>　之后就要考虑已经建好的道路，这其实很简单，只需要将建好的道路长度标记为0即可。给定一个已经建好的道路数量q，之后传入q组数据，每组包含两个村子village1与village2，根据我们邻接矩阵的拆分方法，我们可以得知，在记录边的数组Edge中，village1与village2所对应边的下标为village1 * n + village2（道路是双向的，在Edge中会有两个顶点为village1 与 village2的道路，但因为我们计算时会排序，所以标记一个就好）。</p>
-<p>AC代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e4</span>+<span class="number">10</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> node1, node2;</span><br><span class="line">    <span class="keyword">int</span> len;</span><br><span class="line">&#125;Edge[maxn];</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(edge e1, edge e2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> e1.len &lt; e2.len;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> father[maxn];   <span class="comment">//记录父结点</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getFather</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> tempx = x;</span><br><span class="line">    <span class="keyword">while</span>(x != father[x])&#123;  <span class="comment">//寻找父结点</span></span><br><span class="line">        x = father[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(tempx != father[tempx])&#123;  <span class="comment">//将路径上所有的点的father值改为父结点</span></span><br><span class="line">        <span class="keyword">int</span> preTempx = tempx;</span><br><span class="line">        tempx = father[tempx];</span><br><span class="line">        father[preTempx] = tempx;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">kruskal</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span></span>&#123;  <span class="comment">//传入顶点数与边数</span></span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>, edgeCnt = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//ans记录道路长度和，edgeCnt记录当前最小生成树中边的数量</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        father[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(Edge, Edge + m, cmp);  <span class="comment">//将边排序</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123; <span class="comment">//从小到大枚举所有边</span></span><br><span class="line">        <span class="keyword">int</span> faNode1 = getFather(Edge[i].node1);</span><br><span class="line">        <span class="keyword">int</span> faNode2 = getFather(Edge[i].node2);</span><br><span class="line">        <span class="keyword">if</span>(faNode1 != faNode2)&#123; <span class="comment">//判断该边的两个顶点是否已经连通</span></span><br><span class="line">            father[faNode1] = faNode2;  <span class="comment">//不连通将其标记为连通</span></span><br><span class="line">            ans += Edge[i].len;    <span class="comment">//记录长度</span></span><br><span class="line">            edgeCnt++;  <span class="comment">//记录遍数</span></span><br><span class="line">            <span class="keyword">if</span>(edgeCnt == n - <span class="number">1</span>)    <span class="comment">//边数等于顶点数减一</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(edgeCnt == n - <span class="number">1</span>)&#123;   <span class="comment">//连通</span></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;  <span class="comment">//不连通</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, cnt = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n) != EOF)&#123;</span><br><span class="line">        cnt = <span class="number">0</span>;    <span class="comment">//cnt记录边数</span></span><br><span class="line">        <span class="keyword">int</span> numNode = n, numEdge = <span class="number">0</span>;   <span class="comment">//numNode记录村子数量，numEdge记录总道路数量</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123; <span class="comment">//拆分邻接矩阵</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)&#123;</span><br><span class="line">                Edge[cnt].node1 = i;</span><br><span class="line">                Edge[cnt].node2 = j;</span><br><span class="line">                <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;Edge[cnt].len);</span><br><span class="line">                cnt++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        numEdge = cnt;</span><br><span class="line">        <span class="keyword">int</span> q;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;q);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; q; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> village1, village2; <span class="comment">//输入已经存在道路的两个村子</span></span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;village1, &amp;village2);</span><br><span class="line">            village1--; <span class="comment">//由于之前拆分时 i 与 j从0开始所以村子对应的值为输入的值减一</span></span><br><span class="line">            village2--;</span><br><span class="line">            Edge[village1 * n + village2].len = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans = kruskal(numNode, numEdge);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/12/HDU-1059-Dividing/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/12/HDU-1059-Dividing/" class="post-title-link" itemprop="url">HDU 1059 Dividing</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-12 12:01:40" itemprop="dateCreated datePublished" datetime="2018-11-12T12:01:40+08:00">2018-11-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Marsha and Bill own a collection of marbles. They want to split the collection among themselves so that both receive an equal share of the marbles. This would be easy if all the marbles had the same value, because then they could just split the collection in half. But unfortunately, some of the marbles are larger, or more beautiful than others. So, Marsha and Bill start by assigning a value, a natural number between one and six, to each marble. Now they want to divide the marbles so that each of them gets the same total value.<br>Unfortunately, they realize that it might be impossible to divide the marbles in this way (even if the total value of all marbles is even). For example, if there are one marble of value 1, one of value 3 and two of value 4, then they cannot be split into sets of equal value. So, they ask you to write a program that checks whether there is a fair partition of the marbles. </p>
-<p>Input</p>
-<p>　　Each line in the input describes one collection of marbles to be divided. The lines consist of six non-negative integers n1, n2, …, n6, where ni is the number of marbles of value i. So, the example from above would be described by the input-line ``1 0 1 2 0 0’’. The maximum total number of marbles will be 20000. </p>
-<p>　　The last line of the input file will be ``0 0 0 0 0 0’’; do not process this line.<br>Output</p>
-<p>　　For each colletcion, output <code>Collection #k:&#39;&#39;, where k is the number of the test case, and then either</code>Can be divided.’’ or ``Can’t be divided.’’. </p>
-<p>　　Output a blank line after each test case.<br>Sample Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 0 1 2 0 0</span><br><span class="line">1 0 0 0 1 1</span><br><span class="line">0 0 0 0 0 0</span><br></pre></td></tr></table></figure>
-<p>Sample Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Collection #1:</span><br><span class="line">Can&#39;t be divided.</span><br><span class="line"></span><br><span class="line">Collection #2:</span><br><span class="line">Can be divided.</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　本题有价值为1~6的6种大理石各若干块，要求将所有的大理石对半分给Marsha和Bill。本题有多组数据，每组数据包括6个整数，分别为价值为1 ~ 6的大理石的个数，以6个0为输入结尾。</p>
-<p>　　基本解题思想为动态规划01背包，背包容量为总价值的一半，背包内容物价值为大理石块的价值，如果容量为总价值一半的背包其最大内容物价值正好也为总价值的一半时可以平分。</p>
-<p>　　本题不能将大理石拆分单块，因为每种大理石最多有20000块，最坏情况下大理石总量高度120000块背包最大容量为420000，01背包时间复杂度为O(V * N)，而题目给出的时间限制为1000ms，不进行优化一定会超时。所以我们在拆分大理石的时候进行二进制优化。</p>
-<p>二进制优化：</p>
-<p>　　假设某一价值的大理石有100块，我们并不需要将100块大理石全部加入运算数组，我们将100拆分为数个小于100的数字，使这些数字可以构成1 ~ 100中任意一个数字。这里用到了一个数论的小知识：1，2，4 ~ 2^n 可以组成1 ~ 2^(n + 1) - 1之间的任意数，100便可分解为1，2，4，8，16，32，（取2的n次幂（二进制数），不能取到64，因为拆分100的话所有分解的数加起来不能超过100） 37（前面取到的1 ~ 32已经可以表示63（2^(5 + 1) - 1）以内所有的数了，那么再补上100 - 63 = 37这个数后就可以取到所有1 ~ 100的数了）。继续分析，假设这100块大理石价值都为2，那我们就可用到我们分解出来的数字，根据这些数字我们把100块大理石分解1块，2块，4块，8块，16块，32块，37块这7组，这样我们便可以把100块价值为2的大理石看成价值为2，4，8，16，32，64，74的7块大理石。将这7块大理石加入运算数组在运算时比起100块大理石就要节约很多时间。</p>
-<p>　　至于为什么1，2，4，8，16，32，37可以代替100，这很简单，之前已经写过了新的数组可以表示1 ~ 100所有数组，那么在运算中，我们如果需要拿5块价值1的大理石，在这里就和拿一块价值为1的大理石与一块价值为4的大理石有同样效果，拿其他所有1 ~ 100的数皆是这个道理。</p>
-<p>　　dp记录容量（最大价值）为 j 的背包可以装载大理石的最大价值。marbles记录优化后每块大理石的的价值。</p>
-<p>　　动态转移方程：dp[ j ] = max(dp[ j ], dp[ j - marbles[ i ] ] + marbles[ i ])</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e6</span>+<span class="number">100</span>;</span><br><span class="line"><span class="keyword">int</span> marbles[maxn];  <span class="comment">//记录拆分后每块大理石的价值</span></span><br><span class="line"><span class="keyword">int</span> dp[maxn];</span><br><span class="line"><span class="keyword">int</span> n[<span class="number">7</span>];</span><br><span class="line"><span class="keyword">int</span> tot = <span class="number">0</span>;    <span class="comment">//tot记录所有大理石总价值</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d%d%d%d%d"</span>, &amp;n[<span class="number">1</span>], &amp;n[<span class="number">2</span>], &amp;n[<span class="number">3</span>], &amp;n[<span class="number">4</span>], &amp;n[<span class="number">5</span>], &amp;n[<span class="number">6</span>]) != EOF &amp;&amp; (n[<span class="number">1</span>] + n[<span class="number">2</span>] + n[<span class="number">3</span>] + n[<span class="number">4</span>] + n[<span class="number">5</span>] + n[<span class="number">6</span>]))&#123;</span><br><span class="line">        <span class="comment">//输入每种大理石的数量</span></span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">1</span>,tot = <span class="number">0</span>;    </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">6</span>; i++)&#123;    <span class="comment">//二进制拆分每一个价值的大理石</span></span><br><span class="line">            <span class="keyword">int</span> num = n[i];</span><br><span class="line">            <span class="keyword">int</span> j = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(num != <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">while</span>(num &gt; j)&#123;</span><br><span class="line">                <span class="comment">//所有拆分后数字的和不超过num</span></span><br><span class="line">                <span class="comment">//我们可以每拆分一个数就用num减去它直到num小于想要拆分的下一个数</span></span><br><span class="line">                    marbles[cnt++] = j * i; <span class="comment">//将拆分后的价值计入marbles</span></span><br><span class="line">                    tot += marbles[cnt - <span class="number">1</span>];    <span class="comment">//记入总价值</span></span><br><span class="line">                    num -= j;   <span class="comment">//num减去当前拆分的数字</span></span><br><span class="line">                    j *= <span class="number">2</span>;    <span class="comment">//下一个要拆分的数字为当前数字的两倍</span></span><br><span class="line">                &#125;</span><br><span class="line">                marbles[cnt++] = num * i;   <span class="comment">//最后补上差的数字，并记录其组成的价值</span></span><br><span class="line">                tot += marbles[cnt - <span class="number">1</span>];    <span class="comment">//记入总价值</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cnt--;</span><br><span class="line">        <span class="keyword">if</span>(tot % <span class="number">2</span> != <span class="number">0</span>)&#123;   <span class="comment">//总价值不能被2整出则一定不能平分</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Collection #%d:\nCan't be divided.\n\n"</span>, t);</span><br><span class="line">            t++;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        tot /= <span class="number">2</span>;   <span class="comment">//记录总价值的一半</span></span><br><span class="line">        <span class="built_in">memset</span>(dp, <span class="number">0</span>, <span class="keyword">sizeof</span>(dp));  <span class="comment">//初始化dp为0</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i= <span class="number">0</span>; i &lt;= cnt; i++)&#123;   <span class="comment">//01背包遍历大理石优化后的块数</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = tot; j &gt;= marbles[i]; j--)&#123; <span class="comment">//逆序遍历背包容量</span></span><br><span class="line">                dp[j] = max(dp[j], dp[j - marbles[i]] + marbles[i]);    <span class="comment">//动态转移方程</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(dp[tot] == tot)  <span class="comment">//正好平分</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Collection #%d:\nCan be divided.\n\n"</span>, t);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Collection #%d:\nCan't be divided.\n\n"</span>, t);</span><br><span class="line">        t++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1205,7 +1216,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-count">152</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1218,7 +1229,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">84</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -177,6 +177,395 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/07/HDU-1495-%E9%9D%9E%E5%B8%B8%E5%8F%AF%E4%B9%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/07/HDU-1495-%E9%9D%9E%E5%B8%B8%E5%8F%AF%E4%B9%90/" class="post-title-link" itemprop="url">HDU 1495 非常可乐</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-07 14:57:01" itemprop="dateCreated datePublished" datetime="2018-12-07T14:57:01+08:00">2018-12-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　大家一定觉的运动以后喝可乐是一件很惬意的事情，但是seeyou却不这么认为。因为每次当seeyou买了可乐以后，阿牛就要求和seeyou一起分享这一瓶可乐，而且一定要喝的和seeyou一样多。但seeyou的手中只有两个杯子，它们的容量分别是N 毫升和M 毫升 可乐的体积为S （S&lt;101）毫升　(正好装满一瓶) ，它们三个之间可以相互倒可乐 (都是没有刻度的，且 S==N+M，101＞S＞0，N＞0，M＞0) 。聪明的ACMER你们说他们能平分吗？如果能请输出倒可乐的最少的次数，如果不能输出”NO”。</p>
+<p>Input</p>
+<p>　　三个整数 : S 可乐的体积 , N 和 M是两个杯子的容量，以”0 0 0”结束。Output如果能平分的话请输出最少要倒的次数，否则输出”NO”。</p>
+<p>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">7 4 3</span><br><span class="line">4 1 3</span><br><span class="line">0 0 0</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NO</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题给出多组数据，每组数据包括3个整数可乐体积s，第一个杯子容量n， 另一个杯子容量m。s == n + m 要求输出想要平分可乐最少倒的次数。</p>
+<p>　　这里本题使用BFS，广搜的基本思路是，用一个队列，搜索下一步可以抵达的所有状态加入队列，直到符合条件或队列为空为止。</p>
+<p>　　记录初始状态为可乐瓶中可乐体积为s， 两个杯中的可乐体积都为0， 当前状态若想抵达下一个状态有s向n倒水、s向m倒水、n向s倒水、n向m倒水、m向s倒水、m向n倒水这6种方法，执行完这6种方法后得到的6种状态即为当前状态的下一状态。将当前状态出队寻找下一状态，取所有合法状态加入队列，继续向下搜索即可。</p>
+<p>　　结束条件，由于s == n + m所以若想将可乐分为两相等份，最终的情况一定是，可乐瓶与较大的杯中各有一半可乐，较小的杯中没有可乐。这里可以使用一个数组v[3]，v[0] v[1] v[2]分别记录可乐瓶， 较大的杯子，与较小的杯子的容积。用一个结构体node记录每个状态各容器内的可乐体积与当前状态的倒水次数，布尔数组vis记录状态是否出现过。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> v[<span class="number">3</span>];   </span><br><span class="line">    <span class="comment">//v[]0 v[1] v[2] 分别为当前状态可乐瓶、大杯、小杯之内的可乐体积</span></span><br><span class="line">    <span class="keyword">int</span> step;</span><br><span class="line">    <span class="comment">//step记录倒水次数</span></span><br><span class="line">&#125;Node;</span><br><span class="line"><span class="keyword">bool</span> vis[maxn][maxn][maxn] = &#123;<span class="literal">false</span>&#125;;</span><br><span class="line"><span class="comment">//记录状态是否出现过</span></span><br></pre></td></tr></table></figure>
+<p> 　　倒水，可以写一个判断倒水函数，传入对应容器x与y，执行x向y倒水，如果被倒入容器y的容积小于两个容器中可乐总体积，就将容器y倒满，如果y的容积大于两容器中的可乐总体积 ，就将所有可乐倒入y容器，两容器中可乐总体积减去y中的可乐体积就是x中剩余的可乐体积。 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>&#123;   <span class="comment">//传入容器x y</span></span><br><span class="line">    <span class="keyword">int</span> sum = Node.v[x] + Node.v[y];<span class="comment">//记录两容器中的可乐总体积</span></span><br><span class="line">    <span class="keyword">if</span>(v[y] &lt;= sum)&#123;    <span class="comment">//y的容积小于两个容器中可乐总体积</span></span><br><span class="line">        Node.v[y] = v[y];   <span class="comment">//将容器y倒满</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;  <span class="comment">//y的容积大于两容器中的可乐总体积</span></span><br><span class="line">        Node.v[y] = sum;    <span class="comment">//将所有可乐倒入y</span></span><br><span class="line">    &#125;</span><br><span class="line">    Node.v[x] = sum - Node.v[y];    </span><br><span class="line">    <span class="comment">//两容器中可乐总体积减去y中的可乐体积，x中剩余的可乐体积</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> AC代码 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">110</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> v[<span class="number">3</span>];   </span><br><span class="line">    <span class="comment">//v[]0 v[1] v[2] 分别为当前状态可乐瓶、大杯、小杯之内的可乐体积</span></span><br><span class="line">    <span class="keyword">int</span> step;</span><br><span class="line">    <span class="comment">//step记录倒水次数</span></span><br><span class="line">&#125;Node;</span><br><span class="line"><span class="keyword">bool</span> vis[maxn][maxn][maxn] = &#123;<span class="literal">false</span>&#125;;</span><br><span class="line"><span class="comment">//记录状态是否出现过</span></span><br><span class="line"><span class="keyword">int</span> v[<span class="number">3</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>&#123;   <span class="comment">//传入容器x y</span></span><br><span class="line">    <span class="keyword">int</span> sum = Node.v[x] + Node.v[y];<span class="comment">//记录两容器中的可乐总体积</span></span><br><span class="line">    <span class="keyword">if</span>(v[y] &lt;= sum)&#123;    <span class="comment">//y的容积小于两个容器中可乐总体积</span></span><br><span class="line">        Node.v[y] = v[y];   <span class="comment">//将容器y倒满</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;  <span class="comment">//y的容积大于两容器中的可乐总体积</span></span><br><span class="line">        Node.v[y] = sum;    <span class="comment">//将所有可乐倒入y</span></span><br><span class="line">    &#125;</span><br><span class="line">    Node.v[x] = sum - Node.v[y];    </span><br><span class="line">    <span class="comment">//两容器中可乐总体积减去y中的可乐体积，x中剩余的可乐体积</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BFS</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Node.v[<span class="number">0</span>] = v[<span class="number">0</span>];   </span><br><span class="line">    Node.v[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">    Node.v[<span class="number">2</span>] = <span class="number">0</span>;</span><br><span class="line">    Node.step = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//记录初始状态，可乐瓶中体积为s，两个杯中的可乐体积都为0</span></span><br><span class="line">    <span class="built_in">memset</span>(vis, <span class="literal">false</span>, <span class="keyword">sizeof</span>(vis));</span><br><span class="line">    <span class="comment">//初始化所有状态为未出现过</span></span><br><span class="line">    vis[Node.v[<span class="number">0</span>]][Node.v[<span class="number">1</span>]][Node.v[<span class="number">2</span>]] = <span class="literal">true</span>;</span><br><span class="line">    <span class="comment">//标记当前状态为已出现</span></span><br><span class="line">    <span class="built_in">queue</span>&lt;node&gt; Q;</span><br><span class="line">    <span class="comment">//队列Q记录当前可操作状态</span></span><br><span class="line">    Q.push(Node);</span><br><span class="line">    <span class="comment">//当前状态入队</span></span><br><span class="line">    <span class="keyword">while</span>(!Q.empty())&#123;  </span><br><span class="line">        node top = Q.front();</span><br><span class="line">        <span class="comment">//取出队首元素</span></span><br><span class="line">        <span class="keyword">if</span>(top.v[<span class="number">0</span>] == top.v[<span class="number">1</span>] &amp;&amp; top.v[<span class="number">2</span>] == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="comment">//可乐瓶与较大的杯中各有一半可乐，较小的杯中没有可乐</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, top.step);<span class="comment">//输出次数</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Q.pop();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++)&#123; <span class="comment">//搜索所有6种状态</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">3</span>; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i != j)&#123; <span class="comment">//自己不能向自己倒水</span></span><br><span class="line">                    Node = top;</span><br><span class="line">                    judge(i , j);   <span class="comment">//执行i向j倒水</span></span><br><span class="line">                    <span class="keyword">if</span>(!vis[Node.v[<span class="number">0</span>]][Node.v[<span class="number">1</span>]][Node.v[<span class="number">2</span>]])&#123;  <span class="comment">//若新状态之前没有出现过</span></span><br><span class="line">                        Node.step++;</span><br><span class="line">                        <span class="comment">//倒水次数加一</span></span><br><span class="line">                        vis[Node.v[<span class="number">0</span>]][Node.v[<span class="number">1</span>]][Node.v[<span class="number">2</span>]] = <span class="literal">true</span>;</span><br><span class="line">                        <span class="comment">//标记新状态为已出现</span></span><br><span class="line">                        Q.push(Node);</span><br><span class="line">                        <span class="comment">//新状态入队 </span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"NO\n"</span>); <span class="comment">//若不能分成两份输出NO</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> s, n, m;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;s, &amp;n, &amp;m) != EOF &amp;&amp; s || n || m)&#123;   <span class="comment">//输入s n m 以0为结束标志</span></span><br><span class="line">        v[<span class="number">0</span>] = s;</span><br><span class="line">        <span class="comment">//获得大杯与小杯的容积</span></span><br><span class="line">        <span class="keyword">if</span>(n &gt; m)&#123;</span><br><span class="line">            v[<span class="number">1</span>] = n;</span><br><span class="line">            v[<span class="number">2</span>] = m;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            v[<span class="number">1</span>] = m;</span><br><span class="line">            v[<span class="number">2</span>] = n;</span><br><span class="line">        &#125;</span><br><span class="line">        BFS();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/06/POJ-2251-Dungeon-Master/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/06/POJ-2251-Dungeon-Master/" class="post-title-link" itemprop="url">POJ 2251 Dungeon Master</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-06 20:11:27" itemprop="dateCreated datePublished" datetime="2018-12-06T20:11:27+08:00">2018-12-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　You are trapped in a 3D dungeon and need to find the quickest way out! The dungeon is composed of unit cubes which may or may not be filled with rock. It takes one minute to move one unit north, south, east, west, up or down. You cannot move diagonally and the maze is surrounded by solid rock on all sides. </p>
+<p>　　Is an escape possible? If yes, how long will it take? </p>
+<p>Input</p>
+<p>　　The input consists of a number of dungeons. Each dungeon description starts with a line containing three integers L, R and C (all limited to 30 in size).<br>　　L is the number of levels making up the dungeon.<br>　　R and C are the number of rows and columns making up the plan of each level.<br>Then there will follow L blocks of R lines each containing C characters. Each character describes one cell of the dungeon. A cell full of rock is indicated by a ‘#’ and empty cells are represented by a ‘.’. Your starting position is indicated by ‘S’ and the exit by the letter ‘E’. There’s a single blank line after each level. Input is terminated by three zeroes for L, R and C.</p>
+<p>Output</p>
+<p>　　Each maze generates one line of output. If it is possible to reach the exit, print a line of the form </p>
+<p> Escaped in x minute(s). </p>
+<p> where x is replaced by the shortest time it takes to escape.<br>　　If it is not possible to escape, print the line  </p>
+<p> Trapped! </p>
+<p>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">3 4 5</span><br><span class="line">S....</span><br><span class="line">.###.</span><br><span class="line">.##..</span><br><span class="line">###.#</span><br><span class="line"></span><br><span class="line">#####</span><br><span class="line">#####</span><br><span class="line">##.##</span><br><span class="line">##...</span><br><span class="line"></span><br><span class="line">#####</span><br><span class="line">#####</span><br><span class="line">#.###</span><br><span class="line">####E</span><br><span class="line"></span><br><span class="line">1 3 3</span><br><span class="line">S##</span><br><span class="line">#E#</span><br><span class="line">###</span><br><span class="line"></span><br><span class="line">0 0 0</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Escaped in 11 minute(s).</span><br><span class="line">Trapped!</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题有多组测数据，每组数据包括第一行输入3个整数，分别为 l 地牢层数、 r 每次地牢行数， c 每层地牢列数。</p>
+<p>　　之后输入 l 个矩阵，分别为地牢每层的状态。</p>
+<p>　　其中’ # ‘表示该位置充满岩石；</p>
+<p>　　‘ . ‘表示空地；</p>
+<p>　　‘ S ‘表示起点；</p>
+<p>　　‘ E ‘表示终点；</p>
+<p>　　以 l r c 输入都为0为结束标准。</p>
+<p>　　要求按格式输出从起点到终点的最短时间，若不能逃脱输出Trapped!</p>
+<p>　　本题可以使用bfs基本思想为，从起点开始向周围东西南北上下6个方向搜索，使用一个队列记录当前可用起点，每次取出一个点并将其可以抵达且还没有抵达过的点加入队列，并将其步数记录为先前点的步数加一，当找到终点时，到终点的最短时间就是到终点所需的步数，若直到队列为空，即没有可用起点，则证明终点不可达，输出Trapped!</p>
+<p>　　这里将 l 视为z、 将r 视为x，将c视为y，使用一个char型的三维数组mapn记录地牢，由于给出的每个矩阵代表每层的信息，所以输入矩阵时按层输入。用三维布尔数组vis记录地牢内该位置是否已经抵达过，用一个结构体node记录该点信息与抵达该点所需的步数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BFS</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z)</span></span>&#123;   <span class="comment">//传入起点位置</span></span><br><span class="line">    Node.x = x;</span><br><span class="line">    Node.y = y;</span><br><span class="line">    Node.z = z;</span><br><span class="line">    Node.step = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//记录抵达起点所需的步数为0</span></span><br><span class="line">    vis[x][y][z] = <span class="literal">true</span>;</span><br><span class="line">    <span class="comment">//标记起点为已抵达</span></span><br><span class="line">    <span class="built_in">queue</span>&lt;node&gt; Q;</span><br><span class="line">    Q.push(Node);</span><br><span class="line">    <span class="comment">//起点入队</span></span><br><span class="line">    <span class="keyword">while</span>(!Q.empty())&#123;</span><br><span class="line">        node top = Q.front();</span><br><span class="line">        <span class="comment">//取出队首点寻找其周围可达的位置</span></span><br><span class="line">        <span class="keyword">if</span>(top.x == ex &amp;&amp; top.y == ey &amp;&amp; top.z == ez)</span><br><span class="line">            <span class="keyword">return</span> top.step;    <span class="comment">//若队首为终点证明可以逃脱，返回所需步数</span></span><br><span class="line">        Q.pop();    <span class="comment">//队首点出队</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">6</span>; i++)&#123; <span class="comment">//遍历周围四个位置</span></span><br><span class="line">            <span class="comment">//newX newY newZ为新的位置</span></span><br><span class="line">            <span class="keyword">int</span> newX = top.x + X[i];</span><br><span class="line">            <span class="keyword">int</span> newY = top.y + Y[i];</span><br><span class="line">            <span class="keyword">int</span> newZ = top.z + Z[i];</span><br><span class="line">            <span class="keyword">if</span>(judge(newX, newY, newZ))&#123;    <span class="comment">//判断新的位置是否可以走</span></span><br><span class="line">                Node.x = newX;</span><br><span class="line">                Node.y = newY;</span><br><span class="line">                Node.z = newZ;</span><br><span class="line">                Node.step = top.step + <span class="number">1</span>;   <span class="comment">//记录可以走的新的位置步数为top步数加一</span></span><br><span class="line">                vis[newX][newY][newZ] = <span class="literal">true</span>;   <span class="comment">//标记新位置为已抵达</span></span><br><span class="line">                Q.push(Node);   <span class="comment">//新位置入队</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;  <span class="comment">//若不可达返回-1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​        判断位置可以走的要求时不超地牢边界不是岩石且之前没走过。</p>
+<p>　　AC代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">35</span>;</span><br><span class="line"><span class="keyword">int</span> l, r, c;    <span class="comment">//记录层数列数与行数</span></span><br><span class="line"><span class="keyword">int</span> bx, by, bz, ex, ey, ez;</span><br><span class="line"><span class="comment">//记录起点与终点坐标</span></span><br><span class="line"><span class="keyword">char</span> mapn[maxn][maxn][maxn];    <span class="comment">//记录地牢</span></span><br><span class="line"><span class="keyword">bool</span> vis[maxn][maxn][maxn] = &#123;<span class="literal">false</span>&#125;;   <span class="comment">//某点是否走过</span></span><br><span class="line"><span class="comment">//周围6个方向</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> X[<span class="number">6</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> Y[<span class="number">6</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> Z[<span class="number">6</span>] = &#123;<span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> x, y, z;    <span class="comment">//记录当前点位置</span></span><br><span class="line">    <span class="keyword">int</span> step;   <span class="comment">//记录当前点步数</span></span><br><span class="line">&#125;Node;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">0</span> || x &gt;= r || y &lt; <span class="number">0</span> || y &gt;= c || z &lt; <span class="number">0</span> || z &gt;= l)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;   <span class="comment">//超边界返回false</span></span><br><span class="line">    <span class="keyword">if</span>(mapn[x][y][z] == <span class="string">'#'</span> || vis[x][y][z])</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;   <span class="comment">//目标点为岩石或之前走过返回false</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BFS</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z)</span></span>&#123;   <span class="comment">//传入起点位置</span></span><br><span class="line">    Node.x = x;</span><br><span class="line">    Node.y = y;</span><br><span class="line">    Node.z = z;</span><br><span class="line">    Node.step = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//记录抵达起点所需的步数为0</span></span><br><span class="line">    vis[x][y][z] = <span class="literal">true</span>;</span><br><span class="line">    <span class="comment">//标记起点为已抵达</span></span><br><span class="line">    <span class="built_in">queue</span>&lt;node&gt; Q;</span><br><span class="line">    Q.push(Node);</span><br><span class="line">    <span class="comment">//起点入队</span></span><br><span class="line">    <span class="keyword">while</span>(!Q.empty())&#123;</span><br><span class="line">        node top = Q.front();</span><br><span class="line">        <span class="comment">//取出队首点寻找其周围可达的位置</span></span><br><span class="line">        <span class="keyword">if</span>(top.x == ex &amp;&amp; top.y == ey &amp;&amp; top.z == ez)</span><br><span class="line">            <span class="keyword">return</span> top.step;    <span class="comment">//若队首为终点证明可以逃脱，返回所需步数</span></span><br><span class="line">        Q.pop();    <span class="comment">//队首点出队</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">6</span>; i++)&#123; <span class="comment">//遍历周围四个位置</span></span><br><span class="line">            <span class="comment">//newX newY newZ为新的位置</span></span><br><span class="line">            <span class="keyword">int</span> newX = top.x + X[i];</span><br><span class="line">            <span class="keyword">int</span> newY = top.y + Y[i];</span><br><span class="line">            <span class="keyword">int</span> newZ = top.z + Z[i];</span><br><span class="line">            <span class="keyword">if</span>(judge(newX, newY, newZ))&#123;    <span class="comment">//判断新的位置是否可以走</span></span><br><span class="line">                Node.x = newX;</span><br><span class="line">                Node.y = newY;</span><br><span class="line">                Node.z = newZ;</span><br><span class="line">                Node.step = top.step + <span class="number">1</span>;   <span class="comment">//记录可以走的新的位置步数为top步数加一</span></span><br><span class="line">                vis[newX][newY][newZ] = <span class="literal">true</span>;   <span class="comment">//标记新位置为已抵达</span></span><br><span class="line">                Q.push(Node);   <span class="comment">//新位置入队</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;  <span class="comment">//若不可达返回-1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;l, &amp;r, &amp;c) != EOF &amp;&amp; l &amp;&amp; r &amp;&amp;c)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> z = <span class="number">0</span>; z &lt; l; z++)&#123; <span class="comment">//按层输入</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; r; x++)&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; c; y++)&#123;</span><br><span class="line">                    <span class="built_in">cin</span> &gt;&gt; mapn[x][y][z];</span><br><span class="line">                    <span class="keyword">if</span>(mapn[x][y][z] == <span class="string">'S'</span>)&#123;   <span class="comment">//获取起点终点位置</span></span><br><span class="line">                        bx = x, by = y, bz = z;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span>(mapn[x][y][z] == <span class="string">'E'</span>)&#123;</span><br><span class="line">                        ex = x, ey = y, ez = z;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">memset</span>(vis, <span class="literal">false</span>, <span class="keyword">sizeof</span>(vis));</span><br><span class="line">        <span class="comment">//初始化所有点为未抵达</span></span><br><span class="line">        <span class="keyword">int</span> ans = BFS(bx, by, bz);</span><br><span class="line">        <span class="comment">//获取步数</span></span><br><span class="line">        <span class="keyword">if</span>(ans == <span class="number">-1</span>)&#123;  <span class="comment">//-1为不逃脱</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Trapped!\n"</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Escaped in %d minute(s).\n"</span>, ans);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/05/HDU-3085-Nightmare-%E2%85%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/05/HDU-3085-Nightmare-%E2%85%A1/" class="post-title-link" itemprop="url">HDU 3085 Nightmare Ⅱ</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-05 20:00:52" itemprop="dateCreated datePublished" datetime="2018-12-05T20:00:52+08:00">2018-12-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><meta name="referrer" content="no-referrer"><br>　　Last night, little erriyue had a horrible nightmare. He dreamed that he and his girl friend were trapped in a big maze separately. More terribly, there are two ghosts in the maze. They will kill the people. Now little erriyue wants to know if he could find his girl friend before the ghosts find them.<br>　　You may suppose that little erriyue and his girl friend can move in 4 directions. In each second, little erriyue can move 3 steps and his girl friend can move 1 step. The ghosts are evil, every second they will divide into several parts to occupy the grids within 2 steps to them until they occupy the whole maze. You can suppose that at every second the ghosts divide firstly then the little erriyue and his girl friend start to move, and if little erriyue or his girl friend arrive at a grid with a ghost, they will die.<br>　　Note: the new ghosts also can devide as the original ghost. </p>
+<p>Input</p>
+<p>　　The input starts with an integer T, means the number of test cases.<br>　　Each test case starts with a line contains two integers n and m, means the size of the maze. (1&lt;n, m&lt;800)<br>　　The next n lines describe the maze. Each line contains m characters. The characters may be:<br>　　‘.’ denotes an empty place, all can walk on.<br>　　‘X’ denotes a wall, only people can’t walk on.<br>　　‘M’ denotes little erriyue<br>　　‘G’ denotes the girl friend.<br>　　‘Z’ denotes the ghosts.<br>　　It is guaranteed that will contain exactly one letter M, one letter G and two letters Z.<br>Output</p>
+<p>　　Output a single integer S in one line, denotes erriyue and his girlfriend will meet in the minimum time S if they can meet successfully, or output -1 denotes they failed to meet.</p>
+<p>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">5 6</span><br><span class="line">XXXXXX</span><br><span class="line">XZ..ZX</span><br><span class="line">XXXXXX</span><br><span class="line">M.G...</span><br><span class="line">......</span><br><span class="line">5 6</span><br><span class="line">XXXXXX</span><br><span class="line">XZZ..X</span><br><span class="line">XXXXXX</span><br><span class="line">M.....</span><br><span class="line">..G...</span><br><span class="line"></span><br><span class="line">10 10</span><br><span class="line">..........</span><br><span class="line">..X.......</span><br><span class="line">..M.X...X.</span><br><span class="line">X.........</span><br><span class="line">.X..X.X.X.</span><br><span class="line">.........X</span><br><span class="line">..XX....X.</span><br><span class="line">X....G...X</span><br><span class="line">...ZX.X...</span><br><span class="line">...Z..X..X</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">1</span><br><span class="line">-1</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题给出测试数量t，每组测试包括两个整数n、m，之后给出一个n行m列的矩阵代表地图的初始状态。</p>
+<p>地图中 :</p>
+<p>　　“ . “代表空地；</p>
+<p>　　“X “代表墙；</p>
+<p>　　“M “代表 little erriyue的初始位置；</p>
+<p>　　“G “代表 女友的初始位置；</p>
+<p>　　“Z “代表鬼的初始位置</p>
+<p>　　每个图中M与G都只会有唯一的一个，Z有两个。little erriyue每一回合可以移动3个格子，女友每回合只可以移动1个格子，而鬼每回合会产生出分身（分身可以继续变出分身），覆盖周围2格内所有空地（本题所有行动只能向上下左右4个方向行动，不能斜着前进），行动的顺序是鬼先分身，之后little erriyue与女友行动。如果两人终的任何一人到达有鬼魂的格子就会被宰杀。每一回合算一个小时，要求输出little erriyue最短的汇合时间，若不能汇合输出-1.</p>
+<p>　　本题可以使用广域深度搜索，定义一个结构体node储存little erriyue、女友与鬼魂的位置。在输入后先确定little erriyue、女友与鬼魂的位置，用step记录回合数，每回合little erriyue、女友各行动一次，所搜所有可达位置，判断目标位置与鬼魂的曼哈顿距离。由于鬼每一次覆盖其周围所有距离为2的格子，即曼哈顿距离为2的所有位置，所以判断某位置是否已经被鬼的分身占据，只需判断当前的回合数<em>2与鬼位置的曼哈度距离大小即可。</em><br>*</p>
+<p>　　曼哈顿距离：</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181205191058576-1094477089.jpg" alt="img"></p>
+<p>　　上图红线、蓝线与黄线都为两点间等价的曼哈顿距离，绿线则代表欧氏距离（直线距离）。</p>
+<p>　　曼哈顿距离就是图中两点间水平距离加竖直距离，也就是只能上下左右四个方向移动时两点间的最短距离。</p>
+<p>　　本题与鬼魂曼哈顿距离判断函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> step)</span></span>&#123; <span class="comment">//传入值为要判断点的坐标与当前回合数</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">0</span> || y &lt; <span class="number">0</span> || x &gt;= n || y &gt;= m)  <span class="comment">//如果传入的点超过地图的边界，该点不能走，返回false</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(mapn[x][y] == <span class="string">'X'</span>)  <span class="comment">//如果该点是墙，该点不能走，返回false</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//如果该点与第一个鬼魂的曼哈顿距离小于回合数的两倍则第一个鬼魂已经覆盖了该点，该点不能走，返回false</span></span><br><span class="line">    <span class="comment">//鬼魂每回合可以覆盖两格所以是回合数的两倍</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>( (<span class="built_in">abs</span>(x - lghost1.x) + <span class="built_in">abs</span>(y - lghost1.y)) &lt;= step * <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//如果该点与第二个鬼魂的曼哈顿距离小于回合数的两倍则第而个鬼魂已经覆盖了该点，该点不能走，返回false</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>( (<span class="built_in">abs</span>(x - lghost2.x) + <span class="built_in">abs</span>(y - lghost2.y)) &lt;= step * <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//只有上述条件都不满足时返回true</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　对于little erriyue和女友我们可以利用广搜每回合搜索他们可以抵达的点判断是否可以汇合。</p>
+<p>　　分别用两个队列表示little erriyue与女友当前回合可用的起始位置（上一回合的可达位置）</p>
+<p>　　对于little erriyue，他每回合可以行动3格，我们就让他每次行动一格搜索3次即可</p>
+<p>　　little erriyue：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">bfsLE</span><span class="params">(<span class="keyword">int</span> step)</span></span>&#123;   <span class="comment">//传入的值为当前回合数</span></span><br><span class="line">    <span class="keyword">int</span> t = <span class="number">3</span>;  <span class="comment">//行动3次</span></span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = littleErriyue.size(); </span><br><span class="line">        <span class="comment">//sum为当前队列中元素的数量，代表当前回合的起始位置数量（即上一回合可达位置数量）</span></span><br><span class="line">        <span class="keyword">while</span>(sum--)&#123;   <span class="comment">//遍历所有起始位置</span></span><br><span class="line">            node top = littleErriyue.front();   </span><br><span class="line">            littleErriyue.pop();</span><br><span class="line">            <span class="comment">//记录当前首位并出队</span></span><br><span class="line">            <span class="keyword">if</span>(!judge(top.x, top.y, step))  </span><br><span class="line">                <span class="comment">//由于每回合开始都是鬼鬼魂先分身，所以如果这里被鬼魂覆盖这点就不能用了</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)&#123; <span class="comment">//遍历当前点可以到达的4个位置</span></span><br><span class="line">                <span class="keyword">int</span> NewX = top.x + X[i];</span><br><span class="line">                <span class="keyword">int</span> NewY = top.y + Y[i];</span><br><span class="line">                <span class="keyword">if</span>(!visLE[NewX][NewY] &amp;&amp; judge(NewX, NewY, step))&#123; </span><br><span class="line">                    <span class="comment">//判断四个位置是否可用，vis数组用来记录目标位置是否已经走过</span></span><br><span class="line">                    <span class="comment">//只有没有走过，且judge为true的位置才可以使用</span></span><br><span class="line">                    <span class="keyword">if</span>(visGF[NewX][NewY])   <span class="comment">//如果目标点本回合或之前女友亦可以抵达证明汇合成功</span></span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">true</span>;    <span class="comment">//返回true</span></span><br><span class="line">                    Node.x = NewX;</span><br><span class="line">                    Node.y = NewY;</span><br><span class="line">                    littleErriyue.push(Node);   <span class="comment">//新位置入队</span></span><br><span class="line">                    visLE[NewX][NewY] = <span class="literal">true</span>;   <span class="comment">//新位置标记为已经走过</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 　　女友： </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//女友行动与little erriyue类似，唯一的区别就是只行动一次</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">bfsGF</span><span class="params">(<span class="keyword">int</span> step)</span></span>&#123;   <span class="comment">//传入的值为当前回合数</span></span><br><span class="line">    <span class="keyword">int</span> sum = girlFriend.size();</span><br><span class="line">    <span class="comment">//sum为当前队列中元素的数量，代表当前回合的起始位置数量（即上一回合可达位置数量）</span></span><br><span class="line">    <span class="keyword">while</span>(sum--)&#123;<span class="comment">//遍历所有起始位置</span></span><br><span class="line">        node top = girlFriend.front();</span><br><span class="line">        girlFriend.pop();</span><br><span class="line">         <span class="comment">//记录当前首位并出队</span></span><br><span class="line">        <span class="keyword">if</span>(!judge(top.x, top.y, step))</span><br><span class="line">            <span class="comment">//由于每回合开始都是鬼鬼魂先分身，所以如果这里被鬼魂覆盖这点就不能用了</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)&#123;<span class="comment">//遍历当前点可以到达的4个位置</span></span><br><span class="line">            <span class="keyword">int</span> NewX = top.x + X[i];</span><br><span class="line">            <span class="keyword">int</span> NewY = top.y + Y[i];</span><br><span class="line">            <span class="keyword">if</span>(!visGF[NewX][NewY] &amp;&amp; judge(NewX, NewY, step))&#123;</span><br><span class="line">                <span class="comment">//判断四个位置是否可用，vis数组用来记录目标位置是否已经走过</span></span><br><span class="line">                    <span class="comment">//只有没有走过，且judge为true的位置才可以使用</span></span><br><span class="line">                <span class="keyword">if</span>(visLE[NewX][NewY])<span class="comment">//如果目标点本回合或之前littel erriyue亦可以抵达证明汇合成功</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;<span class="comment">//返回true</span></span><br><span class="line">                Node.x = NewX;</span><br><span class="line">                Node.y = NewY;</span><br><span class="line">                girlFriend.push(Node);<span class="comment">//新位置入队</span></span><br><span class="line">                visGF[NewX][NewY] = <span class="literal">true</span>; <span class="comment">//新位置标记为已经走过</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> AC代码 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">810</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> X[<span class="number">4</span>] = &#123;<span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> Y[<span class="number">4</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line"><span class="keyword">char</span> mapn[maxn][maxn];</span><br><span class="line"><span class="keyword">bool</span> visLE[maxn][maxn] = &#123;<span class="literal">false</span>&#125;;</span><br><span class="line"><span class="comment">//little erriyue走过的位置</span></span><br><span class="line"><span class="keyword">bool</span> visGF[maxn][maxn] = &#123;<span class="literal">false</span>&#125;;</span><br><span class="line"><span class="comment">//女友走过的位置</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> x;</span><br><span class="line">    <span class="keyword">int</span> y;</span><br><span class="line">&#125;Node, lLE, lGF, lghost1, lghost2;</span><br><span class="line"><span class="comment">//lLE little erriyue起始位置 lGF 女友起始位置 两个lghost分别为两个鬼魂的起始位置</span></span><br><span class="line"><span class="built_in">queue</span>&lt;node&gt; littleErriyue;<span class="comment">//little erriyue当前回合可用的起始位置（上一回合的可达位置）</span></span><br><span class="line"><span class="built_in">queue</span>&lt;node&gt; girlFriend;<span class="comment">//女友当前回合可用的起始位置（上一回合的可达位置）</span></span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getLocation</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">bool</span> g2 = <span class="literal">false</span>;    <span class="comment">//鬼魂2位置未获取</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(mapn[i][j] == <span class="string">'M'</span>)&#123;  <span class="comment">//获取little erriyue起始位置</span></span><br><span class="line">                lLE.x = i;</span><br><span class="line">                lLE.y = j;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(mapn[i][j] == <span class="string">'G'</span>)&#123;<span class="comment">//获取女友起始位置</span></span><br><span class="line">                lGF.x = i;</span><br><span class="line">                lGF.y = j;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(mapn[i][j] == <span class="string">'Z'</span>)&#123;    <span class="comment">//获取鬼魂起始位置</span></span><br><span class="line">                <span class="keyword">if</span>(!g2)&#123;</span><br><span class="line">                    lghost2.x = i;</span><br><span class="line">                    lghost2.y = j;</span><br><span class="line">                    g2 = <span class="literal">true</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    lghost1.x = i;</span><br><span class="line">                    lghost1.y = j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> step)</span></span>&#123; <span class="comment">//传入值为要判断点的坐标与当前回合数</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">0</span> || y &lt; <span class="number">0</span> || x &gt;= n || y &gt;= m)  <span class="comment">//如果传入的点超过地图的边界，该点不能走，返回false</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(mapn[x][y] == <span class="string">'X'</span>)  <span class="comment">//如果该点是墙，该点不能走，返回false</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//如果该点与第一个鬼魂的曼哈顿距离小于回合数的两倍则第一个鬼魂已经覆盖了该点，该点不能走，返回false</span></span><br><span class="line">    <span class="comment">//鬼魂每回合可以覆盖两格所以是回合数的两倍</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>( (<span class="built_in">abs</span>(x - lghost1.x) + <span class="built_in">abs</span>(y - lghost1.y)) &lt;= step * <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//如果该点与第二个鬼魂的曼哈顿距离小于回合数的两倍则第而个鬼魂已经覆盖了该点，该点不能走，返回false</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>( (<span class="built_in">abs</span>(x - lghost2.x) + <span class="built_in">abs</span>(y - lghost2.y)) &lt;= step * <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//只有上述条件都不满足时返回true</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">bfsLE</span><span class="params">(<span class="keyword">int</span> step)</span></span>&#123;   <span class="comment">//传入的值为当前回合数</span></span><br><span class="line">    <span class="keyword">int</span> t = <span class="number">3</span>;  <span class="comment">//行动3次</span></span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = littleErriyue.size(); </span><br><span class="line">        <span class="comment">//sum为当前队列中元素的数量，代表当前回合的起始位置数量（即上一回合可达位置数量）</span></span><br><span class="line">        <span class="keyword">while</span>(sum--)&#123;   <span class="comment">//遍历所有起始位置</span></span><br><span class="line">            node top = littleErriyue.front();   </span><br><span class="line">            littleErriyue.pop();</span><br><span class="line">            <span class="comment">//记录当前首位并出队</span></span><br><span class="line">            <span class="keyword">if</span>(!judge(top.x, top.y, step))  </span><br><span class="line">                <span class="comment">//由于每回合开始都是鬼鬼魂先分身，所以如果这里被鬼魂覆盖这点就不能用了</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)&#123; <span class="comment">//遍历当前点可以到达的4个位置</span></span><br><span class="line">                <span class="keyword">int</span> NewX = top.x + X[i];</span><br><span class="line">                <span class="keyword">int</span> NewY = top.y + Y[i];</span><br><span class="line">                <span class="keyword">if</span>(!visLE[NewX][NewY] &amp;&amp; judge(NewX, NewY, step))&#123; </span><br><span class="line">                    <span class="comment">//判断四个位置是否可用，vis数组用来记录目标位置是否已经走过</span></span><br><span class="line">                    <span class="comment">//只有没有走过，且judge为true的位置才可以使用</span></span><br><span class="line">                    <span class="keyword">if</span>(visGF[NewX][NewY])   <span class="comment">//如果目标点本回合或之前女友亦可以抵达证明汇合成功</span></span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">true</span>;    <span class="comment">//返回true</span></span><br><span class="line">                    Node.x = NewX;</span><br><span class="line">                    Node.y = NewY;</span><br><span class="line">                    littleErriyue.push(Node);   <span class="comment">//新位置入队</span></span><br><span class="line">                    visLE[NewX][NewY] = <span class="literal">true</span>;   <span class="comment">//新位置标记为已经走过</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//女友行动与little erriyue类似，唯一的区别就是只行动一次</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">bfsGF</span><span class="params">(<span class="keyword">int</span> step)</span></span>&#123;   <span class="comment">//传入的值为当前回合数</span></span><br><span class="line">    <span class="keyword">int</span> sum = girlFriend.size();</span><br><span class="line">    <span class="comment">//sum为当前队列中元素的数量，代表当前回合的起始位置数量（即上一回合可达位置数量）</span></span><br><span class="line">    <span class="keyword">while</span>(sum--)&#123;<span class="comment">//遍历所有起始位置</span></span><br><span class="line">        node top = girlFriend.front();</span><br><span class="line">        girlFriend.pop();</span><br><span class="line">         <span class="comment">//记录当前首位并出队</span></span><br><span class="line">        <span class="keyword">if</span>(!judge(top.x, top.y, step))</span><br><span class="line">            <span class="comment">//由于每回合开始都是鬼鬼魂先分身，所以如果这里被鬼魂覆盖这点就不能用了</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)&#123;<span class="comment">//遍历当前点可以到达的4个位置</span></span><br><span class="line">            <span class="keyword">int</span> NewX = top.x + X[i];</span><br><span class="line">            <span class="keyword">int</span> NewY = top.y + Y[i];</span><br><span class="line">            <span class="keyword">if</span>(!visGF[NewX][NewY] &amp;&amp; judge(NewX, NewY, step))&#123;</span><br><span class="line">                <span class="comment">//判断四个位置是否可用，vis数组用来记录目标位置是否已经走过</span></span><br><span class="line">                    <span class="comment">//只有没有走过，且judge为true的位置才可以使用</span></span><br><span class="line">                <span class="keyword">if</span>(visLE[NewX][NewY])<span class="comment">//如果目标点本回合或之前littel erriyue亦可以抵达证明汇合成功</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;<span class="comment">//返回true</span></span><br><span class="line">                Node.x = NewX;</span><br><span class="line">                Node.y = NewY;</span><br><span class="line">                girlFriend.push(Node);<span class="comment">//新位置入队</span></span><br><span class="line">                visGF[NewX][NewY] = <span class="literal">true</span>; <span class="comment">//新位置标记为已经走过</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);    <span class="comment">//输入测试数量</span></span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);  <span class="comment">//输入n与m</span></span><br><span class="line">        <span class="built_in">memset</span>(visLE, <span class="literal">false</span>, <span class="keyword">sizeof</span>(visLE));</span><br><span class="line">        <span class="built_in">memset</span>(visGF, <span class="literal">false</span>, <span class="keyword">sizeof</span>(visGF));</span><br><span class="line">        <span class="comment">//初始化两个vis数组为false</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;<span class="comment">//输入地图</span></span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%s"</span>, mapn[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        getLocation();  <span class="comment">//获得各特殊元素位置</span></span><br><span class="line">        <span class="comment">//清空两个队列</span></span><br><span class="line">        <span class="keyword">while</span>(!littleErriyue.empty())&#123;</span><br><span class="line">            littleErriyue.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(!girlFriend.empty())&#123;</span><br><span class="line">            girlFriend.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//little erriyue与女友的初始位置入队</span></span><br><span class="line">        littleErriyue.push(lLE);</span><br><span class="line">        girlFriend.push(lGF);</span><br><span class="line">        visLE[lLE.x][lLE.y] = <span class="literal">true</span>;</span><br><span class="line">        visGF[lGF.x][lGF.y] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">int</span> step = <span class="number">0</span>;   <span class="comment">//step记录时间（回合数）</span></span><br><span class="line">        <span class="keyword">bool</span> flag = <span class="literal">false</span>;  <span class="comment">//flag 记录是否可汇合</span></span><br><span class="line">        <span class="keyword">while</span>(!girlFriend.empty() || !littleErriyue.empty())&#123;</span><br><span class="line">            step++;</span><br><span class="line">            <span class="keyword">if</span>(bfsLE(step))&#123;    <span class="comment">//little erriyue行动</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, step);</span><br><span class="line">                flag = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(bfsGF(step))&#123;    <span class="comment">//女友行动</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, step);</span><br><span class="line">                flag = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!flag)&#123;  <span class="comment">//不能汇合</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"-1\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/02/CodeForces-1060-B-Maximum-Sum-of-Digits/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/02/CodeForces-1060-B-Maximum-Sum-of-Digits/" class="post-title-link" itemprop="url">CodeForces 1060 B Maximum Sum of Digits</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-02 19:43:58" itemprop="dateCreated datePublished" datetime="2018-12-02T19:43:58+08:00">2018-12-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　You are given a positive integer n.</p>
+<p>　　Let S(x)S(x) be sum of digits in base 10 representation of xx , for example, S(123)=1+2+3=6S(123)=1+2+3=6 , S(0)=0S(0)=0 .</p>
+<p>　　Your task is to find two integers a,ba,b , such that 0≤a,b≤n0≤a,b≤n , a+b=na+b=n and S(a)+S(b)S(a)+S(b) is the largest possible among all such pairs.</p>
+<p>Input</p>
+<p>　　The only line of input contains an integer nn (1≤n≤1012)(1≤n≤1012) .</p>
+<p>Output</p>
+<p>　　Print largest S(a)+S(b)S(a)+S(b) among all pairs of integers a,ba,b , such that 0≤a,b≤n0≤a,b≤n and a+b=na+b=n .</p>
+<p>Examples</p>
+<p>Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">35</span><br></pre></td></tr></table></figure>
+<p>Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">17</span><br></pre></td></tr></table></figure>
+<p>Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10000000000</span><br></pre></td></tr></table></figure>
+<p>Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">91</span><br></pre></td></tr></table></figure>
+<p>Note</p>
+<p>　　In the first example, you can choose, for example, a=17a=17 and b=18b=18 , so that S(17)+S(18)=1+7+1+8=17S(17)+S(18)=1+7+1+8=17 . It can be shown that it is impossible to get a larger answer.</p>
+<p>　　In the second test example, you can choose, for example, a=5000000001a=5000000001 and b=4999999999b=4999999999 , with S(5000000001)+S(4999999999)=91S(5000000001)+S(4999999999)=91 . It can be shown that it is impossible to get a larger answer.</p>
+<p>解题思路：<br>　　给出一个数字n，将他拆分为2个数字，使拆分的两个数字每一位相加的和最大，输出相加后的和。</p>
+<p>　　个人感觉不用管下面提示。我们本着贪心的思想，希望获得尽可能多的9，就是将35，拆分为9与26，将10000000000，拆分为9999999999与1，既将原始数字拆分为比其第一位的全由9组成的数字与另一个补偿数字，补偿数字为原始数字减去拆分的全9数字。之后将拆分的两个数字所有位都相加便可以得到答案。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="comment">//CodeForces不支持万能头文件bits/stdc++.h</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="built_in">string</span> n;</span><br><span class="line"><span class="function">ll <span class="title">power</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123; <span class="comment">//快速幂</span></span><br><span class="line">    ll ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(b)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>)&#123;</span><br><span class="line">            ans = ans * a;</span><br><span class="line">        &#125;</span><br><span class="line">        a = a * a;</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll a, b;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> suma=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> sumb=<span class="number">0</span>;</span><br><span class="line">        a = power(<span class="number">10</span>, n.size() - <span class="number">1</span>);</span><br><span class="line">        <span class="comment">//若想拆分出小于且9最多的数字，只需要找到n的位数n.size() - 1</span></span><br><span class="line">        <span class="comment">//之后便可以用10的n.size() - 1次幂找到与n位数相等数字中最小数字</span></span><br><span class="line">        <span class="comment">//减一便可以得到我们所要拆分的数字</span></span><br><span class="line">        <span class="function"><span class="built_in">istringstream</span> <span class="title">cinn</span><span class="params">(n)</span></span>;</span><br><span class="line">        cinn &gt;&gt; b;</span><br><span class="line">        <span class="comment">//先用istringstream读取n中的值输入到整形b中</span></span><br><span class="line">        <span class="comment">//b - a就是补偿的数字。</span></span><br><span class="line">        a--;</span><br><span class="line">        b = b - a;</span><br><span class="line">        <span class="keyword">while</span>(a)    <span class="comment">//将a的每一位加起来</span></span><br><span class="line">        &#123;</span><br><span class="line">            suma += a % <span class="number">10</span>;</span><br><span class="line">            a/=<span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(b)</span><br><span class="line">        &#123;</span><br><span class="line">            sumb += b % <span class="number">10</span>; <span class="comment">//将b的每一位加起来</span></span><br><span class="line">            b/=<span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; suma + sumb &lt;&lt; <span class="built_in">endl</span>;    <span class="comment">//所有位数加和</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/01/HDU-1166-%E6%95%8C%E5%85%B5%E5%B8%83%E9%98%B5-%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -740,386 +1129,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/26/Codeforces-450B-Jzzhu-and-Sequences/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/26/Codeforces-450B-Jzzhu-and-Sequences/" class="post-title-link" itemprop="url">Codeforces 450B Jzzhu and Sequences</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-26 21:53:16" itemprop="dateCreated datePublished" datetime="2018-11-26T21:53:16+08:00">2018-11-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><meta name="referrer" content="no-referrer"><br>Jzzhu has invented a kind of sequences, they meet the following property:</p>
-<p> <img src="http://espresso.codeforces.com/c84e959b7fd00c2ebce39e2b33db6bdb624ba8f3.png" alt="img"> </p>
-<p>　　You are given <em>x</em> and <em>y</em>, please calculate <em>f**n</em> modulo 1000000007 (109 + 7).</p>
-<p>Input</p>
-<p>　　The first line contains two integers <em>x</em> and <em>y</em>(|<em>x</em>|, |<em>y</em>| ≤ 109). The second line contains a single integer <em>n</em> (1 ≤ <em>n</em> ≤ 2·109).</p>
-<p>Output</p>
-<p>　　Output a single integer representing <em>f**n</em> modulo 1000000007 (109 + 7).</p>
-<p>Examples</p>
-<p>Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2 33</span><br></pre></td></tr></table></figure>
-<p>Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure>
-<p>Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 -12</span><br></pre></td></tr></table></figure>
-<p>Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1000000006</span><br></pre></td></tr></table></figure>
-<p>Note</p>
-<p>　　In the first sample, <em>f</em>2 = <em>f</em>1 + <em>f</em>3, 3 = 2 + <em>f</em>3, <em>f</em>3 = 1.</p>
-<p>　　In the second sample, <em>f</em>2 =  - 1; - 1 modulo (109 + 7)equals (109 + 6).</p>
-<p>解题思路：<br>　　本题给出一个运算公式 f( i ) = f( i - 1) + f(i + 1)给出两个整数分别为前两项的值，之后给出一个整数n，要求求出第n项的值。</p>
-<p>　　我们首先将公式变形一下</p>
-<p>　　</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    f( i ) &#x3D; f( i - 1 ) + f( i + 1 ) </span><br><span class="line">⇔  f( i + 1 ) &#x3D;  f( i ) - f( i - 1 )</span><br><span class="line">⇔  f( i ) &#x3D; f( i - 1 ) - f( i - 2 )</span><br></pre></td></tr></table></figure>
-<p>　　之后我们将相邻两项计入一个2 * 1的矩阵中</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201811/1447131-20181122211452205-500098852.png" alt="img"></p>
-<p>　　n大于3时计算n - 2次方即可得出答案</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> LL mod = <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">2</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">matrix</span>&#123;</span></span><br><span class="line">    LL mat[maxn][maxn]; <span class="comment">//mat存放矩阵</span></span><br><span class="line">    matrix <span class="keyword">operator</span> *(<span class="keyword">const</span> matrix &amp;a)<span class="keyword">const</span>&#123;    <span class="comment">//重载运算符*</span></span><br><span class="line">        matrix ans;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++)&#123; <span class="comment">//遍历行</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">2</span>; j++)&#123; <span class="comment">//遍历列</span></span><br><span class="line">                ans.mat[i][j] = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k =<span class="number">0</span>; k &lt; <span class="number">2</span>; k++)&#123;  <span class="comment">//固定k进行矩阵乘法</span></span><br><span class="line">                    ans.mat[i][j] = (ans.mat[i][j] + mat[i][k] * a.mat[k][j] % mod) % mod;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">matrix <span class="title">power</span><span class="params">(matrix a, LL b)</span></span>&#123;   <span class="comment">//矩阵快速幂，与普通快速幂几乎没有区别</span></span><br><span class="line">    matrix ans; <span class="comment">//答案矩阵</span></span><br><span class="line">    <span class="built_in">memset</span>(ans.mat, <span class="number">0</span>, <span class="keyword">sizeof</span>(ans.mat));    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++)&#123;</span><br><span class="line">        ans.mat[i][i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//以上为初始化单位矩阵</span></span><br><span class="line">    <span class="keyword">while</span>(b)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>)&#123;  <span class="comment">//b按位与1匹配</span></span><br><span class="line">            ans = ans * a;</span><br><span class="line">        &#125;</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        a = a * a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    LL x ,y, n;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%lld%lld"</span>, &amp;x, &amp;y) != EOF)&#123;    <span class="comment">//输入x与y</span></span><br><span class="line">        matrix a;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lld"</span>, &amp;n);  <span class="comment">//输入n</span></span><br><span class="line">        a.mat[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        a.mat[<span class="number">0</span>][<span class="number">1</span>] = <span class="number">-1</span>;</span><br><span class="line">        a.mat[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        a.mat[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//初始化矩阵</span></span><br><span class="line">        <span class="comment">//n为1或2单独判断</span></span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, (x % mod + mod) % mod);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(n == <span class="number">2</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, (y % mod + mod) % mod);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;  <span class="comment">//n&gt;=3</span></span><br><span class="line">            a = power(a, n - <span class="number">2</span>);    <span class="comment">//计算矩阵a的n - 2次方</span></span><br><span class="line">            LL ans = (((a.mat[<span class="number">0</span>][<span class="number">0</span>] * y + a.mat[<span class="number">0</span>][<span class="number">1</span>] * x) % mod) + mod ) % mod;</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, ans);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/24/HDU-2680-Choose-the-best-route/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/24/HDU-2680-Choose-the-best-route/" class="post-title-link" itemprop="url">HDU 2680 Choose the best route</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-24 16:51:04" itemprop="dateCreated datePublished" datetime="2018-11-24T16:51:04+08:00">2018-11-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>　　One day , Kiki wants to visit one of her friends. As she is liable to carsickness , she wants to arrive at her friend’s home as soon as possible . Now give you a map of the city’s traffic route, and the stations which are near Kiki’s home so that she can take. You may suppose Kiki can change the bus at any station. Please find out the least time Kiki needs to spend. To make it easy, if the city have n bus stations ,the stations will been expressed as an integer 1,2,3…n.</p>
-<p>Input</p>
-<p>　　There are several test cases.<br>　　Each case begins with three integers n, m and s,(n&lt;1000,m&lt;20000,1=&lt;s&lt;=n) n stands for the number of bus stations in this city and m stands for the number of directed ways between bus stations .(Maybe there are several ways between two bus stations .) s stands for the bus station that near Kiki’s friend’s home.<br>　　Then follow m lines ,each line contains three integers p , q , t (0&lt;t&lt;=1000). means from station p to station q there is a way and it will costs t minutes .<br>　　Then a line with an integer w(0&lt;w&lt;n), means the number of stations Kiki can take at the beginning. Then follows w integers stands for these stations.<br>Output</p>
-<p>　　The output contains one line for each data set : the least time Kiki needs to spend ,if it’s impossible to find such a route ,just output “-1”.Sample Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">5 8 5</span><br><span class="line">1 2 2</span><br><span class="line">1 5 3</span><br><span class="line">1 3 4</span><br><span class="line">2 4 7</span><br><span class="line">2 5 6</span><br><span class="line">2 3 5</span><br><span class="line">3 5 1</span><br><span class="line">4 5 1</span><br><span class="line">2</span><br><span class="line">2 3</span><br><span class="line">4 3 4</span><br><span class="line">1 2 3</span><br><span class="line">1 3 4</span><br><span class="line">2 3 2</span><br><span class="line">1</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
-<p>Sample Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">-1</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　本题有多组测试数据，每组第一行给出三个整数，分别为车站数量n，公交线路数m，朋友家s，之后m行为公交线路信息，每行包含3个整数分别为起点站p，终点站q，需要时间t，输入完公交线路后下一行给出一个整数w代表可以使用的起点站数量，再下一行给出w个整数，为可用起点。要求输入到达朋友家少需要多长时间。</p>
-<p>　　通过分析可以得知本题是最短路问题，我们使用dijkstra寻找最短时间</p>
-<p>　　用一个数组minTime储存从起点到所有公交站的最短时间，一个布尔数组vis记录是否固定对应公交站的最短时间。初始状态将到所有公交站的最短时间都视为无穷大，从起点开始标记，记录起点到自己的最短时间为0，之后每次找到并固定到达起点用时最短的公交车站，固定一个公交站后查看以站为媒介是否能使还没有固定的车站到达起点的时间减短，如果能减短，将优化后的时间记入该车站对应的minTime中。</p>
-<p>　　由于本题初始可用车站有多个点，若依次以这些点为起点进行dijkstra运算会消耗大量的时间，我们不妨设立一个“超级原点”即（0，0）点，之后让“超级原点”到达所有初始可用车站的时间都为0，以“超级原点”为起点进行dijkstra运算即可得到前往所有车站的最短时间。</p>
-<p>AC代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">0x3fffffff</span>; <span class="comment">//无穷大</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e4</span>+<span class="number">100</span>;</span><br><span class="line"><span class="keyword">int</span> G[maxn][maxn];  <span class="comment">//G为车站邻接矩阵</span></span><br><span class="line"><span class="keyword">int</span> minTime[maxn];  <span class="comment">//minTime记录起点到每个车站的最短时间</span></span><br><span class="line"><span class="keyword">bool</span> vis[maxn] = &#123;<span class="literal">false</span>&#125;;   <span class="comment">//vis记录抵达当前车站的最短时间是否已经固定</span></span><br><span class="line"><span class="keyword">int</span> n, m;   <span class="comment">//n为车站数，m为线路数</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;   <span class="comment">//传入终点</span></span><br><span class="line">    <span class="comment">//由于可能出现无法抵达朋友家的情况（即起点终点不连通）</span></span><br><span class="line">    <span class="comment">//dijkstra设为bool类型若不连通返回false</span></span><br><span class="line">    <span class="built_in">memset</span>(vis, <span class="literal">false</span>, <span class="keyword">sizeof</span>(vis));    <span class="comment">//初始化所有车站为不固定</span></span><br><span class="line">    fill(minTime, minTime + n + <span class="number">1</span>, inf);    <span class="comment">//初始化起点到所有车站的最短时间为无穷大</span></span><br><span class="line">    minTime[<span class="number">0</span>] = <span class="number">0</span>; <span class="comment">//起点到本身最短时间为0</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++)&#123;    <span class="comment">//遍历所有车站</span></span><br><span class="line">        <span class="keyword">int</span> minStation = <span class="number">-1</span>;    <span class="comment">//minStation记录当前到起点用时最短的点</span></span><br><span class="line">        <span class="keyword">int</span> nowMinTime = inf;   <span class="comment">//nowMinTime记录起点到当前用时最短的点所需时间</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= n; j++)&#123;    <span class="comment">//寻找minStation与nowMinTime</span></span><br><span class="line">            <span class="keyword">if</span>(!vis[j] &amp;&amp; minTime[j] &lt; nowMinTime)&#123;</span><br><span class="line">                minStation = j;</span><br><span class="line">                nowMinTime = minTime[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(minStation == <span class="number">-1</span>)&#123;   <span class="comment">//如果找不到用时最短的点证明之后的点与起点不连通</span></span><br><span class="line">            <span class="keyword">if</span>(minTime[s] != inf)   <span class="comment">//判断朋友家与起点是否连通</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        vis[minStation] = <span class="literal">true</span>; <span class="comment">//将当前到起点用时最短的车站到起点的时间固定</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= n; j++)&#123;    <span class="comment">//以该站为媒介判断是否能优化</span></span><br><span class="line">            <span class="keyword">if</span>(!vis[j] &amp;&amp; G[minStation][j] != inf &amp;&amp; minTime[j] &gt; G[minStation][j] + minTime[minStation])&#123;</span><br><span class="line">                <span class="comment">//如果能找到</span></span><br><span class="line">                <span class="comment">//1、时间未固定</span></span><br><span class="line">                <span class="comment">//2、与该站之间有公交线路</span></span><br><span class="line">                <span class="comment">//3、以该点为媒介可以优化到起点的时间</span></span><br><span class="line">                <span class="comment">//就进行优化</span></span><br><span class="line">                minTime[j] = G[minStation][j] + minTime[minStation];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> s;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;n, &amp;m, &amp;s) != EOF)&#123;  <span class="comment">//输入车站数，线路数，朋友家所在的公交站</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++)&#123;    <span class="comment">//初始化每个公交站到除了自己之外的所有站的耗时都为无穷大</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= n; j++)&#123;</span><br><span class="line">                i == j ? G[i][j] = <span class="number">0</span> : G[i][j] = inf;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> p, q, t;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;p, &amp;q, &amp;t);    <span class="comment">//输入公交线路线路信息</span></span><br><span class="line">            <span class="keyword">if</span>(G[p][q] &lt; t) <span class="comment">//可能出现两个站之间有多条线路的情况，只取耗时最短的一条</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            G[p][q] = t;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> w;  <span class="comment">//输入初始可用车站数</span></span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;w);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; w; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> temp;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;temp); <span class="comment">//输入初始可用车站</span></span><br><span class="line">            G[<span class="number">0</span>][temp] = <span class="number">0</span>; <span class="comment">//超级原点到初始可用车站耗时为0</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(dijkstra(s))&#123;    <span class="comment">//如果朋友家可达</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, minTime[s]); <span class="comment">//输出最短耗时</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"-1\n"</span>); <span class="comment">//不可达输出-1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/23/HDU-1465-%E4%B8%8D%E5%AE%B9%E6%98%93%E7%B3%BB%E5%88%97%E4%B9%8B%E4%B8%80%EF%BC%88%E6%8E%92%E9%94%99%E5%85%AC%E5%BC%8F%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/23/HDU-1465-%E4%B8%8D%E5%AE%B9%E6%98%93%E7%B3%BB%E5%88%97%E4%B9%8B%E4%B8%80%EF%BC%88%E6%8E%92%E9%94%99%E5%85%AC%E5%BC%8F%EF%BC%89/" class="post-title-link" itemprop="url">HDU 1465 不容易系列之一（排错公式）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-23 15:07:04" itemprop="dateCreated datePublished" datetime="2018-11-23T15:07:04+08:00">2018-11-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>大家常常感慨，要做好一件事情真的不容易，确实，失败比成功容易多了！<br>做好“一件”事情尚且不易，若想永远成功而总从不失败，那更是难上加难了，就像花钱总是比挣钱容易的道理一样。<br>　　话虽这样说，我还是要告诉大家，要想失败到一定程度也是不容易的。比如，我高中的时候，就有一个神奇的女生，在英语考试的时候，竟然把40个单项选择题全部做错了！大家都学过概率论，应该知道出现这种情况的概率，所以至今我都觉得这是一件神奇的事情。如果套用一句经典的评语，我们可以这样总结：一个人做错一道选择题并不难，难的是全部做错，一个不对。 </p>
-<p>　　不幸的是，这种小概率事件又发生了，而且就在我们身边：<br>　　事情是这样的——HDU有个网名叫做8006的男性同学，结交网友无数，最近该同学玩起了浪漫，同时给n个网友每人写了一封信，这都没什么，要命的是，他竟然把所有的信都装错了信封！注意了，是全部装错哟！ </p>
-<p>　　现在的问题是：请大家帮可怜的8006同学计算一下，一共有多少种可能的错误方式呢？</p>
-<p>Input</p>
-<p>　　输入数据包含多个多个测试实例，每个测试实例占用一行，每行包含一个正整数n（1&lt;n&lt;=20），n表示8006的网友的人数。</p>
-<p>Output</p>
-<p>　　对于每行输入请输出可能的错误方式的数量，每个实例的输出占用一行。</p>
-<p>Sample Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
-<p>Sample Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　本题有多组测试，每组测试给出网友人数n，要求输出信全装错的方式数量。</p>
-<p>　　这是一个典型的错排问题</p>
-<p>　　错排思路，设我们正在对第1封信进行操作，我们只需要将第1封信与后面任意一封信交换位置，设被交换的信为看，就可以满足第1封信错放的条件，共有n - 1种方法，这时对于第k封信，有两种可能性，1、将k放到位置1，对于除了1与k的其他n-2封信，又可以进行同样的操作。2、k不在位置1，那么现在还剩n-1封信n-1个信封，那么对这n-1封信又可以进行同样的操作。</p>
-<p>　　我们只需开一个数组d，以d(n)记录n封信全放错的方法数量。</p>
-<p>　　根据上面分析，可以得出d(n) = (n - 1) * [ d( n - 1) + d( n - 2)]。</p>
-<p>　　这就是错排公式。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">25</span>;</span><br><span class="line">LL d[maxn];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">memset</span>(d, <span class="number">0</span>, <span class="keyword">sizeof</span>(d));    <span class="comment">//初始化所有全放错数量为0</span></span><br><span class="line">    d[<span class="number">2</span>] = <span class="number">1</span>;   <span class="comment">//两封信只有一冲全放错方法</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;= maxn; i++)&#123;</span><br><span class="line">        d[i] = (i - <span class="number">1</span>) *(d[i - <span class="number">1</span>] + d[i - <span class="number">2</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//根据错排公式计算25封信以内所有答案打表</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n) != EOF)&#123;  <span class="comment">//输入网友数量</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, d[n]); <span class="comment">//输出答案</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/23/HDU-2200-Eddy-s-AC%E9%9A%BE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/23/HDU-2200-Eddy-s-AC%E9%9A%BE%E9%A2%98/" class="post-title-link" itemprop="url">HDU 2200 Eddy's AC难题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-23 14:30:58" itemprop="dateCreated datePublished" datetime="2018-11-23T14:30:58+08:00">2018-11-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><meta name="referrer" content="no-referrer"><br>　　Eddy是个ACMer,他不仅喜欢做ACM题,而且对于Ranklist中每个人的ac数量也有一定的研究,他在无聊时经常在纸上把Ranklist上每个人的ac题目的数量摘录下来，然后从中选择一部分人(或者全部)按照ac的数量分成两组进行比较，他想使第一组中的最小ac数大于第二组中的最大ac数，但是这样的情况会有很多，聪明的你知道这样的情况有多少种吗? </p>
-<p>　　特别说明：为了问题的简化，我们这里假设摘录下的人数为n人，而且每个人ac的数量不会相等，最后结果在64位整数范围内. </p>
-<p>Input</p>
-<p>　　输入包含多组数据，每组包含一个整数n,表示从Ranklist上摘录的总人数。<br>Output</p>
-<p>　　对于每个实例，输出符合要求的总的方案数，每个输出占一行。<br>Sample Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
-<p>Sample Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">17</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　本题有多组测试，给出一个整数n为从Rank上摘录的人数，将摘录的人分为两组，其中一组的所有人的AC数大于另一组，保证每个人的AC数都不一致。</p>
-<p>　　选出了n人，但是在分组时不一定将所有人都分组，所以我们m从2 ~ n选择分组人数，选择的种数可以用组合数计算得到，将选出的所有人按AC数量排序，若将一组个数为m有序数拆分为两组，使其中一组的所有值大于另一组，可以在每两个数中间进行拆分这样便是求间隔的个数即为n-1。</p>
-<p>排列组合相关运算</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201811/1447131-20181123140731048-398786012.png" alt="img"></p>
-<p>样例分析：</p>
-<p>2：</p>
-<p>挑出2个数有2! / ((2 - 2)！ <em> 2!) = 2 / (1 </em> 2) = 1</p>
-<p>2个数分为两组有1种情况，答案 = 1 * 1 = 1</p>
-<p>4：</p>
-<p>挑出2个数有 4! / ((4 - 2)! * 2!) = 6</p>
-<p>2个数分为两组有1种情况 挑出2个数时所有分组情况为6 * 1 = 6；</p>
-<p>挑出3个数有 4! / ((4 - 3)! * 3! = 4</p>
-<p>3个数分为两组有3 - 1 = 2种情况 挑出3个数时所有分组情况为4 * 2 = 8</p>
-<p>挑出4个数有 4! / ((4 - 4)! * 4!) = 1</p>
-<p>4个数分为两组有4 - 1 = 3种情况 挑出4个数时所有分组情况为1 * 3 = 3</p>
-<p>答案 = 6 + 8 + 3 = 17</p>
-<p>AC代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="function">LL <span class="title">clt</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    LL ans = <span class="number">0</span>; <span class="comment">//初始化答案为0</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;    <span class="comment">//从2个到n个挑出数字</span></span><br><span class="line">        LL temp = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= i; j++)&#123;    <span class="comment">//计算组合数</span></span><br><span class="line">            temp = temp * (n - j + <span class="number">1</span>) / j;</span><br><span class="line">        &#125;</span><br><span class="line">        ans += temp * (i - <span class="number">1</span>);  <span class="comment">//计算答案</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n) != EOF)&#123;  <span class="comment">//输入摘录人数</span></span><br><span class="line">        <span class="keyword">if</span>(n &lt; <span class="number">2</span>)&#123; <span class="comment">//人数小于2无法分为两组输出0</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"0\n"</span>);  </span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        LL ans = clt(n);    <span class="comment">//人数大于2计算答案</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1187,7 +1200,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-count">152</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1200,7 +1213,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">84</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

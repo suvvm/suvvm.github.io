@@ -177,6 +177,461 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/30/Maven%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/30/Maven%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/" class="post-title-link" itemprop="url">Maven依赖冲突</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-30 20:55:44" itemprop="dateCreated datePublished" datetime="2020-04-30T20:55:44+08:00">2020-04-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Maven依赖冲突"><a href="#Maven依赖冲突" class="headerlink" title="Maven依赖冲突"></a>Maven依赖冲突</h1><h2 id="Maven依赖引入规则"><a href="#Maven依赖引入规则" class="headerlink" title="Maven依赖引入规则"></a>Maven依赖引入规则</h2><h3 id="最短依赖路径原则"><a href="#最短依赖路径原则" class="headerlink" title="最短依赖路径原则"></a>最短依赖路径原则</h3><p>最短依赖路径原则是maven依赖冲突的自动解决规则，若产生依赖冲突则会采用依赖深度最浅的版本</p>
+<p>例</p>
+<p>在springBoot项目中主动引入spring-core的依赖，我使用了springboot2.2.1</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>sping-boot-starter-test-2.2.1.RELEASE.pom中指明了使用spring-core的版本为5.2.1</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这时主动在pom.xml中引入spring-core 4.3.27</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-core --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.3.27.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>之后尝试运行项目。</p>
+<p>报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.IllegalArgumentException: Cannot instantiate interface org.springframework.contex</span><br></pre></td></tr></table></figure>
+<h3 id="最先声明原则"><a href="#最先声明原则" class="headerlink" title="最先声明原则"></a>最先声明原则</h3><p>若产生冲突的依赖深度相同则会采用最先声明的版本。</p>
+<h2 id="依赖冲突的处理"><a href="#依赖冲突的处理" class="headerlink" title="依赖冲突的处理"></a>依赖冲突的处理</h2><p>可以使用mvn dependency:tree来查看依赖树</p>
+<p>若使用idea开发则可以直接在pom.xml中右键选择Maven-&gt;Show Dependencies，之后可以看到如下图所示，冲突部份依赖将由红色虚线标识</p>
+<p><img src="/2020/04/30/Maven%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/mavendependenciesdemo.svg" alt="img"></p>
+<p>这时只需要找到冲突的依赖，通过exclusions在对应依赖项中将不需要的版本排除，idea则可以在上述操作打开的目标图中直接右键选择Exclude即可自动为目标依赖添加exclusions</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/30/Java-ReentrantLock/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/30/Java-ReentrantLock/" class="post-title-link" itemprop="url">Java ReentrantLock</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-30 20:12:55" itemprop="dateCreated datePublished" datetime="2020-04-30T20:12:55+08:00">2020-04-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Java-ReentrantLock"><a href="#Java-ReentrantLock" class="headerlink" title="Java ReentrantLock"></a>Java ReentrantLock</h1><h2 id="ReentrantLock描述"><a href="#ReentrantLock描述" class="headerlink" title="ReentrantLock描述"></a>ReentrantLock描述</h2><p>ReentrantLock是一个可重入的排它锁，ReentrantLock会被最后一次成功得锁的线程所持有，在其没有被任何一个线程所持有时调用lock方法的线程可成功得锁。</p>
+<p>其提供了一个参数sync类型为Sync继承自AbstractQueuedSynchronizer，来记录当前ReentrantLock是公平锁还是非公平锁</p>
+<ul>
+<li><p>公平锁</p>
+<p>进程得锁的顺序将按照调用lock方法的顺序</p>
+</li>
+<li><p>非公平锁</p>
+<p>进程将通过竞争的方式得锁</p>
+</li>
+</ul>
+<h2 id="ReentrantLock得锁放锁过程"><a href="#ReentrantLock得锁放锁过程" class="headerlink" title="ReentrantLock得锁放锁过程"></a>ReentrantLock得锁放锁过程</h2><h3 id="得锁"><a href="#得锁" class="headerlink" title="得锁"></a>得锁</h3><p>lock被调用时会调用sync的lock方法</p>
+<ul>
+<li><p>首先通过tryAcquire尝试得锁，成功则不做任何操作</p>
+<p>AbstractQueuedSynchronizer有一个Thread变量来记录当前得锁的线程。</p>
+<p>tryAcquire方法会获取state（抽象概念的锁）来并判断当前独占变量是否被线程所占有，以及锁被重入的次数</p>
+<ul>
+<li>若未被占用则调用hasQueuedPredecessors探测阻塞队列中没有先来的线程等待得锁（公平锁非公平锁判断方式不同），当前线程得锁，返回true</li>
+<li>若已被占用则判断得锁线程是否为当前线程，如果使的话则记录state值加一，返回true</li>
+<li>若上述都不符合标识得锁失败返回false</li>
+</ul>
+</li>
+<li><p>如果得锁失败则为当前线程创建一个结点并加入等待队列。</p>
+<ul>
+<li>使用addWaiter调用native方法将代表当前线程的结点采用CAS的方式插入队尾，让后调用acpuireQueued阻塞并等待得锁</li>
+</ul>
+</li>
+</ul>
+<h3 id="放锁"><a href="#放锁" class="headerlink" title="放锁"></a>放锁</h3><p>unlock放锁时会调用sync的release，参数为1</p>
+<ul>
+<li><p>放锁release方法调用tryRelease方法尝试释放独占变量并返回一个值标识该锁是否被完全释放</p>
+<ul>
+<li><p>tryRelease会获取state并将其值减一，如果减一后等于零则表明该锁被完全释放，并将持有锁的线程设为null</p>
+</li>
+<li><p>若锁完全释放则会判断当前等待队列是否有阻塞线程，有则会调用unparkSuccessor唤醒一个结点所代表的线程并返回true，否则返回false</p>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/30/Shell-source-sh-bash/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/30/Shell-source-sh-bash/" class="post-title-link" itemprop="url">Shell source sh bash ./</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-30 14:53:12" itemprop="dateCreated datePublished" datetime="2020-04-30T14:53:12+08:00">2020-04-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/shell/" itemprop="url" rel="index"><span itemprop="name">shell</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Shell-source-sh-bash"><a href="#Shell-source-sh-bash" class="headerlink" title="Shell source sh bash ./"></a>Shell source sh bash ./</h1><h2 id="打开子shell"><a href="#打开子shell" class="headerlink" title="打开子shell"></a>打开子shell</h2><h3 id="sh-bash"><a href="#sh-bash" class="headerlink" title="sh/bash"></a>sh/bash</h3><p>打开子shell执行目标脚本，sh相当于bash的POSIX语法的软连接，两者都无需执行权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sh filename.sh</span><br><span class="line">bash filename.sh</span><br></pre></td></tr></table></figure>
+<h3 id><a href="#" class="headerlink" title="./"></a>./</h3><p>打开子shell执行目标脚本，需要执行权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./ filename.sh</span><br></pre></td></tr></table></figure>
+<h2 id="不打开子shell"><a href="#不打开子shell" class="headerlink" title="不打开子shell"></a>不打开子shell</h2><h3 id="source"><a href="#source" class="headerlink" title="source"></a>source</h3><p>在当前shell内执行目标脚本，无需执行权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source filename.sh</span><br></pre></td></tr></table></figure>
+<h3 id="-1"><a href="#-1" class="headerlink" title=" "></a> </h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/27/JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/27/JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" class="post-title-link" itemprop="url">JVM垃圾收集器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-27 21:55:15" itemprop="dateCreated datePublished" datetime="2020-04-27T21:55:15+08:00">2020-04-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h1><h2 id="Serial收集器"><a href="#Serial收集器" class="headerlink" title="Serial收集器"></a>Serial收集器</h2><h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>最基本，发展最悠久的收集器</li>
+<li>JDK1.3.1前是新生代垃圾回收的唯一选择。</li>
+<li>Serial是单线程的（STW）进行垃圾回收时会暂停所有线程。</li>
+<li>其依旧是客户端（-client）模式下的新生代默认收集器，进入STW状态可以高效回收，时间较短用户一般无法感知。</li>
+<li>针对新生代采取复制算法</li>
+<li>使用-XX:+UseSerialGC使用Serial收集器</li>
+</ul>
+<h3 id="回收过程"><a href="#回收过程" class="headerlink" title="回收过程"></a>回收过程</h3><ul>
+<li>新生代回收时进入STW状态暂停所有线程</li>
+<li>启动GC线程进行回收</li>
+<li>恢复其他用户线程继续运行</li>
+</ul>
+<h3 id="Serial-Old收集器"><a href="#Serial-Old收集器" class="headerlink" title="Serial Old收集器"></a>Serial Old收集器</h3><p>Serial收集器的老年代版本，针对老年代采取标记整理算法</p>
+<h4 id="回收过程-1"><a href="#回收过程-1" class="headerlink" title="回收过程"></a>回收过程</h4><ul>
+<li>老年代回收时也是进入STW状态暂停所有线程</li>
+<li>启动GC线程进行回收</li>
+<li>之后恢复其他用户线程继续运行</li>
+</ul>
+<h2 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h2><h3 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>多线程收集，相比Serial收集器来说可以拥有多个GC线程，可以看作是Serial收集器的多线程版本，收集算法、可控参数等于Serial收集器相等。</li>
+<li>是服务器（-server）模式的首选收集器。</li>
+<li>在单核CPU情况下性能并不如Serial收集器。</li>
+<li>可以通过-XX:ParallelGCThreads=n配置垃圾回收线程数为n（建议于CPU数量一至）</li>
+<li>使用-XX:+UseParNewGC可以将其指定为新生代收集器。</li>
+<li>使用-XX:+UseConcMarkSweepGC指定使用CMS作为老年代收集器后会默认使用ParNew作为新生代收集器。</li>
+</ul>
+<h3 id="回收过程-2"><a href="#回收过程-2" class="headerlink" title="回收过程"></a>回收过程</h3><ul>
+<li>新生代回收时进入STW状态暂停所有线程</li>
+<li>启动指定数量的GC线程进行回收</li>
+<li>之后恢复其他用户线程继续运行</li>
+</ul>
+<h2 id="Parallel-Scavenge收集器"><a href="#Parallel-Scavenge收集器" class="headerlink" title="Parallel Scavenge收集器"></a>Parallel Scavenge收集器</h2><h3 id="特点-2"><a href="#特点-2" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>Parallel Scavenge收集器是一个新生代收集器</li>
+<li>是一个并行多线程垃圾收集器</li>
+<li>采取复制算法</li>
+<li>设计目的不是减少垃圾回收用户线程停止时间，而是提高吞吐量，保证总垃圾回收时长尽可能短</li>
+<li>使用-XX:MaxGCPauseMillis设置最大垃圾收集时间，可以牺牲吞吐量减少单次收集时间</li>
+<li>使用-XX:GCTimeRatio设置吞吐量大小，范围0~100，计算方式$\frac 1 {1 + n}$ </li>
+<li>使用XX:+UseAdaptiveSizePolicy开启自适应策略，开启后虚拟机会根据当前情况自动调整新生代各区域大小于晋升老年代阈值。</li>
+</ul>
+<h3 id="回收过程-3"><a href="#回收过程-3" class="headerlink" title="回收过程"></a>回收过程</h3><ul>
+<li>触发GC后进入STW状态</li>
+<li>运行MaxGCPauseMillis设置最大垃圾收集时间</li>
+<li>到时间后不管GC程度如何直接开始运行用户线程直到再次触发GC</li>
+</ul>
+<h3 id="Parallel-Old收集器"><a href="#Parallel-Old收集器" class="headerlink" title="Parallel Old收集器"></a>Parallel Old收集器</h3><p>Parallel Scavenge收集器的老年代版本，使用多线程标记整理算法，在老年代很大且硬件环境较为高级的情况下较为合适。</p>
+<h2 id="CMS收集器"><a href="#CMS收集器" class="headerlink" title="CMS收集器"></a>CMS收集器</h2><p>Concurrent Mark Sweep收集器是一种跨时代的收集器，边使用边回收。</p>
+<h3 id="特点-3"><a href="#特点-3" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>采取标记-清除算法，可能产生大量碎片</li>
+<li>CMS收集器对CPU敏感，可能降低用户线程执行效率</li>
+<li>不等到老年代满后触发GC，而是为老年代流出部分空间供用户线程并发使用</li>
+<li>无法处理浮动垃圾，即并发清理中产生的垃圾无法被当次回收清除，老年代预留空间不足时，会出现”Concurrent Mode Failure”，出现时会触发Full GC使用Serial Old收集器对老年代进行回收整理。</li>
+<li>使用-XX:+UseCMSInitiatingOccupancyOnly可以指定GC触发时机否则将由虚拟机决定何时触发<ul>
+<li>CMSInitiatingOccupancyFraction 老年代阈值</li>
+<li>有永久代的话 CMSInitiatingPermOccupancyFraction 永久代阈值</li>
+</ul>
+</li>
+<li>使用+UseCMSCompactAtFullCollection在Full GC触发前进行碎片整理合并</li>
+<li>使用-XX:CMSFullGCsBeforeCompaction可以控制在几次Full GC后进行碎片整理合并</li>
+</ul>
+<h3 id="回收过程-4"><a href="#回收过程-4" class="headerlink" title="回收过程"></a>回收过程</h3><ul>
+<li><p>初始标记：只关联GC Root（所有Java线程当前栈引用、静态数据结构引用、常量池引用、运行时常量池引用）可以直接关联到的对象，速度很快，需要进入STW状态</p>
+</li>
+<li><p>并发标记：边标记边运行用户线程，遍历老年代可达对象，可能产生对象变动</p>
+<p>三色标记法</p>
+<ul>
+<li>白色，没有被搜索过的对象（垃圾对象）</li>
+<li>灰色，正在搜索的对象</li>
+<li>黑色，搜索完成的对象（存活对象）</li>
+</ul>
+</li>
+<li><p>重新标记：修正并发标记齐键因用户操作产生变动的对象标记记录，要标记的对象一般很少，需要进入STW状态</p>
+</li>
+<li><p>并发清除：在并发清除中用户线程可以与CMS收集器一台工作</p>
+</li>
+</ul>
+<h2 id="G1收集器"><a href="#G1收集器" class="headerlink" title="G1收集器"></a>G1收集器</h2><p>当前最先进的垃圾收集器，JDK9后的默认收集器</p>
+<h3 id="特点-4"><a href="#特点-4" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>简单可行的性能调优</li>
+<li>使用-XX:+UseG1GC使用G1收集器</li>
+<li>将内存划分为大小相等的大量区域，一般为数千个，这些区域又分为<ul>
+<li>Eden：用于存放新创建对象</li>
+<li>Survivor：用于存放Eden区域提升的对象，满后将提升至Old区并进行回收</li>
+<li>Old：老年代存放长久存活的对象</li>
+<li>Humongous：Humongous是连续的区域，一个对象的大小超过一个区域的50%时，将被存放至Humongous区域</li>
+</ul>
+</li>
+<li>所有区域不是固定的，在清理完成后将成为待用区等待下一次分配。</li>
+</ul>
+<h3 id="回收过程-5"><a href="#回收过程-5" class="headerlink" title="回收过程"></a>回收过程</h3><ul>
+<li>Eden满后，使用复制算法将Eden与Survivor（From）区的存活复制到Survivor（To）区域（新），并清理Eden区与Survivor（From）区，空间不够直接提升至Old区，回收时只会扫描有引用Eden区与Survivor区对象的区域，而不是之前的RememberSet或全部老年代</li>
+<li>Survivor满后或目标对象到达存活阈值将提升至Old区</li>
+<li>Old占比超过规定后触发一次类似CMS的GC<ul>
+<li>初始标记：触发年轻代GC标记可能有引用指向老年代的区域，需要进入STW状态</li>
+<li>扫描根区域：扫描初始标记中标记的区域，标记存活的老年代对象</li>
+<li>并发标记查询整个堆中存活的对象，同CMS并发标记</li>
+<li>重新标记：根据起始快照算法（SATB比CMS中的算法快很多）完成堆中存活对象的标记，需要进入STW状态</li>
+<li>清理：清理垃圾对象，并将清理后的空区域标记为空闲区域，需要进入STW状态</li>
+<li>拷贝：将存活对象拷贝至新的分配的Survivor（To）区域</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/24/SQL%E4%BC%98%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -758,562 +1213,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/19/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/19/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">Java代理模式</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-19 16:23:21" itemprop="dateCreated datePublished" datetime="2020-04-19T16:23:21+08:00">2020-04-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Java代理模式"><a href="#Java代理模式" class="headerlink" title="Java代理模式"></a>Java代理模式</h1><p>代理模式是一种结构模式，使用一个类控制另一个类的访问。总结来说就是创建一个持有被代理对象的代理类，通过代理类提供的接口适用被代理类实现目标功能。</p>
-<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><p>想要针对某个类的对象做一些访问控制或者无法直接访问目标对象。如你是一个烂好人别人让你干啥你都干，你太累了，找个带哥，所有找你办事的人都要经过你带哥，并切只能找你办带哥规定的事情。你是个👴，有一堆在外地的孙子，你直接打不到你的孙子，你找到了一个名为滴滴打人的代理，你通过联系本地的滴滴打人代理人通知到了和你孙子同城的滴滴打人代理人，把你孙子揍了一遍。</p>
-<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><ul>
-<li><p>优点</p>
-<ul>
-<li>通过创建代理对象提高了扩展性</li>
-<li>代理对象起到了保护目标对象的作用</li>
-</ul>
-</li>
-<li><p>缺点</p>
-<ul>
-<li>要为被代理类提供代理类，导致类的总数增加增加了系统的复杂度</li>
-<li>效率不如直接适用被代理对象高</li>
-</ul>
-</li>
-</ul>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>创建被代理类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">You</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doThis</span><span class="params">()</span> </span>&#123;...&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doThat</span><span class="params">()</span> </span>&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>创建代理类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BigBrother</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> You you;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BigBrother</span><span class="params">(You you)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.you = you;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">todo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        you.doThis();</span><br><span class="line">        you.doThat();</span><br><span class="line">        you.doThis();</span><br><span class="line">        you.doThat();</span><br><span class="line">        you.doThis();</span><br><span class="line">        you.doThat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/18/InnoDB%E4%B8%AD%E7%9A%84%E9%94%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/18/InnoDB%E4%B8%AD%E7%9A%84%E9%94%81/" class="post-title-link" itemprop="url">InnoDB中的锁</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-18 15:20:45" itemprop="dateCreated datePublished" datetime="2020-04-18T15:20:45+08:00">2020-04-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="InnoDB中的锁"><a href="#InnoDB中的锁" class="headerlink" title="InnoDB中的锁"></a>InnoDB中的锁</h1><h2 id="表级锁"><a href="#表级锁" class="headerlink" title="表级锁"></a>表级锁</h2><p>MySQL中的表级锁分为两种，读锁和写锁。通过LOCK TABLE name READ/WRITE可以添加读锁，UNLOCK TABLES可以释放锁（事务提交前不要使用UNLOCK TABLES，因为其默认会提交事务）。但是表级锁不由InnoDB存储引擎管理，而是由MySQL Server控制（autocommit=0,innodb_table_lock=1）。</p>
-<h3 id="表级锁适用情况"><a href="#表级锁适用情况" class="headerlink" title="表级锁适用情况"></a>表级锁适用情况</h3><ul>
-<li>事务需要更新表中的大量数据，且表也较为庞大</li>
-<li>事务涉及多个表的操作，较为复杂容易引起死锁</li>
-</ul>
-<h3 id="表锁的种类"><a href="#表锁的种类" class="headerlink" title="表锁的种类"></a>表锁的种类</h3><ul>
-<li><p>读锁</p>
-<p>当某一事务为某一表添加读锁后，其他所有事务无法获取该表的写锁来修改该表内容，但依旧可以继续为该表添加读锁来查询数据。</p>
-</li>
-<li><p>写锁</p>
-<p>当某一事物为某一表添加写锁后，其他所有事务无法获取该表的读锁与写锁，即无权访问该表。</p>
-</li>
-<li><p>意向锁</p>
-<p>为了使表锁与行锁共存而出现的表锁的种类，具体将在行锁中介绍。</p>
-</li>
-</ul>
-<h3 id="表锁的实现"><a href="#表锁的实现" class="headerlink" title="表锁的实现"></a>表锁的实现</h3><p>维护了四个队列</p>
-<ul>
-<li>读锁队列中保存当前所有的持有读锁的事务</li>
-<li>读锁等待队列中保存当前所有等待得到读锁的事务</li>
-<li>写锁队列中保存当前获得写锁的事务</li>
-<li>写锁等待队列中保存当前所有等待获得写锁的事务</li>
-</ul>
-<h2 id="行锁"><a href="#行锁" class="headerlink" title="行锁"></a>行锁</h2><p>与表锁的直接由MySQL Server控制不同，行锁由数据库存储引擎自行实现。</p>
-<h3 id="行锁的种类"><a href="#行锁的种类" class="headerlink" title="行锁的种类"></a>行锁的种类</h3><ul>
-<li><p>共享锁</p>
-<p>类似于行的读锁，一个事务读取某行数据时会为该行数据添加共享锁，此时若有其他事务想要并发读取该行时可以再次为该行添加共享锁；若某行存在共享锁时，有并发事务妄图申请该行的排它锁则会被阻塞。</p>
-</li>
-<li><p>排它锁</p>
-<p>类似于行的写锁，一个事务更新某行数据时会为该行添加排它锁，此时将阻塞所有其他申请该行共享锁或排它锁的事务。</p>
-</li>
-</ul>
-<h3 id="意向锁"><a href="#意向锁" class="headerlink" title="意向锁"></a>意向锁</h3><p>若表种的某行上已经存在共享锁或排它锁，此时有并发事务申请表的写锁，由于对于表来说此时没有写锁的存在，所有可以申请，此时就出现了错误，为了避免这种情况的发生，出现了意向锁。</p>
-<ul>
-<li>意向共享锁，若某个事务尝试向表中某行添加共享锁时，会首先为该表添加意向共享锁</li>
-<li>意向排它锁，若某个事务尝试向表中某行添加排它锁时，会首先为该表添加意向排它锁</li>
-</ul>
-<h3 id="锁的兼容状态"><a href="#锁的兼容状态" class="headerlink" title="锁的兼容状态"></a>锁的兼容状态</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th></th>
-<th>共享锁</th>
-<th>排它锁</th>
-<th>意向共享锁</th>
-<th>意向排它锁</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>共享锁</strong></td>
-<td>兼容</td>
-<td>不兼容</td>
-<td>兼容</td>
-<td>不兼容</td>
-</tr>
-<tr>
-<td><strong>排它锁</strong></td>
-<td>不兼容</td>
-<td>不兼容</td>
-<td>不兼容</td>
-<td>不兼容</td>
-</tr>
-<tr>
-<td><strong>意向共享锁</strong></td>
-<td>兼容</td>
-<td>不兼容</td>
-<td>兼容</td>
-<td>兼容</td>
-</tr>
-<tr>
-<td><strong>意向排它锁</strong></td>
-<td>不兼容</td>
-<td>不兼容</td>
-<td>兼容</td>
-<td>兼容</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="InnoBD的加锁方式"><a href="#InnoBD的加锁方式" class="headerlink" title="InnoBD的加锁方式"></a>InnoBD的加锁方式</h2><ul>
-<li>InnoDB将对UPDATE、DELETE、INSERT语句涉及的数据集自动添加排它锁</li>
-<li>SELECT语句可以通过 添加 LOCK IN SHARE MODE添加共享锁，通过添加FOR UPDATE 添加排它锁</li>
-<li>InnoDB的行级锁锁的不是数据项，而是索引项，只有通过索引检索数据时InnoBD才会使用行级锁</li>
-<li>InnoDB有间隙锁的概念，在指定隔离级别下如果是范围性查询，即使没有检索到数据也会对数据间隙加速，防止其他事务操作间隙。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/17/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/17/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/" class="post-title-link" itemprop="url">数据库事务</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-17 21:39:19" itemprop="dateCreated datePublished" datetime="2020-04-17T21:39:19+08:00">2020-04-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="数据库事务"><a href="#数据库事务" class="headerlink" title="数据库事务"></a>数据库事务</h1><h2 id="事务的四个特性（ACID）"><a href="#事务的四个特性（ACID）" class="headerlink" title="事务的四个特性（ACID）"></a>事务的四个特性（ACID）</h2><ul>
-<li>原子性（Atomicity）一个事务要么全部执行完成，要么全部不执行，事务发生错误后会回滚至事务开始前的状态</li>
-<li>一致性（Consistency）事务只影响数据的状态，事务开始前和结束后数据完整性不变</li>
-<li>隔离性（Isolation）隔离性是当有多个并发事务对数据进行操作时，事务之间不会相互影响</li>
-<li>持久性（Durability）事务对数据的修改是持久的，事务一旦提交后数据的改变就是永久的。</li>
-</ul>
-<h2 id="事务的隔离级别"><a href="#事务的隔离级别" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h2><h3 id="多个事务并发执行可能导致的问题"><a href="#多个事务并发执行可能导致的问题" class="headerlink" title="多个事务并发执行可能导致的问题"></a>多个事务并发执行可能导致的问题</h3><ul>
-<li><p>更新丢失</p>
-<p>一个事务开始并对目标数据进行修改，这时有另一个并发事务在第一个事务完成前提交了对目标数据的修改，这时第一个事务回滚，目标数据又回滚到了第一个事务开启前的状态，第二个事务对数据的更新丢失了。</p>
-</li>
-<li><p>脏读</p>
-<p>一个事务读取了另一个事务修改却并未提交的数据，若之后修改数据的事务回滚，则第一个事务读到的便是无效数据。</p>
-</li>
-<li><p>不可重复读</p>
-<p>一个事务读取数据需要读取两次以上，另一个并发事务在第一个事务初次读取数据后提交了对该项数据的修改，导致第一个事务在第二次读取数据时获得的结果不同。</p>
-</li>
-<li><p>幻象读</p>
-<p>一个事务范围性读取需要读取两次以上，另一个并发事务在第一个事务初次范围性读取数据后提交了对插入或删除，导致第一个事务在第二次范围性读取数据获得的数据量与初次读取时不同。</p>
-</li>
-</ul>
-<h3 id="事务的隔离级别-1"><a href="#事务的隔离级别-1" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h3><ul>
-<li><p>读未提交（Read uncommitted）</p>
-<p>如果一个事务已经开始更新数据，则另外一个事务不允许并发对第一个事务读取的数据进行更新。</p>
-<p>避免了更新丢失，但无法避免脏读、不可重复读、幻象读。</p>
-</li>
-<li><p>读提交（Read committed）</p>
-<p>读取数据的事务运行时，允许其他事务并发进行对目标数据的访问，但是正在更新数据的事务不允许其他事务并发访问目标数据。</p>
-<p>避免了更新丢失、脏读，但无法避免不可重复读、幻象读。</p>
-</li>
-<li><p>可重复读（Repeatable read）</p>
-<p>读取数据的事务运行时，允许其他事务并发进行对目标数据的读取操作，但禁止其他事务对目标数据的更新，更新数据的事务不允许其他事务并发访问目标数据。</p>
-<p>避免了更新丢失、脏读、不可重复读，但无法避免幻象读。</p>
-</li>
-<li><p>序列化（Serializable）</p>
-<p>禁止事务并发，所有事务串行化执行。</p>
-<p>没有并发，所有问题迎刃而解，但是效率低下。</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/14/B%E6%A0%91%E4%B8%8EB-%E6%A0%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/14/B%E6%A0%91%E4%B8%8EB-%E6%A0%91/" class="post-title-link" itemprop="url">B树与B+树</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-14 21:47:37" itemprop="dateCreated datePublished" datetime="2020-04-14T21:47:37+08:00">2020-04-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="B树与B-树"><a href="#B树与B-树" class="headerlink" title="B树与B+树"></a>B树与B+树</h2><p>B树与B+树都是多路搜索树，由于二叉搜索树在结点数量巨大时树的深度会变得非常高于是出现了多路查找树来优化树的深度。</p>
-<h2 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h2><p>B树的每个结点含有一个或多个关键词。若只有一个关键词时同二叉搜索树，左子树保存所有比该结点关键词小的结点，右子树保存所有比该结点关键词大的结点；若有m-1个关键词，则有m-1棵子树，分别保存两关键词之间的结点。以树中结点的最大子树数量作为B树的阶。</p>
-<h3 id="结点"><a href="#结点" class="headerlink" title="结点"></a>结点</h3><ul>
-<li>若根节点不为唯一结点，则根节点至少有两颗子树</li>
-<li>m阶B树中的每个结点最多有m棵子树既至多含有m-1个关键字</li>
-<li>除根节点外所有结点至少有$ \frac{m}{2} $棵子树既至少含有$\frac m2-1$ 个关键词</li>
-<li>B树的叶子结点为空值，出现在同一层次中，代表查找失败</li>
-</ul>
-<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><ul>
-<li>将要查找关键字与当前结点的所有关键字做比较</li>
-<li>若其等于某个关键字代表查找成功</li>
-<li>否则判断其所处的范围，查找对应子树</li>
-<li>若找至叶子节点已经没有找到对应关键词则判断查找失败</li>
-</ul>
-<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><ul>
-<li><p>若为空树直接插入</p>
-</li>
-<li><p>按查询的方式找到插入位置</p>
-</li>
-<li>如果要插入的结点加入该关键词后其关键词数量并未超出限制，则直接将该关键词插入目标节点</li>
-<li>若要插入的结点加入该关键词后其关键词数量超出限制，则将当前结点以最中间的关键词为中心分裂为两部分，后将中间关键词插入到父节点中，将分裂的两部分作为父节点的子树，后对父节点进行关键词数量进行判断，若超限则对父节点继续进行分裂操作</li>
-</ul>
-<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><ul>
-<li>要删除关键词的结点为最底层结点<ul>
-<li>节点内的关键词数量大于$\frac m2-1$ 可以直接删除</li>
-<li>节点内的关键词数量等于$\frac m2-1$，且其左右兄弟结点中存在关键词数量大于$\frac m2-1$ ，则<strong>去兄弟结点中借关键词</strong><ul>
-<li>在要删除关键词的结点的兄弟结点中挑选适父节目标关键词的后继关键词</li>
-<li>将父节目标关键词下一只要删除关键词的结点中，并以后继关键词代替父节目标关键词</li>
-<li>视为删除子结点中后继关键词继续执行删除操作</li>
-</ul>
-</li>
-<li>节点内的关键词数量等于$\frac m2-1$，且其左右兄弟结点中不存在关键词数量大于$\frac m2-1$ ，则进行结点合并<ul>
-<li>删除目标关键词，在父节点中取出关键词与当前结点剩余关键词合并</li>
-<li>将合并后的所有关键词合并至其兄弟节点中</li>
-<li>之后视为父节点删除了取出的关键词继续执行删除操作</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>要删除关键词的结点不为最底层结点<ul>
-<li>在子结点中挑选出要删除的目标关键词的后继关键词</li>
-<li>以后继关键词代替当前要删除关键词，之后视为删除后继关键词所在结点中的后继关键词继续执行删除操作</li>
-</ul>
-</li>
-</ul>
-<h2 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h2><p>B+树的信息在叶子节点，所有非叶子节点只起到索引作用，每个索引代表的是其子树中的最大关键词。</p>
-<p>B+树有一个指针指向其最小叶子节点，所有叶子节点形成一个有序链表。</p>
-<h3 id="结点-1"><a href="#结点-1" class="headerlink" title="结点"></a>结点</h3><ul>
-<li><p>若根节点不为唯一结点，则根节点至少有两颗子树</p>
-</li>
-<li><p>m阶B+树每一结点关键词个数范围为$\frac m2$ 到 m，子树的棵树与关键词个数相同</p>
-</li>
-<li>B+树子树结点内关键词范围为父结点的上一个关键词到当前关键词。</li>
-<li>B+树中叶子结点包含了所有出现过的关键词</li>
-</ul>
-<h3 id="查询-1"><a href="#查询-1" class="headerlink" title="查询"></a>查询</h3><p>B+树查找为逐层向下查找，在当前层找到一个大于目标key值的最小值，查找其子树，知道找到目标元素或查找失败。</p>
-<p>由于B+树每次查找都需要找到叶子节点，所以B+树的查找是稳定的。</p>
-<h3 id="插入-1"><a href="#插入-1" class="headerlink" title="插入"></a>插入</h3><p>假设一颗B+树为m阶</p>
-<ul>
-<li>若为空树直接插入，该点即使根节点也是叶子节点</li>
-<li>按查询的方式找到插入位置</li>
-<li>若要插入的叶子节点有空闲空间（不足m）直接插入结点</li>
-<li>若要插入的叶子节点空间不足，则将其分为包含前$\frac m2$个关键词的结点与包含其他部分的结点<ul>
-<li>将包含前$\frac m2$个关键词的结点进位至其父节点中</li>
-<li>对父节点执行平衡非叶子结点</li>
-</ul>
-</li>
-<li>平衡非叶子结点<ul>
-<li>若当前结点关键词数量小于m则无需操作</li>
-<li>若当前结点关键词数量大于m则且当前结点不为根节点<ul>
-<li>将当前结点分为包含前$\frac m2$个关键词的结点与包含其他部分的结点<ul>
-<li>将包含前$\frac m2$个关键词的结点进位至其父节点中</li>
-<li>对父节点执行平衡非叶子结点</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>若当前结点关键词数量大于m则且当前结点为根节点<ul>
-<li>将当前结点分为包含前$\frac m2$个关键词的结点与包含其他部分的结点</li>
-<li>将两个结点进位为一个根节点</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="删除-1"><a href="#删除-1" class="headerlink" title="删除"></a>删除</h3><ul>
-<li>要删除关键词的结点中关键词个数大于$\frac m2$<ul>
-<li>删除关键词为最大关键词修改父节点中的关键词</li>
-<li>否则直接删除</li>
-</ul>
-</li>
-<li>要删除关键词的结点中关键词个数小于或等于$\frac m2$<ul>
-<li>若其兄弟结点中存在关键词数大于$\frac m2$<strong>去兄弟结点中借关键词</strong><ul>
-<li>删除当前关键词</li>
-<li>将兄弟结点关键词放入当前节点中</li>
-<li>之后视为对兄弟结点借的关键词的删除操作</li>
-</ul>
-</li>
-<li>若兄弟结点中没有多余关键词<ul>
-<li>删除该关键词</li>
-<li>将当前结点与兄弟结点行合并操作并在父节点中删除对应索引，对父节点执行删除平衡操作</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>非叶子结点删除平衡操作<ul>
-<li>若要平衡的结点关键词数量大于$\frac m2$无需平衡，删除结束</li>
-<li>若平衡的结点关键词数量小于$\frac m2$<ul>
-<li>兄弟结点中有盈余结点，则将盈余结点借至当前欲平衡结点</li>
-<li>若兄弟结点中无平衡结点执行合并操作后对父节点执行删除平衡操作</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="为何数据库索引更倾向于使用B-树"><a href="#为何数据库索引更倾向于使用B-树" class="headerlink" title="为何数据库索引更倾向于使用B+树"></a>为何数据库索引更倾向于使用B+树</h3><p>B+树非叶子结点不存储数据，使得非叶子节点可以存储更多的索引，可以进一步降低树高，降低io次数。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1381,7 +1284,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-count">152</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1394,7 +1297,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">84</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

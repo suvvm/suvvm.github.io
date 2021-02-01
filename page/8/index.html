@@ -177,6 +177,827 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/11/09/C-%E5%A4%A7%E6%95%B4%E6%95%B0%E8%BF%90%E7%AE%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/09/C-%E5%A4%A7%E6%95%B4%E6%95%B0%E8%BF%90%E7%AE%97/" class="post-title-link" itemprop="url">C++大整数运算</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-09 21:07:58" itemprop="dateCreated datePublished" datetime="2019-11-09T21:07:58+08:00">2019-11-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>加法运算：以两个数中较大的数的长度为边界进行遍历，由最低位开始按位进行加法运算，将对应位相加并记录进位，在下一位进行相加运算时再加上进位即可。 </p>
+<p> 减法运算：同样以两个数中较长的长度为边界进行遍历，按位进行减法运算，不够减则从前一位借位。最终不要忘记消去最高位的0  </p>
+<p>倍增（数量级在int内）运算：选择一个数进行遍历，将其每位依次乘另一个数，将产生的结果的个位作为结果，除个位外其他位作为进位。 </p>
+<p> 除法（大整数除以普通数）运算：从被除数最高位开始遍历，每一个位与上一位遗留的余数结合后进行除法运算。  比较：优先比较长度，长度相同则由高位向下比较。  </p>
+<p>相乘：使用分治思想   假设现有大整数A与大整数B要做乘法运算，如果依照暴力过一切的思想去遍历相乘时间复杂度将变为O(n^2)所以这里使用分治思想。  将长度为n的大数a分为两部分  若n为偶数则可以将a分为长度为$\frac n2$的两段$a_0$与$a_1$  若n为奇数则a0的长度为$\frac {n+1}2$,$a_1$长度为$ \frac n2 $ $a = a_0 \times 10^{\frac n2} + a_1$  则$a \times b$同样可以分为 </p>
+<script type="math/tex; mode=display">
+a \times b = [a_0 \times 10^{\frac {n_1}2} + a_1] \times [b_0 \times 10^{\frac {n_2}2} + b_1]\\ =  a_0 \times b_0 \times 10^{\frac {n_1}2+\frac {n_2}2}+a_0 \times b_1 \times 10^{\frac {n_1}2} + a_1 \times b_0 \times 10^{\frac {n_2}2}+a_1 \times b_1</script><p>对于新出现的 $a_0 \times b_0 \ \ a_0 \times b_1 \ \ a_1 \times b_0 \ \ a_1\ \times b_1$用相同的方法递归解决即可以。</p>
+<p>附上代码</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/********************************************************************************</span></span><br><span class="line"><span class="comment">* @File: 大面值数据处理</span></span><br><span class="line"><span class="comment">* @Author: suvvm</span></span><br><span class="line"><span class="comment">* @blog: www.suvvm.work</span></span><br><span class="line"><span class="comment">* @github: https://github.com/suvvm</span></span><br><span class="line"><span class="comment">* @email: suvvm@foxmail.com</span></span><br><span class="line"><span class="comment">* @Version: 1.0.0</span></span><br><span class="line"><span class="comment">* @Date: 2019-11-07</span></span><br><span class="line"><span class="comment">* @Description: 2019第2学期算法设计与分析分治实验1第2项</span></span><br><span class="line"><span class="comment">********************************************************************************/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1000</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxz = <span class="number">1e6</span>+<span class="number">10</span>;</span><br><span class="line"><span class="comment">/*******************************************************</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* ClassName:BigNum</span></span><br><span class="line"><span class="comment">* Description: 存储大数</span></span><br><span class="line"><span class="comment">* Parameter:</span></span><br><span class="line"><span class="comment">* 	@num	大数具体值（为了方便运算采取低位在前的存储方式）</span></span><br><span class="line"><span class="comment">* 	@len	大数位数</span></span><br><span class="line"><span class="comment">* 	@BigNum	无参构造，将其初始化为0</span></span><br><span class="line"><span class="comment">**********************************************************/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">BigNum</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> num[maxn];</span><br><span class="line">    <span class="keyword">int</span> len;</span><br><span class="line">    BigNum()&#123;</span><br><span class="line">        <span class="built_in">memset</span>(num, <span class="number">0</span>, <span class="keyword">sizeof</span>(num));</span><br><span class="line">        len = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*******************************************************</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* FunctionName:change</span></span><br><span class="line"><span class="comment">* Description: 将C++ string转换为BigNum</span></span><br><span class="line"><span class="comment">* Parameter:</span></span><br><span class="line"><span class="comment">* 	@temp	传入的字符串</span></span><br><span class="line"><span class="comment">* Return:</span></span><br><span class="line"><span class="comment">*   返回转换后的BigNum</span></span><br><span class="line"><span class="comment">**********************************************************/</span></span><br><span class="line"><span class="function">BigNum <span class="title">change</span><span class="params">(<span class="built_in">string</span> temp)</span></span>&#123;</span><br><span class="line">    BigNum a;</span><br><span class="line">    a.len = temp.size();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.len; i++)</span><br><span class="line">        a.num[i] = temp[a.len - i - <span class="number">1</span>] - <span class="string">'0'</span>;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*******************************************************</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* FunctionName:compare</span></span><br><span class="line"><span class="comment">* Description: 比较两个BigNum的大小</span></span><br><span class="line"><span class="comment">* Parameter:</span></span><br><span class="line"><span class="comment">* 	@a	需要比较的参数1</span></span><br><span class="line"><span class="comment">*   @b  需要比较的参数2</span></span><br><span class="line"><span class="comment">* Return:</span></span><br><span class="line"><span class="comment">*   参数1大于参数2返回(int)1</span></span><br><span class="line"><span class="comment">*   参数2大于参数1返回(int)-1</span></span><br><span class="line"><span class="comment">*   相等返回(int)0</span></span><br><span class="line"><span class="comment">**********************************************************/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">(BigNum a, BigNum b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a.len &gt; b.len)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(a.len &lt; b.len)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = a.len <span class="number">-1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a.num[i] &gt; b.num[i])</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(a.num[i] &lt; b.num[i])</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*******************************************************</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* FunctionName:add</span></span><br><span class="line"><span class="comment">* Description: 两个BigNum大数相加</span></span><br><span class="line"><span class="comment">* Parameter:</span></span><br><span class="line"><span class="comment">* 	@a	要进行加法运算的BigNum1</span></span><br><span class="line"><span class="comment">*   @b  要进行加法运算的BigNum2</span></span><br><span class="line"><span class="comment">* Return:</span></span><br><span class="line"><span class="comment">*   返回相加后的BigNum</span></span><br><span class="line"><span class="comment">**********************************************************/</span></span><br><span class="line"><span class="function">BigNum <span class="title">add</span><span class="params">(BigNum a, BigNum b)</span></span>&#123;</span><br><span class="line">    BigNum c;</span><br><span class="line">    <span class="keyword">int</span> carry = <span class="number">0</span>;<span class="comment">//进位</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.len || i &lt; b.len; i++)&#123;<span class="comment">//以较长的长度为界限</span></span><br><span class="line">        <span class="keyword">int</span> temp = a.num[i] + b.num[i] + carry;<span class="comment">//两个位置相加后加上进位</span></span><br><span class="line">        c.num[c.len++] = temp % <span class="number">10</span>;</span><br><span class="line">        carry = temp / <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(carry != <span class="number">0</span>)</span><br><span class="line">        c.num[c.len++] = carry;</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*******************************************************</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* FunctionName:sub</span></span><br><span class="line"><span class="comment">* Description: 两个BigNum大数相减</span></span><br><span class="line"><span class="comment">* Parameter:</span></span><br><span class="line"><span class="comment">* 	@a	被减数</span></span><br><span class="line"><span class="comment">*   @b  减数</span></span><br><span class="line"><span class="comment">* Return:</span></span><br><span class="line"><span class="comment">*   返回相减后的BigNum</span></span><br><span class="line"><span class="comment">**********************************************************/</span></span><br><span class="line"><span class="function">BigNum <span class="title">sub</span><span class="params">(BigNum a, BigNum b)</span></span>&#123;</span><br><span class="line">    BigNum c;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.len || i &lt; b.len; i++)&#123;<span class="comment">//较长为界</span></span><br><span class="line">        <span class="keyword">if</span>(a.num[i] &lt; b.num[i])&#123;<span class="comment">//如果不够减</span></span><br><span class="line">            a.num[i + <span class="number">1</span>]--;<span class="comment">//借位</span></span><br><span class="line">            a.num[i] += <span class="number">10</span>;<span class="comment">//加10</span></span><br><span class="line">        &#125;</span><br><span class="line">        c.num[c.len++] = a.num[i] - b.num[i];<span class="comment">//相减结果为当前位结果</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(c.len - <span class="number">1</span> &gt;= <span class="number">1</span> &amp;&amp; c.num[c.len - <span class="number">1</span>] == <span class="number">0</span>)</span><br><span class="line">        c.len--;<span class="comment">//去除最高位的0</span></span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*******************************************************</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* FunctionName: multi</span></span><br><span class="line"><span class="comment">* Description: 将BigNum扩大指定倍数（int）</span></span><br><span class="line"><span class="comment">* Parameter:</span></span><br><span class="line"><span class="comment">* 	@a	要扩大的BigNum</span></span><br><span class="line"><span class="comment">*   @b  扩大倍数</span></span><br><span class="line"><span class="comment">* Return:</span></span><br><span class="line"><span class="comment">*   返回扩大后的BigNum</span></span><br><span class="line"><span class="comment">**********************************************************/</span></span><br><span class="line"><span class="function">BigNum <span class="title">multi</span><span class="params">(BigNum a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    BigNum c;</span><br><span class="line">    <span class="keyword">int</span> carry = <span class="number">0</span>;<span class="comment">//进位</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.len; i++)&#123;<span class="comment">//a每位依次乘b</span></span><br><span class="line">        <span class="keyword">int</span> temp = a.num[i] * b + carry;</span><br><span class="line">        c.num[c.len++] = temp % <span class="number">10</span>;<span class="comment">//temp个位作为该位结果</span></span><br><span class="line">        carry = temp / <span class="number">10</span>;<span class="comment">//temp高位作为进位</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(carry != <span class="number">0</span>)&#123;<span class="comment">//乘法的进位可能不止一位</span></span><br><span class="line">        c.num[c.len++] = carry % <span class="number">10</span>;</span><br><span class="line">        carry /= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> mod = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> &amp;r = mod;</span><br><span class="line"><span class="comment">/*******************************************************</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* FunctionName: divide</span></span><br><span class="line"><span class="comment">* Description: 大数除int内数字</span></span><br><span class="line"><span class="comment">* Parameter:</span></span><br><span class="line"><span class="comment">* 	@a	被除数</span></span><br><span class="line"><span class="comment">*   @b  除数</span></span><br><span class="line"><span class="comment">*   @r  余数</span></span><br><span class="line"><span class="comment">* Return:</span></span><br><span class="line"><span class="comment">*   返回相除后的BigNum</span></span><br><span class="line"><span class="comment">**********************************************************/</span></span><br><span class="line"><span class="function">BigNum <span class="title">divide</span><span class="params">(BigNum a, <span class="keyword">int</span> b, <span class="keyword">int</span> &amp;r)</span></span>&#123;<span class="comment">//r为余数</span></span><br><span class="line">    BigNum c;</span><br><span class="line">    c.len = a.len;<span class="comment">//被除数和商的每一位是一一对应的，所以先令长度相等</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = a.len - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;<span class="comment">//从最高位开始</span></span><br><span class="line">        r = r * <span class="number">10</span> + a.num[i];<span class="comment">//每一位和上一位遗留的余数组合</span></span><br><span class="line">        <span class="keyword">if</span>(r &lt; b)</span><br><span class="line">            c.num[i] = <span class="number">0</span>;<span class="comment">//若不够除该位为0</span></span><br><span class="line">        <span class="keyword">else</span>&#123;<span class="comment">//够除</span></span><br><span class="line">            c.num[i] = r / b;<span class="comment">//得到该位的商</span></span><br><span class="line">            r = r % b;<span class="comment">//新的余数</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(c.len - <span class="number">1</span> &gt;= <span class="number">1</span> &amp;&amp; c.num[c.len - <span class="number">1</span>] == <span class="number">0</span>)</span><br><span class="line">        c.len--;<span class="comment">//去除最高位的0</span></span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*******************************************************</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* FunctionName: rmZero</span></span><br><span class="line"><span class="comment">* Description: 在传入大数前方去除0</span></span><br><span class="line"><span class="comment">* Parameter:</span></span><br><span class="line"><span class="comment">* 	@a	要去除0的大数</span></span><br><span class="line"><span class="comment">**********************************************************/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rmZero</span><span class="params">(BigNum &amp;a)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(a.len - <span class="number">1</span> &gt;= <span class="number">1</span> &amp;&amp; a.num[a.len - <span class="number">1</span>] == <span class="number">0</span>)</span><br><span class="line">        a.len--;<span class="comment">//去除最高位的0</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*******************************************************</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* FunctionName: addAfterZero</span></span><br><span class="line"><span class="comment">* Description: 在传入大数后方添加0</span></span><br><span class="line"><span class="comment">* Parameter:</span></span><br><span class="line"><span class="comment">* 	@a	要添加0的大数</span></span><br><span class="line"><span class="comment">*   @l  要添加0的数量</span></span><br><span class="line"><span class="comment">* Return:</span></span><br><span class="line"><span class="comment">*   返回添加0后的BigNum</span></span><br><span class="line"><span class="comment">**********************************************************/</span></span><br><span class="line"><span class="function">BigNum <span class="title">addAfterZero</span><span class="params">(BigNum a, <span class="keyword">int</span> l)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> tmp[maxn];</span><br><span class="line">    BigNum res;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; l; i++) &#123;</span><br><span class="line">        tmp[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">memcpy</span>(res.num, tmp, <span class="keyword">sizeof</span>(tmp));</span><br><span class="line">    <span class="built_in">memcpy</span>(res.num + l, a.num, <span class="keyword">sizeof</span>(a.num));</span><br><span class="line">    res.len = l + a.len;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*******************************************************</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* FunctionName: addBeforeZero</span></span><br><span class="line"><span class="comment">* Description: 在传入大数前方添加0</span></span><br><span class="line"><span class="comment">* Parameter:</span></span><br><span class="line"><span class="comment">* 	@a	要添加0的大数</span></span><br><span class="line"><span class="comment">*   @l  要添加0的数量</span></span><br><span class="line"><span class="comment">* Return:</span></span><br><span class="line"><span class="comment">*   返回添加0后的BigNum</span></span><br><span class="line"><span class="comment">**********************************************************/</span></span><br><span class="line"><span class="function">BigNum <span class="title">addBeforeZero</span><span class="params">(BigNum a, <span class="keyword">int</span> l)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> tmp[maxn];</span><br><span class="line">    BigNum res;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; l; i++) &#123;</span><br><span class="line">        tmp[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">memcpy</span>(res.num, a.num, <span class="keyword">sizeof</span>(a.num));</span><br><span class="line">    <span class="built_in">memcpy</span>(res.num + a.len, tmp, <span class="keyword">sizeof</span>(tmp));</span><br><span class="line">    res.len = l + a.len;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*******************************************************</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* FunctionName: subBigNum</span></span><br><span class="line"><span class="comment">* Description: 大数截取</span></span><br><span class="line"><span class="comment">* Parameter:</span></span><br><span class="line"><span class="comment">* 	@a	要被截取的大数</span></span><br><span class="line"><span class="comment">*   @bg 开始截取的位置</span></span><br><span class="line"><span class="comment">*   @l  截取的长度</span></span><br><span class="line"><span class="comment">* Return:</span></span><br><span class="line"><span class="comment">*   返回截取后的BigNum</span></span><br><span class="line"><span class="comment">**********************************************************/</span></span><br><span class="line"><span class="function">BigNum <span class="title">subBigNum</span><span class="params">(BigNum a, <span class="keyword">int</span> bg, <span class="keyword">int</span> l)</span> </span>&#123;</span><br><span class="line">    BigNum res;</span><br><span class="line">    res.len = l;</span><br><span class="line">    <span class="keyword">int</span> tmp = l<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = a.len - bg; i &gt; a.len - bg - l; i--)&#123;</span><br><span class="line">        <span class="comment">//cout &lt;&lt; "i:" &lt;&lt; i &lt;&lt; " a.num[i]:" &lt;&lt; a.num[i] &lt;&lt; endl;</span></span><br><span class="line">        res.num[tmp--] = a.num[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*******************************************************</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* FunctionName: multi_2</span></span><br><span class="line"><span class="comment">* Description: 大数乘法（分治）</span></span><br><span class="line"><span class="comment">* Parameter:</span></span><br><span class="line"><span class="comment">* 	@a	乘数1</span></span><br><span class="line"><span class="comment">*   @b  乘数2</span></span><br><span class="line"><span class="comment">* Return:</span></span><br><span class="line"><span class="comment">*   返回相乘后的BigNum</span></span><br><span class="line"><span class="comment">**********************************************************/</span></span><br><span class="line"><span class="function">BigNum <span class="title">multi_2</span><span class="params">(BigNum a, BigNum b)</span></span>&#123;</span><br><span class="line">    BigNum c;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">2</span>;	<span class="comment">// 计算当前大数长度</span></span><br><span class="line">    <span class="keyword">if</span>(a.len &gt; <span class="number">2</span> || b.len &gt; <span class="number">2</span>) &#123;</span><br><span class="line">        n = <span class="number">4</span>;</span><br><span class="line">        <span class="keyword">while</span>(n &lt; a.len || n &lt; b.len)	<span class="comment">// n一直乘二直到n大于两数中较长者的长度</span></span><br><span class="line">            n &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 在大数前方补零直至两者长度都为n</span></span><br><span class="line">        a = addBeforeZero(a, n - a.len);</span><br><span class="line">        b = addBeforeZero(b, n - b.len);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 长度为一则证明当前n依旧为2 将两数长度补至二</span></span><br><span class="line">    <span class="keyword">if</span>(a.len == <span class="number">1</span>)  a = addBeforeZero(a, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span>(b.len == <span class="number">1</span>)  b = addBeforeZero(b, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">2</span>)&#123;	<span class="comment">// 当前长度为2</span></span><br><span class="line">        <span class="keyword">int</span> inta = <span class="number">0</span>, intb = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = a.len - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;	<span class="comment">// 用inta记录第一个数</span></span><br><span class="line">            inta += a.num[i];</span><br><span class="line">            <span class="keyword">if</span>(i != <span class="number">0</span>)&#123;</span><br><span class="line">                inta *= <span class="number">10</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = b.len - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;	<span class="comment">// 用intb记录第二个数</span></span><br><span class="line">            intb += b.num[i];</span><br><span class="line">            <span class="keyword">if</span>(i != <span class="number">0</span>)&#123;</span><br><span class="line">                intb *= <span class="number">10</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> inttmp = inta * intb;	<span class="comment">// 两数相乘</span></span><br><span class="line">        <span class="built_in">string</span> tmp;	<span class="comment">// 将整数转为字符串 当然如果环境支持c11以上也可以直接使用std::itos</span></span><br><span class="line">        <span class="built_in">stringstream</span> sst;</span><br><span class="line">        sst &lt;&lt; inttmp;</span><br><span class="line">        sst &gt;&gt; tmp;</span><br><span class="line">        c = change(tmp);	<span class="comment">// 将当前两数乘积转为大数c</span></span><br><span class="line">        <span class="keyword">return</span> c;	<span class="comment">// 返回大数c</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        BigNum a0, a1, b0, b1, c0, c1, c2;</span><br><span class="line">        a1 = subBigNum(a, <span class="number">1</span>, (n/<span class="number">2</span>));<span class="comment">// a1为大数a的后半部分（我上方大数类中为了方便运算逆序存储）</span></span><br><span class="line">        a0 = subBigNum(a, (n/<span class="number">2</span>+<span class="number">1</span>), a.len - (n/<span class="number">2</span>) );	<span class="comment">// a0为大数a的前半部分</span></span><br><span class="line">        <span class="comment">// b0 b1同理</span></span><br><span class="line">        b1 = subBigNum(b, <span class="number">1</span>, (n/<span class="number">2</span>));</span><br><span class="line">        b0 = subBigNum(b, (n/<span class="number">2</span>+<span class="number">1</span>), b.len - (n/<span class="number">2</span>));</span><br><span class="line">        c2 = multi_2(a1, b1);</span><br><span class="line">        c0 = multi_2(a0, b0);</span><br><span class="line">        c1 = sub(multi_2(add(a0,a1),add(b0,b1)),add(c2, c0));</span><br><span class="line">        c2 = addAfterZero(c2, n);</span><br><span class="line">        c1 = addAfterZero(c1, n / <span class="number">2</span>);</span><br><span class="line">        c = add(add(c2, c1), c0);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    BigNum num1,num2,c,e;</span><br><span class="line">    <span class="built_in">string</span> temp;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; temp;</span><br><span class="line">    num1 = change(temp);</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; temp;</span><br><span class="line">    num2 = change(temp);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"num1: "</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = num1.len<span class="number">-1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; num1.num[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"num2: "</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = num2.len<span class="number">-1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; num2.num[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"比较大小"</span>;</span><br><span class="line">    <span class="keyword">if</span>(compare(num1, num2) == <span class="number">1</span>)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"&gt;"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(compare(num1, num2) == <span class="number">-1</span>)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"&lt;"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"="</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"乘积"</span>;</span><br><span class="line">    BigNum num3 = multi_2(num1, num2);</span><br><span class="line">    rmZero(num3);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = num3.len<span class="number">-1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; num3.num[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"加和"</span> ;</span><br><span class="line">    c = add(num1, num2);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = c.len - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">         <span class="built_in">cout</span> &lt;&lt; c.num[i];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"相减"</span> ;</span><br><span class="line">    c = sub(num1, num2);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = c.len - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">         <span class="built_in">cout</span> &lt;&lt; c.num[i];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"请输入int值计算与int的乘积（默认使用num1）"</span>;</span><br><span class="line">    <span class="keyword">int</span> mul;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; mul;</span><br><span class="line">    c = multi(num1, mul);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = c.len - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; c.num[i];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"请输入int值计算与int的商与余数（默认使用num1）"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; mul;</span><br><span class="line">    c = divide(num1, mul, r);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"商："</span>;</span><br><span class="line">     <span class="keyword">for</span>(<span class="keyword">int</span> i = c.len - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; c.num[i];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" 余数"</span> &lt;&lt; r &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/11/06/%E7%9F%A9%E9%98%B5%E8%BF%9E%E4%B9%98%E9%97%AE%E9%A2%98-DP-%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/06/%E7%9F%A9%E9%98%B5%E8%BF%9E%E4%B9%98%E9%97%AE%E9%A2%98-DP-%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">矩阵连乘问题(DP)原理分析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-06 22:08:46" itemprop="dateCreated datePublished" datetime="2019-11-06T22:08:46+08:00">2019-11-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="矩阵连乘问题（DP）原理分析"><a href="#矩阵连乘问题（DP）原理分析" class="headerlink" title="矩阵连乘问题（DP）原理分析"></a>矩阵连乘问题（DP）原理分析</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>给定n个可乘的数字矩阵 $A<em>1, A_2,…, A_n $，矩阵 $A_i $ 的规模为 $p</em>{i-1}\times p_i $ 求给定矩阵连乘的最优计算次序，使得计算乘积 $A_1\times A_2 \times … \times A_n $ 所需执行的数乘次数最少.</p>
+<h2 id="矩阵乘法规则"><a href="#矩阵乘法规则" class="headerlink" title="矩阵乘法规则"></a>矩阵乘法规则</h2><p>$C=A\times B$ ，如果A为p行r列的矩阵，B为r行q列的矩阵，则根据矩阵乘法规则，A与B相乘后得到的矩阵C将是p行q列的矩阵，对于结果矩阵C中任意元素 $C<em>{ij}: C</em>{ij}= \sum {r \atop k=1} a<em>{ik}b</em>{kj}$ 即：一个元素 $C_{ij}$ 需要做r次乘法，所以若想要获得C中所有元素则需要进行 $p \times q \times r$次乘法。</p>
+<p>由于矩阵乘法满足乘法结合律，所以当n个数字矩阵连乘时可以任意更换计算次序，随着计算次序的改变，所需计算的总乘法次数也会跟着改变，具体情况看下图。</p>
+<p><img src="/2019/11/06/%E7%9F%A9%E9%98%B5%E8%BF%9E%E4%B9%98%E9%97%AE%E9%A2%98-DP-%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/计算次序1.png" alt="img"></p>
+<p><img src="/2019/11/06/%E7%9F%A9%E9%98%B5%E8%BF%9E%E4%B9%98%E9%97%AE%E9%A2%98-DP-%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/计算次序2.png" alt="img"></p>
+<p>现在要做的便是设计一种算法，可以求得一种计算次序使得总乘法次数最小。</p>
+<h2 id="解法分析"><a href="#解法分析" class="headerlink" title="解法分析"></a>解法分析</h2><p>假设 $A_1\times A_2 \times … \times A_n$ 的最优计算次序会在$A_k$时断开（只是打个比方，就像上方图计算 $A_1 \times A_2 \times A_3 \times A_4$ 时在 $A_1$ 处断开成为 $A_1与A_2 \times (A_3\times A_4)$ 一样）这时对最优计算次序的计算也会断开成为两个子问题 </p>
+<script type="math/tex; mode=display">
+\left\{ \begin{aligned} 子问题1 & = & 求A_1\times A_2 \times ... \times A_k 的最优计算次序\\ 子问题2 & = & 求A_{k+1}\times A_{k+2} \times ... \times A_n 的最优计算次序\end{aligned} \right.</script><p>因为原问题是两子问题相乘，所以原问题的答案便是俩个子问题的答案加上最后一次两子问题产生的矩阵相乘所需要的乘法次数。根据上方列出的矩阵乘法计算规则 </p>
+<script type="math/tex; mode=display">
+最后一次需要乘法次数= \\ 子问题1矩阵的行数 \\ \times 子问题2矩阵的列数 \\ \times 计算结果矩阵中一个元素所需的乘法次数</script><p>而</p>
+<script type="math/tex; mode=display">
+计算结果矩阵中一个元素所需的乘法次数=子问题1矩阵的列数=子问题2矩阵的行数</script><p>这里我们把 $m[i][j]$ 记为最优计算次序下计算 $A<em>i \times A</em>{i+1} \times … \times A_j$ 所需的乘法次数（最少乘法次数）</p>
+<p>根据上述假设，我们依旧假设 $A<em>i \times A</em>{i+1} \times … \times A_j$ 的最优计算次序会在 $A_k$ 时断开，这时的两个子问题便是 </p>
+<script type="math/tex; mode=display">\left\{ \begin{aligned} 子问题1 & = & 求A_i\times A_{i+1} \times ... \times A_k 的最优计算次序m[i][k]\\ 子问题2 & = & 求A_{k+1}\times A_{k+2} \times ... \times A_j 的最优计算次序m[k+1][j]\end{aligned} \right.</script><p>根据上次假设总结出的公式我们便可以得到 </p>
+<script type="math/tex; mode=display">m[i][j]=m[i][k]+m[k+1][j]+最后一次需要乘法次数(子问题1矩阵\times 子问题2矩阵)</script><p>由于在矩阵连乘中，前一个矩阵的列数与后一个矩阵的行数相同，所以这里我们把所有矩阵的行与列属性记录在一个一维数组p中 $P<em>0$ 表示第一个矩阵的行数 $p_1$ 表示第一个矩阵的列数与第二个矩阵的行数，以此类推 $p</em>{n-1}$ 代表第n-1个矩阵的列数与第n个矩阵的行​数。</p>
+<script type="math/tex; mode=display">
+最后一次所需乘法= \\ 子问题1矩阵的行数（等于A_i的行数） \\ \times 子问题2矩阵的列数（等于A_j的列数） \\ \times 计算结果矩阵中一个元素所需的乘法次数（等于子问题2矩阵的行数等于A_k的列数）\\=p_{i-1} \times p_j \times p_k</script><p>这样便得到了动态规划算法最核心的动态转移方程</p>
+<script type="math/tex; mode=display">
+m[i][j]=\left\{ \begin{aligned} 0(i = j )\\ m[i][k]+m[k+1][j]+p_{i-1} \times p_j \times p_k(i < j)\end{aligned} \right.</script><p>有了它便可以去写代码了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/11/05/Dijkstra%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/05/Dijkstra%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">Dijkstra原理分析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-05 22:01:55" itemprop="dateCreated datePublished" datetime="2019-11-05T22:01:55+08:00">2019-11-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Dijkstra（迪杰斯特拉）"><a href="#Dijkstra（迪杰斯特拉）" class="headerlink" title="Dijkstra（迪杰斯特拉）"></a>Dijkstra（迪杰斯特拉）</h2><p><img src="/2019/11/05/Dijkstra%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/dijkstra1-1.svg" alt="img"></p>
+<p>假设给定的源点是A，现在要求的便是源点A到其他所有点的最短路长度</p>
+<p>我们初始将所有点看作不连通</p>
+<p><img src="/2019/11/05/Dijkstra%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/dijkstra1-2.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+<th>F</th>
+<th>G</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="第一次优化"><a href="#第一次优化" class="headerlink" title="第一次优化"></a>第一次优化</h3><p>我们所规定的源点为A，A点到其本身的距离为0。这样我们就找到了第一个距离源点A最近的点，就是A本身，将其标记为红色。</p>
+<p><img src="/2019/11/05/Dijkstra%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/dijkstra1-3.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+<th>F</th>
+<th>G</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>0</code></strong></td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="第二次优化"><a href="#第二次优化" class="headerlink" title="第二次优化"></a>第二次优化</h3><p>之后恢复以A为起点的所有边，更新所有可达点的最短路长度。如下图，可以发现以A为起点的两条边分别通向B与D，根据边权我们可以把B与D到A的最短路长度进行更新，可以发现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A点到B点的最短路长度由无穷大优化为了2</span><br><span class="line">A点到D点的最短路长度由无穷大优化为了1</span><br></pre></td></tr></table></figure>
+<p>这时观察所有的点，我们可以发现当前距离A点最近且还没有被标为红色的点便是我们刚刚更新的D。我们便可以确定，A点到D点的最短路径1，将D标记为红色。</p>
+<p><img src="/2019/11/05/Dijkstra%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/dijkstra1-4.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+<th>F</th>
+<th>G</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td>2</td>
+<td>∞</td>
+<td><strong><code>1</code></strong></td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="第三次优化"><a href="#第三次优化" class="headerlink" title="第三次优化"></a>第三次优化</h3><p>重复之前操作，恢复以D为起点的所有边，以D为跳板更新所有未被标红的可达点的最短路长度，更新后可以发现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A点到C点的最短路长度由无穷大被优化为了3</span><br><span class="line">A点到E点的最短路长度由无穷大被优化为了3</span><br><span class="line">A点到F点的最短路长度由无穷大被优化为了9</span><br><span class="line">A点到G点的最短路长度由无穷大被优化为了5</span><br></pre></td></tr></table></figure>
+<p>这时观察所有的点，我们可以发现当前距离A点最近且还没有被标为红色的点是最短路长度为2的点B。我们便可以确定，A点到B点的最短路径2，将B标记为红色。</p>
+<p><img src="/2019/11/05/Dijkstra%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/dijkstra1-5.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+<th>F</th>
+<th>G</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td><strong><code>2</code></strong></td>
+<td>3</td>
+<td><strong>1</strong></td>
+<td>3</td>
+<td>9</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="第四次优化"><a href="#第四次优化" class="headerlink" title="第四次优化"></a>第四次优化</h3><p>重复之前操作，恢复以B为起点的所有边，以B为跳板更新所有未被标红的可达点的最短路长度，更新后可以发现没有点可以被更新。</p>
+<p>这时观察所有的点，我们可以发现当前距离A点最近且还没有被标为红色的点有两个，分别为最短路长度为3的点C与最短路长度为3的点E。我们可以选任意一个将其标为红色（以已经固定长度的点去优化另一个点，被优化的点的长度一定不会小于优化它的点，所以在这里另一个点一定会在下次优化中被标红）这里我选择点C。</p>
+<p><img src="/2019/11/05/Dijkstra%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/dijkstra1-6.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+<th>F</th>
+<th>G</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td><strong>2</strong></td>
+<td><strong><code>3</code></strong></td>
+<td><strong>1</strong></td>
+<td>3</td>
+<td>9</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="第五次优化"><a href="#第五次优化" class="headerlink" title="第五次优化"></a>第五次优化</h3><p>重复之前操作，恢复以C为起点的所有边，以C为跳板更新所有未被标红的可达点的最短路长度，更新后可以发现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A点到F点的最短路长度由无穷大被优化为了8</span><br></pre></td></tr></table></figure>
+<p>这时观察所有的点，我们可以发现当前距离A点最近且还没有被标为红色的是上一次没有选择的最短路长度为3的点E。我们便可以确定，A点到E点的最短路径3，将E标记为红色。</p>
+<p><img src="/2019/11/05/Dijkstra%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/dijkstra1-7.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+<th>F</th>
+<th>G</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td><strong>2</strong></td>
+<td><strong>3</strong></td>
+<td><strong>1</strong></td>
+<td><strong><code>3</code></strong></td>
+<td>8</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="第六次优化"><a href="#第六次优化" class="headerlink" title="第六次优化"></a>第六次优化</h3><p>依旧是重复之前操作，恢复以E为起点的所有边，以E为跳板更新所有未被标红的可达点的最短路长度，更新后可以发现没有点可以被更新。</p>
+<p>依旧是观察所有的点，我们可以发现当前距离A点最近且还没有被标为红色的是最短路长度为5的点G。我们便可以确定，A点到G点的最短路径5，将G标记为红色。</p>
+<p><img src="/2019/11/05/Dijkstra%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/dijkstra1-8.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+<th>F</th>
+<th>G</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td><strong>2</strong></td>
+<td><strong>3</strong></td>
+<td><strong>1</strong></td>
+<td><strong>3</strong></td>
+<td>8</td>
+<td><strong><code>5</code></strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="第七次优化"><a href="#第七次优化" class="headerlink" title="第七次优化"></a>第七次优化</h3><p>重复之前操作，恢复以G为起点的所有边，以G为跳板更新所有未被标红的可达点的最短路长度，更新后可以发现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A点到F点的最短路长度由无穷大被优化为了6</span><br></pre></td></tr></table></figure>
+<p>依旧是观察所有的点，我们可以发现当前距离A点最近且还没有被标为红色的是最短路长度为5的最后一个点F。我们便可以确定，A点到F点的最短路径6，将F标记为红色，至此所有的点都优化完毕。</p>
+<p><img src="/2019/11/05/Dijkstra%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/dijkstra1-9.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+<th>F</th>
+<th>G</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td><strong>2</strong></td>
+<td><strong>3</strong></td>
+<td><strong>1</strong></td>
+<td><strong>3</strong></td>
+<td><strong><code>6</code></strong></td>
+<td><strong>5</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="最短路长度表汇总"><a href="#最短路长度表汇总" class="headerlink" title="最短路长度表汇总"></a>最短路长度表汇总</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+<th>F</th>
+<th>G</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+</tr>
+<tr>
+<td><strong><code>0</code></strong></td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+</tr>
+<tr>
+<td><strong>0</strong></td>
+<td>2</td>
+<td>∞</td>
+<td><strong><code>1</code></strong></td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+</tr>
+<tr>
+<td><strong>0</strong></td>
+<td><strong><code>2</code></strong></td>
+<td>3</td>
+<td><strong>1</strong></td>
+<td>3</td>
+<td>9</td>
+<td>5</td>
+</tr>
+<tr>
+<td><strong>0</strong></td>
+<td><strong>2</strong></td>
+<td><strong><code>3</code></strong></td>
+<td><strong>1</strong></td>
+<td>3</td>
+<td>9</td>
+<td>5</td>
+</tr>
+<tr>
+<td><strong>0</strong></td>
+<td><strong>2</strong></td>
+<td><strong>3</strong></td>
+<td><strong>1</strong></td>
+<td><strong><code>3</code></strong></td>
+<td>8</td>
+<td>5</td>
+</tr>
+<tr>
+<td><strong>0</strong></td>
+<td><strong>2</strong></td>
+<td><strong>3</strong></td>
+<td><strong>1</strong></td>
+<td><strong>3</strong></td>
+<td>8</td>
+<td><strong><code>5</code></strong></td>
+</tr>
+<tr>
+<td><strong>0</strong></td>
+<td><strong>2</strong></td>
+<td><strong>3</strong></td>
+<td><strong>1</strong></td>
+<td><strong>3</strong></td>
+<td><strong><code>6</code></strong></td>
+<td><strong>5</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="不适用情况"><a href="#不适用情况" class="headerlink" title="不适用情况"></a>不适用情况</h3><p>只要图中有任何负权边，dijkstra边不能正确得到预期答案，即使没有负环也不行。</p>
+<p>至于为什么，可以从如下图的例子中看出</p>
+<p><img src="/2019/11/05/Dijkstra%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/dijkstra2-1.svg" alt="img"></p>
+<p>按照之前的方法进行分析</p>
+<p>我们初始将所有点看作不连通</p>
+<p><img src="/2019/11/05/Dijkstra%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/dijkstra2-2.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="第一次优化-1"><a href="#第一次优化-1" class="headerlink" title="第一次优化"></a>第一次优化</h4><p>A点到其本身的距离为0。找到了第一个距离源点A最近的点，为A本身，将其标记为红色。</p>
+<p><img src="/2019/11/05/Dijkstra%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/dijkstra2-3.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>0</code></strong></td>
+<td>∞</td>
+<td>∞</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="第二次优化-1"><a href="#第二次优化-1" class="headerlink" title="第二次优化"></a>第二次优化</h4><p>恢复以A为起点的所有边，更新所有可达点的最短路长度。</p>
+<p>如下图</p>
+<p><img src="/2019/11/05/Dijkstra%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/dijkstra2-4.svg" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A点到B点的最短路长度由无穷大优化为了3</span><br><span class="line">A点到C点的最短路长度由无穷大优化为了2</span><br></pre></td></tr></table></figure>
+<p>当前距离A点最近且还没有被标为红色的点是C，A点到C点的最短路径2，将C标记为红色。</p>
+<p>当前A点到所有点的最短路长度表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td>3</td>
+<td><strong><code>2</code></strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="第三次优化-1"><a href="#第三次优化-1" class="headerlink" title="第三次优化"></a>第三次优化</h4><p>恢复以C为起点的所有边，更新所有可达点的最短路长度。</p>
+<p>如下图</p>
+<p><img src="/2019/11/05/Dijkstra%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/dijkstra2-5.svg" alt="img"></p>
+<p>没有点可以被更新</p>
+<p>当前距离A点最近且还没有被标为红色的点是B，A点到B点的最短路径3，将B标记为红色。</p>
+<p>当前A点到所有点的最短路长度表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td><strong><code>3</code></strong></td>
+<td><strong>2</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="第四次优化-1"><a href="#第四次优化-1" class="headerlink" title="第四次优化"></a>第四次优化</h4><p>恢复以B为起点的所有边，更新所有可达点的最短路长度。</p>
+<p>如下图</p>
+<p><img src="/2019/11/05/Dijkstra%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/dijkstra2-6.svg" alt="img"></p>
+<p><strong>由于C已经被固定，所以没有点可以被更新！！</strong></p>
+<p>当前A点到所有点的最短路长度表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td><strong>3</strong></td>
+<td><strong>2</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>所以上表便是dijkstra得出的最终结果，而并不是我们认为的</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td><strong>3</strong></td>
+<td><strong>1</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><h4 id="一般实现"><a href="#一般实现" class="headerlink" title="一般实现"></a>一般实现</h4><p>以上方正确示例为例，为了方便处理，我们将A~G这七个字母在算法中以0~6七个点所代替。</p>
+<p>我们可以得出下图的输入数据</p>
+<p><img src="/2019/11/05/Dijkstra%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/dijkstra3-1.svg" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">7 12</span><br><span class="line">0 1 2</span><br><span class="line">0 3 1</span><br><span class="line">1 3 3</span><br><span class="line">1 4 10</span><br><span class="line">2 0 4</span><br><span class="line">2 5 5</span><br><span class="line">3 2 2</span><br><span class="line">3 4 2</span><br><span class="line">3 5 8</span><br><span class="line">3 6 4</span><br><span class="line">4 6 6</span><br><span class="line">6 5 1</span><br></pre></td></tr></table></figure>
+<p>代码实现</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXV = <span class="number">1e3</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">1e6</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> v, dis;</span><br><span class="line">    Node(<span class="keyword">int</span> tv, <span class="keyword">int</span> tdis)&#123;</span><br><span class="line">        v = tv, dis = tdis;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">int</span> n;  <span class="comment">//n为顶点数量</span></span><br><span class="line"><span class="keyword">int</span> d[MAXV]; <span class="comment">//存放起点到各点的最短路径长度</span></span><br><span class="line"><span class="built_in">vector</span>&lt;Node&gt; Adj[MAXV];</span><br><span class="line"><span class="keyword">bool</span> vis[MAXV]; <span class="comment">//标记数组</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">    fill(d, d + MAXV, inf); <span class="comment">//初始化起点到所有点的最短路长度为无穷大</span></span><br><span class="line">    d[s] = <span class="number">0</span>;   <span class="comment">//起点至本身的距离为0</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++)&#123;</span><br><span class="line">        <span class="keyword">int</span> u = <span class="number">-1</span>, mind = inf;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)&#123; <span class="comment">//寻找距离顶点最近的点</span></span><br><span class="line">            <span class="keyword">if</span>(!vis[j] &amp;&amp; d[j] &lt; mind)&#123;</span><br><span class="line">                u = j;</span><br><span class="line">                mind = d[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(u == <span class="number">-1</span>) <span class="comment">//若找不到u证明剩下的点与顶点不连通</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        vis[u] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> j : Adj[u])&#123;   <span class="comment">//遍历所有与u连通的点</span></span><br><span class="line">            <span class="keyword">int</span> v = j.v;</span><br><span class="line">            <span class="keyword">if</span>(!vis[v] &amp;&amp; d[u] + j.dis &lt; d[v])&#123; <span class="comment">//以u为中转优化起点到与u连通的点的最短距离</span></span><br><span class="line">                d[v] = d[u] + j.dis;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    <span class="keyword">int</span> s;  <span class="comment">//为起点</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt;<span class="string">"输入顶点数:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">int</span> r;<span class="comment">//路径数</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入路径数:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; r;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; r; i++)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入路径（格式:端点1 端点2 权值）:"</span>;</span><br><span class="line">        <span class="keyword">int</span> u, v, dis;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; u &gt;&gt; v &gt;&gt; dis;</span><br><span class="line">        Adj[u].push_back(Node(v, dis));</span><br><span class="line">        <span class="comment">//Adj[v].push_back(Node(u, dis));</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入起点:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">    dijkstra(s);</span><br><span class="line">    <span class="keyword">int</span> e;  <span class="comment">//终点</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入终点:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; e;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"最短路长度"</span> &lt;&lt; d[e] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">":"</span> &lt;&lt; d[i] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="堆优化dijkstra"><a href="#堆优化dijkstra" class="headerlink" title="堆优化dijkstra"></a>堆优化dijkstra</h4><p>分析一下上方dijkstra的时间复杂度，设顶点个数n，外层循环为 $ O(n) $，内层循环有寻找距离起点最近的点需要 $ O(n) $，每次枚举被优化点v需要$O(Adj[u].size) $总共需要 $ O(\sum {n-1 \atop u=0} Adj[u].size)=E $，总时间复杂度 $ O(N\times N + E)=O(N^2+E) $</p>
+<p>如何去优化它呢？压榨外层循环，根据dijkstra的原理显然是不太现实的，但是根据前的设计dijkstra在每次进行优化时都需要寻找距离起点最近的点，这需要每次都遍历所有的点，这里便可以使用堆优化来降低时间复杂度，可以直接使用STL里的优先队列priority_queue，使距离起点进的点优先出队，这样就可以将内层循环中寻找距离起点最近的点消耗的 $ O(N) $优化为维护优先队列的 $ O(logN) $，这样总时间复杂度就降为了 $ O(NlogN+E) $</p>
+<p>代码实现</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e3</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">1e6</span>;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">int</span> d[MAXN];</span><br><span class="line"><span class="keyword">bool</span> vis[MAXN];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> v, dis;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> node &amp;tNode) <span class="keyword">const</span>&#123;  <span class="comment">//优先队列默认优先级高的先出队 这里就要通过重载运算符 &lt; 使距离越小优先级越高</span></span><br><span class="line">        <span class="keyword">return</span> dis &gt; tNode.dis;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;node&gt; Adj[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">    fill(d, d + MAXN, INF); <span class="comment">//初始化起点至所有点距离为无穷大</span></span><br><span class="line">    priority_queue&lt;node&gt; Q;</span><br><span class="line">    d[s] = <span class="number">0</span>;   <span class="comment">//起点至其本身距离为0</span></span><br><span class="line">    Q.push(node&#123;s, <span class="number">0</span>&#125;); <span class="comment">//这里node中v代表的是当前顶点，dis代表其与起点的距离</span></span><br><span class="line">    <span class="keyword">while</span>(!Q.empty())&#123;</span><br><span class="line">        node f = Q.top();</span><br><span class="line">        Q.pop();</span><br><span class="line">        <span class="keyword">int</span> u = f.v;</span><br><span class="line">        <span class="keyword">if</span>(vis[u])  <span class="comment">//如果u已经标记则继续出队</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        vis[u] = <span class="literal">true</span>;  <span class="comment">//将u标记</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i : Adj[u])&#123;   <span class="comment">//遍历所有与u相邻的顶点</span></span><br><span class="line">            <span class="keyword">int</span> v = i.v;</span><br><span class="line">            <span class="keyword">int</span> dis = i.dis;</span><br><span class="line">            <span class="keyword">if</span>(!vis[v] &amp;&amp; d[u] + dis &lt; d[v])&#123;   <span class="comment">//如果可以以u为中转优化起点到对应点的距离</span></span><br><span class="line">                d[v] = d[u] + dis;      <span class="comment">//执行松弛操作</span></span><br><span class="line">                Q.push(node&#123;v, d[v]&#125;);   <span class="comment">//将松弛后的点与距离入队</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入顶点数:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">int</span> m;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入边数"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i ++)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入边 (端点1 端点2 权值):"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">int</span> u, v, dis;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; u &gt;&gt; v &gt;&gt; dis;</span><br><span class="line">        Adj[u].push_back(node&#123;v, dis&#125;);</span><br><span class="line">        <span class="comment">//Adj[v].push_back(node&#123;u, dis&#125;);</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> s;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入起点:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">    <span class="keyword">int</span> e;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入终点:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; e;</span><br><span class="line">    dijkstra(s);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"最短路长度:"</span> &lt;&lt; d[e] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">" : "</span> &lt;&lt; d[i] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Dijkstra记录最短路路径"><a href="#Dijkstra记录最短路路径" class="headerlink" title="Dijkstra记录最短路路径"></a>Dijkstra记录最短路路径</h4><p>记录最短路径的方法非常简单，这里只需要开一个长度为n的数组pre，在每次进行优化的时候，记录每个被优化点的前驱点，最后由终点开始寻找前驱直到找到起点即可获得最短路径。</p>
+<p>代码实现</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e3</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">1e7</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> v, dis;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> Node &amp;tNode) <span class="keyword">const</span>&#123;  <span class="comment">// 优先队列默认优先级高的先出队 这里就要通过重载运算符 &lt; 使距离越小优先级越高</span></span><br><span class="line">        <span class="keyword">return</span> dis &gt; tNode.dis;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;Node&gt; Adj[MAXN];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">bool</span> vis[MAXN];</span><br><span class="line"><span class="keyword">int</span> d[MAXN], pre[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">    fill(d, d +MAXN, INF);  <span class="comment">// 初始化起点至所有点距离为无穷大</span></span><br><span class="line">    d[s] = <span class="number">0</span>;    <span class="comment">// 起点至其本身距离为0</span></span><br><span class="line">    priority_queue&lt;Node&gt; Q; <span class="comment">// 这里node中v代表的是当前顶点，dis代表其与起点的距离</span></span><br><span class="line">    Q.push(Node&#123;s, <span class="number">0</span>&#125;);</span><br><span class="line">    <span class="keyword">while</span>(!Q.empty())&#123;</span><br><span class="line">        Node f = Q.top();</span><br><span class="line">        Q.pop();</span><br><span class="line">        <span class="keyword">int</span> u = f.v;</span><br><span class="line">        <span class="keyword">if</span>(vis[u])  <span class="comment">// 如果u已经标记则继续出队</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        vis[u] = <span class="literal">true</span>;  <span class="comment">// 将u标记</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i : Adj[u])&#123;   <span class="comment">// 遍历所有与u相邻的顶点</span></span><br><span class="line">            <span class="keyword">if</span>(d[i.v] &gt; d[u] + i.dis)&#123;  <span class="comment">// 如果可以以u为中转优化起点到对应点的距离</span></span><br><span class="line">                d[i.v] = d[u] + i.dis;  <span class="comment">// 执行松弛操作</span></span><br><span class="line">                pre[i.v] = u;   <span class="comment">// 记录本次优化的前驱点</span></span><br><span class="line">                Q.push(Node&#123;i.v, d[i.v]&#125;);  <span class="comment">// 将松弛后的点与距离入队</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入顶点数:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">int</span> m;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入边数:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> u, v, dis;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入边（顶点1 顶点2 权值）:"</span>;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt;  u &gt;&gt; v &gt;&gt; dis;</span><br><span class="line">        Adj[u].push_back(Node&#123;v, dis&#125;);</span><br><span class="line">        Adj[v].push_back(Node&#123;u,dis&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> s, e;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入起点:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入终点:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; e;</span><br><span class="line">    dijkstra(s);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"最短路长度:"</span> &lt;&lt; d[e] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">int</span> tmp = e;</span><br><span class="line">    <span class="keyword">while</span>(tmp != s)&#123;    <span class="comment">// 由重点开始寻找前驱便可以获得最短路径</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; tmp &lt;&lt; <span class="string">" &lt;- "</span>;</span><br><span class="line">        tmp = pre[tmp];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; s &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Dijkstra-DFS"><a href="#Dijkstra-DFS" class="headerlink" title="Dijkstra+DFS"></a>Dijkstra+DFS</h4><p>在考查dijkstra算法时又是可能会出现最短路不只存在一条的情况，这是通常就会给你一个其他的判断条件，比如要求找出点权和最大的最短路。</p>
+<p><img src="/2019/11/05/Dijkstra%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/dijkstra3-2.svg" alt="img"></p>
+<p>观察上图，以红色为起点，蓝色为终点，求一条途经点的点权和最高的最短路。</p>
+<p>先不考虑点权，先来看对多条最短路的记录，之前在只记录一条最短路时采取了pre前驱数组的方式，单如果有多条最短路，便要使用其他方式。使用前驱数组时，每次只有在某个点被优化时才记录其前驱结点，对到起点距离相等的情况并没有进行处理，也就是说当存在多条最短路径时，即使某个点在被优化时产生了到起点距离相等的情况也要对其进行记录，每个点的前驱就可能不止一个。</p>
+<p>这里便可以将int型数组pre更换为容器型（vector）数组，pre[i]中记录的是i点所有的前驱结点。</p>
+<p>这样便成功记录了所有的最短路径。若想从这些最短路径中计算出一条点权和最大的来，就可以用dfs去搜索每一条最短路并记录点权和，最终选出点权和最大的最短路。</p>
+<p>比如pat <a href="https://pintia.cn/problem-sets/994805342720868352/problems/994805523835109376" target="_blank" rel="noopener">PAT (Advanced Level) Practice  <strong>1003</strong> <strong>Emergency</strong> </a>就是一道典型的这种类型的题目。</p>
+<p>送上代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">510</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">500000</span>;</span><br><span class="line"><span class="keyword">int</span> d[MAXN];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> v, dis;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> Node &amp;tNode) <span class="keyword">const</span>    <span class="comment">// 优先队列默认优先级高的先出队 这里就要通过重载运算符 &lt; 使距离越小优先级越高</span></span><br><span class="line">        <span class="keyword">return</span> dis &gt; tNode.dis;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">int</span> n, m, s, e;</span><br><span class="line"><span class="keyword">int</span> val[MAXN];</span><br><span class="line"><span class="keyword">bool</span> vis[MAXN];</span><br><span class="line"><span class="built_in">vector</span>&lt;Node&gt; Adj[MAXN];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; pre[MAXN];  <span class="comment">// 存储每个点的所有前驱点</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">    fill(d, d + MAXN, INF); <span class="comment">// 初始化起点至所有点距离为无穷大</span></span><br><span class="line">    d[s] = <span class="number">0</span>;   <span class="comment">// 起点至其本身距离为0</span></span><br><span class="line">    priority_queue&lt;Node&gt; Q;  <span class="comment">// 这里node中v代表的是当前顶点，dis代表其与起点的距离</span></span><br><span class="line">    Q.push(Node&#123;s, <span class="number">0</span>&#125;);</span><br><span class="line">    <span class="keyword">while</span>(!Q.empty())&#123;</span><br><span class="line">        Node f = Q.top();</span><br><span class="line">        Q.pop();</span><br><span class="line">        <span class="keyword">int</span> u = f.v;</span><br><span class="line">        <span class="keyword">if</span>(!vis[u])&#123;    <span class="comment">// 如果未经标记</span></span><br><span class="line">            vis[u] = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> i : Adj[u])&#123;   <span class="comment">// 遍历所有与u相邻的顶点</span></span><br><span class="line">                <span class="keyword">if</span>(d[i.v] &gt; d[u] + i.dis)&#123;  <span class="comment">// 如果可以以u为中转优化起点到对应点的距离</span></span><br><span class="line">                    d[i.v] = d[u] + i.dis;  <span class="comment">// 执行松弛操作</span></span><br><span class="line">                    Q.push(Node&#123;i.v, d[i.v]&#125;);</span><br><span class="line">                    pre[i.v].clear();   <span class="comment">// 清除之前记录的前驱</span></span><br><span class="line">                    pre[i.v].push_back(u);  <span class="comment">// u记录为v的前驱</span></span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(d[i.v] == d[u] + i.dis)&#123;</span><br><span class="line">                    pre[i.v].push_back(u);  <span class="comment">// u添加为v的前驱</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; road;   <span class="comment">// 记录最终点权和最大的最短路</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; troad;  <span class="comment">// 记录遍历中的每一条最短路</span></span><br><span class="line"><span class="keyword">int</span> minRoadCnt;</span><br><span class="line"><span class="keyword">int</span> saveCnt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> ed)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ed == s)&#123;</span><br><span class="line">        minRoadCnt++;</span><br><span class="line">        <span class="keyword">int</span> tempSaveCnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i : troad)&#123;</span><br><span class="line">            tempSaveCnt += val[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(saveCnt &lt; tempSaveCnt)&#123;</span><br><span class="line">            road = troad;</span><br><span class="line">            saveCnt = tempSaveCnt;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i : pre[ed])&#123;</span><br><span class="line">            troad.push_back(i);</span><br><span class="line">            dfs(i);</span><br><span class="line">            troad.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m &gt;&gt; s &gt;&gt; e;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n ; i ++)&#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; val[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i ++)&#123;</span><br><span class="line">        <span class="keyword">int</span> u, v, dis;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; u &gt;&gt; v &gt;&gt; dis;</span><br><span class="line">        Adj[u].push_back(Node&#123;v, dis&#125;);</span><br><span class="line">        Adj[v].push_back(Node&#123;u, dis&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    dijkstra(s);</span><br><span class="line">    troad.push_back(e);</span><br><span class="line">    dfs(e);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; minRoadCnt &lt;&lt; <span class="string">" "</span> &lt;&lt; saveCnt &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="comment">// 打印路径</span></span><br><span class="line">    <span class="comment">/*for(int i = road.size() - 1; i &gt;= 0; i--)&#123;</span></span><br><span class="line"><span class="comment">        if(i == road.size() - 1)</span></span><br><span class="line"><span class="comment">            cout &lt;&lt; road[i];</span></span><br><span class="line"><span class="comment">        else</span></span><br><span class="line"><span class="comment">            cout &lt;&lt; " " &lt;&lt; road[i];</span></span><br><span class="line"><span class="comment">    &#125;*/</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/11/02/PTA-Advanced-Level-1029-Median/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/02/PTA-Advanced-Level-1029-Median/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1029 Median</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-02 00:11:27" itemprop="dateCreated datePublished" datetime="2019-11-02T00:11:27+08:00">2019-11-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Given an increasing sequence S of N integers, the median is the number at the middle position. For example, the median of S1 = { 11, 12, 13, 14 } is 12, and the median of S2 = { 9, 10, 15, 16, 17 } is 15. The median of two sequences is defined to be the median of the nondecreasing sequence which contains all the elements of both sequences. For example, the median of S1 and S2 is 13.</p>
+<p>Given two increasing sequences of integers, you are asked to find their median.</p>
+<h3 id="Input-Specification"><a href="#Input-Specification" class="headerlink" title="Input Specification:"></a>Input Specification:</h3><p>Each input file contains one test case. Each case occupies 2 lines, each gives the information of a sequence. For each sequence, the first positive integer N (≤2×105) is the size of that sequence. Then N integers follow, separated by a space. It is guaranteed that all the integers are in the range of <strong>long int</strong>.</p>
+<h3 id="Output-Specification"><a href="#Output-Specification" class="headerlink" title="Output Specification:"></a>Output Specification:</h3><p>For each test case you should output the median of the two given sequences in a line.</p>
+<h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input:"></a>Sample Input:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">4 11 12 13 14</span><br><span class="line">5 9 10 15 16 17</span><br></pre></td></tr></table></figure>
+<h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output:"></a>Sample Output:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">13</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题没有任何难度，为何会分到25分，这谁也不知道，题意就是给予两行两个long int序列，每个序列第一位为序列长度，求两个序列合并后的中位数。</p>
+<p>AC代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX = <span class="number">2e5</span> + <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> val;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt; seq;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lld"</span>, &amp;val);</span><br><span class="line">        seq.push_back(val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lld"</span>, &amp;val);</span><br><span class="line">        seq.push_back(val);</span><br><span class="line">    &#125;</span><br><span class="line">    sort(seq.begin(), seq.end());</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, seq[(seq.size() <span class="number">-1</span>) / <span class="number">2</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/08/11/HBuilderX%E4%BD%BF%E7%94%A8Vant%E7%BB%84%E4%BB%B6%E5%BA%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -864,442 +1685,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/04/03/PTA-Advanced-Level-1006-Sign-In-and-Sign-Out/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/03/PTA-Advanced-Level-1006-Sign-In-and-Sign-Out/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1006 Sign In and Sign Out</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-03 20:17:30" itemprop="dateCreated datePublished" datetime="2019-04-03T20:17:30+08:00">2019-04-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>　　At the beginning of every day, the first person who signs in the computer room will unlock the door, and the last one who signs out will lock the door. Given the records of signing in’s and out’s, you are supposed to find the ones who have unlocked and locked the door on that day.</p>
-<p><strong>Input Specification:</strong></p>
-<p>　　Each input file contains one test case. Each case contains the records for one day. The case starts with a positive integer M, which is the total number of records, followed by M lines, each in the format:</p>
-<p>　　ID_number Sign_in_time Sign_out_time</p>
-<p>　　where times are given in the format HH:MM:SS, and ID_number is a string with no more than 15 characters.</p>
-<p><strong>Output Specification:</strong></p>
-<p>　　For each test case, output in one line the ID numbers of the persons who have unlocked and locked the door on that day. The two ID numbers must be separated by one space.</p>
-<p>　　Note: It is guaranteed that the records are consistent. That is, the sign in time must be earlier than the sign out time for each person, and there are no two persons sign in or out at the same moment.</p>
-<p><strong>Sample Input:</strong></p>
-<p>3</p>
-<p>CS301111 15:30:28 17:00:10</p>
-<p>SC3021234 08:00:00 11:25:25</p>
-<p>CS301133 21:45:00 21:58:40</p>
-<p><strong>Sample Output:</strong></p>
-<p>SC3021234 CS301133</p>
-<p>题目解析</p>
-<p>　　本题给出一天内登录机房的总人数m，之后给出m行数据，每行为一个人的登录信息，其中包括一个长度不超过15的id， 一个格式为HH:MM:SS的登录时间inTime，和一个格式为HH:MM:SS的登出时间outTime。</p>
-<p>　　第一个登录机房的人将是开门者，最后一个登出机房的人将是锁门者，要求输出开门者与锁门者的id。</p>
-<p>　　C++的string比较两个长度相等的字符串大小是由首位开始按位比较ASCII码，首位ASCII码大的字符串视为较大字符串，若首位相等边比较第二位，依次向后比较。者正好符合我们对HH:MM:SS类型的时间比较，较大的时间在字符串比较时依然较大，这样我们便可以将时间存为string直接进行比较。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m;</span><br><span class="line">    <span class="built_in">string</span> unlockedId, lockedId, minTime = <span class="string">"24:00:00"</span>, maxTime = <span class="string">"00:00:00"</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;m);    <span class="comment">//输入登录总人数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">        <span class="built_in">string</span> id, inTime, outTime;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; id &gt;&gt; inTime &gt;&gt; outTime; <span class="comment">//输入登录者id 登录时间 登出时间</span></span><br><span class="line">        <span class="keyword">if</span>(minTime &gt; inTime)&#123;   <span class="comment">//如果登录时间早于当早登录时间</span></span><br><span class="line">            minTime = inTime;   <span class="comment">//记录最早登录时间为当前登录时间</span></span><br><span class="line">            unlockedId = id;    <span class="comment">//记录开门者id为当前id</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(maxTime &lt; outTime)&#123;  <span class="comment">//如果登出时间晚于最晚登录时间</span></span><br><span class="line">            maxTime = outTime;  <span class="comment">//记录最晚登出时间为当前登出时间</span></span><br><span class="line">            lockedId = id;  <span class="comment">//记录锁门者id为当前id</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; unlockedId &lt;&lt; <span class="string">" "</span> &lt;&lt; lockedId &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="comment">//输出开门者和锁门者的id</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/04/02/PTA-Advanced-Level-1004-Counting-Leaves/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/02/PTA-Advanced-Level-1004-Counting-Leaves/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1004 Counting Leaves</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-02 21:04:09" itemprop="dateCreated datePublished" datetime="2019-04-02T21:04:09+08:00">2019-04-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>　　A family hierarchy is usually presented by a pedigree tree. Your job is to count those family members who have no child.</p>
-<p>Input Specification:<br>　　Each input file contains one test case. Each case starts with a line containing 0 &lt; N &lt; 100, the number of nodes in a tree, and M (&lt;N), the number of non-leaf nodes. Then M lines follow, each in the format:</p>
-<p>ID K ID[1] ID[2] … ID[K]<br>　　where ID is a two-digit number representing a given non-leaf node, K is the number of its children, followed by a sequence of two-digit ID’s of its children. For the sake of simplicity, let us fix the root ID to be 01.</p>
-<p>The input ends with N being 0. That case must NOT be processed.</p>
-<p>Output Specification:<br>　　For each test case, you are supposed to count those family members who have no child for every seniority level starting from the root. The numbers must be printed in a line, separated by a space, and there must be no extra space at the end of each line.</p>
-<p>　　The sample case represents a tree with only 2 nodes, where 01 is the root and 02 is its only child. Hence on the root 01 level, there is 0 leaf node; and on the next level, there is 1leaf node. Then we should output 0 1 in a line.</p>
-<p>Sample Input:<br>2 1<br>01 1 02<br>Sample Output:<br>0 1<br>题目解析</p>
-<p>　　本题给出一颗家族关系树第一行首先给出两个整数0&lt;N&lt;100为家族中人数，M&lt;N为非叶子节点个数（有孩子的人的数量）之后跟随M行，每行都是一个有孩子的人的信息，其中包括一个两位id为其对应编号，一个整数K为其孩子的数量，之后K个两位数为其孩子的编号。家族树的根结点编号为1，要求由根结点所在层开始输出每层拥有的叶子结点个数（每层没有孩子的成员个数）。</p>
-<p>用一个vector<int> 类型的数组child[ ]储存每个人的孩子的编号，int型数组cnt[ ]储存每层的叶子结点数量，视根结点为第0层由根结点开始dfs搜索其每一个孩子，每个点的孩子所在的层数就是其层数加一，若搜索到没有孩子的结点便将其对应层叶子结点数量加一。将搜索到的最大层数计入maxL。</int></p>
-<p>最后由0到maxL输出每层的叶子结点数量即可。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; child[<span class="number">110</span>];  <span class="comment">//储存每个id的孩子</span></span><br><span class="line"><span class="keyword">int</span> cnt[<span class="number">110</span>]; <span class="comment">//记录每层叶子结点的个数</span></span><br><span class="line"><span class="keyword">int</span> n, m;   <span class="comment">//n为总人数， m为非叶子结点数量</span></span><br><span class="line"><span class="keyword">int</span> maxL = INT_MIN; <span class="comment">//maxL记录最大层数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> id, <span class="keyword">int</span> nowlevel)</span></span>&#123;</span><br><span class="line">    maxL = max(maxL, nowlevel); <span class="comment">//记录最大层数</span></span><br><span class="line">    <span class="keyword">if</span>(child[id].empty())   <span class="comment">//如果该点没有孩子表明其为叶子结点</span></span><br><span class="line">        cnt[nowlevel]++;    <span class="comment">//其对应层的叶子结点数量加一</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> i : child[id]) <span class="comment">//搜索其所有的孩子</span></span><br><span class="line">        dfs(i, nowlevel + <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);  <span class="comment">//输入总人数与非叶子结点数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123; <span class="comment">//输入所有非叶子结点信息</span></span><br><span class="line">        <span class="keyword">int</span> id, k;  <span class="comment">//该点id与孩子数量k</span></span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;id, &amp;k);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; k; j++)&#123; <span class="comment">//输入该点所有孩子</span></span><br><span class="line">            <span class="keyword">int</span> cid;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;cid);</span><br><span class="line">            child[id].push_back(cid);   <span class="comment">//记录该点的孩子</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(<span class="number">1</span>, <span class="number">0</span>);  <span class="comment">//1为根结点，由根结点第0层开始搜索</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= maxL; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i != <span class="number">0</span>)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>, cnt[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/04/02/Qt5-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Hello-World%E6%95%99%E7%A8%8B-Qt-Creator/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/02/Qt5-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Hello-World%E6%95%99%E7%A8%8B-Qt-Creator/" class="post-title-link" itemprop="url">Qt5--从零开始的Hello World教程(Qt Creator)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-02 17:10:07" itemprop="dateCreated datePublished" datetime="2019-04-02T17:10:07+08:00">2019-04-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%80%E5%8D%95%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">简单教程</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><meta name="referrer" content="no-referrer"></p>
-<h3 id="一、打开Qt-Creator"><a href="#一、打开Qt-Creator" class="headerlink" title="一、打开Qt Creator"></a>一、打开Qt Creator</h3><p>　　本次的目的是用Qt Creator建立一个Hello World项目，在安装Qt之后，首先要打开Qt Creator。</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402144344775-843344643.png" alt="img"></p>
-<p>　　就是它啦，打开后会显示如下页面。</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402144516906-500975365.png" alt="img"></p>
-<h3 id="二、建立新项目"><a href="#二、建立新项目" class="headerlink" title="二、建立新项目"></a>二、建立新项目</h3><p>　　点击文件——新建文件或项目 或者使用快捷键Ctrl+N便可以打开新建项目菜单。</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402144825806-315022429.png" alt="img"></p>
-<p>　　这里选择其他项目——Empty qmake Project创建一个空的qt项目 HelloWorld_Qt。</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402145220721-54460256.png" alt="img"></p>
-<p>　　一路下一步到完成之后就可以看到已经成功建立的项目HelloWorld_Qt。</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402145420368-1252528396.png" alt="img"></p>
-<p>　　这个生成的新项目包含两个文件。</p>
-<p> <img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402145521816-1197688933.png" alt="img"></p>
-<p>　　HelloWorld_Qt.pro是qt的工程文件，HelloWorld_Qt.pro.user是用于记录该次编译所用的打开工程的路径，编译器、构建的工具链、生成目录、打开工程的qt-creator的版本等的文件，更换编译环境是需删除。</p>
-<p>　　这样建立Qt项目便完成了。</p>
-<p>　　由于这里建立的是一个空项目，我们需要添加文件来编写代码，右击项目HelloWorld_Qt点击Add New，选择C++中的C++ Source File添加一个c++源代码文件，起名叫main一路下一步到完成。</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402150231560-2062946358.png" alt="img"></p>
-<p>　　这样就有了一个可以用来编写代码的main.cpp</p>
-<h3 id="三、编写代码"><a href="#三、编写代码" class="headerlink" title="三、编写代码"></a>三、编写代码</h3><p>　　打开main.cpp在其中编写代码我们需要建立一个Qt应用程序，需要引入Qt应用程序类QApplication所以我们引用它</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;QApplication&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402150738245-1316022751.png" alt="img"></p>
-<p>　　但是这里报错了，编译器告诉我们‘QApplication’类文件没有找到，这是因为没有连接Qt Widgets库，打开HelloWorld_Qt.pro引入Qt Widgets库，添加一句QT += widgets按下Ctrl+S保存，之后回到main.cpp</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402151334917-157143616.png" alt="img"></p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402151409236-1511120867.png" alt="img"></p>
-<p>　　果然，错误消失了。</p>
-<p>　　继续编写代码，我们还需要有一个窗体，需要引入QWidget类</p>
-<p>　　</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;QWidget&gt;</span><br></pre></td></tr></table></figure>
-<p>　　之后便可以开始设计主函数了。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;QWidget&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</span><br><span class="line">    <span class="comment">//在程序编译完成后会生成一个.exe后缀的可执行文件</span></span><br><span class="line">    <span class="comment">//argc是命令行参数个数</span></span><br><span class="line">    <span class="comment">//argv[0]记录程序名</span></span><br><span class="line">    <span class="comment">//argv[1]~argv[argc-1]记录的输入参数</span></span><br><span class="line">    <span class="comment">//argc argv是标识符，可以修改名称</span></span><br><span class="line">    <span class="comment">//main()函数有argc和argv或没有，即int main() 或void main，都是合法的。</span></span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">    <span class="comment">//应用程序抽象类</span></span><br><span class="line">    <span class="comment">//使用在argv中的argc个命令行参数构造一个名为app的QApplication对象。</span></span><br><span class="line">    <span class="comment">//QApplication 类管理图形用户界面应用程序的控制流和主要设置</span></span><br><span class="line">    <span class="comment">//任何一个使用Qt的图形用户界面应用程序，都存在一个QApplication对象</span></span><br><span class="line"></span><br><span class="line">    QWidget w;</span><br><span class="line">    <span class="comment">//QWidget类是所有用户界面对象的基类</span></span><br><span class="line">    <span class="comment">//在这里可以把它看作一个窗口，构造了一个窗口对象</span></span><br><span class="line">    w.setWindowTitle(<span class="string">"Hello World!"</span>);</span><br><span class="line">    <span class="comment">//将窗口的标题设为Hello World!</span></span><br><span class="line">    w.show();</span><br><span class="line">    <span class="comment">//显示窗体</span></span><br><span class="line">    <span class="keyword">return</span> app.exec();</span><br><span class="line">    <span class="comment">//exec()函数有一个消息循环，在调用之后，程序就被锁定。等待窗口的关闭</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>　　执行一下</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402152145588-140921127.png" alt="img"></p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402152215884-149429949.png" alt="img"></p>
-<p>　　成功显示HelloWorld窗口。 </p>
-<p>　　窗口建好之后我们便可以向窗口中添加控件了，现在需要在窗体中显示Hello World！，我们可以通过QLabel标签实现，要向窗体中添加QLabel标签则同样需要引入QLabel类。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;QLabel&gt;</span><br></pre></td></tr></table></figure>
-<p>　　之后构造一个标签对象</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">textLabel.resize(<span class="number">100</span>,<span class="number">15</span>);</span><br><span class="line"><span class="comment">//设定标签宽40高15</span></span><br><span class="line">textLabel.move(<span class="number">150</span>, <span class="number">170</span>);</span><br><span class="line"><span class="comment">//将标签移动到距离左上角水平100px垂直130px的位置</span></span><br><span class="line">textLabel.setText(<span class="string">"Hello World!"</span>);</span><br><span class="line"><span class="comment">//标签的初始显示字符串NULL</span></span><br><span class="line">textLabel.setParent(&amp;w);</span><br></pre></td></tr></table></figure>
-<p>　　标签QLabel也是一个窗体，它继承自QFrame，而QFrame又继承自QWidget，若想让他显示在我们构造的窗口w中就需要将QLabel对象textLabel的父对象设为w。</p>
-<p>　　在这个程序中w是主窗口，主窗口是指没有父对象的窗口。</p>
-<p>　　若在此处不使用textLable.setParent(w),text标签将单独弹出一个窗口。</p>
-<p>　　这就说明了，所有最终继承至QFrame的控件如果不把控件的父对象设置为当前主窗口，控件将单独作为一另个主窗口弹出。</p>
-<p>　　<img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402190800843-918816892.png" alt="img"></p>
-<p>　　注释textLable.setParent(w),text后的效果</p>
-<p>　　<img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402190907055-724741945.png" alt="img"></p>
-<p>　　正确效果</p>
-<p>　　源代码：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QWidget&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QLabel&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</span><br><span class="line">    <span class="comment">//在程序编译完成后会生成一个.exe后缀的可执行文件</span></span><br><span class="line">    <span class="comment">//argc是命令行参数个数</span></span><br><span class="line">    <span class="comment">//argv[0]记录程序名</span></span><br><span class="line">    <span class="comment">//argv[1]~argv[argc-1]记录的输入参数</span></span><br><span class="line">    <span class="comment">//argc argv是标识符，可以修改名称</span></span><br><span class="line">    <span class="comment">//main()函数有argc和argv或没有，即int main() 或void main，都是合法的。</span></span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">    <span class="comment">//应用程序抽象类</span></span><br><span class="line">    <span class="comment">//使用在argv中的argc个命令行参数构造一个名为app的QApplication对象。</span></span><br><span class="line">    <span class="comment">//QApplication 类管理图形用户界面应用程序的控制流和主要设置</span></span><br><span class="line">    <span class="comment">//任何一个使用Qt的图形用户界面应用程序，都存在一个QApplication对象</span></span><br><span class="line">    QWidget w;</span><br><span class="line">    w.resize(<span class="number">400</span>, <span class="number">400</span>);</span><br><span class="line">    <span class="comment">//QWidget类是所有用户界面对象的基类</span></span><br><span class="line">    <span class="comment">//在这里可以把它看作一个窗口，构造了一个窗口对象</span></span><br><span class="line">    w.setWindowTitle(<span class="string">"Hello World!"</span>);</span><br><span class="line">    <span class="comment">//将窗口的标题设为Hello World!</span></span><br><span class="line">    QLabel textLabel;</span><br><span class="line">    <span class="comment">//构造一个标签</span></span><br><span class="line">    textLabel.resize(<span class="number">100</span>,<span class="number">15</span>);</span><br><span class="line">    <span class="comment">//设定标签宽40高15</span></span><br><span class="line">    textLabel.move(<span class="number">150</span>, <span class="number">170</span>);</span><br><span class="line">    <span class="comment">//将标签移动到距离左上角水平100px垂直130px的位置</span></span><br><span class="line">    textLabel.setText(<span class="string">"Hello World!"</span>);</span><br><span class="line">    <span class="comment">//标签的初始显示字符串NULL</span></span><br><span class="line">    textLabel.setParent(&amp;w);</span><br><span class="line">    textLabel.show();</span><br><span class="line">    w.show();</span><br><span class="line">    <span class="comment">//显示窗体</span></span><br><span class="line">    <span class="keyword">return</span> app.exec();</span><br><span class="line">    <span class="comment">//exec()函数有一个消息循环，在调用之后，程序就被锁定。等待窗口的关闭</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="四、Hello-New-World"><a href="#四、Hello-New-World" class="headerlink" title="四、Hello New World!"></a>四、Hello New World!</h3><p>　　在成功完成上述项目后我们已经不能满足于单单在窗口中显示Hello World！了，这次我们希望用一个按钮来将Hello World！改为 Hello New World！。</p>
-<p>　　新建一个空的Qt项目，名为Hello New World。</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407144430673-1999955819.png" alt="img"></p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407144527554-1706277458.png" alt="img"></p>
-<p>　　一路下一步到完成，打开HelloNewWorld.pro引入Qt Widgets库，添加一句QT += widgets。</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407145104965-23413638.png" alt="img"></p>
-<p>　　这次我们不像上一个项目一样一个main函数到底，我们添加一个C++类作为主窗口框架。</p>
-<p> 　右击HelloNewWorld选择Add New添加一个C++ Class</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407145222933-287602353.png" alt="img"></p>
-<p>　　我们想让这个类作为我们主窗口的对象类型，我们将其命名为MainWidget，既然MainWidget是一个窗口，我们就让MainWidget作为QWidget的一个子类。</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407145638466-777605577.png" alt="img"></p>
-<p>　　将MainWidget的基类设为QWidget。</p>
-<p>　　一路下一步到结束。</p>
-<p>　　可以发现项目中多了两个文件，mainwidget.h 与 mainwidget.cpp。</p>
-<p><strong><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407145926646-486457409.png" alt="img"></strong></p>
-<p>　　我们的MainWidget类就声明在mainwidget.h中</p>
-<p>mainwidget.h:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> MAINWIDGET_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAINWIDGET_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QWidget&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainWidget</span> :</span> <span class="keyword">public</span> QWidget   <span class="comment">//MainWidget的声明</span></span><br><span class="line">&#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">MainWidget</span><span class="params">(QWidget *parent = <span class="literal">nullptr</span>)</span></span>;</span><br><span class="line">    <span class="comment">//MainWidget类的构造函数 因为使用了explicit所以为显式构造函数</span></span><br><span class="line">    <span class="comment">//c++ 类构造函数默认情况下即声明为implicit(隐式)</span></span><br><span class="line">    <span class="comment">//关于显示与隐式的区别这里就不介绍了，诸位若不知道可以搜索</span></span><br><span class="line">signals:</span><br><span class="line">    <span class="comment">//这里可以用来声明信号函数</span></span><br><span class="line"><span class="keyword">public</span> slots:</span><br><span class="line">    <span class="comment">//这里可以用来声明槽函数</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// MAINWIDGET_H</span></span></span><br></pre></td></tr></table></figure>
-<p> mainwidget.cpp: </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"mainwidget.h"</span></span></span><br><span class="line"></span><br><span class="line">MainWidget::MainWidget(QWidget *parent) : QWidget(parent)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//显示调用MainWidget构造函数</span></span><br><span class="line">    <span class="comment">//调用顺序是先调用父类QWidget的构造函数，再调用派生类的构造函数</span></span><br><span class="line">    <span class="comment">//具体可以看https://www.cnblogs.com/findumars/p/9231742.html这篇博客</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>　　之后便可以设计一下我们的主窗口了，根据本次的要求，我们希望主窗口中有一个标签来显示我们的Hello World与Hello New World，有一个按钮来实现点击按钮转换文字，这样就可以确定我们的MainWidget中会有两个成员控件，一个QLabel一个QPushButton。</p>
-<p>　　在MainWidget的声明中添加它们。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> MAINWIDGET_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAINWIDGET_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QWidget&gt;</span></span></span><br><span class="line"><span class="comment">//添加成员变量QPushButton与QLabel标签需要引入QPushButton与QLabel类。</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPushButton&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QLabel&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainWidget</span> :</span> <span class="keyword">public</span> QWidget</span><br><span class="line">&#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">MainWidget</span><span class="params">(QWidget *parent = <span class="literal">nullptr</span>)</span></span>;</span><br><span class="line">    <span class="comment">//MainWidget类的构造函数 因为使用了explicit所以为显式构造函数</span></span><br><span class="line">    <span class="comment">//c++ 类构造函数默认情况下即声明为implicit(隐式)</span></span><br><span class="line">    <span class="comment">//关于显示与隐式的区别这里就不介绍了，诸位若不知道可以搜索</span></span><br><span class="line"></span><br><span class="line">    QPushButton* button;    <span class="comment">//成员控件按钮</span></span><br><span class="line">    QLabel* label;  <span class="comment">//成员控件标签</span></span><br><span class="line"></span><br><span class="line">signals:</span><br><span class="line">    <span class="comment">//这里可以用来声明信号函数</span></span><br><span class="line"><span class="keyword">public</span> slots:</span><br><span class="line">    <span class="comment">//这里可以用来声明槽函数</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// MAINWIDGET_H</span></span></span><br></pre></td></tr></table></figure>
-<p> 　　之后便可以在mainwidget.cpp中编写代码了，我们希望将主窗口设计为一个400*400，文字和按钮显示在中间，文字在按钮上方，在mainwidget.cpp中，MainWidget构造函数处做如下更改 。 </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">MainWidget::MainWidget(QWidget *parent) : QWidget(parent)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//显示调用MainWidget构造函数</span></span><br><span class="line">    <span class="comment">//调用顺序是先调用父类QWidget的构造函数，再调用派生类的构造函数</span></span><br><span class="line">    <span class="comment">//具体可以看https://www.cnblogs.com/findumars/p/9231742.html这篇博客</span></span><br><span class="line">    resize(<span class="number">400</span>, <span class="number">400</span>);</span><br><span class="line">    <span class="comment">//设置窗口大小为400px * 400px</span></span><br><span class="line">    label = <span class="keyword">new</span> QLabel(<span class="string">"Hello World!"</span>, <span class="keyword">this</span>);</span><br><span class="line">    <span class="comment">//初始化控件lable文字显示为Hello World!， 父对象为当前MainWidget窗口对象</span></span><br><span class="line">    label-&gt;setGeometry(<span class="number">150</span>, <span class="number">100</span>, <span class="number">130</span>, <span class="number">50</span>);</span><br><span class="line">    <span class="comment">//lable的位置在x = 150px y = 100px 宽为100px高为50px</span></span><br><span class="line">    button = <span class="keyword">new</span> QPushButton(<span class="string">"change"</span>, <span class="keyword">this</span>);</span><br><span class="line">    <span class="comment">//初始化控件button文字显示为change， 父对象为当前MainWidget窗口对象</span></span><br><span class="line">    button-&gt;setGeometry(<span class="number">150</span>, <span class="number">175</span>, <span class="number">130</span>, <span class="number">50</span>);</span><br><span class="line">    <span class="comment">//button的位置在x = 150px y = 175px 宽为100px高为50px</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> 　　之后设计主函数，在主函数中构建一个MainWidget窗口w，将它显示出来。 </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    MainWidget w;   <span class="comment">//构建一个MainWidget窗口w</span></span><br><span class="line">    w.show();   <span class="comment">//显示w</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> app.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>　　不要忘记引入QApplication。</p>
-<h3 id="以下为当前mainwidget-cpp的全部代码"><a href="#以下为当前mainwidget-cpp的全部代码" class="headerlink" title="　　以下为当前mainwidget.cpp的全部代码"></a>　　以下为当前mainwidget.cpp的全部代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"mainwidget.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"></span><br><span class="line">MainWidget::MainWidget(QWidget *parent) : QWidget(parent)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//显示调用MainWidget构造函数</span></span><br><span class="line">    <span class="comment">//调用顺序是先调用父类QWidget的构造函数，再调用派生类的构造函数</span></span><br><span class="line">    <span class="comment">//具体可以看https://www.cnblogs.com/findumars/p/9231742.html这篇博客</span></span><br><span class="line">    resize(<span class="number">400</span>, <span class="number">400</span>);</span><br><span class="line">    <span class="comment">//设置窗口大小为400px * 400px</span></span><br><span class="line">    label = <span class="keyword">new</span> QLabel(<span class="string">"Hello World!"</span>, <span class="keyword">this</span>);</span><br><span class="line">    <span class="comment">//初始化控件lable文字显示为Hello World!， 父对象为当前MainWidget窗口对象</span></span><br><span class="line">    label-&gt;setGeometry(<span class="number">150</span>, <span class="number">100</span>, <span class="number">130</span>, <span class="number">50</span>);</span><br><span class="line">    <span class="comment">//lable的位置在x = 150px y = 100px 宽为100px高为50px</span></span><br><span class="line">    button = <span class="keyword">new</span> QPushButton(<span class="string">"change"</span>, <span class="keyword">this</span>);</span><br><span class="line">    <span class="comment">//初始化控件button文字显示为change， 父对象为当前MainWidget窗口对象</span></span><br><span class="line">    button-&gt;setGeometry(<span class="number">150</span>, <span class="number">175</span>, <span class="number">130</span>, <span class="number">50</span>);</span><br><span class="line">    <span class="comment">//button的位置在x = 150px y = 175px 宽为100px高为50px</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    MainWidget w;   <span class="comment">//构建一个MainWidget窗口w</span></span><br><span class="line">    w.show();   <span class="comment">//显示w</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> app.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>　　运行一下</p>
-<p>　　<img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407152141926-1324001370.png" alt="img"></p>
-<p>　　一个符合我们设计要求的窗口已经完成了。</p>
-<p>　　之后就要开始完成点击按钮更换文字的功能了，这里就用到了信号和槽的知识。</p>
-<p>　　在QObject类中有一个connect函数其中要求传入四个参数，第一个参数为被用户操作的对象（发出信号的对象当前为我们的change按钮），第二个参数是一个被操作信号（当前为按钮被点击clicked()），第三个参数是我们要进行操作的对象（接受信号的对象当前为我们的主窗体w），第四个参数为对应的槽函数（这就需要我们自己设计一个槽函数了，我们将这个槽函数命名为changeText）。</p>
-<p>　　</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">QObject::connect(w.button, SIGNAL(clicked()), &amp;w, SLOT(changeText()));</span><br></pre></td></tr></table></figure>
-<p>　　当然，Qt中QObject是绝大多数类的基类，包括QWidget，而我们的MainWidget又是QWidget的子类，所以如下写法依然正确。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MainWidget::connect(w.button, SIGNAL(clicked()), &amp;w, SLOT(changeText()));</span><br></pre></td></tr></table></figure>
-<p>　　之后我们就要在MainWidget的声明中去声明和定义槽函数了（可以只声明，在mainwidget.cpp中定义）。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public slots:</span><br><span class="line">    &#x2F;&#x2F;这里可以用来声明槽函数</span><br><span class="line">    void changeText()&#123;</span><br><span class="line">        label-&gt;setText(&quot;Hello New World!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>　　运行一下</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407154617832-1219284277.png" alt="img"></p>
-<p>　　点击change</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407154646019-1773784269.png" alt="img"></p>
-<p>　　完整代码：</p>
-<p>　　HelloNewWorld.pro:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">QT +&#x3D; widgets</span><br><span class="line"></span><br><span class="line">HEADERS +&#x3D; \</span><br><span class="line">    mainwidget.h</span><br><span class="line"></span><br><span class="line">SOURCES +&#x3D; \</span><br><span class="line">    mainwidget.cpp</span><br></pre></td></tr></table></figure>
-<p> 　　mainwidget.h: </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> MAINWIDGET_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAINWIDGET_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QWidget&gt;</span></span></span><br><span class="line"><span class="comment">//添加成员变量QPushButton与QLabel标签需要引入QPushButton与QLabel类。</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPushButton&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QLabel&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainWidget</span> :</span> <span class="keyword">public</span> QWidget   <span class="comment">//MainWidget的声明</span></span><br><span class="line">&#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">MainWidget</span><span class="params">(QWidget *parent = <span class="literal">nullptr</span>)</span></span>;</span><br><span class="line">    <span class="comment">//MainWidget类的构造函数 因为使用了explicit所以为显式构造函数</span></span><br><span class="line">    <span class="comment">//c++ 类构造函数默认情况下即声明为implicit(隐式)</span></span><br><span class="line">    <span class="comment">//关于显示与隐式的区别这里就不介绍了，诸位若不知道可以搜索</span></span><br><span class="line"></span><br><span class="line">    QPushButton* button;    <span class="comment">//成员控件按钮</span></span><br><span class="line">    QLabel* label;  <span class="comment">//成员控件标签</span></span><br><span class="line"></span><br><span class="line">signals:</span><br><span class="line">    <span class="comment">//这里可以用来声明信号函数</span></span><br><span class="line"><span class="keyword">public</span> slots:</span><br><span class="line">    <span class="comment">//这里可以用来声明槽函数</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">changeText</span><span class="params">()</span></span>&#123;</span><br><span class="line">        label-&gt;setText(<span class="string">"Hello New World!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// MAINWIDGET_H</span></span></span><br></pre></td></tr></table></figure>
-<p> 　　mainwidget.cpp: </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"mainwidget.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"></span><br><span class="line">MainWidget::MainWidget(QWidget *parent) : QWidget(parent)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//显示调用MainWidget构造函数</span></span><br><span class="line">    <span class="comment">//调用顺序是先调用父类QWidget的构造函数，再调用派生类的构造函数</span></span><br><span class="line">    <span class="comment">//具体可以看https://www.cnblogs.com/findumars/p/9231742.html这篇博客</span></span><br><span class="line">    resize(<span class="number">400</span>, <span class="number">400</span>);</span><br><span class="line">    <span class="comment">//设置窗口大小为400px * 400px</span></span><br><span class="line">    label = <span class="keyword">new</span> QLabel(<span class="string">"Hello World!"</span>, <span class="keyword">this</span>);</span><br><span class="line">    <span class="comment">//初始化控件lable文字显示为Hello World!， 父对象为当前MainWidget窗口对象</span></span><br><span class="line">    label-&gt;setGeometry(<span class="number">150</span>, <span class="number">100</span>, <span class="number">130</span>, <span class="number">50</span>);</span><br><span class="line">    <span class="comment">//lable的位置在x = 150px y = 100px 宽为100px高为50px</span></span><br><span class="line">    button = <span class="keyword">new</span> QPushButton(<span class="string">"change"</span>, <span class="keyword">this</span>);</span><br><span class="line">    <span class="comment">//初始化控件button文字显示为change， 父对象为当前MainWidget窗口对象</span></span><br><span class="line">    button-&gt;setGeometry(<span class="number">150</span>, <span class="number">175</span>, <span class="number">130</span>, <span class="number">50</span>);</span><br><span class="line">    <span class="comment">//button的位置在x = 150px y = 175px 宽为100px高为50px</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    MainWidget w;   <span class="comment">//构建一个MainWidget窗口w</span></span><br><span class="line">    w.show();   <span class="comment">//显示w</span></span><br><span class="line"></span><br><span class="line">    QObject::connect(w.button, SIGNAL(clicked()), &amp;w, SLOT(changeText()));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> app.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/04/02/PTA-Advanced-Level-1005-Spell-It-Right/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/02/PTA-Advanced-Level-1005-Spell-It-Right/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1005 Spell It Right</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-02 12:41:48" itemprop="dateCreated datePublished" datetime="2019-04-02T12:41:48+08:00">2019-04-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>　　Given a non-negative integer N, your task is to compute the sum of all the digits of N, and output every digit of the sum in English.</p>
-<h3 id="Input-Specification"><a href="#Input-Specification" class="headerlink" title="Input Specification:"></a>Input Specification:</h3><p>　　Each input file contains one test case. Each case occupies one line which contains an N (≤).</p>
-<h3 id="Output-Specification"><a href="#Output-Specification" class="headerlink" title="Output Specification:"></a>Output Specification:</h3><p>　　For each test case, output in one line the digits of the sum in English words. There must be one space between two consecutive words, but no extra space at the end of a line.</p>
-<h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input:"></a>Sample Input:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">12345</span><br></pre></td></tr></table></figure>
-<h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output:"></a>Sample Output:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">one five</span><br></pre></td></tr></table></figure>
-<p>题目解析</p>
-<p>　　本题给出一个小于10的100次方的数字，要求计算其每一位的数字的和，并由最大为开始以英文输出和的每一位。</p>
-<p>　　将给出的数字记录在字符串num中计算字符串每一位减去字符’0’后的和即可得到给出数字每一位的和，以字符串数组str[ ]记录其下标数字对应的英文单词。</p>
-<p>　　最后将得到的和每一位对应的单词记录并输出即可。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="built_in">string</span> str[<span class="number">10</span>] = &#123;<span class="string">"zero"</span>, <span class="string">"one"</span>, <span class="string">"two"</span>, <span class="string">"three"</span>, <span class="string">"four"</span>, <span class="string">"five"</span>, <span class="string">"six"</span>, <span class="string">"seven"</span>, <span class="string">"eight"</span>, <span class="string">"nine"</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getSum</span><span class="params">(<span class="built_in">string</span> num)</span></span>&#123; <span class="comment">//计算给出数字每一位的和</span></span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> i : num)</span><br><span class="line">        ans += i - <span class="string">'0'</span>;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> num;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; num; <span class="comment">//输入num</span></span><br><span class="line">    <span class="keyword">int</span> sum = getSum(num);  <span class="comment">//求每一位的和</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; ans; <span class="comment">//记录sum每一位对应的英文单词</span></span><br><span class="line">    <span class="keyword">do</span>&#123; <span class="comment">//由于可能出现sum为0的情况，所以用do while</span></span><br><span class="line">        ans.push_back(str[sum % <span class="number">10</span>]);</span><br><span class="line">        sum /= <span class="number">10</span>;</span><br><span class="line">    &#125;<span class="keyword">while</span>(sum);</span><br><span class="line">    reverse(ans.begin(), ans.end());    <span class="comment">//由于记录时时由低位到高位记录，所以将其反转ans</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ans.size(); i++)&#123;    <span class="comment">//输出答案</span></span><br><span class="line">        <span class="keyword">if</span>(i != <span class="number">0</span>)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; ans[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1367,7 +1756,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-count">152</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1380,7 +1769,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">84</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1500,6 +1889,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

@@ -177,6 +177,396 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/05/10/SQL-JOIN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/10/SQL-JOIN/" class="post-title-link" itemprop="url">SQL JOIN</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-10 18:42:05" itemprop="dateCreated datePublished" datetime="2020-05-10T18:42:05+08:00">2020-05-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="SQL-JOIN"><a href="#SQL-JOIN" class="headerlink" title="SQL JOIN"></a>SQL JOIN</h1><h2 id="INNER-JOIN"><a href="#INNER-JOIN" class="headerlink" title="INNER JOIN"></a>INNER JOIN</h2><p><img src="/2020/05/10/SQL-JOIN/innerJoin.svg" alt="img"></p>
+<p>INNER JOIN是指目标关系的交集</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 目标属性 <span class="keyword">FROM</span> 左关系名 左别名 <span class="keyword">INNER</span> <span class="keyword">JOIN</span> 右关系名 右别名 <span class="keyword">on</span> 左别名.条件属性 = 右别名.条件属性</span><br></pre></td></tr></table></figure>
+<h2 id="LEFT-JOIN"><a href="#LEFT-JOIN" class="headerlink" title="LEFT JOIN"></a>LEFT JOIN</h2><p><img src="/2020/05/10/SQL-JOIN/leftJoin.svg" alt="img"></p>
+<p>LEFT JOIN是指目标关系的交集与左侧关系的并集，即显示左侧关系的全部内容，若其对应右侧关系目标值满足条件则显示，否则显示null</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 目标属性 <span class="keyword">FROM</span> 左关系名 左别名 <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> 右关系名 右别名 <span class="keyword">on</span> 左别名.条件属性 = 右别名.条件属性</span><br></pre></td></tr></table></figure>
+<h2 id="RIGHT-JOIN"><a href="#RIGHT-JOIN" class="headerlink" title="RIGHT JOIN"></a>RIGHT JOIN</h2><p><img src="/2020/05/10/SQL-JOIN/rightJoin.svg" alt="img"></p>
+<p>RIGHT JOIN是指目标关系的交集与右侧关系的并集，即显示右侧关系的全部内容，若其对应左侧关系目标值满足条件则显示，否则显示null</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 目标属性 <span class="keyword">FROM</span> 左关系名 左别名 <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> 右关系名 右别名 <span class="keyword">on</span> 左别名.条件属性 = 右别名.条件属性</span><br></pre></td></tr></table></figure>
+<h2 id="FULL-JOIN"><a href="#FULL-JOIN" class="headerlink" title="FULL JOIN"></a>FULL JOIN</h2><p><img src="/2020/05/10/SQL-JOIN/fullJoin.svg" alt="img"></p>
+<p>FULL JOIN是指目标关系的并集，即显示左侧关系与右侧关系的全部内容，若其对应关系目标值满足条件则显示，否则显示null</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 目标属性 <span class="keyword">FROM</span> 左关系名 左别名 <span class="keyword">FULL</span> <span class="keyword">JOIN</span> 右关系名 右别名 <span class="keyword">on</span> 左别名.条件属性 = 右别名.条件属性</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/05/09/Java-%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/09/Java-%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">Java 生产者消费者模式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-09 20:54:59" itemprop="dateCreated datePublished" datetime="2020-05-09T20:54:59+08:00">2020-05-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Java-生产者消费者模式"><a href="#Java-生产者消费者模式" class="headerlink" title="Java 生产者消费者模式"></a>Java 生产者消费者模式</h1><p>生产者消费者模式将产生数据的执行流叫做生产者，将处理数据的执行流叫做消费者，为生产者于消费者提供数据缓冲区，生产者将数据写入缓冲区，消费者从缓冲区中获取数据，实现生产者于消费者的同步。</p>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
+<li><p>优点</p>
+<ul>
+<li><p>降低耦合度</p>
+<p>由于有缓冲区的概念，生产者与消费者之间没有直接的依赖关系，可以降低系统耦合度</p>
+</li>
+<li><p>提高效率</p>
+<p>生产者与消费者并发允许，操作数据缓冲区，提高了系统效率</p>
+</li>
+<li><p>平衡生产者与消费者之间的处理速度差</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="排它锁"><a href="#排它锁" class="headerlink" title="排它锁"></a>排它锁</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.Queue;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: BoundedBuffer</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 生产者消费者的有界缓冲区</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/5/9 19:28</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BoundedBuffer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object flag;</span><br><span class="line">    <span class="keyword">private</span> Integer maxSize;</span><br><span class="line">    <span class="keyword">private</span> Queue buffer;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BoundedBuffer</span><span class="params">(Object flag, Integer maxSize, Queue buffer)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.flag = flag;</span><br><span class="line">        <span class="keyword">this</span>.maxSize = maxSize;</span><br><span class="line">        <span class="keyword">this</span>.buffer = buffer;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getFlag</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> flag;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getMaxSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> maxSize;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Queue <span class="title">getBuffer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> buffer;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isFull</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> maxSize == buffer.size();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> buffer.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        BoundedBuffer boundedBuffer = <span class="keyword">new</span> BoundedBuffer(<span class="keyword">new</span> Object(), <span class="number">10</span>, <span class="keyword">new</span> LinkedList());</span><br><span class="line">        Thread p1 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Producer(boundedBuffer), <span class="string">"Producer001"</span>);</span><br><span class="line">        Thread p2 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Producer(boundedBuffer), <span class="string">"Producer002"</span>);</span><br><span class="line">        Thread c1 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Consumer(boundedBuffer), <span class="string">"Consumer001"</span>);</span><br><span class="line">        Thread c2 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Consumer(boundedBuffer), <span class="string">"Consumer002"</span>);</span><br><span class="line">        p1.start();</span><br><span class="line">        p2.start();</span><br><span class="line">        c1.start();</span><br><span class="line">        c2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: Producer</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 生产者，每秒向缓冲区中添加一条数据</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/5/9 19:36</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Producer</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> BoundedBuffer buffer;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Producer</span><span class="params">(BoundedBuffer buffer)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.buffer = buffer;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">synchronized</span> (buffer.getFlag()) &#123;</span><br><span class="line">                <span class="keyword">while</span> (buffer.isFull()) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        System.out.println(<span class="string">"Producter:buffer is full"</span>);</span><br><span class="line">                        buffer.getFlag().wait();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                Object val = <span class="keyword">new</span> Object();</span><br><span class="line">                buffer.getBuffer().add(val);</span><br><span class="line">                System.out.println(<span class="string">"Productor "</span> + Thread.currentThread().getName() + <span class="string">" put "</span> + val);</span><br><span class="line">                buffer.getFlag().notifyAll();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: Consumer</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 消费者，每2秒从缓冲区中取出一条数据</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/5/9 19:53</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Consumer</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> BoundedBuffer buffer;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Consumer</span><span class="params">(BoundedBuffer buffer)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.buffer = buffer;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">synchronized</span> (buffer.getFlag()) &#123;</span><br><span class="line">                <span class="keyword">while</span> (buffer.isEmpty()) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        buffer.getBuffer().wait();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                Object val = buffer.getBuffer().poll();</span><br><span class="line">                System.out.println(<span class="string">"Consumer "</span> + Thread.currentThread().getName() + <span class="string">" poll "</span> + val);</span><br><span class="line">                buffer.getFlag().notifyAll();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="可重入锁"><a href="#可重入锁" class="headerlink" title="可重入锁"></a>可重入锁</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.Queue;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.Condition;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.Lock;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: BoundedBuffer02</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 生产者消费者的有界缓冲区</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/5/9 19:28</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BoundedBuffer02</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Lock lock;</span><br><span class="line">    <span class="keyword">private</span> Integer maxSize;</span><br><span class="line">    <span class="keyword">private</span> Queue buffer;</span><br><span class="line">    <span class="keyword">private</span> Condition emptyCondition;</span><br><span class="line">    <span class="keyword">private</span> Condition fullCondition;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BoundedBuffer02</span><span class="params">(Lock lock, Integer maxSize, Queue buffer)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.lock = lock;</span><br><span class="line">        <span class="keyword">this</span>.maxSize = maxSize;</span><br><span class="line">        <span class="keyword">this</span>.buffer = buffer;</span><br><span class="line">        emptyCondition = lock.newCondition();</span><br><span class="line">        fullCondition = lock.newCondition();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Lock <span class="title">getLock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> lock;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getMaxSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> maxSize;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Queue <span class="title">getBuffer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> buffer;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isFull</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> maxSize == buffer.size();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> buffer.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Condition <span class="title">getEmptyCondition</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> emptyCondition;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Condition <span class="title">getFullCondition</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> fullCondition;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        BoundedBuffer02 boundedBuffer = <span class="keyword">new</span> BoundedBuffer02(<span class="keyword">new</span> ReentrantLock(), <span class="number">10</span>, <span class="keyword">new</span> LinkedList());</span><br><span class="line">        Thread p1 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Producer02(boundedBuffer), <span class="string">"Producer001"</span>);</span><br><span class="line">        Thread p2 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Producer02(boundedBuffer), <span class="string">"Producer002"</span>);</span><br><span class="line">        Thread c1 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Consumer02(boundedBuffer), <span class="string">"Consumer001"</span>);</span><br><span class="line">        Thread c2 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Consumer02(boundedBuffer), <span class="string">"Consumer002"</span>);</span><br><span class="line">        p1.start();</span><br><span class="line">        p2.start();</span><br><span class="line">        c1.start();</span><br><span class="line">        c2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: Producer02</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 生产者，每秒向缓冲区中添加一条数据</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/5/9 19:36</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Producer02</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> BoundedBuffer02 buffer;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Producer02</span><span class="params">(BoundedBuffer02 buffer)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.buffer = buffer;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            buffer.getLock().lock();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">while</span> (buffer.isFull()) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        System.out.println(Thread.currentThread().getName() + <span class="string">":buffer is full"</span>);</span><br><span class="line">                        buffer.getFullCondition().await();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                Object val = <span class="keyword">new</span> Object();</span><br><span class="line">                buffer.getBuffer().add(val);</span><br><span class="line">                System.out.println(<span class="string">"Productor "</span> + Thread.currentThread().getName() + <span class="string">" put "</span> + val);</span><br><span class="line">                buffer.getEmptyCondition().signal();</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                buffer.getLock().unlock();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: Consumer02</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 消费者，每2秒从缓冲区中取出一条数据</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/5/9 19:53</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Consumer02</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> BoundedBuffer02 buffer;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Consumer02</span><span class="params">(BoundedBuffer02 buffer)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.buffer = buffer;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            buffer.getLock().lock();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">while</span> (buffer.isEmpty()) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        System.out.println(Thread.currentThread().getName() + <span class="string">":buffer is empty"</span>);</span><br><span class="line">                        buffer.getEmptyCondition().await();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                Object val = buffer.getBuffer().poll();</span><br><span class="line">                System.out.println(<span class="string">"Consumer "</span> + Thread.currentThread().getName() + <span class="string">" poll "</span> + val);</span><br><span class="line">                buffer.getFullCondition().signal();</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                buffer.getLock().unlock();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.ArrayBlockingQueue;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.BlockingQueue;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: BoundedBuffer03</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 生产者消费者的有界缓冲区</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/5/9 19:28</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BoundedBuffer03</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        BlockingQueue&lt;Object&gt; boundedBuffer = <span class="keyword">new</span> ArrayBlockingQueue&lt;&gt;(<span class="number">10</span>);</span><br><span class="line">        Thread p1 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Producer03(boundedBuffer), <span class="string">"Producer001"</span>);</span><br><span class="line">        Thread p2 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Producer03(boundedBuffer), <span class="string">"Producer002"</span>);</span><br><span class="line">        Thread c1 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Consumer03(boundedBuffer), <span class="string">"Consumer001"</span>);</span><br><span class="line">        Thread c2 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Consumer03(boundedBuffer), <span class="string">"Consumer002"</span>);</span><br><span class="line">        p1.start();</span><br><span class="line">        p2.start();</span><br><span class="line">        c1.start();</span><br><span class="line">        c2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: Producer03</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 生产者，每秒向缓冲区中添加一条数据</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/5/9 19:36</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Producer03</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> BlockingQueue buffer;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Producer03</span><span class="params">(BlockingQueue buffer)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.buffer = buffer;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                Object val = <span class="keyword">new</span> Object();</span><br><span class="line">                buffer.put(val);</span><br><span class="line">                System.out.println(<span class="string">"Productor "</span> + Thread.currentThread().getName() + <span class="string">" put "</span> + val);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: Consumer03</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 消费者，每2秒从缓冲区中取出一条数据</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/5/9 19:53</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Consumer03</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> BlockingQueue buffer;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Consumer03</span><span class="params">(BlockingQueue buffer)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.buffer = buffer;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">                Object val = buffer.take();</span><br><span class="line">                System.out.println(<span class="string">"Consumer "</span> + Thread.currentThread().getName() + <span class="string">" poll "</span> + val);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/05/08/java-%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/08/java-%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8/" class="post-title-link" itemprop="url">java 四种引用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-08 17:22:08" itemprop="dateCreated datePublished" datetime="2020-05-08T17:22:08+08:00">2020-05-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Java-四种引用"><a href="#Java-四种引用" class="headerlink" title="Java 四种引用"></a>Java 四种引用</h1><h2 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h2><p>强引用指的是与对象直接关联的引用，如直接创建一个对象并把这个对象赋值给目标类型引用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object[] objects = <span class="keyword">new</span> Object[<span class="number">100</span>];</span><br></pre></td></tr></table></figure>
+<p>被强引用所指向的对象在强引用消失前永远不会被垃圾回收器回收，但是可以通过显示将强引用赋值为null来消除强引用与目标对象的关系。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objects = <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="软引用"><a href="#软引用" class="headerlink" title="软引用"></a>软引用</h2><p>软引用一般用于描述有用但非必要的引用（如图片缓存），在内存充足时软引用关联的对象不对被垃圾回收器回收，在其被回收之前一直可以通过get方法得到强引用，被回收后调用get方法将得到null。</p>
+<p>JDK1.2后提供了SoftReference实现软引用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SoftReference&lt;Object&gt; softReference = <span class="keyword">new</span> SoftReference&lt;&gt;(<span class="keyword">new</span> Object());</span><br></pre></td></tr></table></figure>
+<h2 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h2><p>弱引用一般用于描述用处不大的非必要的引用，当垃圾回收器开始垃圾回收时，无论内存空间是否充足，弱引用关联的对象都将被回收。</p>
+<p>WeakHashMap中的key使用的就是虚引用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WeakReference&lt;Object&gt; weakReference = <span class="keyword">new</span> WeakReference&lt;&gt;(<span class="keyword">new</span> Object());</span><br></pre></td></tr></table></figure>
+<h2 id="虚引用"><a href="#虚引用" class="headerlink" title="虚引用"></a>虚引用</h2><p>虚引用无法通过get方法获得对象，创建虚引用时需要指明引用队列，在其指向的对象被回收后期会被加入引用队列表示其指向对象被销毁。一般用于探查对象何时从堆中被移除，比如可以利用它在上一张图片资源被从堆中移除后加载下一张图片。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ReferenceQueue&lt;Object&gt; queue = <span class="keyword">new</span> ReferenceQueue&lt;&gt;();</span><br><span class="line">PhantomReference&lt;Object&gt; pr = <span class="keyword">new</span> PhantomReference&lt;&gt;(<span class="keyword">new</span> Object(), queue);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/05/05/HTTP-%E4%B8%8E-HTTPS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/05/HTTP-%E4%B8%8E-HTTPS/" class="post-title-link" itemprop="url">HTTP 与 HTTPS</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-05 20:13:08" itemprop="dateCreated datePublished" datetime="2020-05-05T20:13:08+08:00">2020-05-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="HTTP-与-HTTPS"><a href="#HTTP-与-HTTPS" class="headerlink" title="HTTP 与 HTTPS"></a>HTTP 与 HTTPS</h1><h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><p>HTTP协议从小学就开始学，是一种应用层的基于TCP/IP的，无状态的数据传输协议，发送的是明文数据。</p>
+<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><ul>
+<li>根据域名查找DNS获取ip地址</li>
+<li>与服务器建立TCP连接</li>
+<li>客户端发送请求至服务器</li>
+<li>服务器处理客户请求返回响应信息</li>
+<li>客户端接收响应信息并进行下一步处理</li>
+</ul>
+<h3 id="HTTP请求结构"><a href="#HTTP请求结构" class="headerlink" title="HTTP请求结构"></a>HTTP请求结构</h3><ul>
+<li><p>请求行</p>
+<ul>
+<li>请求方法method</li>
+<li>请求url字段</li>
+<li>协议版本</li>
+</ul>
+</li>
+<li><p>请求头</p>
+<p>请求头包含一些常用请求头字段记录和客户端的各种信息，如Cookie就是被组合在请求头中</p>
+</li>
+<li><p>空行</p>
+<p>只包含回车符和换行符，用于表示请求头截止</p>
+</li>
+<li><p>请求数据</p>
+<p>包含客户端要向服务器提交的数据的键值对</p>
+</li>
+</ul>
+<h2 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h2><p>默认工作在443端口，为了解决HTTP明文传输的安全问题，HTTPS协议在HTTP协议基础上加入了SSL层，通过加密传输与身份认证保证安全性。可以视HTTPS为包装在SSL/TLS协议下的HTTP。</p>
+<p>使用HTTPS需要在服务端配置私钥与证书</p>
+<p>如nginx证书的key（私钥）与pem（证书）文件</p>
+<p>ssl证书可以由受信任的数字证书颁发机构颁发，也可以自行签发，主要包括如颁发者信息，签名，指纹，有效期，申请者信息，公钥加密算法，公钥一类的服务端身份信息。</p>
+<h3 id="SSL协议"><a href="#SSL协议" class="headerlink" title="SSL协议"></a>SSL协议</h3><p>安全套接字协议，为网络通信提供数据加密与完整性检验</p>
+<ul>
+<li>握手协议：客户端与服务器的相互验证，协商加密算法与交换密钥</li>
+<li>记录协议：提供加密传输与完整性验证</li>
+<li>警报协议：发现错误报警发现致命错误删除相关信息后关闭连接</li>
+</ul>
+<h3 id="TLS协议"><a href="#TLS协议" class="headerlink" title="TLS协议"></a>TLS协议</h3><p>安全传输层协议，基于SSL3.0，与SSL3.0加密方式不同，可以视为升级版的SSL</p>
+<p>HTTPS协议同时采取了对称加密与非对称加密</p>
+<h3 id="工作流程-1"><a href="#工作流程-1" class="headerlink" title="工作流程"></a>工作流程</h3><ul>
+<li>客户端向服务器443端口发送握手协议HTTP请求</li>
+<li>服务器收到请求后将其证书发送给客户端</li>
+<li>客户端收到证书后进行合法性验证</li>
+<li>验证完毕后客户端根据证书中的公钥生成一个密钥，之后将使用密钥将要传输的数据进行加密发送给服务器</li>
+<li>服务器收到客户端密文后根据私钥将密钥进行解密</li>
+<li>使用解密后的密钥加密响应数据发送给客户端</li>
+<li>客户端根据密钥进行堆成解密</li>
+</ul>
+<h3 id="验证证书合法性"><a href="#验证证书合法性" class="headerlink" title="验证证书合法性"></a>验证证书合法性</h3><p>受信任的权威机构的根证书会内嵌在浏览器中</p>
+<ul>
+<li>浏览器在收到证书后会首先寻找目标颁发机构的根证书</li>
+<li>根据根公钥解密目标证书的数字签名</li>
+<li>解密后得到指纹（证书的hash值）和指纹算法</li>
+<li>根据指纹算法去计算出当前证书的hash值</li>
+<li>对比指纹与当前hash值是否相同</li>
+<li>相同则继续检查url和先前请求url是否相同</li>
+<li>若相同则证书合法</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/05/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8C%83%E5%BC%8F-%E8%87%B3BCNF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -796,465 +1186,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/30/Maven%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/30/Maven%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/" class="post-title-link" itemprop="url">Maven依赖冲突</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-30 20:55:44" itemprop="dateCreated datePublished" datetime="2020-04-30T20:55:44+08:00">2020-04-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Maven依赖冲突"><a href="#Maven依赖冲突" class="headerlink" title="Maven依赖冲突"></a>Maven依赖冲突</h1><h2 id="Maven依赖引入规则"><a href="#Maven依赖引入规则" class="headerlink" title="Maven依赖引入规则"></a>Maven依赖引入规则</h2><h3 id="最短依赖路径原则"><a href="#最短依赖路径原则" class="headerlink" title="最短依赖路径原则"></a>最短依赖路径原则</h3><p>最短依赖路径原则是maven依赖冲突的自动解决规则，若产生依赖冲突则会采用依赖深度最浅的版本</p>
-<p>例</p>
-<p>在springBoot项目中主动引入spring-core的依赖，我使用了springboot2.2.1</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>sping-boot-starter-test-2.2.1.RELEASE.pom中指明了使用spring-core的版本为5.2.1</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这时主动在pom.xml中引入spring-core 4.3.27</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-core --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.3.27.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>之后尝试运行项目。</p>
-<p>报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.IllegalArgumentException: Cannot instantiate interface org.springframework.contex</span><br></pre></td></tr></table></figure>
-<h3 id="最先声明原则"><a href="#最先声明原则" class="headerlink" title="最先声明原则"></a>最先声明原则</h3><p>若产生冲突的依赖深度相同则会采用最先声明的版本。</p>
-<h2 id="依赖冲突的处理"><a href="#依赖冲突的处理" class="headerlink" title="依赖冲突的处理"></a>依赖冲突的处理</h2><p>可以使用mvn dependency:tree来查看依赖树</p>
-<p>若使用idea开发则可以直接在pom.xml中右键选择Maven-&gt;Show Dependencies，之后可以看到如下图所示，冲突部份依赖将由红色虚线标识</p>
-<p><img src="/2020/04/30/Maven%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/mavendependenciesdemo.svg" alt="img"></p>
-<p>这时只需要找到冲突的依赖，通过exclusions在对应依赖项中将不需要的版本排除，idea则可以在上述操作打开的目标图中直接右键选择Exclude即可自动为目标依赖添加exclusions</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/30/Java-ReentrantLock/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/30/Java-ReentrantLock/" class="post-title-link" itemprop="url">Java ReentrantLock</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-30 20:12:55" itemprop="dateCreated datePublished" datetime="2020-04-30T20:12:55+08:00">2020-04-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Java-ReentrantLock"><a href="#Java-ReentrantLock" class="headerlink" title="Java ReentrantLock"></a>Java ReentrantLock</h1><h2 id="ReentrantLock描述"><a href="#ReentrantLock描述" class="headerlink" title="ReentrantLock描述"></a>ReentrantLock描述</h2><p>ReentrantLock是一个可重入的排它锁，ReentrantLock会被最后一次成功得锁的线程所持有，在其没有被任何一个线程所持有时调用lock方法的线程可成功得锁。</p>
-<p>其提供了一个参数sync类型为Sync继承自AbstractQueuedSynchronizer，来记录当前ReentrantLock是公平锁还是非公平锁</p>
-<ul>
-<li><p>公平锁</p>
-<p>进程得锁的顺序将按照调用lock方法的顺序</p>
-</li>
-<li><p>非公平锁</p>
-<p>进程将通过竞争的方式得锁</p>
-</li>
-</ul>
-<h2 id="ReentrantLock得锁放锁过程"><a href="#ReentrantLock得锁放锁过程" class="headerlink" title="ReentrantLock得锁放锁过程"></a>ReentrantLock得锁放锁过程</h2><h3 id="得锁"><a href="#得锁" class="headerlink" title="得锁"></a>得锁</h3><p>lock被调用时会调用sync的lock方法</p>
-<ul>
-<li><p>首先通过tryAcquire尝试得锁，成功则不做任何操作</p>
-<p>AbstractQueuedSynchronizer有一个Thread变量来记录当前得锁的线程。</p>
-<p>tryAcquire方法会获取state（抽象概念的锁）来并判断当前独占变量是否被线程所占有，以及锁被重入的次数</p>
-<ul>
-<li>若未被占用则调用hasQueuedPredecessors探测阻塞队列中没有先来的线程等待得锁（公平锁非公平锁判断方式不同），当前线程得锁，返回true</li>
-<li>若已被占用则判断得锁线程是否为当前线程，如果使的话则记录state值加一，返回true</li>
-<li>若上述都不符合标识得锁失败返回false</li>
-</ul>
-</li>
-<li><p>如果得锁失败则为当前线程创建一个结点并加入等待队列。</p>
-<ul>
-<li>使用addWaiter调用native方法将代表当前线程的结点采用CAS的方式插入队尾，让后调用acpuireQueued阻塞并等待得锁</li>
-</ul>
-</li>
-</ul>
-<h3 id="放锁"><a href="#放锁" class="headerlink" title="放锁"></a>放锁</h3><p>unlock放锁时会调用sync的release，参数为1</p>
-<ul>
-<li><p>放锁release方法调用tryRelease方法尝试释放独占变量并返回一个值标识该锁是否被完全释放</p>
-<ul>
-<li><p>tryRelease会获取state并将其值减一，如果减一后等于零则表明该锁被完全释放，并将持有锁的线程设为null</p>
-</li>
-<li><p>若锁完全释放则会判断当前等待队列是否有阻塞线程，有则会调用unparkSuccessor唤醒一个结点所代表的线程并返回true，否则返回false</p>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/30/Shell-source-sh-bash/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/30/Shell-source-sh-bash/" class="post-title-link" itemprop="url">Shell source sh bash ./</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-30 14:53:12" itemprop="dateCreated datePublished" datetime="2020-04-30T14:53:12+08:00">2020-04-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/shell/" itemprop="url" rel="index"><span itemprop="name">shell</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Shell-source-sh-bash"><a href="#Shell-source-sh-bash" class="headerlink" title="Shell source sh bash ./"></a>Shell source sh bash ./</h1><h2 id="打开子shell"><a href="#打开子shell" class="headerlink" title="打开子shell"></a>打开子shell</h2><h3 id="sh-bash"><a href="#sh-bash" class="headerlink" title="sh/bash"></a>sh/bash</h3><p>打开子shell执行目标脚本，sh相当于bash的POSIX语法的软连接，两者都无需执行权限</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sh filename.sh</span><br><span class="line">bash filename.sh</span><br></pre></td></tr></table></figure>
-<h3 id><a href="#" class="headerlink" title="./"></a>./</h3><p>打开子shell执行目标脚本，需要执行权限</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./ filename.sh</span><br></pre></td></tr></table></figure>
-<h2 id="不打开子shell"><a href="#不打开子shell" class="headerlink" title="不打开子shell"></a>不打开子shell</h2><h3 id="source"><a href="#source" class="headerlink" title="source"></a>source</h3><p>在当前shell内执行目标脚本，无需执行权限</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source filename.sh</span><br></pre></td></tr></table></figure>
-<h3 id="-1"><a href="#-1" class="headerlink" title=" "></a> </h3>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/27/JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/27/JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" class="post-title-link" itemprop="url">JVM垃圾收集器</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-27 21:55:15" itemprop="dateCreated datePublished" datetime="2020-04-27T21:55:15+08:00">2020-04-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h1><h2 id="Serial收集器"><a href="#Serial收集器" class="headerlink" title="Serial收集器"></a>Serial收集器</h2><h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
-<li>最基本，发展最悠久的收集器</li>
-<li>JDK1.3.1前是新生代垃圾回收的唯一选择。</li>
-<li>Serial是单线程的（STW）进行垃圾回收时会暂停所有线程。</li>
-<li>其依旧是客户端（-client）模式下的新生代默认收集器，进入STW状态可以高效回收，时间较短用户一般无法感知。</li>
-<li>针对新生代采取复制算法</li>
-<li>使用-XX:+UseSerialGC使用Serial收集器</li>
-</ul>
-<h3 id="回收过程"><a href="#回收过程" class="headerlink" title="回收过程"></a>回收过程</h3><ul>
-<li>新生代回收时进入STW状态暂停所有线程</li>
-<li>启动GC线程进行回收</li>
-<li>恢复其他用户线程继续运行</li>
-</ul>
-<h3 id="Serial-Old收集器"><a href="#Serial-Old收集器" class="headerlink" title="Serial Old收集器"></a>Serial Old收集器</h3><p>Serial收集器的老年代版本，针对老年代采取标记整理算法</p>
-<h4 id="回收过程-1"><a href="#回收过程-1" class="headerlink" title="回收过程"></a>回收过程</h4><ul>
-<li>老年代回收时也是进入STW状态暂停所有线程</li>
-<li>启动GC线程进行回收</li>
-<li>之后恢复其他用户线程继续运行</li>
-</ul>
-<h2 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h2><h3 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h3><ul>
-<li>多线程收集，相比Serial收集器来说可以拥有多个GC线程，可以看作是Serial收集器的多线程版本，收集算法、可控参数等于Serial收集器相等。</li>
-<li>是服务器（-server）模式的首选收集器。</li>
-<li>在单核CPU情况下性能并不如Serial收集器。</li>
-<li>可以通过-XX:ParallelGCThreads=n配置垃圾回收线程数为n（建议于CPU数量一至）</li>
-<li>使用-XX:+UseParNewGC可以将其指定为新生代收集器。</li>
-<li>使用-XX:+UseConcMarkSweepGC指定使用CMS作为老年代收集器后会默认使用ParNew作为新生代收集器。</li>
-</ul>
-<h3 id="回收过程-2"><a href="#回收过程-2" class="headerlink" title="回收过程"></a>回收过程</h3><ul>
-<li>新生代回收时进入STW状态暂停所有线程</li>
-<li>启动指定数量的GC线程进行回收</li>
-<li>之后恢复其他用户线程继续运行</li>
-</ul>
-<h2 id="Parallel-Scavenge收集器"><a href="#Parallel-Scavenge收集器" class="headerlink" title="Parallel Scavenge收集器"></a>Parallel Scavenge收集器</h2><h3 id="特点-2"><a href="#特点-2" class="headerlink" title="特点"></a>特点</h3><ul>
-<li>Parallel Scavenge收集器是一个新生代收集器</li>
-<li>是一个并行多线程垃圾收集器</li>
-<li>采取复制算法</li>
-<li>设计目的不是减少垃圾回收用户线程停止时间，而是提高吞吐量，保证总垃圾回收时长尽可能短</li>
-<li>使用-XX:MaxGCPauseMillis设置最大垃圾收集时间，可以牺牲吞吐量减少单次收集时间</li>
-<li>使用-XX:GCTimeRatio设置吞吐量大小，范围0~100，计算方式$\frac 1 {1 + n}$ </li>
-<li>使用XX:+UseAdaptiveSizePolicy开启自适应策略，开启后虚拟机会根据当前情况自动调整新生代各区域大小于晋升老年代阈值。</li>
-</ul>
-<h3 id="回收过程-3"><a href="#回收过程-3" class="headerlink" title="回收过程"></a>回收过程</h3><ul>
-<li>触发GC后进入STW状态</li>
-<li>运行MaxGCPauseMillis设置最大垃圾收集时间</li>
-<li>到时间后不管GC程度如何直接开始运行用户线程直到再次触发GC</li>
-</ul>
-<h3 id="Parallel-Old收集器"><a href="#Parallel-Old收集器" class="headerlink" title="Parallel Old收集器"></a>Parallel Old收集器</h3><p>Parallel Scavenge收集器的老年代版本，使用多线程标记整理算法，在老年代很大且硬件环境较为高级的情况下较为合适。</p>
-<h2 id="CMS收集器"><a href="#CMS收集器" class="headerlink" title="CMS收集器"></a>CMS收集器</h2><p>Concurrent Mark Sweep收集器是一种跨时代的收集器，边使用边回收。</p>
-<h3 id="特点-3"><a href="#特点-3" class="headerlink" title="特点"></a>特点</h3><ul>
-<li>采取标记-清除算法，可能产生大量碎片</li>
-<li>CMS收集器对CPU敏感，可能降低用户线程执行效率</li>
-<li>不等到老年代满后触发GC，而是为老年代流出部分空间供用户线程并发使用</li>
-<li>无法处理浮动垃圾，即并发清理中产生的垃圾无法被当次回收清除，老年代预留空间不足时，会出现”Concurrent Mode Failure”，出现时会触发Full GC使用Serial Old收集器对老年代进行回收整理。</li>
-<li>使用-XX:+UseCMSInitiatingOccupancyOnly可以指定GC触发时机否则将由虚拟机决定何时触发<ul>
-<li>CMSInitiatingOccupancyFraction 老年代阈值</li>
-<li>有永久代的话 CMSInitiatingPermOccupancyFraction 永久代阈值</li>
-</ul>
-</li>
-<li>使用+UseCMSCompactAtFullCollection在Full GC触发前进行碎片整理合并</li>
-<li>使用-XX:CMSFullGCsBeforeCompaction可以控制在几次Full GC后进行碎片整理合并</li>
-</ul>
-<h3 id="回收过程-4"><a href="#回收过程-4" class="headerlink" title="回收过程"></a>回收过程</h3><ul>
-<li><p>初始标记：只关联GC Root（所有Java线程当前栈引用、静态数据结构引用、常量池引用、运行时常量池引用）可以直接关联到的对象，速度很快，需要进入STW状态</p>
-</li>
-<li><p>并发标记：边标记边运行用户线程，遍历老年代可达对象，可能产生对象变动</p>
-<p>三色标记法</p>
-<ul>
-<li>白色，没有被搜索过的对象（垃圾对象）</li>
-<li>灰色，正在搜索的对象</li>
-<li>黑色，搜索完成的对象（存活对象）</li>
-</ul>
-</li>
-<li><p>重新标记：修正并发标记齐键因用户操作产生变动的对象标记记录，要标记的对象一般很少，需要进入STW状态</p>
-</li>
-<li><p>并发清除：在并发清除中用户线程可以与CMS收集器一台工作</p>
-</li>
-</ul>
-<h2 id="G1收集器"><a href="#G1收集器" class="headerlink" title="G1收集器"></a>G1收集器</h2><p>当前最先进的垃圾收集器，JDK9后的默认收集器</p>
-<h3 id="特点-4"><a href="#特点-4" class="headerlink" title="特点"></a>特点</h3><ul>
-<li>简单可行的性能调优</li>
-<li>使用-XX:+UseG1GC使用G1收集器</li>
-<li>将内存划分为大小相等的大量区域，一般为数千个，这些区域又分为<ul>
-<li>Eden：用于存放新创建对象</li>
-<li>Survivor：用于存放Eden区域提升的对象，满后将提升至Old区并进行回收</li>
-<li>Old：老年代存放长久存活的对象</li>
-<li>Humongous：Humongous是连续的区域，一个对象的大小超过一个区域的50%时，将被存放至Humongous区域</li>
-</ul>
-</li>
-<li>所有区域不是固定的，在清理完成后将成为待用区等待下一次分配。</li>
-</ul>
-<h3 id="回收过程-5"><a href="#回收过程-5" class="headerlink" title="回收过程"></a>回收过程</h3><ul>
-<li>Eden满后，使用复制算法将Eden与Survivor（From）区的存活复制到Survivor（To）区域（新），并清理Eden区与Survivor（From）区，空间不够直接提升至Old区，回收时只会扫描有引用Eden区与Survivor区对象的区域，而不是之前的RememberSet或全部老年代</li>
-<li>Survivor满后或目标对象到达存活阈值将提升至Old区</li>
-<li>Old占比超过规定后触发一次类似CMS的GC<ul>
-<li>初始标记：触发年轻代GC标记可能有引用指向老年代的区域，需要进入STW状态</li>
-<li>扫描根区域：扫描初始标记中标记的区域，标记存活的老年代对象</li>
-<li>并发标记查询整个堆中存活的对象，同CMS并发标记</li>
-<li>重新标记：根据起始快照算法（SATB比CMS中的算法快很多）完成堆中存活对象的标记，需要进入STW状态</li>
-<li>清理：清理垃圾对象，并将清理后的空区域标记为空闲区域，需要进入STW状态</li>
-<li>拷贝：将存活对象拷贝至新的分配的Survivor（To）区域</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1322,7 +1257,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-count">152</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1335,7 +1270,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">84</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1455,59 +1390,6 @@
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 
