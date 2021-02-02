@@ -177,6 +177,184 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/19/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/19/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">JVM内存模型</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-19 21:05:10" itemprop="dateCreated datePublished" datetime="2020-04-19T21:05:10+08:00">2020-04-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="JVM内存模型"><a href="#JVM内存模型" class="headerlink" title="JVM内存模型"></a>JVM内存模型</h1><p><img src="/2020/04/19/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/JvmMemory.svg" alt="img"></p>
+<h2 id="线程共享"><a href="#线程共享" class="headerlink" title="线程共享"></a>线程共享</h2><h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>原永久代gc可以延申至方法区，存储运行时常量池和已被虚拟机加载的类的信息、常量、static变量</p>
+<p>回收行为：常量池回收、对象类型的卸载</p>
+<h3 id="堆（最大内存区域）"><a href="#堆（最大内存区域）" class="headerlink" title="堆（最大内存区域）"></a>堆（最大内存区域）</h3><ul>
+<li>堆用于存储对象实例</li>
+<li>是垃圾搜集器管理的主要区域</li>
+<li>分为新生代和老年代</li>
+</ul>
+<h2 id="线程独占"><a href="#线程独占" class="headerlink" title="线程独占"></a>线程独占</h2><h3 id="Java栈"><a href="#Java栈" class="headerlink" title="Java栈"></a>Java栈</h3><p>存放方法运行时所需数据（方法的动态内存模型）</p>
+<p>每个方法执行都会创建一个栈帧，伴随方法从执行到结束，用于存储局部变量表、操作数栈、动态链接、方法出口等。</p>
+<p>栈帧创建完毕后进栈，方法执行完毕后出栈。</p>
+<ul>
+<li><p>局部变量表（空间在编译时就计算完毕）</p>
+<p>存放基本数据类型变量与对象变量引用</p>
+</li>
+</ul>
+<p>若栈内栈帧太多超出栈容量就会发生StackOverFlowError</p>
+<h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3><p>与上述Java栈相似，都有栈帧局部变量表等，但是本地方法栈为JVM所调用的Naitve方法服务。</p>
+<h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>程序计数器空间很小，指向当前线程执行的字节码指令的地址，若执行本地方法则为undefined，程序计数器没有OutOfMemoryError</p>
+<p>(goto为Java保留字无法使用)</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/19/JVM%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E4%B8%8E%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E7%9A%84%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/19/JVM%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E4%B8%8E%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E7%9A%84%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">JVM内存溢出与内存泄漏的处理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-19 19:11:52" itemprop="dateCreated datePublished" datetime="2020-04-19T19:11:52+08:00">2020-04-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="JVM内存溢出与内存泄漏的处理"><a href="#JVM内存溢出与内存泄漏的处理" class="headerlink" title="JVM内存溢出与内存泄漏的处理"></a>JVM内存溢出与内存泄漏的处理</h1><h2 id="已报OOM的内存溢出或内存泄漏"><a href="#已报OOM的内存溢出或内存泄漏" class="headerlink" title="已报OOM的内存溢出或内存泄漏"></a>已报OOM的内存溢出或内存泄漏</h2><ul>
+<li>在运行时设置虚拟机参数 -XX:+HeapDumpOnOutOfMemoryError 创建堆内存存储快照</li>
+<li>使用 -Xms分配合适的启动内存，使用-Xmx分配合适的最大内存</li>
+<li>重新运行OOM的程序，生成.hprof堆快照文件</li>
+<li>使用任意内存监视工具打开快照文件，根据堆内存占用结果进行分析</li>
+<li>制定解决方案解决问题</li>
+</ul>
+<h2 id="未报OOM但存在内存泄漏风险和情况"><a href="#未报OOM但存在内存泄漏风险和情况" class="headerlink" title="未报OOM但存在内存泄漏风险和情况"></a>未报OOM但存在内存泄漏风险和情况</h2><ul>
+<li>使用可视化监控工具，如Jprofiler，或jdk自带的jconsole进行监控</li>
+<li>根据监控结果判断是否存在泄漏点（如观察占用内存最多的对象类型、观察生命周期过长的对象）</li>
+<li>制定解决方案解决问题</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/19/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1278,243 +1456,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/06/TCP%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/06/TCP%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/" class="post-title-link" itemprop="url">TCP流量控制</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-06 22:01:47" itemprop="dateCreated datePublished" datetime="2020-04-06T22:01:47+08:00">2020-04-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="TCP流量控制"><a href="#TCP流量控制" class="headerlink" title="TCP流量控制"></a>TCP流量控制</h1><h2 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h2><h3 id="流量控制目的"><a href="#流量控制目的" class="headerlink" title="流量控制目的"></a>流量控制目的</h3><ul>
-<li>发送方的发送速率与接收方的接收速率尽可能一至</li>
-<li>数据传输尽可能快</li>
-<li>不要使网络发生拥塞</li>
-</ul>
-<h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><h4 id="滑动窗口机制"><a href="#滑动窗口机制" class="headerlink" title="滑动窗口机制"></a>滑动窗口机制</h4><p>在建立TCP链接时，数据接收方会通知发送方其接收窗口（rwnd）大小，而发送方在收到接收窗口大小后会根据接收窗口与拥塞窗口（cwnd）大小设置发送窗口。</p>
-<h4 id="滑动窗口的维护"><a href="#滑动窗口的维护" class="headerlink" title="滑动窗口的维护"></a>滑动窗口的维护</h4><ul>
-<li>在建立TCP链接时，数据接收方会通知发送方其接收窗口大小</li>
-<li>接收端发送确认报文段时会一并发送当前剩余接收窗口大小</li>
-<li>发送方收到确认报文段后选取MIN(rwnd,cwnd)作为发送窗口大小</li>
-<li>当接收端接收窗口为0时发送方停止发送数据并启动持续计时器（presistencce timer）</li>
-<li>接收端处理一部分数据后，将主动发送报文段通知发送端接收窗口的大小。</li>
-<li>若接收方长时间未通知发送方接收窗口大小，或通知报文段丢失导致持续计时器超时，发送方将主动发出零窗口探测报文段</li>
-<li>接收端在收到零窗口探测报文段时将回复当前接收窗口大小</li>
-<li>若接收方收到的发送窗口大小依旧是0则重置持续计时器，若非0则继续发送数据。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/05/TCP%E7%9A%84%E7%8A%B6%E6%80%81%E5%8F%98%E8%BF%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/05/TCP%E7%9A%84%E7%8A%B6%E6%80%81%E5%8F%98%E8%BF%81/" class="post-title-link" itemprop="url">TCP的状态变迁</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-05 17:51:26" itemprop="dateCreated datePublished" datetime="2020-04-05T17:51:26+08:00">2020-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="TCP的状态变迁"><a href="#TCP的状态变迁" class="headerlink" title="TCP的状态变迁"></a>TCP的状态变迁</h1><h2 id="链接建立"><a href="#链接建立" class="headerlink" title="链接建立"></a>链接建立</h2><p>由三报文握手建立TCP连接。</p>
-<h3 id="服务器状态变迁"><a href="#服务器状态变迁" class="headerlink" title="服务器状态变迁"></a>服务器状态变迁</h3><ul>
-<li><p>CLOSED（关闭） $\rightarrow$ LISTEN（监听）</p>
-<p>服务器启动，由关闭状态转变为监听状态等待客户端发送建立连接请求</p>
-</li>
-<li><p>LISTEN（监听）$\rightarrow$ SYN_SENT（同步请求发送）</p>
-<p>服务器若向其他主机发送建立连接请求这时就变为了客户端，状态转为同步请求发送态，之后流程与客户端同步请求发送态相同。</p>
-</li>
-<li><p>LISTEN（监听）$\rightarrow$ SYN_RCVD（同步请求收到）</p>
-<p>服务器收到客户端发送的同步位 SYN = 1 确认位 ACK = 0 的建立连接请求报文段后由监听状态转变为同步请求收到状态，并向客户端回复一个同步位 SYN = 1 确认位ACK = 1 的报文段。</p>
-</li>
-<li><p>SYN_RCVD（同步请求收到）$\rightarrow$ FIN_WAIT_1（关闭等待初态）</p>
-<p>若服务器在等待ACK=1的确认报文段时可直接发送释放链接的FIN位为1的报文段，直接按链接释放处理。</p>
-</li>
-<li><p>SYN_RCVD（同步请求收到）$\rightarrow$ ESTABLISHED（建立）</p>
-<p>服务器收到客户端发送的ACK = 1的确认报文段，确认连接建立（不发送任何报文段）由同步请求收到状态转变为TCP连接建立状态</p>
-</li>
-</ul>
-<h3 id="客户端状态变迁"><a href="#客户端状态变迁" class="headerlink" title="客户端状态变迁"></a>客户端状态变迁</h3><ul>
-<li><p>CLOSED（关闭） $\rightarrow$ SYN_SENT（同步请求发送）</p>
-<p>客户端主动发起连接，由关闭状态转变为同步请求发送状态，并向服务器发送同步位 SYN = 1 确认位ACK = 0 的建立连接请求报文段。</p>
-</li>
-<li><p>SYN_SENT（同步请求发送）$\rightarrow$ 服务端SYN_RCVD（同步请求收到）</p>
-<p>可能会出现两端同时发送SYN=1 ACK=0 的建立连接请求，这样的话客户端将转为SYN_RCVD状态，之后的流程与服务端SYN_RCVD相同。</p>
-</li>
-<li><p>SYN_SENT（同步请求发送）$\rightarrow$ ESTABLISHED（建立）</p>
-<p>客户端收到服务器发送的同步位 SYN = 1 确认位ACK = 1的回复报文段，此时客户端认为连接已建立并向服务器回复ACK = 1的确认报文段（该段可直接用于传输数据）</p>
-</li>
-<li><p>SYN_SENT（同步请求发送）$\rightarrow$ CLOSED（关闭）</p>
-<p>客户端在收到服务器SYN=1 ACK=0 的建立连接请求之前请求应用程序被关闭，或者客户端长时间没有收到服务器建立连接请求时会关闭链接，进入关闭状态</p>
-</li>
-</ul>
-<h2 id="数据传输"><a href="#数据传输" class="headerlink" title="数据传输"></a>数据传输</h2><p>客户端与服务器都处在ESTABLISHED状态持续数据直到其中一方收到FIN连接关闭请求报文段。</p>
-<h2 id="链接释放"><a href="#链接释放" class="headerlink" title="链接释放"></a>链接释放</h2><p>四次挥手释放链接。</p>
-<h3 id="关闭发起者（主动端）"><a href="#关闭发起者（主动端）" class="headerlink" title="关闭发起者（主动端）"></a>关闭发起者（主动端）</h3><p>关闭发起者既可以是服务器又可以是客户端。</p>
-<ul>
-<li><p>ESTABLISHED（建立）$\rightarrow$ FIN_WAIT_1（关闭等待状态初态）</p>
-<p>主动端者向被动端发送FIN = 1的链接释放报文段</p>
-</li>
-<li><p>FIN_WAIT_1（关闭等待初态）$\rightarrow$ FIN_WAIT_2（半关闭）</p>
-<p>主动端收到被动端发送的确认位ACK = 1的报文段后，此时主动端等待被动段发送FIN = 1且ACK = 1的链接释放报文段。</p>
-</li>
-<li><p>FIN_WAIT_1（关闭等待初态）$\rightarrow$ CLOSEING （同时关闭）</p>
-<p>主动端发送链接释放报文段后首先收到的不是ACK=1的回复报文，而是收到了同样FIN=1的释放报文段，这证明在主动端发起释放的同时被动端也发起了释放，这时两者都成为了主动端，两者将会向对方发送ACK=1的确认报文段，并都进入CLOSING同时关闭状态。</p>
-</li>
-<li><p>FIN_WAIT_1（关闭等待初态）$\rightarrow$ TIME_WAIT（等待超时）</p>
-<p>若主动端发送链接释放报文段被被动端成功接收，被动端也成功依次发送了ACK=1的回复报文段与FIN=1 ACK=1的释放报文段，但是ACK=1的回复报文段在传输过程中丢失，并没有被主动端接收到，主动端在FIN_WAIT_1直接收到了被动端发送的FIN=1 ACK=1释放报文段，此种情况下ACK=1的回复报文段丢失并不影响链接的释放，主动端将直接向被动端发送ACK=1的报文段并进入TIME_WAIT等待超时状态。</p>
-</li>
-<li><p>FIN_WAIT_2（半关闭）$\rightarrow$ TIME_WAIT（等待超时）</p>
-<p>主动端在半关闭状态成功收到服务端发动的FIN=1 ACK=1的释放报文段，主动端将向被动端发送ACK=1的报文段并进入TIME_WAIT等待超时状态。</p>
-</li>
-<li><p>CLOSEING （同时关闭）$\rightarrow$ TIME_WAIT（等待超时）</p>
-<p>两个主动端在同时关闭状态收到ACK=1的回复报文段将直接进入TIME_WAIT等待超时状态。</p>
-</li>
-<li><p>TIME_WAIT（等待超时）$\rightarrow$ CLOSED（关闭）</p>
-<p>主动端等待两个最大报文生存周期（MSL）后关闭。</p>
-<p>原因是若主动方立刻关闭连接可能会出现一下情况</p>
-<ul>
-<li>主动端发送的ACK丢失，被动端进行FIN重传，若主动端已关闭则被动端无法收到主动端确认报文段，一直处于LAST_ACK状态无法关闭</li>
-<li>若被动端在关闭后立刻重新发起了连接请求，又碰巧使用了同一个端口，这时网络中可能有上一次连接延迟却依旧存活的报文段，若此报文段突然抵达服务端，将被认为是新连接发送的报文，等待2MSL可以确保此时网络中的所有本次连接的报文全部消失。</li>
-</ul>
-</li>
-</ul>
-<h3 id="关闭接收者（被动端）"><a href="#关闭接收者（被动端）" class="headerlink" title="关闭接收者（被动端）"></a>关闭接收者（被动端）</h3><ul>
-<li><p>ESTABLISHED（建立）$\rightarrow$ CLOSE_WAIT（关闭等待）</p>
-<p>被动端收到主动端发送的FIN = 1的链接释放报文段，向主动端发送ACK=1的回复报文段并进入关闭等待状态。</p>
-</li>
-<li><p>CLOSE_WAIT（关闭等待状态）$\rightarrow$ LAST_ACK（最终回复）</p>
-<p>被动端向主动端发送FIN=1 ACK=1释放报文段，并等待主动端发送ACK=1的回复报文段</p>
-</li>
-<li><p>LAST_ACK（最终回复）$\rightarrow$ CLOSED（关闭）</p>
-<p>被动端收到主动端ACK=1的回复后关闭</p>
-</li>
-</ul>
-<h2 id="TCP状态图"><a href="#TCP状态图" class="headerlink" title="TCP状态图"></a>TCP状态图</h2><p><img src="/2020/04/05/TCP%E7%9A%84%E7%8A%B6%E6%80%81%E5%8F%98%E8%BF%81/TCP状态图.svg" alt="img"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1586,7 +1527,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

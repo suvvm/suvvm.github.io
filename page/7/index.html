@@ -177,6 +177,184 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/03/16/Java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/16/Java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">Java单例模式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-16 17:45:18" itemprop="dateCreated datePublished" datetime="2020-03-16T17:45:18+08:00">2020-03-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Java单例模式"><a href="#Java单例模式" class="headerlink" title="Java单例模式"></a>Java单例模式</h1><p>单例模式属于创建型模式，每个类只有一个实例，并为其他所有对象提供访问唯一该实例的的方式。</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><p>只需要一个的对象，如硬件设备驱动对象（打印机or显卡驱动对象）、日志对象、创建需要消耗大量资源的对象（数据库连接）、代表耶稣的上帝对象等。</p>
+<h2 id="单例模式的实现"><a href="#单例模式的实现" class="headerlink" title="单例模式的实现"></a>单例模式的实现</h2><p>实现单例模式需要私有的构造函数，静态的实例对象与静态的访问方法。</p>
+<h3 id="饿汉式（线程安全）"><a href="#饿汉式（线程安全）" class="headerlink" title="饿汉式（线程安全）"></a>饿汉式（线程安全）</h3><p>在静态域中初始化单例的实例对象，所以单例的实例对象会在JVM加载该类时被创建，线程安全。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 在静态域中初始化单例的实例对象 </span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">	<span class="comment">// private 构造器</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">	<span class="comment">// 访问该实例的方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> instance;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="懒汉式（非线程安全）"><a href="#懒汉式（非线程安全）" class="headerlink" title="懒汉式（非线程安全）"></a>懒汉式（非线程安全）</h3><p>懒加载，在初次调用单例实例时初始化单例实例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 在静态域中声明单例的实例对象 </span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line">	<span class="comment">// private 构造器</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">	<span class="comment">// 加锁的访问该实例的方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 仅在初次访问时初始化单例实例</span></span><br><span class="line">		<span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">			instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> instance;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="懒汉式（线程安全）"><a href="#懒汉式（线程安全）" class="headerlink" title="懒汉式（线程安全）"></a>懒汉式（线程安全）</h3><p>懒加载，在初次调用单例实例时初始化单例实例，synchronized加锁保证线程安全。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 在静态域中声明单例的实例对象 </span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line">	<span class="comment">// private 构造器</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">	<span class="comment">// 加锁的访问该实例的方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 仅在初次访问时初始化单例实例</span></span><br><span class="line">		<span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">			instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> instance;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="懒汉式（双重校验锁DCL-线程安全）"><a href="#懒汉式（双重校验锁DCL-线程安全）" class="headerlink" title="懒汉式（双重校验锁DCL 线程安全）"></a>懒汉式（双重校验锁DCL 线程安全）</h3><p>懒加载，在调用单例实例时先检验单例实例是否创建，若未创建则初始化单例实例。<br>使用volatile关键词防止寄存器中读取的数据与内存中不一致。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 在静态域中声明单例的实例对象 </span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line">	<span class="comment">// private 构造器</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">	<span class="comment">// 加锁的访问该实例的方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 检验单例实例是否创建</span></span><br><span class="line">		<span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">synchronized</span>(Singleton.class) &#123;</span><br><span class="line">				<span class="comment">// 进入同步代码块后再次检验</span></span><br><span class="line">				<span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">					instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> instance;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="懒汉式（IoDH延迟加载-线程安全）"><a href="#懒汉式（IoDH延迟加载-线程安全）" class="headerlink" title="懒汉式（IoDH延迟加载 线程安全）"></a>懒汉式（IoDH延迟加载 线程安全）</h3><p>利用内部编译后加载与主类无关的特性使用静态内部类延迟加载，在调用单例实例时显式加载静态内部类实现创建单例实例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 在静态内部类中声明单例的实例对象 </span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span> </span>&#123;</span><br><span class="line">		<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton INSTANCE = <span class="keyword">new</span> Singleton();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// private 构造器</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">	<span class="comment">// 加锁的访问该实例的方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> SingletonHolder.INSTANCE;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="枚举（线程安全）"><a href="#枚举（线程安全）" class="headerlink" title="枚举（线程安全）"></a>枚举（线程安全）</h3><p>通过枚举关键字enum定义Enum子类,利用枚举的特性保证线程安全与实例单一。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Singleton &#123;</span><br><span class="line">	INSTANCE</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">whateverMethod</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li>Head First 设计模式</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/03/15/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/15/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-title-link" itemprop="url">Java多线程的实现</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-15 19:39:32" itemprop="dateCreated datePublished" datetime="2020-03-15T19:39:32+08:00">2020-03-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="JAVA线程"><a href="#JAVA线程" class="headerlink" title="JAVA线程"></a>JAVA线程</h1><h2 id="线程与进程"><a href="#线程与进程" class="headerlink" title="线程与进程"></a>线程与进程</h2><p>众所周知，对于实现多了任务的操作系统，进程是资源的拥有者，也是处理机调度的基本单位。</p>
+<p>线程继承了进程的一个基本属性，线程是处理机的调度单位。</p>
+<p>所以线程是进程中的一个运行实体，是CPU的调度单位，有时将线程称为轻量级进程。</p>
+<h2 id="Java-多线程的实现"><a href="#Java-多线程的实现" class="headerlink" title="Java 多线程的实现"></a>Java 多线程的实现</h2><ul>
+<li>通过继承Thread类创建线程</li>
+<li>通过实现Runnable接口创建线程</li>
+</ul>
+<h3 id="通过继承Thread类创建线程"><a href="#通过继承Thread类创建线程" class="headerlink" title="通过继承Thread类创建线程"></a>通过继承Thread类创建线程</h3><p>可以通过构造一个Thread类的子类，覆盖其run方法并调用start方法运行该线程，但此方法并不推荐，应该将要并行运行的任务与运行机制解耦合。</p>
+<p>启动线程需要调用start方法而不是run方法，直接调用run方法会在当前线程执行run方法，start方法将创建一个执行run方法的新线程。</p>
+<p>下方为通过继承Thread类创建线程实现两线程交替打印10次a与b</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.suvvm.thread;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: ExtendsTreadDemo</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: TODO</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/3/13 18:10</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExtendsTreadDemo</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Object flag = <span class="keyword">new</span> Object();</span><br><span class="line">    <span class="keyword">private</span> String outPutVal;</span><br><span class="line">    <span class="keyword">private</span> Integer printCnt;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ExtendsTreadDemo</span><span class="params">(String outPutVal)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.outPutVal = outPutVal;</span><br><span class="line">        printCnt = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (flag) &#123;</span><br><span class="line">                flag.notify();</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    flag.wait();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                printCnt++;</span><br><span class="line">                <span class="keyword">if</span>(printCnt == <span class="number">11</span>)</span><br><span class="line">                    System.exit(<span class="number">0</span>);</span><br><span class="line">                System.out.println(<span class="keyword">this</span>.outPutVal);</span><br><span class="line">                flag.notify();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ExtendsTreadDemo aThread = <span class="keyword">new</span> ExtendsTreadDemo(<span class="string">"a"</span>);   <span class="comment">// 创建线程a 线程a当前处于新建态</span></span><br><span class="line">        ExtendsTreadDemo bThread = <span class="keyword">new</span> ExtendsTreadDemo(<span class="string">"b"</span>);   <span class="comment">// 创建线程b 线程b当前处于新建态</span></span><br><span class="line">        aThread.start();    <span class="comment">// 线程a进入runnable态</span></span><br><span class="line">        bThread.start();    <span class="comment">// 线程b进入runnable态</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="通过实现Runnable接口创建线程"><a href="#通过实现Runnable接口创建线程" class="headerlink" title="通过实现Runnable接口创建线程"></a>通过实现Runnable接口创建线程</h3><p>Runnable接口只提供了Run方法的虚函数声明。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.suvvm.thread;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: RunnableDemo</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: TODO</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/3/13 15:36</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RunnableDemo</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Object flag = <span class="keyword">new</span> Object();</span><br><span class="line">    <span class="keyword">private</span> String outPutVal;</span><br><span class="line">    <span class="keyword">private</span> Integer printCnt;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RunnableDemo</span><span class="params">(String outPutVal)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.outPutVal = outPutVal;</span><br><span class="line">        printCnt = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (flag) &#123;</span><br><span class="line">                flag.notify();</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    flag.wait();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                printCnt++;</span><br><span class="line">                <span class="keyword">if</span>(printCnt == <span class="number">11</span>)</span><br><span class="line">                    System.exit(<span class="number">0</span>);</span><br><span class="line">                System.out.println(<span class="keyword">this</span>.outPutVal);</span><br><span class="line">                flag.notify();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Thread aThread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> RunnableDemo(<span class="string">"a"</span>));   <span class="comment">// 创建线程a 线程a当前处于新建态</span></span><br><span class="line">        Thread bThread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> RunnableDemo(<span class="string">"b"</span>));   <span class="comment">// 创建线程b 线程b当前处于新建态</span></span><br><span class="line">        aThread.start();    <span class="comment">// 线程a进入runnable态</span></span><br><span class="line">        bThread.start();    <span class="comment">// 线程b进入runnable态</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="使用线程并发库Condition"><a href="#使用线程并发库Condition" class="headerlink" title="使用线程并发库Condition"></a>使用线程并发库Condition</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.suvvm.thread;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.*;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.Condition;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: ConditionDemo</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: TODO</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/3/13 19:04</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConditionDemo</span> <span class="keyword">implements</span> <span class="title">Callable</span>&lt;<span class="title">String</span>&gt; </span>&#123;</span><br><span class="line">   <span class="comment">//  public static final Object flag = new Object();</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> ReentrantLock lock = <span class="keyword">new</span> ReentrantLock(<span class="keyword">true</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String outPutVal;</span><br><span class="line">    <span class="keyword">private</span> Integer printCnt;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ConditionDemo</span><span class="params">(String outPutVal)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.outPutVal = outPutVal;</span><br><span class="line">        printCnt = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                lock.lock();</span><br><span class="line">                printCnt++;</span><br><span class="line">                <span class="keyword">if</span> (printCnt &gt;= <span class="number">11</span>)</span><br><span class="line">                    <span class="keyword">return</span> <span class="string">"end"</span> + <span class="string">" "</span> + Thread.currentThread().getName();</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">" "</span> + outPutVal);</span><br><span class="line">                <span class="keyword">if</span> (<span class="string">"a"</span>.equals(outPutVal))</span><br><span class="line">                    outPutVal = <span class="string">"b"</span>;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    outPutVal = <span class="string">"a"</span>;</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                lock.unlock();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line"></span><br><span class="line">        ConditionDemo conditionDemo = <span class="keyword">new</span> ConditionDemo(<span class="string">"a"</span>);</span><br><span class="line">        FutureTask aFutureTask = <span class="keyword">new</span> FutureTask(conditionDemo);</span><br><span class="line">        FutureTask bFutureTask = <span class="keyword">new</span> FutureTask(conditionDemo);</span><br><span class="line">        <span class="keyword">new</span> Thread(aFutureTask).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(bFutureTask).start();</span><br><span class="line">        System.out.println(aFutureTask.get());</span><br><span class="line">        System.out.println(bFutureTask.get());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/01/05/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -7349,555 +7527,6 @@ P =10011(n=4)\\
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">Bellman Ford原理分析</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-12 19:11:56" itemprop="dateCreated datePublished" datetime="2019-11-12T19:11:56+08:00">2019-11-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Bellman-Ford（贝尔曼-福特算法）"><a href="#Bellman-Ford（贝尔曼-福特算法）" class="headerlink" title="Bellman Ford（贝尔曼 福特算法）"></a>Bellman Ford（贝尔曼 福特算法）</h2><p>Dijkstra算法可以很好的解决无负权图的最短路问题，但是一旦遇到负权，这个负权就像在迷宫游戏中，走每一条路都会消耗体力，但是某些道路上有宝箱，宝箱里可以开出美利坚大香蕉食用可以恢复体力，dijkstra会使你只顾着眼前消耗体力最少的道路而忽视了之后的美利坚大香蕉（<a href="https://www.suvvm.work/2019/11/05/Dijkstra原理分析/">具体分析</a>），这时便需要设计另一个算法去代替它，如Bellman Ford。</p>
-<p>如果一个有N个顶点的连通图中有最短路存在，那么这条最短路径上的顶点个数肯定不会超过N个，当源点被确定时，我们可以根据源点建立一条最短路径树，具体以下图为例，假设A为源点。</p>
-<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf1-1.svg" alt="img"></p>
-<p>最短路径树</p>
-<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf1-2.svg" alt="img"></p>
-<p>最短路径树的层数一定不会超过N。</p>
-<p>Bellman Ford算法与dijkstra类似，也需要设置一个数组d用来存放源点到各个顶点的最短距离。</p>
-<p>每次遍历图中所有边，根据边的权值进行松弛操作（对于每条边$u \rightarrow v $ 如果以u为中介点可以使v到源点的距离更短，就用u到源点的距离与当前边权去优化v到源点的距离）。</p>
-<p>初始状态下源点已知且到其本身的距离为0，即最短路径树的第一层结点已被确定，由第二层开始之后每次执行上述的松弛操作都可以确定一层的结点，由于最短路径树的层数不会超过N，所以确定所有点到源点的最短路长度所需要进行松弛操作的次数不会超过N-1。</p>
-<p>同dijkstra一样，初始将起点到所有点的最短路长度视为无穷大。</p>
-<p>记录一下图中的所有边</p>
-<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf2-1.svg" alt="img"></p>
-<h3 id="确定源点"><a href="#确定源点" class="headerlink" title="确定源点"></a>确定源点</h3><p>这里以A为源点，源点到其本身的距离为0。</p>
-<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf2-2.svg" alt="img"></p>
-<p> 当前A点到所有点的最短路长度表 </p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">∞</td>
-<td style="text-align:left">∞</td>
-<td style="text-align:left">∞</td>
-<td style="text-align:left">∞</td>
-<td style="text-align:left">∞</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>一共6个点，之后进行6-1=5次松弛操作。</p>
-<h3 id="第一次松弛"><a href="#第一次松弛" class="headerlink" title="第一次松弛"></a>第一次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(∞)	将B点到源点的最短距离由无穷大优化为0+2&#x3D;2</span><br><span class="line">边A(0)	3	C(∞)	将C点到源点的最短距离由无穷大优化为0+2&#x3D;3</span><br><span class="line">边B(2)	6	E(∞)	将E点到源点的最短距离由无穷大优化为2+6&#x3D;8</span><br><span class="line">边C(3)	-2	B(2)	将B点到源点的最短距离由2优化为3-2&#x3D;1</span><br><span class="line">边C(3)	5	E(8)	并不能进行优化</span><br><span class="line">边D(∞)	4	B(1)	并不能进行优化</span><br><span class="line">边E(8)	-5	D(∞)	将D点到源点的最短距离由无穷大优化为8-5&#x3D;3</span><br><span class="line">边E(8)	8	F(∞)	将F点到源点的最短距离由无穷大优化为8+8&#x3D;16</span><br><span class="line">边F(16)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf2-3.svg" alt="img"></p>
-<p>当前A点到所有点的最短路长度表 </p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">8</td>
-<td style="text-align:left">∞</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="第二次松弛"><a href="#第二次松弛" class="headerlink" title="第二次松弛"></a>第二次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(1)	并不能进行优化</span><br><span class="line">边A(0)	3	C(3)	并不能进行优化</span><br><span class="line">边B(1)	6	E(8)	将E点到源点的最短距离由8优化为1+6&#x3D;7</span><br><span class="line">边C(3)	-2	B(1)	并不能进行优化</span><br><span class="line">边C(3)	5	E(7)	并不能进行优化</span><br><span class="line">边D(3)	4	B(1)	并不能进行优化</span><br><span class="line">边E(7)	-5	D(3)	将D点到源点的最短距离由3优化为7-5&#x3D;2</span><br><span class="line">边E(7)	8	F(16)	将F点到源点的最短距离由16优化为7+8&#x3D;15</span><br><span class="line">边F(15)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf2-4.svg" alt="img"></p>
-<p>当前A点到所有点的最短路长度表 </p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">2</td>
-<td style="text-align:left">7</td>
-<td style="text-align:left">15</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="第三次松弛"><a href="#第三次松弛" class="headerlink" title="第三次松弛"></a>第三次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(1)	并不能进行优化</span><br><span class="line">边A(0)	3	C(3)	并不能进行优化</span><br><span class="line">边B(1)	6	E(7)	并不能进行优化</span><br><span class="line">边C(3)	-2	B(1)	并不能进行优化</span><br><span class="line">边C(3)	5	E(7)	并不能进行优化</span><br><span class="line">边D(2)	4	B(1)	并不能进行优化</span><br><span class="line">边E(7)	-5	D(2)	并不能进行优化</span><br><span class="line">边E(7)	8	F(15)	并不能进行优化</span><br><span class="line">边F(15)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf2-4.svg" alt="img"></p>
-<p>当前A点到所有点的最短路长度表 </p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">2</td>
-<td style="text-align:left">7</td>
-<td style="text-align:left">15</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="第四次松弛"><a href="#第四次松弛" class="headerlink" title="第四次松弛"></a>第四次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(1)	并不能进行优化</span><br><span class="line">边A(0)	3	C(3)	并不能进行优化</span><br><span class="line">边B(1)	6	E(7)	并不能进行优化</span><br><span class="line">边C(3)	-2	B(1)	并不能进行优化</span><br><span class="line">边C(3)	5	E(7)	并不能进行优化</span><br><span class="line">边D(2)	4	B(1)	并不能进行优化</span><br><span class="line">边E(7)	-5	D(2)	并不能进行优化</span><br><span class="line">边E(7)	8	F(15)	并不能进行优化</span><br><span class="line">边F(15)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf2-4.svg" alt="img"></p>
-<p>当前A点到所有点的最短路长度表 </p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">2</td>
-<td style="text-align:left">7</td>
-<td style="text-align:left">15</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="第五次松弛"><a href="#第五次松弛" class="headerlink" title="第五次松弛"></a>第五次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(1)	并不能进行优化</span><br><span class="line">边A(0)	3	C(3)	并不能进行优化</span><br><span class="line">边B(1)	6	E(7)	并不能进行优化</span><br><span class="line">边C(3)	-2	B(1)	并不能进行优化</span><br><span class="line">边C(3)	5	E(7)	并不能进行优化</span><br><span class="line">边D(2)	4	B(1)	并不能进行优化</span><br><span class="line">边E(7)	-5	D(2)	并不能进行优化</span><br><span class="line">边E(7)	8	F(15)	并不能进行优化</span><br><span class="line">边F(15)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf2-4.svg" alt="img"></p>
-<p>当前A点到所有点的最短路长度表 </p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">2</td>
-<td style="text-align:left">7</td>
-<td style="text-align:left">15</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>到此为止五次松弛操作都已经结束，在对比一下我们之前肉眼观察出来的最短路径树。</p>
-<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf1-2.svg" alt="img"></p>
-<p>仿佛没有什么问题，我们成功的获得了最短路径，可喜可贺，Bellman Ford结束了，诸位洗洗睡把。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">6 9</span><br><span class="line">0 1 2</span><br><span class="line">0 2 3</span><br><span class="line">1 4 6</span><br><span class="line">2 1 -2</span><br><span class="line">2 4 5</span><br><span class="line">3 1 4</span><br><span class="line">4 3 -5</span><br><span class="line">4 5 8</span><br><span class="line">5 2 3</span><br><span class="line">0</span><br></pre></td></tr></table></figure></p>
-<h1 id="呸！！！"><a href="#呸！！！" class="headerlink" title="呸！！！"></a>呸！！！</h1><h3 id="负环"><a href="#负环" class="headerlink" title="负环"></a>负环</h3><p>负环这个东西很神奇，拿之前迷宫的例子来描述它，就是你可以发现有一条道路与之前的某个点形成了一个环，这个环上有一个或者多个大宝箱，里面有很多美利坚大香蕉，使得走完一次循环后吃美利坚大香蕉所恢复的体力比走路消耗的还多，这样就可以一直走这个环，刷更多的美利坚大香蕉恢复更多的体力。</p>
-<p>我们修改一下上面的图，将D到B的边的边权改为-4，这样就形成了一个B到E到D回到B的一个权值为6-5-4=-3的负环。</p>
-<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf3-1.svg" alt="img"></p>
-<p>我们依照之前的算法再次推理一遍。</p>
-<h3 id="确定源点-1"><a href="#确定源点-1" class="headerlink" title="确定源点"></a>确定源点</h3><p>以A为源点，源点到其本身的距离为0。</p>
-<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf3-2.svg" alt="img"></p>
-<p> 当前A点到所有点的最短路长度表 </p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">∞</td>
-<td style="text-align:left">∞</td>
-<td style="text-align:left">∞</td>
-<td style="text-align:left">∞</td>
-<td style="text-align:left">∞</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>一共6个点，之后进行6-1=5次松弛操作。</p>
-<h3 id="第一次松弛-1"><a href="#第一次松弛-1" class="headerlink" title="第一次松弛"></a>第一次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(∞)	将B点到源点的最短距离由无穷大优化为0+2&#x3D;2</span><br><span class="line">边A(0)	3	C(∞)	将C点到源点的最短距离由无穷大优化为0+2&#x3D;3</span><br><span class="line">边B(2)	6	E(∞)	将E点到源点的最短距离由无穷大优化为2+6&#x3D;8</span><br><span class="line">边C(3)	-2	B(2)	将B点到源点的最短距离由2优化为3-2&#x3D;1</span><br><span class="line">边C(3)	5	E(8)	并不能进行优化</span><br><span class="line">边D(∞)	-4	B(1)	并不能进行优化</span><br><span class="line">边E(8)	-5	D(∞)	将D点到源点的最短距离由无穷大优化为8-5&#x3D;3</span><br><span class="line">边E(8)	8	F(∞)	将F点到源点的最短距离由无穷大优化为8+8&#x3D;16</span><br><span class="line">边F(16)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf3-3.svg" alt="img"></p>
-<p>当前A点到所有点的最短路长度表 </p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">8</td>
-<td style="text-align:left">16</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="第二次松弛-1"><a href="#第二次松弛-1" class="headerlink" title="第二次松弛"></a>第二次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(1)	并不能进行优化</span><br><span class="line">边A(0)	3	C(3)	并不能进行优化</span><br><span class="line">边B(1)	6	E(8)	将E点到源点的最短距离由8优化为1+6&#x3D;7</span><br><span class="line">边C(3)	-2	B(1)	并不能进行优化</span><br><span class="line">边C(3)	5	E(7)	并不能进行优化</span><br><span class="line">边D(3)	-4	B(1)	将B点到源点的最短距离由1优化为3-4&#x3D;-1</span><br><span class="line">边E(7)	-5	D(3)	将D点到源点的最短距离由3优化为7-5&#x3D;2</span><br><span class="line">边E(7)	8	F(16)	将F点到源点的最短距离由16优化为7+8&#x3D;15</span><br><span class="line">边F(15)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf3-4.svg" alt="img"></p>
-<p>当前A点到所有点的最短路长度表 </p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">-1</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">2</td>
-<td style="text-align:left">7</td>
-<td style="text-align:left">15</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="第三次松弛-1"><a href="#第三次松弛-1" class="headerlink" title="第三次松弛"></a>第三次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(-1)	并不能进行优化</span><br><span class="line">边A(0)	3	C(3)	并不能进行优化</span><br><span class="line">边B(-1)	6	E(7)	将E点到源点的最短距离由7优化为-1+6&#x3D;5</span><br><span class="line">边C(3)	-2	B(-1)	并不能进行优化</span><br><span class="line">边C(3)	5	E(5)	并不能进行优化</span><br><span class="line">边D(2)	-4	B(-1)	将B点到源点的最短距离由-1优化为2-4&#x3D;-2</span><br><span class="line">边E(5)	-5	D(2)	将D点到源点的最短距离由2优化为-5+5&#x3D;0</span><br><span class="line">边E(5)	8	F(15)	将F点到源点的最短距离由15优化为5+8&#x3D;13</span><br><span class="line">边F(13)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf3-5.svg" alt="img"></p>
-<p>当前A点到所有点的最短路长度表 </p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">-2</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">0</td>
-<td style="text-align:left">5</td>
-<td style="text-align:left">13</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="第四次松弛-1"><a href="#第四次松弛-1" class="headerlink" title="第四次松弛"></a>第四次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(-2)	并不能进行优化</span><br><span class="line">边A(0)	3	C(3)	并不能进行优化</span><br><span class="line">边B(-2)	6	E(5)	将E点到源点的最短距离由5优化为-2+6&#x3D;4</span><br><span class="line">边C(3)	-2	B(-2)	并不能进行优化</span><br><span class="line">边C(3)	5	E(4)	并不能进行优化</span><br><span class="line">边D(0)	-4	B(-2)	将B点到源点的最短距离由-2优化为0-4&#x3D;-4</span><br><span class="line">边E(4)	-5	D(0)	将D点到源点的最短距离由0优化为4-5&#x3D;-1</span><br><span class="line">边E(4)	8	F(13)	将F点到源点的最短距离由13优化为4+8&#x3D;12</span><br><span class="line">边F(12)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf3-6.svg" alt="img"></p>
-<p>当前A点到所有点的最短路长度表 </p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">-4</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">-1</td>
-<td style="text-align:left">4</td>
-<td style="text-align:left">12</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="第五次松弛-1"><a href="#第五次松弛-1" class="headerlink" title="第五次松弛"></a>第五次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(-4)	并不能进行优化</span><br><span class="line">边A(0)	3	C(3)	并不能进行优化</span><br><span class="line">边B(-4)	6	E(4)	将E点到源点的最短距离由4优化为-4+6&#x3D;2</span><br><span class="line">边C(3)	-2	B(-4)	并不能进行优化</span><br><span class="line">边C(3)	5	E(2)	并不能进行优化</span><br><span class="line">边D(-4)	-4	B(1)	将B点到源点的最短距离由-4优化为-4-4&#x3D;-8</span><br><span class="line">边E(2)	-5	D(-1)	将D点到源点的最短距离由-1优化为2-5&#x3D;-3</span><br><span class="line">边E(2)	8	F(12)	将F点到源点的最短距离由12优化为2+8&#x3D;10</span><br><span class="line">边F(10)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf3-7.svg" alt="img"></p>
-<p>当前A点到所有点的最短路长度表 </p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">-5</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">-3</td>
-<td style="text-align:left">2</td>
-<td style="text-align:left">10</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>到此为止五次松弛操作都已经结束</p>
-<p>还能不能继续松弛呢，这里再进行一次额外的松弛操作</p>
-<h3 id="额外松弛"><a href="#额外松弛" class="headerlink" title="额外松弛"></a>额外松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(-5)	并不能进行优化</span><br><span class="line">边A(0)	3	C(3)	并不能进行优化</span><br><span class="line">边B(-5)	6	E(2)	将E点到源点的最短距离由2优化为-5+6&#x3D;1</span><br><span class="line">边C(3)	-2	B(-5)	并不能进行优化</span><br><span class="line">边C(3)	5	E(1)	并不能进行优化</span><br><span class="line">边D(-3)	-4	B(-5)	将B点到源点的最短距离由-5优化为-3-4&#x3D;-7</span><br><span class="line">边E(1)	-5	D(-3)	将D点到源点的最短距离由-3优化为1-5&#x3D;-4</span><br><span class="line">边E(1)	8	F(10)	将F点到源点的最短距离由10优化为1+8&#x3D;9</span><br><span class="line">边F(9)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf3-8.svg" alt="img"></p>
-<p>当前A点到所有点的最短路长度表 </p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">-7</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">-4</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">9</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>果然还可以优化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">6 9</span><br><span class="line">0 1 2</span><br><span class="line">0 2 3</span><br><span class="line">1 4 6</span><br><span class="line">2 1 -2</span><br><span class="line">2 4 5</span><br><span class="line">3 1 -4</span><br><span class="line">4 3 -5</span><br><span class="line">4 5 8</span><br><span class="line">5 2 3</span><br><span class="line">0</span><br></pre></td></tr></table></figure></p>
-<h3 id="负环处理"><a href="#负环处理" class="headerlink" title="负环处理"></a>负环处理</h3><p>如何处理这种有负环的情况呢？当然是不去处理它，同上述步骤一样，我们多进行一次额外松弛，如果额外松弛时已经有优化发送，我们就认为这个图有负环，然后报告主函数即可。</p>
-<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e3</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">1e6</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> v, dis;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;node&gt; Adj[MAXN];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">int</span> d[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">BF</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">    fill(d, d + MAXN, INF);<span class="comment">//初始化起点到所有点的最短路长度为无穷大</span></span><br><span class="line">    d[s] = <span class="number">0</span>;   <span class="comment">//起点至本身的距离为0</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i ++)&#123;    <span class="comment">//遍历n - 1遍（一条最短路除去源点最多包含n-1个点，这里可以做优化）</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> u = <span class="number">0</span>; u &lt; n; u ++)&#123;    <span class="comment">//遍历所有顶点</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> j : Adj[u])&#123;   <span class="comment">//找到所有与当前点连通的点</span></span><br><span class="line">                <span class="keyword">if</span>(d[j.v] &gt; d[u] + j.dis)&#123;</span><br><span class="line">                    d[j.v] = d[u] + j.dis;  <span class="comment">//松弛操作</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        for(int i = 0; i &lt; n; i++)&#123;</span></span><br><span class="line"><span class="comment">            cout &lt;&lt; " " &lt;&lt; i &lt;&lt; ":" &lt;&lt; d[i];</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        cout &lt;&lt; endl;*/</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> u = <span class="number">0</span>; u &lt; n; u ++)&#123;    <span class="comment">//检测负环 如果已经执行上述n-1遍理应成功获取起点至所有点的最短路 若还可以继续松弛则存在负环</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> j : Adj[u])&#123;</span><br><span class="line">            <span class="keyword">if</span>(d[j.v] &gt; d[u] + j.dis)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">          &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入顶点数:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">int</span> m;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入边数"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i ++)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入边 (端点1 端点2 权值):"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">int</span> u, v, dis;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; u &gt;&gt; v &gt;&gt; dis;</span><br><span class="line">        Adj[u].push_back(node&#123;v, dis&#125;);</span><br><span class="line">        <span class="comment">//Adj[v].push_back(node&#123;u, dis&#125;);</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> s;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入起点:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">    <span class="keyword">int</span> e;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入终点:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; e;</span><br><span class="line">    <span class="keyword">if</span>(BF(s))&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"最短路长度:"</span> &lt;&lt; d[e] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++)&#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">" : "</span> &lt;&lt; d[i] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"最短路不存在"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/11/10/%E7%97%85%E6%AF%92%E7%B9%81%E6%AE%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/10/%E7%97%85%E6%AF%92%E7%B9%81%E6%AE%96/" class="post-title-link" itemprop="url">病毒繁殖</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-10 19:02:02" itemprop="dateCreated datePublished" datetime="2019-11-10T19:02:02+08:00">2019-11-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>【问题描述】  </p>
-<p> 　A学校的实验室新研制出了一种十分厉害的病毒。由于这种病毒太难以人工制造了，所以专家们在一开始只做出了一个这样的病毒。 </p>
-<p> 　这个病毒被植入了特殊的微型芯片，使其可以具有一些可编程的特殊性能。最重要的一个性能就是，专家们可以自行设定病毒的分裂能力 K，假如现在有x 个病毒，下一个分裂周期将会有 Kx个一模一样的病毒。你作为该实验室的数据分析员，需要统计出在分裂到第N个周期前，一共有多少个病毒单体进行了分裂。一开始时总是只有一个病毒，这个局面算作第一个周期。由于答案可能很大，专家们只需要你告诉他们对给定的P取模后的答案。</p>
-<p> 【输入格式】  </p>
-<p> 　一行三个整数，依次是K, N, P。</p>
-<p> 【输出格式】  </p>
-<p> 　一行一个整数，你的答案（对P取模） 。</p>
-<p> 【输入样例】  </p>
-<p> 【样例1】</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5 3 7</span><br></pre></td></tr></table></figure>
-<p> 【样例2】</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2 6 23</span><br></pre></td></tr></table></figure>
-<p> 【输出样例】  </p>
-<p> 【样例1】</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6</span><br></pre></td></tr></table></figure>
-<p> 【样例2】</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">8</span><br></pre></td></tr></table></figure>
-<p> 【样例解释】  </p>
-<p> 　样例一解释：第一个周期有 1 个病毒，产生了一次分裂。第二个周期有 $1 \times 5=5$ 个病毒， 这五个病毒都会分裂。 所以第三个周期前一共进行了1+5等于 6 次分裂。答案即为6 mod 7 = 6。</p>
-<p> 【数据范围】  </p>
-<script type="math/tex; mode=display">
- 1 < N < 10^{18}\\
- 1 < K , P < 2^{31}</script><p>本题就是求$ 1 + K + K^2 + …… + K^N $，对于这个问题可以将其拆分求出$<br> 1 + K + K^2 + …… + K^{ { \frac N2} - 1} $<br>再将其乘以$ K^{\frac N2} $即可得到$ K^{ \frac N2} + K^{ { \frac N2} + 1 } + …… + K^N $，之后将前面两式相加即可得到答案。递归解决即可，幂运算调用快速幂取模即可。<br>（关于快速幂取模可以去本人博客<a href="https://www.suvvm.work/tags/快速幂/">https://www.suvvm.work/tags/快速幂/</a>上去翻）</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="comment">/*******************************************************</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* FunctionName: power</span></span><br><span class="line"><span class="comment">* Description: 快速幂取模</span></span><br><span class="line"><span class="comment">* Parameter:</span></span><br><span class="line"><span class="comment">*   @a  底数</span></span><br><span class="line"><span class="comment">*   @b  指数</span></span><br><span class="line"><span class="comment">*   @mod模数</span></span><br><span class="line"><span class="comment">* Return:</span></span><br><span class="line"><span class="comment">*   返回幂运算取模后的结果</span></span><br><span class="line"><span class="comment">**********************************************************/</span></span><br><span class="line"><span class="function">LL <span class="title">power</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> mod)</span></span>&#123;    <span class="comment">//快速幂</span></span><br><span class="line">    LL ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(b)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>)&#123;  <span class="comment">//从b的二进制末位开始判断</span></span><br><span class="line">            ans = ans * a % mod;  <span class="comment">//如果为1更新取模后的答案</span></span><br><span class="line">        &#125;</span><br><span class="line">        a = a * a % mod;    <span class="comment">//更新底数取模</span></span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;    <span class="comment">//b右移一位</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*******************************************************</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* FunctionName: solve</span></span><br><span class="line"><span class="comment">* Description: 分治解决n个周期前分裂的的细胞单体个数</span></span><br><span class="line"><span class="comment">* Parameter:</span></span><br><span class="line"><span class="comment">*   @k  分裂能力</span></span><br><span class="line"><span class="comment">*   @n  分裂周期次数</span></span><br><span class="line"><span class="comment">*   @p  模数</span></span><br><span class="line"><span class="comment">* Return:</span></span><br><span class="line"><span class="comment">*   返回n个周期前分裂的的细胞单体个数取模后的结果</span></span><br><span class="line"><span class="comment">**********************************************************/</span></span><br><span class="line"><span class="function">LL <span class="title">solve</span><span class="params">(<span class="keyword">int</span> k, <span class="keyword">int</span> n, <span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!n)  <span class="comment">// 0次分裂只有一个初始病毒</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(n &amp; <span class="number">1</span>)   <span class="comment">// 奇数次分裂</span></span><br><span class="line">        <span class="keyword">return</span> (<span class="number">1</span> + power(k, n/<span class="number">2</span> + <span class="number">1</span>, p)) * solve(k, n/<span class="number">2</span>, p) % p;</span><br><span class="line">    <span class="keyword">else</span>    <span class="comment">// 偶数次分裂</span></span><br><span class="line">        <span class="keyword">return</span> (power(k, n/<span class="number">2</span>, p) + (<span class="number">1</span> + power(k, n/<span class="number">2</span> +<span class="number">1</span>, p)) * solve(k, n/<span class="number">2</span> - <span class="number">1</span>, p)) % p;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    <span class="keyword">int</span> k, n, p;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; k &gt;&gt; n &gt;&gt; p;</span><br><span class="line">    n--; <span class="comment">// 以第0次分裂为起始</span></span><br><span class="line">    <span class="keyword">if</span>(!n)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="number">0</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(n == <span class="number">1</span>)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="number">1</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span>    <span class="comment">// 第n周期前，没有进行第n周期</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; solve(k, --n, p) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -7969,7 +7598,7 @@ P =10011(n=4)\\
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

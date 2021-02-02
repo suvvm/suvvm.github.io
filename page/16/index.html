@@ -177,6 +177,177 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/10/30/HDU-3999-The-order-of-a-Tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/30/HDU-3999-The-order-of-a-Tree/" class="post-title-link" itemprop="url">HDU 3999 The order of a Tree</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-30 23:34:45" itemprop="dateCreated datePublished" datetime="2018-10-30T23:34:45+08:00">2018-10-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>As we know,the shape of a binary search tree is greatly related to the order of keys we insert. To be precisely:<br>　　1.  insert a key k to a empty tree, then the tree become a tree with only one node;<br>　　2.  insert a key k to a nonempty tree, if k is less than the root ,insert it to the left sub-tree;else insert k to the right sub-tree.<br>　　We call the order of keys we insert “the order of a tree”,your task is,given a oder of a tree, find the order of a tree with the least lexicographic order that generate the same tree.Two trees are the same if and only if they have the same shape.<br>Input </p>
+<p>　There are multiple test cases in an input file. The first line of each testcase is an integer n(n &lt;= 100,000),represent the number of nodes.The second line has n intergers,k1 to kn,represent the order of a tree.To make if more simple, k1 to kn is a sequence of 1 to n. </p>
+<p>Output</p>
+<p>　One line with n intergers, which are the order of a tree that generate the same tree with the least lexicographic.<br>Sample Input</p>
+<p>4</p>
+<p>1 3 4 2<br>Sample Output</p>
+<p>1 3 2 4</p>
+<p>解题思路：<br>　　本题给出多组数据每组数据包括结点数量和结点权值，要求以输入的权值建立二叉搜索树，并输出可以建立同样二叉搜索树且字典序最小的一组数据，根据二叉搜索树的性质我们可以发现，最小的字典序就是二叉搜索树的前序遍历。我们只需要输出二叉搜索树的前序遍历即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> dataTpye;</span><br><span class="line"><span class="built_in">vector</span>&lt;dataTpye&gt; str;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    dataTpye data;</span><br><span class="line">    node *leftChild;</span><br><span class="line">    node *rightChild;</span><br><span class="line">    node()&#123;</span><br><span class="line">        leftChild = <span class="literal">NULL</span>;</span><br><span class="line">        rightChild = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertBST</span><span class="params">(node *&amp;root, dataTpye x)</span></span>&#123;<span class="comment">//二叉搜索树插入函数</span></span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>)&#123;   <span class="comment">//找到空位置即使插入位置</span></span><br><span class="line">        root = <span class="keyword">new</span> node();  <span class="comment">//新建结点权值为x</span></span><br><span class="line">        root-&gt;data = x;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(root-&gt;data == x) <span class="comment">//要插入结点已存在直接返回</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(root-&gt;data &gt; x)&#123;    <span class="comment">//x比根结点数据域小 需要插在左子树</span></span><br><span class="line">        insertBST(root-&gt;leftChild, x);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(root-&gt;data &lt; x)&#123;   <span class="comment">//x比根结点数据域大 需要插在右子树</span></span><br><span class="line">        insertBST(root-&gt;rightChild, x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">node *<span class="title">createBST</span><span class="params">()</span></span>&#123;   <span class="comment">//建树</span></span><br><span class="line">    node *root = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">vector</span>&lt;dataTpye&gt;::iterator it = str.begin(); it != str.end(); it++)&#123;</span><br><span class="line">        insertBST(root, *it);   <span class="comment">//以str为数据组建树</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root;     <span class="comment">//返回根结点</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">preorder</span><span class="params">(node *root, node *flag)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>)    <span class="comment">//到达空树为递归边界</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span>(root != flag)</span><br><span class="line">         <span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, root-&gt;data);   <span class="comment">//访问根结点输出权值</span></span><br><span class="line">    preorder(root-&gt;leftChild, flag);    <span class="comment">//访问左子树</span></span><br><span class="line">    preorder(root-&gt;rightChild, flag);    <span class="comment">//访问右子树</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; t)&#123;    <span class="comment">//输入结点数量</span></span><br><span class="line">        str.clear();    <span class="comment">//清空权值记录容器</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; t; i++)&#123;</span><br><span class="line">            dataTpye temp;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;temp); <span class="comment">//输入权值</span></span><br><span class="line">            str.push_back(temp);</span><br><span class="line">        &#125;</span><br><span class="line">        node *root = createBST();   <span class="comment">//建树</span></span><br><span class="line">        preorder(root, root);   <span class="comment">//输出先序遍历</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/10/30/HDU-5444-Elven-Postman-%EF%BC%882015-ACM-ICPC-Asia-Regional-Changchun-Online%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/30/HDU-5444-Elven-Postman-%EF%BC%882015-ACM-ICPC-Asia-Regional-Changchun-Online%EF%BC%89/" class="post-title-link" itemprop="url">HDU 5444 Elven Postman （2015 ACM/ICPC Asia Regional Changchun Online）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-30 17:20:51" itemprop="dateCreated datePublished" datetime="2018-10-30T17:20:51+08:00">2018-10-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Elves are very peculiar creatures. As we all know, they can live for a very long time and their magical prowess are not something to be taken lightly. Also, they live on trees. However, there is something about them you may not know. Although delivering stuffs through magical teleportation is extremely convenient (much like emails). They still sometimes prefer other more “traditional” methods. </p>
+<p>　　So, as a elven postman, it is crucial to understand how to deliver the mail to the correct room of the tree. The elven tree always branches into no more than two paths upon intersection, either in the east direction or the west. It coincidentally looks awfully like a binary tree we human computer scientist know. Not only that, when numbering the rooms, they always number the room number from the east-most position to the west. For rooms in the east are usually more preferable and more expensive due to they having the privilege to see the sunrise, which matters a lot in elven culture. </p>
+<p>　　Anyways, the elves usually wrote down all the rooms in a sequence at the root of the tree so that the postman may know how to deliver the mail. The sequence is written as follows, it will go straight to visit the east-most room and write down every room it encountered along the way. After the first room is reached, it will then go to the next unvisited east-most room, writing down every unvisited room on the way as well until all rooms are visited. </p>
+<p>　　Your task is to determine how to reach a certain room given the sequence written on the root. </p>
+<p>　　For instance, the sequence 2, 1, 4, 3 would be written on the root of the following tree. </p>
+<p>Input</p>
+<p>　　First you are given an integer T(T≤10)T(T≤10)indicating the number of test cases. </p>
+<p>　　For each test case, there is a number n(n≤1000)n(n≤1000)on a line representing the number of rooms in this tree. nn integers representing the sequence written at the root follow, respectively a1,…,ana1,…,an where a1,…,an∈{1,…,n}a1,…,an∈{1,…,n}. </p>
+<p>　　On the next line, there is a number qqrepresenting the number of mails to be sent. After that, there will be qq integers x1,…,xqx1,…,xqindicating the destination room number of each mail.OutputFor each query, output a sequence of move (EE or WW) the postman needs to make to deliver the mail. For that EE means that the postman should move up the eastern branch and WW the western one. If the destination is on the root, just output a blank line would suffice. </p>
+<p>　　Note that for simplicity, we assume the postman always starts from the root regardless of the room he had just visited.Sample</p>
+<p>Input</p>
+<p>　　2<br>　　4<br>　　2 1 4 3<br>　　3<br>　　1 2 3<br>　　6<br>　　6 5 4 3 2 1<br>　　1<br>　　1<br>Sample Output</p>
+<p>　　E</p>
+<p>　　WE<br>　　EEEEE<br>解题思路：<br>　　本题有多组数据，每组数据包含第一行结点数量，第二行结点权值，第三行目标点数量，第行目标点权值要求建立二叉搜索树后，在树中查找目标点输出查找路径，查找左子树输出E，查找右子树输出W，若目标点为根结点输出一个空行。</p>
+<p>样例解析：<br>　　2　　　　　　　　 //测试组数<br>　　4 　　　　　　　　//二叉搜索树结点数量（第一组）<br>　　2 1 4 3 　　　　     //二叉搜索树结点权值（第一组） 　　　　//所建树前序遍历2 1 4 3<br>　　3 　　　　　　　   //目标点数量（第一组）<br>　　1 2 3 　　　　　　//目标点权值（第一组） 　　　　　　　　//输出1:E 2:空行 3:WE<br>　　6 　　　　　　　  //二叉搜索树结点数量（第二组）<br>　　6 5 4 3 2 1 　　　 //二叉搜索树结点权值（第二组） 　　　　//所建树前序遍历6 5 4 3 2 1<br>　　1 　　　　　　　 //目标点数量（第二组）<br>　　1　　　　　　　  //目标点权值（第二组） 　　　　　　　　//输出1:EEEEE</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> dataType;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; arrayn;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; pattern;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    dataType data;</span><br><span class="line">    node *leftChild;</span><br><span class="line">    node *rightChild;</span><br><span class="line">    node()&#123;</span><br><span class="line">        data = <span class="number">0</span>;</span><br><span class="line">        leftChild = <span class="literal">NULL</span>;</span><br><span class="line">        rightChild = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">searchBST</span><span class="params">(node *root, dataType x)</span></span>&#123; <span class="comment">//查找</span></span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>)&#123;   <span class="comment">//找到空位置查找失败返回</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(root-&gt;data == x)&#123;    <span class="comment">//找到目标点换行</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(root-&gt;data &gt; x)&#123;   <span class="comment">//x比根结点数据域小 查找左子树输出E</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"E"</span>);</span><br><span class="line">        searchBST(root-&gt;leftChild, x);  <span class="comment">//x比根结点数据域大 查找右子树输出W</span></span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(root-&gt;data &lt; x)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"W"</span>);</span><br><span class="line">        searchBST(root-&gt;rightChild, x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertBST</span><span class="params">(node *&amp;root, dataType x)</span></span>&#123;    <span class="comment">//插入</span></span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>)&#123;   <span class="comment">//找到空位置即使插入位置</span></span><br><span class="line">        root = <span class="keyword">new</span> node();  <span class="comment">//新建结点权值为x</span></span><br><span class="line">        root-&gt;data = x;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(x == root-&gt;data)&#123;    <span class="comment">//要插入结点已存在直接返回</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(root-&gt;data &gt; x)&#123;    <span class="comment">//x比根结点数据域小 需要插在左子树</span></span><br><span class="line">        insertBST(root-&gt;leftChild, x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(root-&gt;data &lt; x)&#123;    <span class="comment">//x比根结点数据域大 需要插在右子树</span></span><br><span class="line">        insertBST(root-&gt;rightChild, x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">node *<span class="title">createBST</span><span class="params">()</span></span>&#123;  <span class="comment">//以arrayn中记录的结点建树</span></span><br><span class="line">    node *root = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator it = arrayn.begin(); it != arrayn.end(); it++)&#123;</span><br><span class="line">        insertBST(root, *it);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*void preorder(node *root)&#123;</span></span><br><span class="line"><span class="comment">    if(root == NULL)</span></span><br><span class="line"><span class="comment">        return;</span></span><br><span class="line"><span class="comment">    printf("%d", root-&gt;data);</span></span><br><span class="line"><span class="comment">    preorder(root-&gt;leftChild);</span></span><br><span class="line"><span class="comment">    preorder(root-&gt;rightChild);</span></span><br><span class="line"><span class="comment">&#125;*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;  <span class="comment">//测试组数</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t) != EOF)&#123;</span><br><span class="line">        <span class="keyword">int</span> n;  <span class="comment">//二叉搜索树结点数量和目标点数量</span></span><br><span class="line">        <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">            arrayn.clear(); <span class="comment">//清空储存结点权值的容器</span></span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);    <span class="comment">//输入结点数</span></span><br><span class="line">            <span class="keyword">int</span> temp;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">                <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;temp); <span class="comment">//输入权值</span></span><br><span class="line">                arrayn.push_back(temp); <span class="comment">//将权值储存在arrayn中</span></span><br><span class="line">            &#125;</span><br><span class="line">            node *root = <span class="literal">NULL</span>;</span><br><span class="line">            root = createBST(); <span class="comment">//建树</span></span><br><span class="line">            <span class="comment">//preorder(rood);</span></span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);    <span class="comment">//输入目标点数量</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">                <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;temp); <span class="comment">//输入目标点权值</span></span><br><span class="line">                searchBST(root, temp);  <span class="comment">//查找并输出路径</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/10/29/HDU-3791-Falling-Leaves-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -418,7 +589,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

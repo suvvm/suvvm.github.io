@@ -177,6 +177,255 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/05/02/Session%E4%B8%8ECookie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/02/Session%E4%B8%8ECookie/" class="post-title-link" itemprop="url">Session与Cookie</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-02 18:08:59" itemprop="dateCreated datePublished" datetime="2020-05-02T18:08:59+08:00">2020-05-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Session与Cookie"><a href="#Session与Cookie" class="headerlink" title="Session与Cookie"></a>Session与Cookie</h1><h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>由于HTTP协议是无状态的，其两次请求之间没有任何关联，所以出现了Session，Session是服务器用来记录用户信息的工具，保存在服务器中，每个Session都有一个独立标识SessionID，服务器会通过响应报文将其通知客户端，一般来说客户端都会将其保存为cookie，若客户端禁用cookie也可以通过在url里附加SessionID参数来识别用户。</p>
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>Cookie由W3C提出，受所有主流浏览器支持，其出现原因也是为了解决HTTP协议无状态的问题，与Session将数据存储在服务器不同，Cookie数据由浏览器存储在用户的本地终端，用于保存用户信息，每次发送请求时cookie都将被携带在HTTP请求headers中发送给服务器，服务器可以通过cookie中的信息简便的获取用户状态。</p>
+<p>由于其保存在客户端的特性，伪造cookie也变得容易了很多。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/05/01/Java-%E9%9B%86%E5%90%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/01/Java-%E9%9B%86%E5%90%88/" class="post-title-link" itemprop="url">Java 集合</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-01 15:06:26" itemprop="dateCreated datePublished" datetime="2020-05-01T15:06:26+08:00">2020-05-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Java-集合"><a href="#Java-集合" class="headerlink" title="Java 集合"></a>Java 集合</h1><p>Java集合主要包含两种类型，存储元素的Collection与存储键值对的Map。</p>
+<h2 id="接口与实体类关系"><a href="#接口与实体类关系" class="headerlink" title="接口与实体类关系"></a>接口与实体类关系</h2><ul>
+<li><p>Collection（接口）</p>
+<ul>
+<li><p>List（接口）</p>
+<p>List接口代表的是一个用于存储数据的，有序的Collection，List可以控制每个元素插入的位置并通过索引对其进行访问，允许存储null值，允许存储相同元素</p>
+<ul>
+<li><p>AbstractList（实体类）</p>
+<p>继承自AbstractCollection，实现了List接口的大部分方法</p>
+<ul>
+<li><p>Vector（实体类）</p>
+<p>继承自AbstractList，Vector是线程安全的，其方法都由synchronized关键词标识，底层由数组实现，容量可变，有扩容（100%）和缩减方法，允许存放null值</p>
+</li>
+<li><p>ArrayList（实体类）</p>
+<p>继承自AbstractList，ArrayList是非线程安全的，大小可变的集合，只有扩容方法（50%），底层由数组实现，插入删除效率低，允许存放null值</p>
+</li>
+<li><p>AbstractSequentialList（实体类）</p>
+<p>继承自AbstractList，提供了对数据元素的链式访问</p>
+<ul>
+<li><p>LinkedList（实体类）</p>
+<p>继承自AbstractSequentialList，LinkedList是非线程安全的链式集合，实现了Queue接口，底层由链表实现，查找效率低，允许null值</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Set（接口）</p>
+<p>Set接口代表的是一个用于存储数据的，无序的Collection，允许存储null值</p>
+<ul>
+<li><p>AbstractSet（实体类）</p>
+<p>继承自AbstractCollection实现了Set接口</p>
+<ul>
+<li><p>HashSet（实体类）</p>
+<p>继承自AbstractSet，实现了Set接口，无重复元素，其中元素无序，底层使用hashMap实现，非线程安全，允许出现null值</p>
+<ul>
+<li><p>LinkedHashSet（实体类）</p>
+<p>继承自HashSet，无重复元素，有可预测的迭代顺序（插入顺序），底层使用LinkedHasshMap，非线程安全，允许出现null值</p>
+</li>
+</ul>
+</li>
+<li><p>TreeSet（实体类）</p>
+<p>继承自AbstractSet，提供有序的Set，实现了SortSet接口，元素无重复，非线程安全，不允许有null值</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Queue（接口）</p>
+<p>Queue接口代表的是一个先进先出的数据存储结构，在Collection的基础上添加了特殊的插入、获取和检验操作，不允许存储null值</p>
+<ul>
+<li>LinkedList实现了Queue接口</li>
+</ul>
+</li>
+<li><p>SortedSet（接口）</p>
+<p>SortedSet继承自Set代表了一个一个用于存储数据的，有序的Collection（按升序排列，用户无法控制位置），不允许存储null值</p>
+<ul>
+<li>TreeSet实现了SortedSet接口</li>
+</ul>
+</li>
+<li><p>AbstractCollection（实体类）</p>
+<p>AbstractCollection是Collection借口的一个直接实现了，提供了Collection接口方法的最基本实现方式。</p>
+</li>
+</ul>
+</li>
+<li><p>Map（接口）</p>
+<p>Map接口代表的是一个键值对一一映射的存储结构 可以通过键来获取值。</p>
+<ul>
+<li><p>SortedMap（接口）</p>
+<p>SortedMap接口代表的是有序的（key升序）的键值对存储结构</p>
+</li>
+<li><p>AbstractMap（实体类）</p>
+<p>实现了Map接口的部分方法</p>
+<ul>
+<li><p>HashMap</p>
+<p>继承自AbstractMap，HashMap用于存储键值对，内容无序，最多允许一条key记录为null，之后的null记录会覆盖先前的null值，value可以为null，非线程安全</p>
+<ul>
+<li><p>LinkedHashMap</p>
+<p>LinkedHashMap继承自HashMap，用于存储键值对，内容有序，除了维护hash表外还根据插入顺序维护了一个链表，同HashMap只允许一条key记录为null，非线程安全</p>
+</li>
+</ul>
+</li>
+<li><p>Hashtable</p>
+<p>继承自Dictionary，实现了Map接口，内容无序，不允许出现null key与null value，线程安全</p>
+</li>
+<li><p>TreeMap</p>
+<p>继承自AbstractMap，基于红黑树实现了有序键值对存储，不允许null key允许null value，非线程安全</p>
+</li>
+<li><p>IdentityHashMap</p>
+<p>继承自AbstractMap，内容无序存储键值对，使用==而非equals比较key值，允许一条key记录为null，非线程安全</p>
+</li>
+<li><p>WeakHashMap</p>
+<p>继承自AbstractMap，非HashMap中的强引用，而是对key使用弱引用，堆空间不足时会将其回收，允许一条key记录为null，非线程安全，可利用其特性实现缓存。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/30/Maven%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1035,184 +1284,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/19/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/19/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">JVM内存模型</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-19 21:05:10" itemprop="dateCreated datePublished" datetime="2020-04-19T21:05:10+08:00">2020-04-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="JVM内存模型"><a href="#JVM内存模型" class="headerlink" title="JVM内存模型"></a>JVM内存模型</h1><p><img src="/2020/04/19/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/JvmMemory.svg" alt="img"></p>
-<h2 id="线程共享"><a href="#线程共享" class="headerlink" title="线程共享"></a>线程共享</h2><h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>原永久代gc可以延申至方法区，存储运行时常量池和已被虚拟机加载的类的信息、常量、static变量</p>
-<p>回收行为：常量池回收、对象类型的卸载</p>
-<h3 id="堆（最大内存区域）"><a href="#堆（最大内存区域）" class="headerlink" title="堆（最大内存区域）"></a>堆（最大内存区域）</h3><ul>
-<li>堆用于存储对象实例</li>
-<li>是垃圾搜集器管理的主要区域</li>
-<li>分为新生代和老年代</li>
-</ul>
-<h2 id="线程独占"><a href="#线程独占" class="headerlink" title="线程独占"></a>线程独占</h2><h3 id="Java栈"><a href="#Java栈" class="headerlink" title="Java栈"></a>Java栈</h3><p>存放方法运行时所需数据（方法的动态内存模型）</p>
-<p>每个方法执行都会创建一个栈帧，伴随方法从执行到结束，用于存储局部变量表、操作数栈、动态链接、方法出口等。</p>
-<p>栈帧创建完毕后进栈，方法执行完毕后出栈。</p>
-<ul>
-<li><p>局部变量表（空间在编译时就计算完毕）</p>
-<p>存放基本数据类型变量与对象变量引用</p>
-</li>
-</ul>
-<p>若栈内栈帧太多超出栈容量就会发生StackOverFlowError</p>
-<h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3><p>与上述Java栈相似，都有栈帧局部变量表等，但是本地方法栈为JVM所调用的Naitve方法服务。</p>
-<h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>程序计数器空间很小，指向当前线程执行的字节码指令的地址，若执行本地方法则为undefined，程序计数器没有OutOfMemoryError</p>
-<p>(goto为Java保留字无法使用)</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/19/JVM%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E4%B8%8E%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E7%9A%84%E5%A4%84%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/19/JVM%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E4%B8%8E%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E7%9A%84%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">JVM内存溢出与内存泄漏的处理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-19 19:11:52" itemprop="dateCreated datePublished" datetime="2020-04-19T19:11:52+08:00">2020-04-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="JVM内存溢出与内存泄漏的处理"><a href="#JVM内存溢出与内存泄漏的处理" class="headerlink" title="JVM内存溢出与内存泄漏的处理"></a>JVM内存溢出与内存泄漏的处理</h1><h2 id="已报OOM的内存溢出或内存泄漏"><a href="#已报OOM的内存溢出或内存泄漏" class="headerlink" title="已报OOM的内存溢出或内存泄漏"></a>已报OOM的内存溢出或内存泄漏</h2><ul>
-<li>在运行时设置虚拟机参数 -XX:+HeapDumpOnOutOfMemoryError 创建堆内存存储快照</li>
-<li>使用 -Xms分配合适的启动内存，使用-Xmx分配合适的最大内存</li>
-<li>重新运行OOM的程序，生成.hprof堆快照文件</li>
-<li>使用任意内存监视工具打开快照文件，根据堆内存占用结果进行分析</li>
-<li>制定解决方案解决问题</li>
-</ul>
-<h2 id="未报OOM但存在内存泄漏风险和情况"><a href="#未报OOM但存在内存泄漏风险和情况" class="headerlink" title="未报OOM但存在内存泄漏风险和情况"></a>未报OOM但存在内存泄漏风险和情况</h2><ul>
-<li>使用可视化监控工具，如Jprofiler，或jdk自带的jconsole进行监控</li>
-<li>根据监控结果判断是否存在泄漏点（如观察占用内存最多的对象类型、观察生命周期过长的对象）</li>
-<li>制定解决方案解决问题</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1284,7 +1355,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

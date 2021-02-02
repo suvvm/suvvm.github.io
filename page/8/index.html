@@ -177,6 +177,555 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">Bellman Ford原理分析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-12 19:11:56" itemprop="dateCreated datePublished" datetime="2019-11-12T19:11:56+08:00">2019-11-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Bellman-Ford（贝尔曼-福特算法）"><a href="#Bellman-Ford（贝尔曼-福特算法）" class="headerlink" title="Bellman Ford（贝尔曼 福特算法）"></a>Bellman Ford（贝尔曼 福特算法）</h2><p>Dijkstra算法可以很好的解决无负权图的最短路问题，但是一旦遇到负权，这个负权就像在迷宫游戏中，走每一条路都会消耗体力，但是某些道路上有宝箱，宝箱里可以开出美利坚大香蕉食用可以恢复体力，dijkstra会使你只顾着眼前消耗体力最少的道路而忽视了之后的美利坚大香蕉（<a href="https://www.suvvm.work/2019/11/05/Dijkstra原理分析/">具体分析</a>），这时便需要设计另一个算法去代替它，如Bellman Ford。</p>
+<p>如果一个有N个顶点的连通图中有最短路存在，那么这条最短路径上的顶点个数肯定不会超过N个，当源点被确定时，我们可以根据源点建立一条最短路径树，具体以下图为例，假设A为源点。</p>
+<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf1-1.svg" alt="img"></p>
+<p>最短路径树</p>
+<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf1-2.svg" alt="img"></p>
+<p>最短路径树的层数一定不会超过N。</p>
+<p>Bellman Ford算法与dijkstra类似，也需要设置一个数组d用来存放源点到各个顶点的最短距离。</p>
+<p>每次遍历图中所有边，根据边的权值进行松弛操作（对于每条边$u \rightarrow v $ 如果以u为中介点可以使v到源点的距离更短，就用u到源点的距离与当前边权去优化v到源点的距离）。</p>
+<p>初始状态下源点已知且到其本身的距离为0，即最短路径树的第一层结点已被确定，由第二层开始之后每次执行上述的松弛操作都可以确定一层的结点，由于最短路径树的层数不会超过N，所以确定所有点到源点的最短路长度所需要进行松弛操作的次数不会超过N-1。</p>
+<p>同dijkstra一样，初始将起点到所有点的最短路长度视为无穷大。</p>
+<p>记录一下图中的所有边</p>
+<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf2-1.svg" alt="img"></p>
+<h3 id="确定源点"><a href="#确定源点" class="headerlink" title="确定源点"></a>确定源点</h3><p>这里以A为源点，源点到其本身的距离为0。</p>
+<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf2-2.svg" alt="img"></p>
+<p> 当前A点到所有点的最短路长度表 </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">A</th>
+<th style="text-align:left">B</th>
+<th style="text-align:left">C</th>
+<th style="text-align:left">D</th>
+<th style="text-align:left">E</th>
+<th style="text-align:left">F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">∞</td>
+<td style="text-align:left">∞</td>
+<td style="text-align:left">∞</td>
+<td style="text-align:left">∞</td>
+<td style="text-align:left">∞</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>一共6个点，之后进行6-1=5次松弛操作。</p>
+<h3 id="第一次松弛"><a href="#第一次松弛" class="headerlink" title="第一次松弛"></a>第一次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(∞)	将B点到源点的最短距离由无穷大优化为0+2&#x3D;2</span><br><span class="line">边A(0)	3	C(∞)	将C点到源点的最短距离由无穷大优化为0+2&#x3D;3</span><br><span class="line">边B(2)	6	E(∞)	将E点到源点的最短距离由无穷大优化为2+6&#x3D;8</span><br><span class="line">边C(3)	-2	B(2)	将B点到源点的最短距离由2优化为3-2&#x3D;1</span><br><span class="line">边C(3)	5	E(8)	并不能进行优化</span><br><span class="line">边D(∞)	4	B(1)	并不能进行优化</span><br><span class="line">边E(8)	-5	D(∞)	将D点到源点的最短距离由无穷大优化为8-5&#x3D;3</span><br><span class="line">边E(8)	8	F(∞)	将F点到源点的最短距离由无穷大优化为8+8&#x3D;16</span><br><span class="line">边F(16)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf2-3.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表 </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">A</th>
+<th style="text-align:left">B</th>
+<th style="text-align:left">C</th>
+<th style="text-align:left">D</th>
+<th style="text-align:left">E</th>
+<th style="text-align:left">F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">8</td>
+<td style="text-align:left">∞</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="第二次松弛"><a href="#第二次松弛" class="headerlink" title="第二次松弛"></a>第二次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(1)	并不能进行优化</span><br><span class="line">边A(0)	3	C(3)	并不能进行优化</span><br><span class="line">边B(1)	6	E(8)	将E点到源点的最短距离由8优化为1+6&#x3D;7</span><br><span class="line">边C(3)	-2	B(1)	并不能进行优化</span><br><span class="line">边C(3)	5	E(7)	并不能进行优化</span><br><span class="line">边D(3)	4	B(1)	并不能进行优化</span><br><span class="line">边E(7)	-5	D(3)	将D点到源点的最短距离由3优化为7-5&#x3D;2</span><br><span class="line">边E(7)	8	F(16)	将F点到源点的最短距离由16优化为7+8&#x3D;15</span><br><span class="line">边F(15)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf2-4.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表 </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">A</th>
+<th style="text-align:left">B</th>
+<th style="text-align:left">C</th>
+<th style="text-align:left">D</th>
+<th style="text-align:left">E</th>
+<th style="text-align:left">F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">7</td>
+<td style="text-align:left">15</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="第三次松弛"><a href="#第三次松弛" class="headerlink" title="第三次松弛"></a>第三次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(1)	并不能进行优化</span><br><span class="line">边A(0)	3	C(3)	并不能进行优化</span><br><span class="line">边B(1)	6	E(7)	并不能进行优化</span><br><span class="line">边C(3)	-2	B(1)	并不能进行优化</span><br><span class="line">边C(3)	5	E(7)	并不能进行优化</span><br><span class="line">边D(2)	4	B(1)	并不能进行优化</span><br><span class="line">边E(7)	-5	D(2)	并不能进行优化</span><br><span class="line">边E(7)	8	F(15)	并不能进行优化</span><br><span class="line">边F(15)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf2-4.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表 </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">A</th>
+<th style="text-align:left">B</th>
+<th style="text-align:left">C</th>
+<th style="text-align:left">D</th>
+<th style="text-align:left">E</th>
+<th style="text-align:left">F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">7</td>
+<td style="text-align:left">15</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="第四次松弛"><a href="#第四次松弛" class="headerlink" title="第四次松弛"></a>第四次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(1)	并不能进行优化</span><br><span class="line">边A(0)	3	C(3)	并不能进行优化</span><br><span class="line">边B(1)	6	E(7)	并不能进行优化</span><br><span class="line">边C(3)	-2	B(1)	并不能进行优化</span><br><span class="line">边C(3)	5	E(7)	并不能进行优化</span><br><span class="line">边D(2)	4	B(1)	并不能进行优化</span><br><span class="line">边E(7)	-5	D(2)	并不能进行优化</span><br><span class="line">边E(7)	8	F(15)	并不能进行优化</span><br><span class="line">边F(15)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf2-4.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表 </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">A</th>
+<th style="text-align:left">B</th>
+<th style="text-align:left">C</th>
+<th style="text-align:left">D</th>
+<th style="text-align:left">E</th>
+<th style="text-align:left">F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">7</td>
+<td style="text-align:left">15</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="第五次松弛"><a href="#第五次松弛" class="headerlink" title="第五次松弛"></a>第五次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(1)	并不能进行优化</span><br><span class="line">边A(0)	3	C(3)	并不能进行优化</span><br><span class="line">边B(1)	6	E(7)	并不能进行优化</span><br><span class="line">边C(3)	-2	B(1)	并不能进行优化</span><br><span class="line">边C(3)	5	E(7)	并不能进行优化</span><br><span class="line">边D(2)	4	B(1)	并不能进行优化</span><br><span class="line">边E(7)	-5	D(2)	并不能进行优化</span><br><span class="line">边E(7)	8	F(15)	并不能进行优化</span><br><span class="line">边F(15)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf2-4.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表 </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">A</th>
+<th style="text-align:left">B</th>
+<th style="text-align:left">C</th>
+<th style="text-align:left">D</th>
+<th style="text-align:left">E</th>
+<th style="text-align:left">F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">7</td>
+<td style="text-align:left">15</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>到此为止五次松弛操作都已经结束，在对比一下我们之前肉眼观察出来的最短路径树。</p>
+<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf1-2.svg" alt="img"></p>
+<p>仿佛没有什么问题，我们成功的获得了最短路径，可喜可贺，Bellman Ford结束了，诸位洗洗睡把。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">6 9</span><br><span class="line">0 1 2</span><br><span class="line">0 2 3</span><br><span class="line">1 4 6</span><br><span class="line">2 1 -2</span><br><span class="line">2 4 5</span><br><span class="line">3 1 4</span><br><span class="line">4 3 -5</span><br><span class="line">4 5 8</span><br><span class="line">5 2 3</span><br><span class="line">0</span><br></pre></td></tr></table></figure></p>
+<h1 id="呸！！！"><a href="#呸！！！" class="headerlink" title="呸！！！"></a>呸！！！</h1><h3 id="负环"><a href="#负环" class="headerlink" title="负环"></a>负环</h3><p>负环这个东西很神奇，拿之前迷宫的例子来描述它，就是你可以发现有一条道路与之前的某个点形成了一个环，这个环上有一个或者多个大宝箱，里面有很多美利坚大香蕉，使得走完一次循环后吃美利坚大香蕉所恢复的体力比走路消耗的还多，这样就可以一直走这个环，刷更多的美利坚大香蕉恢复更多的体力。</p>
+<p>我们修改一下上面的图，将D到B的边的边权改为-4，这样就形成了一个B到E到D回到B的一个权值为6-5-4=-3的负环。</p>
+<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf3-1.svg" alt="img"></p>
+<p>我们依照之前的算法再次推理一遍。</p>
+<h3 id="确定源点-1"><a href="#确定源点-1" class="headerlink" title="确定源点"></a>确定源点</h3><p>以A为源点，源点到其本身的距离为0。</p>
+<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf3-2.svg" alt="img"></p>
+<p> 当前A点到所有点的最短路长度表 </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">A</th>
+<th style="text-align:left">B</th>
+<th style="text-align:left">C</th>
+<th style="text-align:left">D</th>
+<th style="text-align:left">E</th>
+<th style="text-align:left">F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">∞</td>
+<td style="text-align:left">∞</td>
+<td style="text-align:left">∞</td>
+<td style="text-align:left">∞</td>
+<td style="text-align:left">∞</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>一共6个点，之后进行6-1=5次松弛操作。</p>
+<h3 id="第一次松弛-1"><a href="#第一次松弛-1" class="headerlink" title="第一次松弛"></a>第一次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(∞)	将B点到源点的最短距离由无穷大优化为0+2&#x3D;2</span><br><span class="line">边A(0)	3	C(∞)	将C点到源点的最短距离由无穷大优化为0+2&#x3D;3</span><br><span class="line">边B(2)	6	E(∞)	将E点到源点的最短距离由无穷大优化为2+6&#x3D;8</span><br><span class="line">边C(3)	-2	B(2)	将B点到源点的最短距离由2优化为3-2&#x3D;1</span><br><span class="line">边C(3)	5	E(8)	并不能进行优化</span><br><span class="line">边D(∞)	-4	B(1)	并不能进行优化</span><br><span class="line">边E(8)	-5	D(∞)	将D点到源点的最短距离由无穷大优化为8-5&#x3D;3</span><br><span class="line">边E(8)	8	F(∞)	将F点到源点的最短距离由无穷大优化为8+8&#x3D;16</span><br><span class="line">边F(16)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf3-3.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表 </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">A</th>
+<th style="text-align:left">B</th>
+<th style="text-align:left">C</th>
+<th style="text-align:left">D</th>
+<th style="text-align:left">E</th>
+<th style="text-align:left">F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">8</td>
+<td style="text-align:left">16</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="第二次松弛-1"><a href="#第二次松弛-1" class="headerlink" title="第二次松弛"></a>第二次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(1)	并不能进行优化</span><br><span class="line">边A(0)	3	C(3)	并不能进行优化</span><br><span class="line">边B(1)	6	E(8)	将E点到源点的最短距离由8优化为1+6&#x3D;7</span><br><span class="line">边C(3)	-2	B(1)	并不能进行优化</span><br><span class="line">边C(3)	5	E(7)	并不能进行优化</span><br><span class="line">边D(3)	-4	B(1)	将B点到源点的最短距离由1优化为3-4&#x3D;-1</span><br><span class="line">边E(7)	-5	D(3)	将D点到源点的最短距离由3优化为7-5&#x3D;2</span><br><span class="line">边E(7)	8	F(16)	将F点到源点的最短距离由16优化为7+8&#x3D;15</span><br><span class="line">边F(15)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf3-4.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表 </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">A</th>
+<th style="text-align:left">B</th>
+<th style="text-align:left">C</th>
+<th style="text-align:left">D</th>
+<th style="text-align:left">E</th>
+<th style="text-align:left">F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">-1</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">7</td>
+<td style="text-align:left">15</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="第三次松弛-1"><a href="#第三次松弛-1" class="headerlink" title="第三次松弛"></a>第三次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(-1)	并不能进行优化</span><br><span class="line">边A(0)	3	C(3)	并不能进行优化</span><br><span class="line">边B(-1)	6	E(7)	将E点到源点的最短距离由7优化为-1+6&#x3D;5</span><br><span class="line">边C(3)	-2	B(-1)	并不能进行优化</span><br><span class="line">边C(3)	5	E(5)	并不能进行优化</span><br><span class="line">边D(2)	-4	B(-1)	将B点到源点的最短距离由-1优化为2-4&#x3D;-2</span><br><span class="line">边E(5)	-5	D(2)	将D点到源点的最短距离由2优化为-5+5&#x3D;0</span><br><span class="line">边E(5)	8	F(15)	将F点到源点的最短距离由15优化为5+8&#x3D;13</span><br><span class="line">边F(13)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf3-5.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表 </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">A</th>
+<th style="text-align:left">B</th>
+<th style="text-align:left">C</th>
+<th style="text-align:left">D</th>
+<th style="text-align:left">E</th>
+<th style="text-align:left">F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">-2</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">5</td>
+<td style="text-align:left">13</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="第四次松弛-1"><a href="#第四次松弛-1" class="headerlink" title="第四次松弛"></a>第四次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(-2)	并不能进行优化</span><br><span class="line">边A(0)	3	C(3)	并不能进行优化</span><br><span class="line">边B(-2)	6	E(5)	将E点到源点的最短距离由5优化为-2+6&#x3D;4</span><br><span class="line">边C(3)	-2	B(-2)	并不能进行优化</span><br><span class="line">边C(3)	5	E(4)	并不能进行优化</span><br><span class="line">边D(0)	-4	B(-2)	将B点到源点的最短距离由-2优化为0-4&#x3D;-4</span><br><span class="line">边E(4)	-5	D(0)	将D点到源点的最短距离由0优化为4-5&#x3D;-1</span><br><span class="line">边E(4)	8	F(13)	将F点到源点的最短距离由13优化为4+8&#x3D;12</span><br><span class="line">边F(12)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf3-6.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表 </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">A</th>
+<th style="text-align:left">B</th>
+<th style="text-align:left">C</th>
+<th style="text-align:left">D</th>
+<th style="text-align:left">E</th>
+<th style="text-align:left">F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">-4</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">-1</td>
+<td style="text-align:left">4</td>
+<td style="text-align:left">12</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="第五次松弛-1"><a href="#第五次松弛-1" class="headerlink" title="第五次松弛"></a>第五次松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(-4)	并不能进行优化</span><br><span class="line">边A(0)	3	C(3)	并不能进行优化</span><br><span class="line">边B(-4)	6	E(4)	将E点到源点的最短距离由4优化为-4+6&#x3D;2</span><br><span class="line">边C(3)	-2	B(-4)	并不能进行优化</span><br><span class="line">边C(3)	5	E(2)	并不能进行优化</span><br><span class="line">边D(-4)	-4	B(1)	将B点到源点的最短距离由-4优化为-4-4&#x3D;-8</span><br><span class="line">边E(2)	-5	D(-1)	将D点到源点的最短距离由-1优化为2-5&#x3D;-3</span><br><span class="line">边E(2)	8	F(12)	将F点到源点的最短距离由12优化为2+8&#x3D;10</span><br><span class="line">边F(10)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf3-7.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表 </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">A</th>
+<th style="text-align:left">B</th>
+<th style="text-align:left">C</th>
+<th style="text-align:left">D</th>
+<th style="text-align:left">E</th>
+<th style="text-align:left">F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">-5</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">-3</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">10</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>到此为止五次松弛操作都已经结束</p>
+<p>还能不能继续松弛呢，这里再进行一次额外的松弛操作</p>
+<h3 id="额外松弛"><a href="#额外松弛" class="headerlink" title="额外松弛"></a>额外松弛</h3><p>遍历所有边，根据其权值与两端点到源点的距离进行松弛操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(-5)	并不能进行优化</span><br><span class="line">边A(0)	3	C(3)	并不能进行优化</span><br><span class="line">边B(-5)	6	E(2)	将E点到源点的最短距离由2优化为-5+6&#x3D;1</span><br><span class="line">边C(3)	-2	B(-5)	并不能进行优化</span><br><span class="line">边C(3)	5	E(1)	并不能进行优化</span><br><span class="line">边D(-3)	-4	B(-5)	将B点到源点的最短距离由-5优化为-3-4&#x3D;-7</span><br><span class="line">边E(1)	-5	D(-3)	将D点到源点的最短距离由-3优化为1-5&#x3D;-4</span><br><span class="line">边E(1)	8	F(10)	将F点到源点的最短距离由10优化为1+8&#x3D;9</span><br><span class="line">边F(9)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/11/12/Bellman-Ford%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/bf3-8.svg" alt="img"></p>
+<p>当前A点到所有点的最短路长度表 </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">A</th>
+<th style="text-align:left">B</th>
+<th style="text-align:left">C</th>
+<th style="text-align:left">D</th>
+<th style="text-align:left">E</th>
+<th style="text-align:left">F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">-7</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">-4</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">9</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>果然还可以优化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">6 9</span><br><span class="line">0 1 2</span><br><span class="line">0 2 3</span><br><span class="line">1 4 6</span><br><span class="line">2 1 -2</span><br><span class="line">2 4 5</span><br><span class="line">3 1 -4</span><br><span class="line">4 3 -5</span><br><span class="line">4 5 8</span><br><span class="line">5 2 3</span><br><span class="line">0</span><br></pre></td></tr></table></figure></p>
+<h3 id="负环处理"><a href="#负环处理" class="headerlink" title="负环处理"></a>负环处理</h3><p>如何处理这种有负环的情况呢？当然是不去处理它，同上述步骤一样，我们多进行一次额外松弛，如果额外松弛时已经有优化发送，我们就认为这个图有负环，然后报告主函数即可。</p>
+<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e3</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">1e6</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> v, dis;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;node&gt; Adj[MAXN];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">int</span> d[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">BF</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">    fill(d, d + MAXN, INF);<span class="comment">//初始化起点到所有点的最短路长度为无穷大</span></span><br><span class="line">    d[s] = <span class="number">0</span>;   <span class="comment">//起点至本身的距离为0</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i ++)&#123;    <span class="comment">//遍历n - 1遍（一条最短路除去源点最多包含n-1个点，这里可以做优化）</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> u = <span class="number">0</span>; u &lt; n; u ++)&#123;    <span class="comment">//遍历所有顶点</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> j : Adj[u])&#123;   <span class="comment">//找到所有与当前点连通的点</span></span><br><span class="line">                <span class="keyword">if</span>(d[j.v] &gt; d[u] + j.dis)&#123;</span><br><span class="line">                    d[j.v] = d[u] + j.dis;  <span class="comment">//松弛操作</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        for(int i = 0; i &lt; n; i++)&#123;</span></span><br><span class="line"><span class="comment">            cout &lt;&lt; " " &lt;&lt; i &lt;&lt; ":" &lt;&lt; d[i];</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        cout &lt;&lt; endl;*/</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> u = <span class="number">0</span>; u &lt; n; u ++)&#123;    <span class="comment">//检测负环 如果已经执行上述n-1遍理应成功获取起点至所有点的最短路 若还可以继续松弛则存在负环</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> j : Adj[u])&#123;</span><br><span class="line">            <span class="keyword">if</span>(d[j.v] &gt; d[u] + j.dis)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">          &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入顶点数:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">int</span> m;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入边数"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i ++)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入边 (端点1 端点2 权值):"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">int</span> u, v, dis;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; u &gt;&gt; v &gt;&gt; dis;</span><br><span class="line">        Adj[u].push_back(node&#123;v, dis&#125;);</span><br><span class="line">        <span class="comment">//Adj[v].push_back(node&#123;u, dis&#125;);</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> s;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入起点:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">    <span class="keyword">int</span> e;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入终点:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; e;</span><br><span class="line">    <span class="keyword">if</span>(BF(s))&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"最短路长度:"</span> &lt;&lt; d[e] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++)&#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">" : "</span> &lt;&lt; d[i] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"最短路不存在"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/11/10/%E7%97%85%E6%AF%92%E7%B9%81%E6%AE%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/10/%E7%97%85%E6%AF%92%E7%B9%81%E6%AE%96/" class="post-title-link" itemprop="url">病毒繁殖</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-10 19:02:02" itemprop="dateCreated datePublished" datetime="2019-11-10T19:02:02+08:00">2019-11-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>【问题描述】  </p>
+<p> 　A学校的实验室新研制出了一种十分厉害的病毒。由于这种病毒太难以人工制造了，所以专家们在一开始只做出了一个这样的病毒。 </p>
+<p> 　这个病毒被植入了特殊的微型芯片，使其可以具有一些可编程的特殊性能。最重要的一个性能就是，专家们可以自行设定病毒的分裂能力 K，假如现在有x 个病毒，下一个分裂周期将会有 Kx个一模一样的病毒。你作为该实验室的数据分析员，需要统计出在分裂到第N个周期前，一共有多少个病毒单体进行了分裂。一开始时总是只有一个病毒，这个局面算作第一个周期。由于答案可能很大，专家们只需要你告诉他们对给定的P取模后的答案。</p>
+<p> 【输入格式】  </p>
+<p> 　一行三个整数，依次是K, N, P。</p>
+<p> 【输出格式】  </p>
+<p> 　一行一个整数，你的答案（对P取模） 。</p>
+<p> 【输入样例】  </p>
+<p> 【样例1】</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5 3 7</span><br></pre></td></tr></table></figure>
+<p> 【样例2】</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2 6 23</span><br></pre></td></tr></table></figure>
+<p> 【输出样例】  </p>
+<p> 【样例1】</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6</span><br></pre></td></tr></table></figure>
+<p> 【样例2】</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">8</span><br></pre></td></tr></table></figure>
+<p> 【样例解释】  </p>
+<p> 　样例一解释：第一个周期有 1 个病毒，产生了一次分裂。第二个周期有 $1 \times 5=5$ 个病毒， 这五个病毒都会分裂。 所以第三个周期前一共进行了1+5等于 6 次分裂。答案即为6 mod 7 = 6。</p>
+<p> 【数据范围】  </p>
+<script type="math/tex; mode=display">
+ 1 < N < 10^{18}\\
+ 1 < K , P < 2^{31}</script><p>本题就是求$ 1 + K + K^2 + …… + K^N $，对于这个问题可以将其拆分求出$<br> 1 + K + K^2 + …… + K^{ { \frac N2} - 1} $<br>再将其乘以$ K^{\frac N2} $即可得到$ K^{ \frac N2} + K^{ { \frac N2} + 1 } + …… + K^N $，之后将前面两式相加即可得到答案。递归解决即可，幂运算调用快速幂取模即可。<br>（关于快速幂取模可以去本人博客<a href="https://www.suvvm.work/tags/快速幂/">https://www.suvvm.work/tags/快速幂/</a>上去翻）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="comment">/*******************************************************</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* FunctionName: power</span></span><br><span class="line"><span class="comment">* Description: 快速幂取模</span></span><br><span class="line"><span class="comment">* Parameter:</span></span><br><span class="line"><span class="comment">*   @a  底数</span></span><br><span class="line"><span class="comment">*   @b  指数</span></span><br><span class="line"><span class="comment">*   @mod模数</span></span><br><span class="line"><span class="comment">* Return:</span></span><br><span class="line"><span class="comment">*   返回幂运算取模后的结果</span></span><br><span class="line"><span class="comment">**********************************************************/</span></span><br><span class="line"><span class="function">LL <span class="title">power</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> mod)</span></span>&#123;    <span class="comment">//快速幂</span></span><br><span class="line">    LL ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(b)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>)&#123;  <span class="comment">//从b的二进制末位开始判断</span></span><br><span class="line">            ans = ans * a % mod;  <span class="comment">//如果为1更新取模后的答案</span></span><br><span class="line">        &#125;</span><br><span class="line">        a = a * a % mod;    <span class="comment">//更新底数取模</span></span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;    <span class="comment">//b右移一位</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*******************************************************</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* FunctionName: solve</span></span><br><span class="line"><span class="comment">* Description: 分治解决n个周期前分裂的的细胞单体个数</span></span><br><span class="line"><span class="comment">* Parameter:</span></span><br><span class="line"><span class="comment">*   @k  分裂能力</span></span><br><span class="line"><span class="comment">*   @n  分裂周期次数</span></span><br><span class="line"><span class="comment">*   @p  模数</span></span><br><span class="line"><span class="comment">* Return:</span></span><br><span class="line"><span class="comment">*   返回n个周期前分裂的的细胞单体个数取模后的结果</span></span><br><span class="line"><span class="comment">**********************************************************/</span></span><br><span class="line"><span class="function">LL <span class="title">solve</span><span class="params">(<span class="keyword">int</span> k, <span class="keyword">int</span> n, <span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!n)  <span class="comment">// 0次分裂只有一个初始病毒</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(n &amp; <span class="number">1</span>)   <span class="comment">// 奇数次分裂</span></span><br><span class="line">        <span class="keyword">return</span> (<span class="number">1</span> + power(k, n/<span class="number">2</span> + <span class="number">1</span>, p)) * solve(k, n/<span class="number">2</span>, p) % p;</span><br><span class="line">    <span class="keyword">else</span>    <span class="comment">// 偶数次分裂</span></span><br><span class="line">        <span class="keyword">return</span> (power(k, n/<span class="number">2</span>, p) + (<span class="number">1</span> + power(k, n/<span class="number">2</span> +<span class="number">1</span>, p)) * solve(k, n/<span class="number">2</span> - <span class="number">1</span>, p)) % p;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    <span class="keyword">int</span> k, n, p;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; k &gt;&gt; n &gt;&gt; p;</span><br><span class="line">    n--; <span class="comment">// 以第0次分裂为起始</span></span><br><span class="line">    <span class="keyword">if</span>(!n)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="number">0</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(n == <span class="number">1</span>)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="number">1</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span>    <span class="comment">// 第n周期前，没有进行第n周期</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; solve(k, --n, p) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/11/09/C-%E5%A4%A7%E6%95%B4%E6%95%B0%E8%BF%90%E7%AE%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1503,188 +2052,6 @@ m[i][j]=\left\{ \begin{aligned} 0(i = j )\\ m[i][k]+m[k+1][j]+p_{i-1} \times p_j
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/04/08/PTA-Advanced-Level-1007-Maximum-Subsequence-Sum/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/08/PTA-Advanced-Level-1007-Maximum-Subsequence-Sum/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1007 Maximum Subsequence Sum</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-08 17:25:01" itemprop="dateCreated datePublished" datetime="2019-04-08T17:25:01+08:00">2019-04-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>　　Given a sequence of K integers { N1, N2, …, NK }. A continuous subsequence is defined to be { Ni, Ni+1, …, Nj } where 1. The Maximum Subsequence is the continuous subsequence which has the largest sum of its elements. For example, given sequence { -2, 11, -4, 13, -5, -2 }, its maximum subsequence is { 11, -4, 13 } with the largest sum being 20.</p>
-<p>　　Now you are supposed to find the largest sum, together with the first and the last numbers of the maximum subsequence.</p>
-<p><strong>Input Specification:</strong></p>
-<p>　　Each input file contains one test case. Each case occupies two lines. The first line contains a positive integer K (≤). The second line contains K numbers, separated by a space.</p>
-<p><strong>Output Specification:</strong></p>
-<p>　　For each test case, output in one line the largest sum, together with the first and the last numbers of the maximum subsequence. The numbers must be separated by one space, but there must be no extra space at the end of a line. In case that the maximum subsequence is not unique, output the one with the smallest indices i and j (as shown by the sample case). If all the K numbers are negative, then its maximum sum is defined to be 0, and you are supposed to output the first and the last numbers of the whole sequence.</p>
-<p><strong>Sample Input:</strong></p>
-<p>10</p>
-<p>-10 1 2 3 4 -5 -23 3 7 -21</p>
-<p><strong>Sample Output:</strong></p>
-<p>10 1 4</p>
-<p>题目解析</p>
-<p>　　本题第一行给出数组长度k，下一行给出k个整数，要求计算出最大连续子串和，并输出最大连续字串的首位与末位，如果整个字符串全为负数，则输出0并输出整个字符串的首位与末位。</p>
-<p>　　用数组arr记录给出的数组，最大连续子串和，果断dp。用数组dp[i]记录当字符串以第i位结尾时的最大连续子串和。当i = 0时以首位为结尾的最大连续子串和为首位arr[ i ]的值。</p>
-<p>之后的值只会有两种情况：</p>
-<p>　　1）以当前位i为结尾时最大连续子串只有其本身arr[ i ]一个元素;</p>
-<p>　　2）以当前位i为结尾时最大连续子串有多个元素，即dp[ i - 1] + arr[ i ];</p>
-<p>　　可以得到状态转移方程dp[ i ] = max(arr[ i ], dp[ i - 1] + arr[ i ]);</p>
-<p>　　至于最大连续子串的首尾两位我们可以在计算dp数组时一并计算，以bg[ i ]记录dp[ i ]对应的最大连续子串的首位，以ed[ i ]记录dp[ i ]对应的最大连续子串的末尾。</p>
-<p>注意：</p>
-<p>​    若不对整个字符串全为负数的情况做出处理， 测试点4会错误；</p>
-<p>　　若对整个字符串全为负数的情况做出处理了，但将字符串存在0的情况也视为全为负数处理，测试点5会错误。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX = <span class="number">1e4</span>+<span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> arr[MAX];</span><br><span class="line"><span class="keyword">int</span> dp[MAX], bg[MAX], ed[MAX];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> k;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;k);    <span class="comment">//输入数组长度k</span></span><br><span class="line">    <span class="keyword">bool</span> flag = <span class="literal">false</span>;  <span class="comment">//flag记录数组是否全为负数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; i++)&#123; <span class="comment">//输入数组</span></span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;arr[i]);</span><br><span class="line">        <span class="keyword">if</span>(arr[i] &gt;= <span class="number">0</span>) <span class="comment">//只要存在正数或0则将flag标记位true</span></span><br><span class="line">            flag = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    dp[<span class="number">0</span>] = arr[<span class="number">0</span>]; <span class="comment">//以首位为结尾的最大连续连续子串和为首位arr[i]的值</span></span><br><span class="line">    <span class="keyword">int</span> maxSum = arr[<span class="number">0</span>], index = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//maxSum记录最大连续子串和</span></span><br><span class="line">    <span class="comment">//index记录最大连续子串的末位下标</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; k; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(dp[i - <span class="number">1</span>] + arr[i] &gt;= arr[i])&#123;   <span class="comment">//情况2</span></span><br><span class="line">            dp[i] = dp[i - <span class="number">1</span>] + arr[i];</span><br><span class="line">            bg[i] = bg[i - <span class="number">1</span>];  <span class="comment">//记录当前最大连续子串首位下标</span></span><br><span class="line">            ed[i] = i;  <span class="comment">//记录最大连续子串末位下标</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;  <span class="comment">//情况1</span></span><br><span class="line">            dp[i] = arr[i];</span><br><span class="line">            bg[i] = ed[i] = i;</span><br><span class="line">            <span class="comment">//最大连续子串首尾下标都为i</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(dp[i] &gt; maxSum)&#123;</span><br><span class="line">            maxSum = dp[i];</span><br><span class="line">            index = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(flag)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d %d %d\n"</span>, maxSum, arr[bg[index]], arr[ed[index]]);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"0 %d %d\n"</span>, arr[<span class="number">0</span>], arr[k - <span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>　　当然本题数据量最大只有1e4，暴力的O(n^2)并不会超时，所以本题暴力依然没有问题。</p>
-<p>暴力过一切：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX = <span class="number">1e4</span>+<span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> arr[MAX], sum[MAX];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> k;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;k);</span><br><span class="line">    <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;arr[i]);</span><br><span class="line">        temp += arr[i];</span><br><span class="line">        sum[i] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> maxSum = <span class="number">-1</span>, bg = <span class="number">0</span>, ed = k - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt; k; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(sum[j] - sum[i] + arr[i] &gt; maxSum)&#123;</span><br><span class="line">                maxSum = sum[j] - sum[i] + arr[i];</span><br><span class="line">                bg = i;</span><br><span class="line">                ed = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(maxSum &lt; <span class="number">0</span>)</span><br><span class="line">        maxSum = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d %d\n"</span>, maxSum, arr[bg], arr[ed]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/04/04/PTA-Advanced-Level-1008-Elevator/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/04/PTA-Advanced-Level-1008-Elevator/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1008 Elevator</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-04 12:47:06" itemprop="dateCreated datePublished" datetime="2019-04-04T12:47:06+08:00">2019-04-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>　　The highest building in our city has only one elevator. A request list is made up with Npositive numbers. The numbers denote at which floors the elevator will stop, in specified order. It costs 6 seconds to move the elevator up one floor, and 4 seconds to move down one floor. The elevator will stay for 5 seconds at each stop.</p>
-<p>　　For a given request list, you are to compute the total time spent to fulfill the requests on the list. The elevator is on the 0th floor at the beginning and does not have to return to the ground floor when the requests are fulfilled.</p>
-<h3 id="Input-Specification"><a href="#Input-Specification" class="headerlink" title="Input Specification:"></a>Input Specification:</h3><p>　　Each input file contains one test case. Each case contains a positive integer N, followed by Npositive numbers. All the numbers in the input are less than 100.</p>
-<h3 id="Output-Specification"><a href="#Output-Specification" class="headerlink" title="Output Specification:"></a>Output Specification:</h3><p>　　For each test case, print the total time on a single line.</p>
-<h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input:"></a>Sample Input:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3 2 3 1</span><br></pre></td></tr></table></figure>
-<h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output:"></a>Sample Output:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">41</span><br></pre></td></tr></table></figure>
-<p>题目解析</p>
-<p>　　本题首先给出一个整数n代表电梯会停留的层数，之后给出n个数，代表电梯具体停留的楼层，电梯初始在0层，每向上一层会消耗6秒，每向下一层会消耗4秒，在需停留层会停留5秒，电梯最后不需要返回0层。</p>
-<p>　　模拟一下电梯的运行过程即可。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n, t = <span class="number">0</span>, nowf = <span class="number">0</span>; <span class="comment">//n为电梯需停留层数， t为已经消耗的时间， nowf是电梯当前所在的楼层</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);    <span class="comment">//输入电梯需停留层数</span></span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        <span class="keyword">int</span> floors;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;floors);   <span class="comment">//输入下一个要停留的楼层</span></span><br><span class="line">        <span class="keyword">while</span>(nowf &lt; floors)&#123;   <span class="comment">//向上运行</span></span><br><span class="line">            nowf++;</span><br><span class="line">            t += <span class="number">6</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(nowf &gt; floors)&#123;   <span class="comment">//向下运行</span></span><br><span class="line">            nowf--;</span><br><span class="line">            t += <span class="number">4</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        t += <span class="number">5</span>; <span class="comment">//停留</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, t);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1756,7 +2123,7 @@ m[i][j]=\left\{ \begin{aligned} 0(i = j )\\ m[i][k]+m[k+1][j]+p_{i-1} \times p_j
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

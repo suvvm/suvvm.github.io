@@ -177,6 +177,243 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/06/TCP%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/06/TCP%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/" class="post-title-link" itemprop="url">TCP流量控制</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-06 22:01:47" itemprop="dateCreated datePublished" datetime="2020-04-06T22:01:47+08:00">2020-04-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="TCP流量控制"><a href="#TCP流量控制" class="headerlink" title="TCP流量控制"></a>TCP流量控制</h1><h2 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h2><h3 id="流量控制目的"><a href="#流量控制目的" class="headerlink" title="流量控制目的"></a>流量控制目的</h3><ul>
+<li>发送方的发送速率与接收方的接收速率尽可能一至</li>
+<li>数据传输尽可能快</li>
+<li>不要使网络发生拥塞</li>
+</ul>
+<h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><h4 id="滑动窗口机制"><a href="#滑动窗口机制" class="headerlink" title="滑动窗口机制"></a>滑动窗口机制</h4><p>在建立TCP链接时，数据接收方会通知发送方其接收窗口（rwnd）大小，而发送方在收到接收窗口大小后会根据接收窗口与拥塞窗口（cwnd）大小设置发送窗口。</p>
+<h4 id="滑动窗口的维护"><a href="#滑动窗口的维护" class="headerlink" title="滑动窗口的维护"></a>滑动窗口的维护</h4><ul>
+<li>在建立TCP链接时，数据接收方会通知发送方其接收窗口大小</li>
+<li>接收端发送确认报文段时会一并发送当前剩余接收窗口大小</li>
+<li>发送方收到确认报文段后选取MIN(rwnd,cwnd)作为发送窗口大小</li>
+<li>当接收端接收窗口为0时发送方停止发送数据并启动持续计时器（presistencce timer）</li>
+<li>接收端处理一部分数据后，将主动发送报文段通知发送端接收窗口的大小。</li>
+<li>若接收方长时间未通知发送方接收窗口大小，或通知报文段丢失导致持续计时器超时，发送方将主动发出零窗口探测报文段</li>
+<li>接收端在收到零窗口探测报文段时将回复当前接收窗口大小</li>
+<li>若接收方收到的发送窗口大小依旧是0则重置持续计时器，若非0则继续发送数据。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/05/TCP%E7%9A%84%E7%8A%B6%E6%80%81%E5%8F%98%E8%BF%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/05/TCP%E7%9A%84%E7%8A%B6%E6%80%81%E5%8F%98%E8%BF%81/" class="post-title-link" itemprop="url">TCP的状态变迁</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-05 17:51:26" itemprop="dateCreated datePublished" datetime="2020-04-05T17:51:26+08:00">2020-04-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="TCP的状态变迁"><a href="#TCP的状态变迁" class="headerlink" title="TCP的状态变迁"></a>TCP的状态变迁</h1><h2 id="链接建立"><a href="#链接建立" class="headerlink" title="链接建立"></a>链接建立</h2><p>由三报文握手建立TCP连接。</p>
+<h3 id="服务器状态变迁"><a href="#服务器状态变迁" class="headerlink" title="服务器状态变迁"></a>服务器状态变迁</h3><ul>
+<li><p>CLOSED（关闭） $\rightarrow$ LISTEN（监听）</p>
+<p>服务器启动，由关闭状态转变为监听状态等待客户端发送建立连接请求</p>
+</li>
+<li><p>LISTEN（监听）$\rightarrow$ SYN_SENT（同步请求发送）</p>
+<p>服务器若向其他主机发送建立连接请求这时就变为了客户端，状态转为同步请求发送态，之后流程与客户端同步请求发送态相同。</p>
+</li>
+<li><p>LISTEN（监听）$\rightarrow$ SYN_RCVD（同步请求收到）</p>
+<p>服务器收到客户端发送的同步位 SYN = 1 确认位 ACK = 0 的建立连接请求报文段后由监听状态转变为同步请求收到状态，并向客户端回复一个同步位 SYN = 1 确认位ACK = 1 的报文段。</p>
+</li>
+<li><p>SYN_RCVD（同步请求收到）$\rightarrow$ FIN_WAIT_1（关闭等待初态）</p>
+<p>若服务器在等待ACK=1的确认报文段时可直接发送释放链接的FIN位为1的报文段，直接按链接释放处理。</p>
+</li>
+<li><p>SYN_RCVD（同步请求收到）$\rightarrow$ ESTABLISHED（建立）</p>
+<p>服务器收到客户端发送的ACK = 1的确认报文段，确认连接建立（不发送任何报文段）由同步请求收到状态转变为TCP连接建立状态</p>
+</li>
+</ul>
+<h3 id="客户端状态变迁"><a href="#客户端状态变迁" class="headerlink" title="客户端状态变迁"></a>客户端状态变迁</h3><ul>
+<li><p>CLOSED（关闭） $\rightarrow$ SYN_SENT（同步请求发送）</p>
+<p>客户端主动发起连接，由关闭状态转变为同步请求发送状态，并向服务器发送同步位 SYN = 1 确认位ACK = 0 的建立连接请求报文段。</p>
+</li>
+<li><p>SYN_SENT（同步请求发送）$\rightarrow$ 服务端SYN_RCVD（同步请求收到）</p>
+<p>可能会出现两端同时发送SYN=1 ACK=0 的建立连接请求，这样的话客户端将转为SYN_RCVD状态，之后的流程与服务端SYN_RCVD相同。</p>
+</li>
+<li><p>SYN_SENT（同步请求发送）$\rightarrow$ ESTABLISHED（建立）</p>
+<p>客户端收到服务器发送的同步位 SYN = 1 确认位ACK = 1的回复报文段，此时客户端认为连接已建立并向服务器回复ACK = 1的确认报文段（该段可直接用于传输数据）</p>
+</li>
+<li><p>SYN_SENT（同步请求发送）$\rightarrow$ CLOSED（关闭）</p>
+<p>客户端在收到服务器SYN=1 ACK=0 的建立连接请求之前请求应用程序被关闭，或者客户端长时间没有收到服务器建立连接请求时会关闭链接，进入关闭状态</p>
+</li>
+</ul>
+<h2 id="数据传输"><a href="#数据传输" class="headerlink" title="数据传输"></a>数据传输</h2><p>客户端与服务器都处在ESTABLISHED状态持续数据直到其中一方收到FIN连接关闭请求报文段。</p>
+<h2 id="链接释放"><a href="#链接释放" class="headerlink" title="链接释放"></a>链接释放</h2><p>四次挥手释放链接。</p>
+<h3 id="关闭发起者（主动端）"><a href="#关闭发起者（主动端）" class="headerlink" title="关闭发起者（主动端）"></a>关闭发起者（主动端）</h3><p>关闭发起者既可以是服务器又可以是客户端。</p>
+<ul>
+<li><p>ESTABLISHED（建立）$\rightarrow$ FIN_WAIT_1（关闭等待状态初态）</p>
+<p>主动端者向被动端发送FIN = 1的链接释放报文段</p>
+</li>
+<li><p>FIN_WAIT_1（关闭等待初态）$\rightarrow$ FIN_WAIT_2（半关闭）</p>
+<p>主动端收到被动端发送的确认位ACK = 1的报文段后，此时主动端等待被动段发送FIN = 1且ACK = 1的链接释放报文段。</p>
+</li>
+<li><p>FIN_WAIT_1（关闭等待初态）$\rightarrow$ CLOSEING （同时关闭）</p>
+<p>主动端发送链接释放报文段后首先收到的不是ACK=1的回复报文，而是收到了同样FIN=1的释放报文段，这证明在主动端发起释放的同时被动端也发起了释放，这时两者都成为了主动端，两者将会向对方发送ACK=1的确认报文段，并都进入CLOSING同时关闭状态。</p>
+</li>
+<li><p>FIN_WAIT_1（关闭等待初态）$\rightarrow$ TIME_WAIT（等待超时）</p>
+<p>若主动端发送链接释放报文段被被动端成功接收，被动端也成功依次发送了ACK=1的回复报文段与FIN=1 ACK=1的释放报文段，但是ACK=1的回复报文段在传输过程中丢失，并没有被主动端接收到，主动端在FIN_WAIT_1直接收到了被动端发送的FIN=1 ACK=1释放报文段，此种情况下ACK=1的回复报文段丢失并不影响链接的释放，主动端将直接向被动端发送ACK=1的报文段并进入TIME_WAIT等待超时状态。</p>
+</li>
+<li><p>FIN_WAIT_2（半关闭）$\rightarrow$ TIME_WAIT（等待超时）</p>
+<p>主动端在半关闭状态成功收到服务端发动的FIN=1 ACK=1的释放报文段，主动端将向被动端发送ACK=1的报文段并进入TIME_WAIT等待超时状态。</p>
+</li>
+<li><p>CLOSEING （同时关闭）$\rightarrow$ TIME_WAIT（等待超时）</p>
+<p>两个主动端在同时关闭状态收到ACK=1的回复报文段将直接进入TIME_WAIT等待超时状态。</p>
+</li>
+<li><p>TIME_WAIT（等待超时）$\rightarrow$ CLOSED（关闭）</p>
+<p>主动端等待两个最大报文生存周期（MSL）后关闭。</p>
+<p>原因是若主动方立刻关闭连接可能会出现一下情况</p>
+<ul>
+<li>主动端发送的ACK丢失，被动端进行FIN重传，若主动端已关闭则被动端无法收到主动端确认报文段，一直处于LAST_ACK状态无法关闭</li>
+<li>若被动端在关闭后立刻重新发起了连接请求，又碰巧使用了同一个端口，这时网络中可能有上一次连接延迟却依旧存活的报文段，若此报文段突然抵达服务端，将被认为是新连接发送的报文，等待2MSL可以确保此时网络中的所有本次连接的报文全部消失。</li>
+</ul>
+</li>
+</ul>
+<h3 id="关闭接收者（被动端）"><a href="#关闭接收者（被动端）" class="headerlink" title="关闭接收者（被动端）"></a>关闭接收者（被动端）</h3><ul>
+<li><p>ESTABLISHED（建立）$\rightarrow$ CLOSE_WAIT（关闭等待）</p>
+<p>被动端收到主动端发送的FIN = 1的链接释放报文段，向主动端发送ACK=1的回复报文段并进入关闭等待状态。</p>
+</li>
+<li><p>CLOSE_WAIT（关闭等待状态）$\rightarrow$ LAST_ACK（最终回复）</p>
+<p>被动端向主动端发送FIN=1 ACK=1释放报文段，并等待主动端发送ACK=1的回复报文段</p>
+</li>
+<li><p>LAST_ACK（最终回复）$\rightarrow$ CLOSED（关闭）</p>
+<p>被动端收到主动端ACK=1的回复后关闭</p>
+</li>
+</ul>
+<h2 id="TCP状态图"><a href="#TCP状态图" class="headerlink" title="TCP状态图"></a>TCP状态图</h2><p><img src="/2020/04/05/TCP%E7%9A%84%E7%8A%B6%E6%80%81%E5%8F%98%E8%BF%81/TCP状态图.svg" alt="img"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/04/%E7%BA%A2%E9%BB%91%E6%A0%91%E4%B8%8EJava-HashMap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1219,197 +1456,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/03/28/Spring%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/28/Spring%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC/" class="post-title-link" itemprop="url">Spring控制反转</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-28 17:33:36" itemprop="dateCreated datePublished" datetime="2020-03-28T17:33:36+08:00">2020-03-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Spring-控制反转"><a href="#Spring-控制反转" class="headerlink" title="Spring 控制反转"></a>Spring 控制反转</h1><p>控制反转（Inversion of Control）简写IoC，一种面向对象的设计原则，对象将获取其依赖对象的过程由主动获取转为被动。</p>
-<p>控制指的是将创建对象交由IoC容器控制，简单来说就是IoC容器控制了对象。</p>
-<p>反转指的是由IoC容器将被依赖的对象并注入到需要该依赖的对象中，实现两对象的解耦。</p>
-<p>由IoC容器创建被依赖的对象并注入到需要该依赖的对象中，实现两对象的解耦。这种行为再2004年由<a href="https://zh.m.wikipedia.org/wiki/Martin_Fowler" target="_blank" rel="noopener">Martin Fowler</a> 明确描述为依赖注入（Dependenct Injection）这种行为更符合IoC的概念。</p>
-<p>另一终IoC的方式是依赖查找，是指由被IoC容器控制的对象通过IoC容器提供的API主动查找其依赖的对象。</p>
-<p>spring中的IoC容器有两种</p>
-<ul>
-<li><p>BeanFactory基本容器</p>
-<p>用于实例化、配置、管理bean，只提供最基础的注册bean、获取bean和一些简单的方法。</p>
-</li>
-<li><p>ApplicationContext高级容器</p>
-<p>继承了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">EnvironmentCapable</span><br><span class="line">ListableBeanFactory</span><br><span class="line">HierarchicalBeanFactory</span><br><span class="line">MessageSource</span><br><span class="line">ApplicationEventPublisher</span><br><span class="line">ResourcePatternResolver</span><br></pre></td></tr></table></figure>
-<p>提供了更多功能如提供解析文本消息的方式与消息国际化等</p>
-</li>
-</ul>
-<h2 id="IoC的优点"><a href="#IoC的优点" class="headerlink" title="IoC的优点"></a>IoC的优点</h2><ul>
-<li>使控制对象间解耦，提升可维护性降低测试难度。</li>
-<li>IoC拥有工厂模式的所有优点</li>
-<li>IoC提升了可插拔性</li>
-</ul>
-<h2 id="IoC缺点"><a href="#IoC缺点" class="headerlink" title="IoC缺点"></a>IoC缺点</h2><ul>
-<li>使用反射创建被依赖对象，降低了对象创建的效率（现在反射创建对象效率已经大大改善）</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/03/25/Java%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/25/Java%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">Java模板模式</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-25 15:20:36" itemprop="dateCreated datePublished" datetime="2020-03-25T15:20:36+08:00">2020-03-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Java模板模式"><a href="#Java模板模式" class="headerlink" title="Java模板模式"></a>Java模板模式</h1><p>模板模式又叫做模板方法模式，是一种行为模式，其思想是在一个方法中定义一个算法框架，而将一些步骤延迟到子类中，使得子类在不改变原有算法结构的情况下实现重新定义算法中的某些步骤。</p>
-<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><p>针对某个类的子类有一些方法有共同的基础逻辑，但是需要不同的具体实现。如咖啡和茶都需要烧水、冲泡、倒杯与加调料，但是冲泡的方式与所加的调料可能都不相同。</p>
-<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><ul>
-<li>优点<ul>
-<li>可以确保算法结构不变的情况下，扩展可变内容</li>
-<li>将公共代码提取，易于维护</li>
-</ul>
-</li>
-<li>缺点<ul>
-<li>采取继承方式，每一种针对当前算法的不同实现都需要一个子类，可能导致类的数量过于臃肿</li>
-</ul>
-</li>
-</ul>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>创建抽象超类与模板方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Beverage</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">prepareRecipe</span><span class="params">()</span> </span>&#123;	<span class="comment">// 模板方法</span></span><br><span class="line">        boilWater();	<span class="comment">// 烧水</span></span><br><span class="line">        brew();	<span class="comment">// 冲泡</span></span><br><span class="line">        pourInCup();	<span class="comment">// 倒杯</span></span><br><span class="line">        addCondiments();	<span class="comment">// 加调料</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 需要由子类提供的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">brew</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">addCondiments</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">// 不需要由子类提供的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">boilWater</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"烧水"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">pourInCup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"倒入杯中"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>创建子类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tea</span> <span class="keyword">extends</span> <span class="title">Beverage</span> </span>&#123;	<span class="comment">// 茶</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">brew</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"泡茶"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCondiments</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"加柠檬"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Coffee</span> <span class="keyword">extends</span> <span class="title">Beverage</span> </span>&#123;	<span class="comment">// 茶</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">brew</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"冲咖啡"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCondiments</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"加糖加牛奶"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
-<li>Head First 设计模式</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1481,7 +1527,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1614,6 +1660,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

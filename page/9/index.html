@@ -177,6 +177,188 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/04/08/PTA-Advanced-Level-1007-Maximum-Subsequence-Sum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/08/PTA-Advanced-Level-1007-Maximum-Subsequence-Sum/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1007 Maximum Subsequence Sum</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-08 17:25:01" itemprop="dateCreated datePublished" datetime="2019-04-08T17:25:01+08:00">2019-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　Given a sequence of K integers { N1, N2, …, NK }. A continuous subsequence is defined to be { Ni, Ni+1, …, Nj } where 1. The Maximum Subsequence is the continuous subsequence which has the largest sum of its elements. For example, given sequence { -2, 11, -4, 13, -5, -2 }, its maximum subsequence is { 11, -4, 13 } with the largest sum being 20.</p>
+<p>　　Now you are supposed to find the largest sum, together with the first and the last numbers of the maximum subsequence.</p>
+<p><strong>Input Specification:</strong></p>
+<p>　　Each input file contains one test case. Each case occupies two lines. The first line contains a positive integer K (≤). The second line contains K numbers, separated by a space.</p>
+<p><strong>Output Specification:</strong></p>
+<p>　　For each test case, output in one line the largest sum, together with the first and the last numbers of the maximum subsequence. The numbers must be separated by one space, but there must be no extra space at the end of a line. In case that the maximum subsequence is not unique, output the one with the smallest indices i and j (as shown by the sample case). If all the K numbers are negative, then its maximum sum is defined to be 0, and you are supposed to output the first and the last numbers of the whole sequence.</p>
+<p><strong>Sample Input:</strong></p>
+<p>10</p>
+<p>-10 1 2 3 4 -5 -23 3 7 -21</p>
+<p><strong>Sample Output:</strong></p>
+<p>10 1 4</p>
+<p>题目解析</p>
+<p>　　本题第一行给出数组长度k，下一行给出k个整数，要求计算出最大连续子串和，并输出最大连续字串的首位与末位，如果整个字符串全为负数，则输出0并输出整个字符串的首位与末位。</p>
+<p>　　用数组arr记录给出的数组，最大连续子串和，果断dp。用数组dp[i]记录当字符串以第i位结尾时的最大连续子串和。当i = 0时以首位为结尾的最大连续子串和为首位arr[ i ]的值。</p>
+<p>之后的值只会有两种情况：</p>
+<p>　　1）以当前位i为结尾时最大连续子串只有其本身arr[ i ]一个元素;</p>
+<p>　　2）以当前位i为结尾时最大连续子串有多个元素，即dp[ i - 1] + arr[ i ];</p>
+<p>　　可以得到状态转移方程dp[ i ] = max(arr[ i ], dp[ i - 1] + arr[ i ]);</p>
+<p>　　至于最大连续子串的首尾两位我们可以在计算dp数组时一并计算，以bg[ i ]记录dp[ i ]对应的最大连续子串的首位，以ed[ i ]记录dp[ i ]对应的最大连续子串的末尾。</p>
+<p>注意：</p>
+<p>​    若不对整个字符串全为负数的情况做出处理， 测试点4会错误；</p>
+<p>　　若对整个字符串全为负数的情况做出处理了，但将字符串存在0的情况也视为全为负数处理，测试点5会错误。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX = <span class="number">1e4</span>+<span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> arr[MAX];</span><br><span class="line"><span class="keyword">int</span> dp[MAX], bg[MAX], ed[MAX];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> k;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;k);    <span class="comment">//输入数组长度k</span></span><br><span class="line">    <span class="keyword">bool</span> flag = <span class="literal">false</span>;  <span class="comment">//flag记录数组是否全为负数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; i++)&#123; <span class="comment">//输入数组</span></span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;arr[i]);</span><br><span class="line">        <span class="keyword">if</span>(arr[i] &gt;= <span class="number">0</span>) <span class="comment">//只要存在正数或0则将flag标记位true</span></span><br><span class="line">            flag = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    dp[<span class="number">0</span>] = arr[<span class="number">0</span>]; <span class="comment">//以首位为结尾的最大连续连续子串和为首位arr[i]的值</span></span><br><span class="line">    <span class="keyword">int</span> maxSum = arr[<span class="number">0</span>], index = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//maxSum记录最大连续子串和</span></span><br><span class="line">    <span class="comment">//index记录最大连续子串的末位下标</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; k; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(dp[i - <span class="number">1</span>] + arr[i] &gt;= arr[i])&#123;   <span class="comment">//情况2</span></span><br><span class="line">            dp[i] = dp[i - <span class="number">1</span>] + arr[i];</span><br><span class="line">            bg[i] = bg[i - <span class="number">1</span>];  <span class="comment">//记录当前最大连续子串首位下标</span></span><br><span class="line">            ed[i] = i;  <span class="comment">//记录最大连续子串末位下标</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;  <span class="comment">//情况1</span></span><br><span class="line">            dp[i] = arr[i];</span><br><span class="line">            bg[i] = ed[i] = i;</span><br><span class="line">            <span class="comment">//最大连续子串首尾下标都为i</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(dp[i] &gt; maxSum)&#123;</span><br><span class="line">            maxSum = dp[i];</span><br><span class="line">            index = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(flag)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d %d %d\n"</span>, maxSum, arr[bg[index]], arr[ed[index]]);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"0 %d %d\n"</span>, arr[<span class="number">0</span>], arr[k - <span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　当然本题数据量最大只有1e4，暴力的O(n^2)并不会超时，所以本题暴力依然没有问题。</p>
+<p>暴力过一切：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX = <span class="number">1e4</span>+<span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> arr[MAX], sum[MAX];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> k;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;k);</span><br><span class="line">    <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;arr[i]);</span><br><span class="line">        temp += arr[i];</span><br><span class="line">        sum[i] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> maxSum = <span class="number">-1</span>, bg = <span class="number">0</span>, ed = k - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt; k; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(sum[j] - sum[i] + arr[i] &gt; maxSum)&#123;</span><br><span class="line">                maxSum = sum[j] - sum[i] + arr[i];</span><br><span class="line">                bg = i;</span><br><span class="line">                ed = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(maxSum &lt; <span class="number">0</span>)</span><br><span class="line">        maxSum = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d %d\n"</span>, maxSum, arr[bg], arr[ed]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/04/04/PTA-Advanced-Level-1008-Elevator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/04/PTA-Advanced-Level-1008-Elevator/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1008 Elevator</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-04 12:47:06" itemprop="dateCreated datePublished" datetime="2019-04-04T12:47:06+08:00">2019-04-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　The highest building in our city has only one elevator. A request list is made up with Npositive numbers. The numbers denote at which floors the elevator will stop, in specified order. It costs 6 seconds to move the elevator up one floor, and 4 seconds to move down one floor. The elevator will stay for 5 seconds at each stop.</p>
+<p>　　For a given request list, you are to compute the total time spent to fulfill the requests on the list. The elevator is on the 0th floor at the beginning and does not have to return to the ground floor when the requests are fulfilled.</p>
+<h3 id="Input-Specification"><a href="#Input-Specification" class="headerlink" title="Input Specification:"></a>Input Specification:</h3><p>　　Each input file contains one test case. Each case contains a positive integer N, followed by Npositive numbers. All the numbers in the input are less than 100.</p>
+<h3 id="Output-Specification"><a href="#Output-Specification" class="headerlink" title="Output Specification:"></a>Output Specification:</h3><p>　　For each test case, print the total time on a single line.</p>
+<h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input:"></a>Sample Input:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3 2 3 1</span><br></pre></td></tr></table></figure>
+<h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output:"></a>Sample Output:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">41</span><br></pre></td></tr></table></figure>
+<p>题目解析</p>
+<p>　　本题首先给出一个整数n代表电梯会停留的层数，之后给出n个数，代表电梯具体停留的楼层，电梯初始在0层，每向上一层会消耗6秒，每向下一层会消耗4秒，在需停留层会停留5秒，电梯最后不需要返回0层。</p>
+<p>　　模拟一下电梯的运行过程即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n, t = <span class="number">0</span>, nowf = <span class="number">0</span>; <span class="comment">//n为电梯需停留层数， t为已经消耗的时间， nowf是电梯当前所在的楼层</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);    <span class="comment">//输入电梯需停留层数</span></span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        <span class="keyword">int</span> floors;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;floors);   <span class="comment">//输入下一个要停留的楼层</span></span><br><span class="line">        <span class="keyword">while</span>(nowf &lt; floors)&#123;   <span class="comment">//向上运行</span></span><br><span class="line">            nowf++;</span><br><span class="line">            t += <span class="number">6</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(nowf &gt; floors)&#123;   <span class="comment">//向下运行</span></span><br><span class="line">            nowf--;</span><br><span class="line">            t += <span class="number">4</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        t += <span class="number">5</span>; <span class="comment">//停留</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, t);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/04/03/PTA-Advanced-Level-1006-Sign-In-and-Sign-Out/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -946,188 +1128,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/02/24/FZU-2150-Fire-Game/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/02/24/FZU-2150-Fire-Game/" class="post-title-link" itemprop="url">FZU 2150 Fire Game</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-02-24 17:20:57" itemprop="dateCreated datePublished" datetime="2019-02-24T17:20:57+08:00">2019-02-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>　　Fat brother and Maze are playing a kind of special (hentai) game on an N*M board (N rows, M columns). At the beginning, each grid of this board is consisting of grass or just empty and then they start to fire all the grass. Firstly they choose two grids which are consisting of grass and set fire. As we all know, the fire can spread among the grass. If the grid (x, y) is firing at time t, the grid which is adjacent to this grid will fire at time t+1 which refers to the grid (x+1, y), (x-1, y), (x, y+1), (x, y-1). This process ends when no new grid get fire. If then all the grid which are consisting of grass is get fired, Fat brother and Maze will stand in the middle of the grid and playing a MORE special (hentai) game. (Maybe it’s the OOXX game which decrypted in the last problem, who knows.)</p>
-<p>　　You can assume that the grass in the board would never burn out and the empty grid would never get fire.</p>
-<p>　　Note that the two grids they choose can be the same.</p>
-<p>Input</p>
-<p>　　The first line of the date is an integer T, which is the number of the text cases.</p>
-<p>　　Then T cases follow, each case contains two integers N and M indicate the size of the board. 　　Then goes N line, each line with M character shows the board. “#” Indicates the grass. You can assume that there is at least one grid which is consisting of grass in the board.</p>
-<p>　　1 &lt;= T &lt;=100, 1 &lt;= n &lt;=10, 1 &lt;= m &lt;=10</p>
-<p>Output</p>
-<p>　　For each case, output the case number first, if they can play the MORE special (hentai) game (fire all the grass), output the minimal time they need to wait after they set fire, otherwise just output -1. See the sample input and output for more details.</p>
-<p>Sample Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">4</span><br><span class="line">3 3</span><br><span class="line">.#.</span><br><span class="line">###</span><br><span class="line">.#.</span><br><span class="line">3 3</span><br><span class="line">.#.</span><br><span class="line">#.#</span><br><span class="line">.#.</span><br><span class="line">3 3</span><br><span class="line">...</span><br><span class="line">#.#</span><br><span class="line">...</span><br><span class="line">3 3</span><br><span class="line">###</span><br><span class="line">..#</span><br><span class="line">#.#</span><br></pre></td></tr></table></figure>
-<p>Sample Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Case 1: 1</span><br><span class="line">Case 2: -1</span><br><span class="line">Case 3: 0</span><br><span class="line">Case 4: 2</span><br></pre></td></tr></table></figure>
-<p>题目解析<br>　　本题给出T代表测试数据组数，每组给出两个整数n， m之后给出一个n*m的矩阵，矩阵由字符 ‘ . ‘ 与 ‘ # ‘ 组成，’ . ‘表示空地，’ # ‘表示草地，两个人每人可以选择一个草地点火（可以选择同一个草地），火势每一次可以向其上下左右四个格的草地蔓延（空地不行），若火势可以在数次蔓延后覆盖全部草地，则要求求出最少的蔓延次数.</p>
-<p>　　对于每次选定草地后，可以以选择的两块草地为起点向周围广搜，记录火势蔓延之其所需的步数。默认所需步数为无穷大，则之后若还存在所需步数为无穷大的则选择这两个点不能使火势覆盖所有草地。若可以覆盖所有草地，便找到步数最大的草地，其步数便是以这两个点为起点覆盖所有草地所需的步数。</p>
-<p>　　遍历所有取法找寻最小所需步数即可获得答案。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="comment">//poj的题不能用万能头文件bits/stdc++.h</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX = <span class="number">15</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> X[<span class="number">4</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> Y[<span class="number">4</span>] = &#123;<span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> x, y;</span><br><span class="line">    <span class="keyword">int</span> step;</span><br><span class="line">&#125;Node;</span><br><span class="line">node bg[MAX * MAX]; <span class="comment">//bg记录所有草地所在的位置</span></span><br><span class="line"><span class="keyword">int</span> step[MAX][MAX]; <span class="comment">//step[x][y]记录点火后火势蔓延到(x,y)位置的草地所需的步数</span></span><br><span class="line"><span class="keyword">int</span> m, n;   <span class="comment">//记录输入矩阵大小</span></span><br><span class="line"><span class="keyword">bool</span> vis[MAX][MAX] = &#123;<span class="literal">false</span>&#125;;   <span class="comment">//记录某一个位置是否已覆盖</span></span><br><span class="line"><span class="built_in">string</span> G[MAX];  <span class="comment">//记录输入的矩阵</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;    <span class="comment">//判断某个位置是否可以进行覆盖</span></span><br><span class="line">    <span class="keyword">if</span>(x &gt;= n || x &lt; <span class="number">0</span> || y &gt;= m || y &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(G[x][y] != <span class="string">'#'</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(vis[x][y])</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BFS</span><span class="params">(node a, node b)</span></span>&#123;   <span class="comment">//广搜获取以a, b为起点的蔓延情况</span></span><br><span class="line">    <span class="built_in">memset</span>(vis, <span class="literal">false</span>, <span class="keyword">sizeof</span>(vis));</span><br><span class="line">    fill(step[<span class="number">0</span>], step[<span class="number">0</span>] + MAX * MAX, INT_MAX);    <span class="comment">//初始化到蔓延到所有草地所需步数为无穷大</span></span><br><span class="line">    <span class="built_in">queue</span>&lt;node&gt; Q;</span><br><span class="line">    Q.push(a);</span><br><span class="line">    Q.push(b);</span><br><span class="line">    <span class="comment">//起点入队</span></span><br><span class="line">    vis[a.x][a.y] = <span class="literal">true</span>;</span><br><span class="line">    vis[b.x][b.y] = <span class="literal">true</span>;</span><br><span class="line">    <span class="comment">//记录a b两块草地为已覆盖</span></span><br><span class="line">    <span class="keyword">while</span>(!Q.empty())&#123;</span><br><span class="line">        node top = Q.front();</span><br><span class="line">        step[top.x][top.y] = min(top.step, step[top.x][top.y]);</span><br><span class="line">        <span class="comment">//记录覆盖x y 位置的草地的最小步数</span></span><br><span class="line">        Q.pop();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)&#123; <span class="comment">//判断上下左右四个点</span></span><br><span class="line">            <span class="keyword">int</span> newX = top.x + X[i];</span><br><span class="line">            <span class="keyword">int</span> newY = top.y + Y[i];</span><br><span class="line">            <span class="keyword">if</span>(judge(newX, newY))&#123;  <span class="comment">//若可以覆盖则将其入队</span></span><br><span class="line">                Node.x = newX, Node.y = newY;</span><br><span class="line">                Node.step = top.step + <span class="number">1</span>;</span><br><span class="line">                vis[newX][newY] = <span class="literal">true</span>;</span><br><span class="line">                Q.push(Node);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t, Case = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);</span><br><span class="line">    <span class="comment">//t为测试数量</span></span><br><span class="line">    <span class="comment">//Case为当前测试编号</span></span><br><span class="line">    <span class="keyword">while</span>(Case &lt;= t)&#123;</span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;    <span class="comment">//cnt记录当前矩阵中草地总数</span></span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);  <span class="comment">//输入矩阵大小</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123; <span class="comment">//输入矩阵</span></span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; G[i];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(G[i][j] == <span class="string">'#'</span>)&#123; <span class="comment">//记录草地位置</span></span><br><span class="line">                    node temp;</span><br><span class="line">                    temp.x = i;</span><br><span class="line">                    temp.y = j;</span><br><span class="line">                    temp.step = <span class="number">0</span>;</span><br><span class="line">                    bg[cnt] = temp;</span><br><span class="line">                    cnt++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Case %d: "</span>, Case);</span><br><span class="line">        Case++;</span><br><span class="line">        <span class="keyword">if</span>(cnt &lt;= <span class="number">2</span>)&#123;   <span class="comment">//草地小于两块可以直接覆盖不需要蔓延，输出0</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"0\n"</span>);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> tans = <span class="number">0</span>, ans = INT_MAX;</span><br><span class="line">        <span class="comment">//tans记录每次选择两点后覆盖所有草地所需的次数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cnt; i++)&#123;   <span class="comment">//遍历所有选择情况</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt; cnt; j++)&#123;</span><br><span class="line">                BFS(bg[i], bg[j]);</span><br><span class="line">                tans = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; cnt; k++)&#123;</span><br><span class="line">                    tans = max(tans, step[bg[k].x][bg[k].y]);</span><br><span class="line">                    <span class="comment">//获取该选择下所需步数</span></span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">                ans = min(ans, tans);</span><br><span class="line">                <span class="comment">//记录最小步数</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(ans == INT_MAX)  <span class="comment">//无法覆盖所有草地</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"-1\n"</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/01/28/HihoCoder-1478-%E6%B0%B4%E9%99%86%E8%B7%9D%E7%A6%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/01/28/HihoCoder-1478-%E6%B0%B4%E9%99%86%E8%B7%9D%E7%A6%BB/" class="post-title-link" itemprop="url">HihoCoder 1478 水陆距离</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-01-28 20:00:37" itemprop="dateCreated datePublished" datetime="2019-01-28T20:00:37+08:00">2019-01-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>　　给定一个N x M的01矩阵，其中1表示陆地，0表示水域。对于每一个位置，求出它距离最近的水域的距离是多少。  </p>
-<p>　　矩阵中每个位置与它上下左右相邻的格子距离为1。</p>
-<h3 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h3><p>　　第一行包含两个整数，N和M。</p>
-<p>　　以下N行每行M个0或者1，代表地图。</p>
-<p>　　数据保证至少有1块水域。</p>
-<p>　　对于30%的数据，1 &lt;= N, M &lt;= 100  </p>
-<p>　　对于100%的数据，1 &lt;= N, M &lt;= 800</p>
-<h3 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h3><p>　　输出N行，每行M个空格分隔的整数。每个整数表示该位置距离最近的水域的距离。</p>
-<p>样例输入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">4 4  </span><br><span class="line">0110  </span><br><span class="line">1111  </span><br><span class="line">1111  </span><br><span class="line">0110</span><br></pre></td></tr></table></figure>
-<p>样例输出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0 1 1 0  </span><br><span class="line">1 2 2 1  </span><br><span class="line">1 2 2 1  </span><br><span class="line">0 1 1 0</span><br></pre></td></tr></table></figure>
-<p>时间限制:10000ms</p>
-<p>单点时限:1000ms</p>
-<p>内存限制:256MB</p>
-<p>题目解析<br>　　本题给出n m之后给出一个n * m的水陆分布图0代表水1代表路，要求输出每个点距离其最近的水的距离所组成的距离矩阵。</p>
-<p>　　本题使用BFS获取每个点到0点的最近距离，但如果暴力所有点的话是要超时的，结合BFS的特性，BFS每次入队的都是上一个点可以一步抵达的点，那么我们初始将所有的0点入队，以这些0点像周围搜索，记录每个点的最短入队层次即可。</p>
-<p>　　AC代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX = <span class="number">810</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> x, y;</span><br><span class="line">    <span class="keyword">int</span> step;   <span class="comment">//step记录入队的层次</span></span><br><span class="line">&#125;Node;</span><br><span class="line"><span class="keyword">int</span> G[MAX][MAX];    <span class="comment">//记录给出的图</span></span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line"><span class="keyword">bool</span> vis[MAX][MAX]; <span class="comment">//bool判断每个点是否已经走过</span></span><br><span class="line"><span class="keyword">int</span> ans[MAX][MAX];  <span class="comment">//记录每个点距离水的最近距离</span></span><br><span class="line"><span class="comment">//上下左右四个方向</span></span><br><span class="line"><span class="keyword">int</span> X[<span class="number">4</span>] = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> Y[<span class="number">4</span>] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>&#123;   <span class="comment">//判断某位置是否可以走</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">0</span> || y &lt; <span class="number">0</span> || x &gt;= m || y &gt;= n)  <span class="comment">//超边界</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(vis[y][x] == <span class="literal">true</span>)   <span class="comment">//已经走过</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">queue</span>&lt;node&gt; Q;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BFS</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(!Q.empty())&#123;</span><br><span class="line">        node top = Q.front();</span><br><span class="line">        ans[top.y][top.x] = top.step;   <span class="comment">//每个点的入队层数便是其距离水的最近距离</span></span><br><span class="line">        Q.pop();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)&#123; <span class="comment">//判断上下左右四个方向的点是否可以走</span></span><br><span class="line">            <span class="keyword">int</span> newX = top.x + X[i];</span><br><span class="line">            <span class="keyword">int</span> newY = top.y + Y[i];</span><br><span class="line">            <span class="keyword">if</span>(judge(newX, newY))&#123;  <span class="comment">//若可以走将新的点入队并标记为已走过，层数为前一个点加一</span></span><br><span class="line">                vis[newY][newX] = <span class="literal">true</span>;</span><br><span class="line">                Node.x = newX;</span><br><span class="line">                Node.y = newY;</span><br><span class="line">                Node.step = top.step + <span class="number">1</span>;</span><br><span class="line">                Q.push(Node);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);  <span class="comment">//输入nn</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123; <span class="comment">//输入n * m的矩阵</span></span><br><span class="line">        <span class="built_in">string</span> str;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; str;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; j++)&#123;</span><br><span class="line">            G[i][j] = str[j] - <span class="string">'0'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123; <span class="comment">//将所有的0预先入队</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(G[i][j] == <span class="number">0</span>)&#123;</span><br><span class="line">                Node.x = j;</span><br><span class="line">                Node.y = i;</span><br><span class="line">                Node.step = <span class="number">0</span>;</span><br><span class="line">                vis[i][j] = <span class="literal">true</span>;</span><br><span class="line">                Q.push(Node);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    BFS();  <span class="comment">//搜索获得答案</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123; <span class="comment">//输出最短距离矩阵</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(j != <span class="number">0</span>)</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d"</span>, ans[i][j]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1199,7 +1199,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

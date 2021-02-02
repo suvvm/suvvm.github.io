@@ -177,6 +177,186 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/08/HDU-1074-Doing-Homework/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/08/HDU-1074-Doing-Homework/" class="post-title-link" itemprop="url">HDU 1074 Doing Homework</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-08 16:07:30" itemprop="dateCreated datePublished" datetime="2018-12-08T16:07:30+08:00">2018-12-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　Ignatius has just come back school from the 30th ACM/ICPC. Now he has a lot of homework to do. Every teacher gives him a deadline of handing in the homework. If Ignatius hands in the homework after the deadline, the teacher will reduce his score of the final test, 1 day for 1 point. And as you know, doing homework always takes a long time. So Ignatius wants you to help him to arrange the order of doing homework to minimize the reduced score.</p>
+<p>Input</p>
+<p>　　The input contains several test cases. The first line of the input is a single integer T which is the number of test cases. T test cases follow.<br>Each test case start with a positive integer N(1&lt;=N&lt;=15) which indicate the number of homework. Then N lines follow. Each line contains a string S(the subject’s name, each string will at most has 100 characters) and two integers D(the deadline of the subject), C(how many days will it take Ignatius to finish this subject’s homework). </p>
+<p>　　Note: All the subject names are given in the alphabet increasing order. So you may process the problem much easier.<br>Output</p>
+<p>　　For each test case, you should output the smallest total reduced score, then give out the order of the subjects, one subject in a line. If there are more than one orders, you should output the alphabet smallest one.<br>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">3</span><br><span class="line">Computer 3 3</span><br><span class="line">English 20 1</span><br><span class="line">Math 3 2</span><br><span class="line">3</span><br><span class="line">Computer 3 3</span><br><span class="line">English 6 3</span><br><span class="line">Math 6 3</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">Computer</span><br><span class="line">Math</span><br><span class="line">English</span><br><span class="line">3</span><br><span class="line">Computer</span><br><span class="line">English</span><br><span class="line">Math</span><br></pre></td></tr></table></figure>
+<p>Hint</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In the second test case, both Computer-&gt;English-&gt;Math and Computer-&gt;Math-&gt;English leads to reduce 3 points, but the </span><br><span class="line">word &quot;English&quot; appears earlier than the word &quot;Math&quot;, so we choose the first order. That is so-called alphabet order.</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题给出多组数据，每组数据给出一个整数t为测试数量，给出一个整数n代表项目数量，之后n行跟随每行给出一个项目信息，包括项目名name 最晚上交时间deadline 完成该项目需要的时间costDays。每个项目只要晚于deadline所规定的时间上交，每晚一天扣一分。对于每组测试要求输出最少的扣分数之后按提交顺序输出项目名。</p>
+<p>　　本题限定了项目的数量n &lt;= 15。假设有A、B、C、D四个项目，每个项目有已上交和未上交两种状态，我们可以用一个四位二进制表示这四个项目的所有状态，例如0001表示A上交其他所有项目未上交，0011表示AB项目上交CD项目未上交，1111表示所有项目都上交，以此类推，若想n取到最大15，需要15位2进制数表示所有情况，表示15个项目全部提交的二进制数最大，为111111111111111，其所代表的10进制整数为32767，其大小远小于int上限，那么我们只需要令maxn = 1 &lt;&lt; 15 即32768 就可以表示本题中所有可能出现的状态，</p>
+<p>　　既然所有状态都已经可以表示出来，现在就可以考虑一下如何获得状态，例如AB项目上交CD项目未上交的状态0011，可以由A上交其他都没上交的状态0001提交B（0010）获得，也可以由状态B上交其他都没上交的状态0010提交A（0001）获得，那么我们如果想要算出获得当前状态的最小扣分值，只需要遍历所有只需一次提交便可以得到当前状态的状态（以后称为前状态）找到前状态的扣分加上本次提交项目所需的扣分的最小值即可，这就是本题的解题思想——状态压缩dp。</p>
+<p>　　状态压缩dp也是dp，这里用一个结构体subject型的数组Subject[16]储存所有项目信息subject中包括项目名，最晚提交日期与消耗时间；用一个结构体nodeInformation型的数组dp[maxn]保存每个状态的信息，nodeInformation包括现在状态已经使用的天数，现在状态的前状态，前状态到现在状态所需提交的项目，现在状态的最少扣分。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">subject</span>&#123;</span></span><br><span class="line">    <span class="built_in">string</span> name;    <span class="comment">//项目名</span></span><br><span class="line">    <span class="keyword">int</span> deadline;   <span class="comment">//最后期限</span></span><br><span class="line">    <span class="keyword">int</span> costDays;   <span class="comment">//耗费时间</span></span><br><span class="line">&#125;Subject[maxn];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">nodeInformation</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> costNow;    <span class="comment">//现在状态做项目已经使用的天数</span></span><br><span class="line">    <span class="keyword">int</span> now;    <span class="comment">//前状态到现在状态所需提交的项目</span></span><br><span class="line">    <span class="keyword">int</span> pre;    <span class="comment">//现在状态的前状态</span></span><br><span class="line">    <span class="keyword">int</span> subScore;   <span class="comment">//现在状态的最少扣分</span></span><br><span class="line">&#125;dp[maxn];</span><br></pre></td></tr></table></figure>
+<p> 　　之后遍历所有状态，开始时假设现在状态疯狂扣分扣无限分，之后遍历所有项目作为前项目到现在状态所提交的项目，每次遍历看看能不能减少现在状态的扣分，能的话就跟新dp数组信息。遍历结束后用一个栈后进先出的特性从所有项目都提交的状态向前寻找前状态并入栈。之后出栈输出项目名即可获得提交的顺序。 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> lastSubNow = endn;  <span class="comment">//全部提交状态</span></span><br><span class="line"><span class="keyword">while</span>(lastSubNow)&#123;  <span class="comment">//到全部未提交为止</span></span><br><span class="line">    subName.push(dp[lastSubNow].now);   <span class="comment">//入站前状态</span></span><br><span class="line">    lastSubNow = dp[lastSubNow].pre;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">while</span>(!subName.empty())&#123;    <span class="comment">//输出提交顺序</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; Subject[subName.top()].name &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    subName.pop();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> AC代码 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1</span> &lt;&lt; <span class="number">15</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">0x7fffffff</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">subject</span>&#123;</span></span><br><span class="line">    <span class="built_in">string</span> name;    <span class="comment">//项目名</span></span><br><span class="line">    <span class="keyword">int</span> deadline;   <span class="comment">//最后期限</span></span><br><span class="line">    <span class="keyword">int</span> costDays;   <span class="comment">//耗费时间</span></span><br><span class="line">&#125;Subject[maxn];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">nodeInformation</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> costNow;    <span class="comment">//现在状态做项目已经使用的天数</span></span><br><span class="line">    <span class="keyword">int</span> now;    <span class="comment">//前状态到现在状态所需提交的项目</span></span><br><span class="line">    <span class="keyword">int</span> pre;    <span class="comment">//现在状态的前状态</span></span><br><span class="line">    <span class="keyword">int</span> subScore;   <span class="comment">//现在状态的最少扣分</span></span><br><span class="line">&#125;dp[maxn];</span><br><span class="line"><span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; subName; <span class="comment">//记录路径</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;  <span class="comment">//测试数量</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t) != EOF)&#123;</span><br><span class="line">        <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">            <span class="built_in">memset</span>(dp, <span class="number">0</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">            <span class="keyword">int</span> n;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);    <span class="comment">//输入项目数量</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123; <span class="comment">//输入每个项目</span></span><br><span class="line">                <span class="built_in">cin</span> &gt;&gt; Subject[i].name &gt;&gt; Subject[i].deadline &gt;&gt; Subject[i].costDays;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> endn = (<span class="number">1</span> &lt;&lt; n) - <span class="number">1</span>;  <span class="comment">//所有项目都提交</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= endn; i++)&#123;   <span class="comment">//i所对应的2进制数代表每一个项目的完成情况，即i对应的二进制就是当前状态</span></span><br><span class="line">                dp[i].subScore = inf;   <span class="comment">//初始化完成这种情况疯狂扣分减无限分</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = n - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--)&#123;</span><br><span class="line">                    <span class="comment">//遍历所有项目，j为当前选择作为前状态提交项目的项目</span></span><br><span class="line">                    <span class="keyword">int</span> nowSubj = <span class="number">1</span> &lt;&lt; j;   <span class="comment">//nowSubj代表只提交下标为j的项目的状态</span></span><br><span class="line">                    <span class="keyword">if</span>(i &amp; nowSubj)&#123;    <span class="comment">//判断i情况中下标为j的项目是否提交</span></span><br><span class="line">                        <span class="comment">//若已经提交进行如下操作</span></span><br><span class="line">                        <span class="keyword">int</span> past = i - nowSubj;<span class="comment">//把i状态的中代表j号项目的状态改为没有提交，就可以获得i状态提交j的前状态past</span></span><br><span class="line">                        <span class="keyword">int</span> subScorej;</span><br><span class="line">                        <span class="comment">//subScorej代表past状态提交j号项目的扣分</span></span><br><span class="line">                        <span class="comment">//它就等于past状态已经消耗的天数加上j项目需要消耗的天数减去j号项目的要求的最晚提交日期。</span></span><br><span class="line">                        subScorej = dp[past].costNow + Subject[j].costDays - Subject[j].deadline;</span><br><span class="line">                        <span class="keyword">if</span>(subScorej &lt; <span class="number">0</span>)&#123;  <span class="comment">//扣分不可能小于0，如果小于0就证明时间充足，扣分为0</span></span><br><span class="line">                            subScorej = <span class="number">0</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">if</span>(subScorej + dp[past].subScore &lt; dp[i].subScore)&#123; <span class="comment">//如果从past状态到现在状态可以使i状态当前的扣分减小</span></span><br><span class="line">                            dp[i].subScore = subScorej + dp[past].subScore;</span><br><span class="line">                            <span class="comment">//更新i状态的扣分</span></span><br><span class="line">                            dp[i].costNow = dp[past].costNow + Subject[j].costDays;</span><br><span class="line">                            <span class="comment">//记录以past为前状态的i状态消耗的天数</span></span><br><span class="line">                            dp[i].now = j;</span><br><span class="line">                            <span class="comment">//前状态past到现在状态i并使其扣分最少所提交的项目为j项目</span></span><br><span class="line">                            dp[i].pre = past;</span><br><span class="line">                            <span class="comment">//记录i的前状态为past</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, dp[endn].subScore);</span><br><span class="line">            <span class="comment">//输出提交全部项目的最少扣分（所有的项目都提交状态最少扣分）</span></span><br><span class="line">            <span class="keyword">int</span> lastSubNow = endn;  <span class="comment">//全部提交状态</span></span><br><span class="line">            <span class="keyword">while</span>(lastSubNow)&#123;  <span class="comment">//到全部未提交为止</span></span><br><span class="line">                subName.push(dp[lastSubNow].now);   <span class="comment">//入站前状态</span></span><br><span class="line">                lastSubNow = dp[lastSubNow].pre;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span>(!subName.empty())&#123;    <span class="comment">//输出提交顺序</span></span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; Subject[subName.top()].name &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                subName.pop();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/07/HDU-1029-Ignatius-and-the-Princess-IV/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/07/HDU-1029-Ignatius-and-the-Princess-IV/" class="post-title-link" itemprop="url">HDU 1029 Ignatius and the Princess IV</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-07 15:18:04" itemprop="dateCreated datePublished" datetime="2018-12-07T15:18:04+08:00">2018-12-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　“OK, you are not too bad, em… But you can never pass the next test.” feng5166 says. </p>
+<p>　　“I will tell you an odd number N, and then N integers. There will be a special integer among them, you have to tell me which integer is the special one after I tell you all the integers.” feng5166 says. </p>
+<p>　　“But what is the characteristic of the special integer?” Ignatius asks. </p>
+<p>　　“The integer will appear at least (N+1)/2 times. If you can’t find the right integer, I will kill the Princess, and you will be my dinner, too. Hahahaha…..” feng5166 says. </p>
+<p>　　Can you find the special integer for Ignatius? </p>
+<p>Input</p>
+<p>　　The input contains several test cases. Each test case contains two lines. The first line consists of an odd integer N(1&lt;=N&lt;=999999) which indicate the number of the integers feng5166 will tell our hero. The second line contains the N integers. The input is terminated by the end of file.<br>Output</p>
+<p>　　For each test case, you have to output only one line which contains the special number you have found.<br>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">5</span><br><span class="line">1 3 2 3 3</span><br><span class="line">11</span><br><span class="line">1 1 1 1 1 5 5 5 5 5 5</span><br><span class="line">7</span><br><span class="line">1 1 1 1 1 1 1</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">5</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题给出多组数据每组数据给出一个数n，下一行给出n个数，要求找出出现次数超过一半的数字。</p>
+<p>试想一个数的数量超过总数的一半其出现次数一定是所有的数中出现最多的那个数，我们就可以在输入时用一个ans记录当前出现次数最多的数，cnt记录ans比其他数的出现次数多多少。每当cnt等于0时便说明在当前输入已经输入完的数中ans所代表的数出现的次数不足一半，则cnt重新记录一个数，输入结束后获得的ans即为所取数。</p>
+<p>　　AC代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n) != EOF)&#123;</span><br><span class="line">        <span class="keyword">int</span> ans, cnt = <span class="number">0</span>, temp;</span><br><span class="line">        <span class="comment">//ans记录当前出现次数最多的数，cnt记录ans比其他数的出现次数多多少</span></span><br><span class="line">        <span class="comment">//temp记录当前输入的数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;temp);</span><br><span class="line">            <span class="keyword">if</span>(cnt == <span class="number">0</span>)&#123;<span class="comment">//cnt等于0重新记录一个数</span></span><br><span class="line">                ans = temp;</span><br><span class="line">                cnt++;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(ans == temp)&#123;</span><br><span class="line">                cnt++;  <span class="comment">//输入的数等于ans cnt++</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                cnt--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);    <span class="comment">//输出答案</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/07/HDU-1495-%E9%9D%9E%E5%B8%B8%E5%8F%AF%E4%B9%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -931,204 +1111,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/28/HDU-6225-Little-Boxes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/28/HDU-6225-Little-Boxes/" class="post-title-link" itemprop="url">HDU 6225 Little Boxes</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-28 19:46:53" itemprop="dateCreated datePublished" datetime="2018-11-28T19:46:53+08:00">2018-11-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><meta name="referrer" content="no-referrer"><br>　　Little boxes on the hillside.<br>　　Little boxes made of ticky-tacky.<br>　　Little boxes.<br>　　Little boxes.<br>　　Little boxes all the same.<br>　　There are a green boxes, and b pink boxes.<br>　　And c blue boxes and d yellow boxes.<br>　　And they are all made out of ticky-tacky.<br>　　And they all look just the same. </p>
-<p>Input</p>
-<p>　　The input has several test cases. The first line contains the integer t (1 ≤ t ≤ 10) which is the total number of test cases.<br>　　For each test case, a line contains four non-negative integers a, b, c and d where a, b, c, d ≤ 2^62, indicating the numbers of green boxes, pink boxes, blue boxes and yellow boxes.<br>Output</p>
-<p>　　For each test case, output a line with the total number of boxes.<br>Sample Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">4</span><br><span class="line">1 2 3 4</span><br><span class="line">0 0 0 0</span><br><span class="line">1 0 0 0</span><br><span class="line">111 222 333 404</span><br></pre></td></tr></table></figure>
-<p>Sample Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">10</span><br><span class="line">0</span><br><span class="line">1</span><br><span class="line">1070</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　测试数量t，每个测试给出四个巨大的数a，b，c，d要求计算他们的和，由于数的长度过大这里采用字符串模拟加法（好像ull也可以）。</p>
-<p>　　小学我们学过一种极为好用的方法——竖式计算</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201811/1447131-20181128192148504-1139918077.png" alt="img"></p>
-<p>对于两个数字，将它们记录为字符串，从个位开始按位计算，记录记录完后的结果与进位，计算下一位时将进位加上即可。</p>
-<p>AC代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e5</span>+<span class="number">10</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">BigNum</span>&#123;</span>  <span class="comment">//记录大数</span></span><br><span class="line">    <span class="keyword">int</span> num[maxn];</span><br><span class="line">    <span class="keyword">int</span> len;    <span class="comment">//长度</span></span><br><span class="line">    BigNum()&#123;</span><br><span class="line">        <span class="built_in">memset</span>(num, <span class="number">0</span>, <span class="keyword">sizeof</span>(num));</span><br><span class="line">        len = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">BigNum <span class="title">change</span><span class="params">(<span class="built_in">string</span> temp)</span></span>&#123; <span class="comment">//将字符串转换为大数类型</span></span><br><span class="line">    <span class="comment">//为了方便计算将字符串倒过来储存</span></span><br><span class="line">    BigNum a;</span><br><span class="line">    a.len = temp.size();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.len; i++)  <span class="comment">//逆序储存字符串</span></span><br><span class="line">        a.num[i] = temp[a.len - i - <span class="number">1</span>] - <span class="string">'0'</span>;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">BigNum <span class="title">add</span><span class="params">(BigNum a, BigNum b)</span></span>&#123;</span><br><span class="line">    BigNum c;</span><br><span class="line">    <span class="keyword">int</span> carry = <span class="number">0</span>;<span class="comment">//进位</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.len || i &lt; b.len; i++)&#123;<span class="comment">//以较长的长度为界限</span></span><br><span class="line">        <span class="keyword">int</span> temp = a.num[i] + b.num[i] + carry;<span class="comment">//两个位置相加后加上进位</span></span><br><span class="line">        c.num[c.len++] = temp % <span class="number">10</span>; <span class="comment">//记录该位结果</span></span><br><span class="line">        carry = temp / <span class="number">10</span>;  <span class="comment">//记录进位</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(carry != <span class="number">0</span>)  <span class="comment">//记录首位进位</span></span><br><span class="line">        c.num[c.len++] = carry;</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t; </span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t) != EOF)&#123; <span class="comment">//输入测试数量</span></span><br><span class="line">        <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">            <span class="built_in">string</span> temp1;</span><br><span class="line">            BigNum sum, temp;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)&#123;</span><br><span class="line">                <span class="built_in">cin</span> &gt;&gt; temp1;    </span><br><span class="line">                temp = change(temp1);   <span class="comment">//输入大数并记录为BigNum型</span></span><br><span class="line">                sum = add(sum, temp);</span><br><span class="line">                <span class="comment">//计算和</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = sum.len - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%d"</span>,sum.num[i]);</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/28/ZOJ-2971-Give-Me-the-Number/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/28/ZOJ-2971-Give-Me-the-Number/" class="post-title-link" itemprop="url">ZOJ 2971 Give Me the Number</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-28 18:58:45" itemprop="dateCreated datePublished" datetime="2018-11-28T18:58:45+08:00">2018-11-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>　　Numbers in English are written down in the following way (only numbers less than <em>109</em>are considered). Number <em>abc,def,ghi</em> is written as “<em>[abc]</em> million <em>[def]</em> thousand <em>[ghi]</em>“. Here “<em>[xyz]</em> “ means the written down number <em>xyz</em> .</p>
-<p>　　In the written down number the part “<em>[abc]</em> million” is omitted if <em>abc = 0</em> , “<em>[def]</em>thousand” is omitted if <em>def = 0</em> , and “<em>[ghi]</em> “ is omitted if <em>ghi = 0</em> . If the whole number is equal to <em>0</em> it is written down as “zero”. Note that words “million” and “thousand” are singular even if the number of millions or thousands respectively is greater than one.</p>
-<p>　　Numbers under one thousand are written down in the following way. The number <em>xyz</em> is written as “<em>[x]</em> hundred and <em>[yz]</em> ”. ( If <em>yz = 0</em> it should be only “<em>[x]</em> hundred”. Otherwise if <em>y = 0</em> it should be only “<em>[x]</em> hundred and [z]”.) Here “<em>[x]</em> hundred and” is omitted if <em>x = 0</em> . Note that “hundred” is also always singular.</p>
-<p>　　Numbers under <em>20</em> are written down as “zero”, “one”, “two”, “three”, “four”, “five”, “six”, “seven”, “eight”, “nine”, “ten”, “eleven”, “twelve”, “thirteen”, “fourteen”, “fifteen”, “sixteen”, “seventeen”, “eighteen”, and “nineteen” respectively. Numbers from <em>20</em> to <em>99</em> are written down in the following way. Number <em>xy</em> is written as “<em>[x0]**[y]</em> “, and numbers divisible by ten are written as “twenty”, “thirty”, “forty”, “fifty”, “sixty”, “seventy”, “eighty”, and “ninety” respectively.</p>
-<p>　　For example, number <em>987,654,312</em> is written down as “nine hundred and eighty seven million six hundred and fifty four thousand three hundred and twelve”, number <em>100,000,037</em> as “one hundred million thirty seven”, number <em>1,000</em> as “one thousand”. Note that “one” is never omitted for millions, thousands and hundreds.</p>
-<p>　　Give you the written down words of a number, please give out the original number.</p>
-<p>Input</p>
-<p>　　Standard input will contain multiple test cases. The first line of the input is a single integer <em>T</em> (1 &lt;= <em>T</em> &lt;= 1900) which is the number of test cases. It will be followed by <em>T</em> consecutive test cases.</p>
-<p>　　Each test case contains only one line consisting of a sequence of English words representing a number.</p>
-<p>Output</p>
-<p>　　For each line of the English words output the corresponding integer in a single line. You can assume that the integer is smaller than <em>109</em>.</p>
-<p>Sample Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">one</span><br><span class="line">eleven</span><br><span class="line">one hundred and two</span><br></pre></td></tr></table></figure>
-<p>Sample Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">11</span><br><span class="line">102</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　给出行数t，之后t行每行给出一个用英文描述的数字，要求输出这个数字。</p>
-<p>　　这里从头开始记录这个数字，每记录一个数字就将它加入答案，根据题目语法以百万”million”，千”thousand”和百”hundred”这几个在英文中有特殊表示形式的单词为标值，每次遇到这些标值就将目前的答案乘以标志数，如果是”million”或”thousand”（”hundred”不用）从0开始重新记录下一个标值前的数字，一直记录到字符串的最后一个单词。</p>
-<p>样例分析：</p>
-<p>nine hundred and eighty seven million six hundred and fifty four thousand three hundred and twelve</p>
-<p>nine： 9 + 0 = 9</p>
-<p>hundred： 9 * 100 = 900</p>
-<p>eighty ：80 + 900 = 980</p>
-<p>and ：0 + 980 = 980 </p>
-<p>seven ：7 + 980 = 987</p>
-<p>million ：987 * 1000000 = 987000000　　（遇到million重新从0开始记录）</p>
-<p>six ： 6 + 0 = 6</p>
-<p>hundred ： 6 * 100 = 600</p>
-<p>and : 0 + 600 = 600</p>
-<p>fifty ： 50 + 600 = 650</p>
-<p>four ： 4 + 650 = 654</p>
-<p>thousand ： 654 * 1000 + 987000000 = 987654000　　（遇到thousand重新从0开始记录）</p>
-<p>three ： 0 + 3 = 3</p>
-<p>hundred ： 3 * 100 = 300</p>
-<p>and ： 0 + 300 = 300；</p>
-<p>twelve ： 12 + 300 = 312；</p>
-<p>987654000 + 312 = 987654312</p>
-<p>　　知道解法后就要思考怎样实现它，由于每一行为一个数字，输入时我们用一个getline之间获得一行存入string型的变量str中，用头文件sstream下的istringstream可以以空格为界读取str中的每个单词，将获取的每个单词计入string型变量temp中，并根据temp的内容进行操作，我们可以用map来建立每个(非”million”，”thousand”，”hundred”)单词和其对应数字的关系。</p>
-<p>AC代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; m;</span><br><span class="line"><span class="built_in">string</span> s1[<span class="number">21</span>] = &#123;<span class="string">"zero"</span>,<span class="string">"one"</span>,<span class="string">"two"</span>,<span class="string">"three"</span>,<span class="string">"four"</span>,<span class="string">"five"</span>,<span class="string">"six"</span>,<span class="string">"seven"</span>,<span class="string">"eight"</span>,<span class="string">"nine"</span>,<span class="string">"ten"</span>,<span class="string">"eleven"</span>,<span class="string">"twelve"</span>,<span class="string">"thirteen"</span>,<span class="string">"fourteen"</span>,<span class="string">"fifteen"</span>,<span class="string">"sixteen"</span>,<span class="string">"seventeen"</span>,<span class="string">"eighteen"</span>,<span class="string">"nineteen"</span>&#125;;</span><br><span class="line"><span class="built_in">string</span> s2[<span class="number">9</span>] = &#123;<span class="string">"twenty"</span>,<span class="string">"thirty"</span>,<span class="string">"forty"</span>,<span class="string">"fifty"</span>,<span class="string">"sixty"</span>,<span class="string">"seventy"</span>,<span class="string">"eighty"</span>,<span class="string">"ninety"</span>&#125;;</span><br><span class="line"><span class="built_in">string</span> s3 = <span class="string">"and"</span>;</span><br><span class="line"><span class="built_in">string</span> str, temp;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++)&#123;    <span class="comment">//建立0~19的映射</span></span><br><span class="line">        m[s1[i]] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)&#123; <span class="comment">//建立20，30……，90的映射</span></span><br><span class="line">        m[s2[i]] = <span class="number">20</span> + i * <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    m[s3] = <span class="number">0</span>;  <span class="comment">//如果遇到and不需要操作，就将and映射为0即可</span></span><br><span class="line">    <span class="keyword">int</span> t;  <span class="comment">//行数</span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);</span><br><span class="line">    getchar();  <span class="comment">//吸收换行符</span></span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        getline(<span class="built_in">cin</span>,str);   <span class="comment">//获取一行</span></span><br><span class="line">        <span class="function"><span class="built_in">istringstream</span> <span class="title">cinstr</span><span class="params">(str)</span></span>;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>, num = <span class="number">0</span>;   <span class="comment">//ans记录答案，temp记录当前数字</span></span><br><span class="line">        <span class="keyword">while</span>(cinstr &gt;&gt; temp)&#123;  <span class="comment">//在str中读取单词</span></span><br><span class="line">            <span class="keyword">if</span>(temp == <span class="string">"million"</span>)&#123;  <span class="comment">//遇到million乘以1000000并从0开始重新记录</span></span><br><span class="line">                ans += num * <span class="number">1000000</span>;</span><br><span class="line">                num = <span class="number">0</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(temp == <span class="string">"thousand"</span>)&#123;   <span class="comment">//遇到thousand乘以1000并从0开始重新记录</span></span><br><span class="line">                ans += num * <span class="number">1000</span>;</span><br><span class="line">                num = <span class="number">0</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(temp == <span class="string">"hundred"</span>)&#123;    <span class="comment">//遇到hundred乘以100</span></span><br><span class="line">                num *= <span class="number">100</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                num += m[temp]; <span class="comment">//记录数字</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ans += num; <span class="comment">//将最后记录的数字加入答案</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1200,7 +1182,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

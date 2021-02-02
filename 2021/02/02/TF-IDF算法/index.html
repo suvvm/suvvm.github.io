@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ortrait.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.suvvm.work","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="TF-IDF算法一、TF-IDF概念​    词频-逆文档频率（Term Frequency-Inverse Document Frequency，TD-IDF）是一种用于文本挖掘与信息检索的常用自然语言处理技术。 ​    TF-IDF属于统计方法，用于评估一个word对于一个文件集或语料库中的其中一份文件的重要程度（提取文档关键词）。word的重要性随着其在文件中出现的次数成正比增加，但同时会">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TF-IDF算法">
+<meta property="og:url" content="https://www.suvvm.work/2021/02/02/TF-IDF%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="SUVVM">
+<meta property="og:description" content="TF-IDF算法一、TF-IDF概念​    词频-逆文档频率（Term Frequency-Inverse Document Frequency，TD-IDF）是一种用于文本挖掘与信息检索的常用自然语言处理技术。 ​    TF-IDF属于统计方法，用于评估一个word对于一个文件集或语料库中的其中一份文件的重要程度（提取文档关键词）。word的重要性随着其在文件中出现的次数成正比增加，但同时会">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-02-02T07:25:09.000Z">
+<meta property="article:modified_time" content="2021-02-02T07:24:36.655Z">
+<meta property="article:author" content="SUVVM">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="NLP">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.suvvm.work/2021/02/02/TF-IDF%E7%AE%97%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>TF-IDF算法 | SUVVM</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e5190116d64be66cac29daef18c94ac0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">SUVVM</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">呜嗷SUVVM</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/02/02/TF-IDF%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TF-IDF算法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-02 15:25:09 / 修改时间：15:24:36" itemprop="dateCreated datePublished" datetime="2021-02-02T15:25:09+08:00">2021-02-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="TF-IDF算法"><a href="#TF-IDF算法" class="headerlink" title="TF-IDF算法"></a>TF-IDF算法</h1><h2 id="一、TF-IDF概念"><a href="#一、TF-IDF概念" class="headerlink" title="一、TF-IDF概念"></a>一、TF-IDF概念</h2><p>​    词频-逆文档频率（Term Frequency-Inverse Document Frequency，TD-IDF）是一种用于文本挖掘与信息检索的常用自然语言处理技术。</p>
+<p>​    TF-IDF属于统计方法，用于评估一个word对于一个文件集或语料库中的其中一份文件的重要程度（提取文档关键词）。word的重要性随着其在文件中出现的次数成正比增加，但同时会随着其在语料库中出现的频率成反比下降。</p>
+<script type="math/tex; mode=display">
+TFIDF = TF(词频) \times IDF（逆文档频率）</script><h2 id="二、TF-IDF主要思想"><a href="#二、TF-IDF主要思想" class="headerlink" title="二、TF-IDF主要思想"></a>二、TF-IDF主要思想</h2><p>​    TD-IDF的主要思想是如果某个词语或短语在一片文章中出现的的频率TF高，并且在其他文章中很少出现（IDF低），则认为该词或短语有很好的类别区分能力，适合用来分类。</p>
+<p>​    例如，我们用狗屁不通文章生成器以“郭一”为主题生成一篇文章。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">这是不可避免的。我们高兴地发现，郭一是一个好消息。高汀说过一句著名的话，习惯，我们每个人或多或少都是它的奴隶。这不禁令我深思。别林斯基曾经提到过，好的书籍是最贵重的珍宝。这句话语虽然很短，但令我浮想联翩。 这些事实也清楚地表明我们应该郭一。一般来讲，我们都必须务必慎重地考虑考虑。那么，郭沫若说过一句著名的话，形成天才的决定因素应该是勤奋。这句话把我们带到了一个新的维度去思考这个问题： 罗曼·罗兰曾经提到过，只有把抱怨环境的心情，化为上进的力量，才是成功的保证。我希望诸位也能好好地体会这句话。 郭一的发生，到底需要如何做到，不郭一的发生，又会如何产生。本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。我强烈建议郭一，既然如此，我希望大家本着知无不言、言无不尽、言者无罪、闻者足戒的精神，认真看待郭一这个重要问题。 </span><br><span class="line">总而言之，整个社会应该密切关注郭一这个问题。 </span><br><span class="line"> 莎士比亚曾经提到过，时间会刺破青春表面的彩饰，会在美人的额上掘深沟浅槽；会吃掉稀世之珍！天生丽质，什么都逃不过他那横扫的镰刀。这句话语虽然很短，但令我浮想联翩。 从这个角度来看，既然如此，我们要统一思想，统一步骤地，为了根本解决郭一的问题而努力。我们都知道，只要有意义，那么就必须慎重考虑。这些事实也清楚地表明我们应该郭一。我们一般认为，抓住了问题的关键，其他一切就会迎刃而解。问题的关键究竟为何？尽管不同问题人们有着不同观点，但是郭一正愈来愈成为人们的共识。可是，即使是这样，郭一的出现仍然代表了一定的意义。 </span><br><span class="line"> 郭一似乎是一种巧合，但如果我们从一个更大的角度看待问题，这似乎是一种不可避免的事实。鲁迅曾经说过，单是说不行，要紧的是做。这不禁令我深思。随着社会的发展变化，对我个人而言，郭一不仅仅是一个重大的事件，还可能会改变我的人生。尽管不同问题人们有着不同观点，但是郭一正愈来愈成为人们的共识。总之，我认为，对我个人而言，郭一不仅仅是一个重大的事件，还可能会改变我的人生。郭一，到底应该如何实现。一般来说，首先，也许是最重要的是郭一。而这些并不是完全重要，更加重要的问题是，可是，即使是这样，郭一的出现仍然代表了一定的意义。要想清楚，郭一，到底是一种怎么样的存在。郭一因何而发生？首先，也许是最重要的是郭一。带着这些问题，我们来审视一下郭一。从这个角度来看，每个人都不得不面对这些问题。在面对这种问题时，歌德在不经意间这样说过，谁要游戏人生，他就一事无成，谁不能主宰自己，永远是一个奴隶。这句话语虽然很短，但令我浮想联翩。</span><br></pre></td></tr></table></figure>
+<p>​    我们很清楚，这篇文章中的主题是“郭一”，但若单靠词频提取，可能“的”“了”之类的词出现的频率更高，这时便要给它们一个惩罚，这就是TF-IDF的主要思想。</p>
+<h2 id="三、TF与IDF的计算"><a href="#三、TF与IDF的计算" class="headerlink" title="三、TF与IDF的计算"></a>三、TF与IDF的计算</h2><h3 id="1、词频（TF）"><a href="#1、词频（TF）" class="headerlink" title="1、词频（TF）"></a>1、词频（TF）</h3><p>​    词频指的是给定的一个词语在该文档中出现的频率。这个数字是对词数的归一化，以防止计算结果偏向词书多的长文件。</p>
+<script type="math/tex; mode=display">
+TF_{i,j}=\frac{n_{i,j}}{n_{*,j}}</script><p>​    其中$TF<em>{i,j}$表示词语i在文档j中出现的频率，$n</em>{i,j}$表示词语i在文档j中出现的次数，$n_{*,j}$表示文档j的总词数。</p>
+<h3 id="2、逆向文件频率（IDF）"><a href="#2、逆向文件频率（IDF）" class="headerlink" title="2、逆向文件频率（IDF）"></a>2、逆向文件频率（IDF）</h3><p>​    逆向文件频率是一个词语普遍重要性的度量，某一特定词语的IDF可以由总文档数目处以包含该词语之文档的数目，再将其得到的商取对数获得。</p>
+<script type="math/tex; mode=display">
+IDF_i = log(\frac{N+1}{N_i+1})</script><p>​    其中$IDF_i$表示词语i在文档集中的逆文档频率，N表示文档集中的文档总数，$N_i$表示文档集中包含了词语I的文档数量。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
+              <a href="/tags/NLP/" rel="tag"># NLP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/01/%E7%B1%BB%E5%88%AB%E5%9E%8B%E7%89%B9%E5%BE%81%E5%A4%84%E7%90%86/" rel="prev" title="类别型特征处理">
+      <i class="fa fa-chevron-left"></i> 类别型特征处理
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TF-IDF算法"><span class="nav-number">1.</span> <span class="nav-text">TF-IDF算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、TF-IDF概念"><span class="nav-number">1.1.</span> <span class="nav-text">一、TF-IDF概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、TF-IDF主要思想"><span class="nav-number">1.2.</span> <span class="nav-text">二、TF-IDF主要思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、TF与IDF的计算"><span class="nav-number">1.3.</span> <span class="nav-text">三、TF与IDF的计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、词频（TF）"><span class="nav-number">1.3.1.</span> <span class="nav-text">1、词频（TF）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、逆向文件频率（IDF）"><span class="nav-number">1.3.2.</span> <span class="nav-text">2、逆向文件频率（IDF）</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SUVVM"
+      src="/images/ortrait.jpg">
+  <p class="site-author-name" itemprop="name">SUVVM</p>
+  <div class="site-description" itemprop="description">SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">154</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/suvvm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;suvvm" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/suvvm@foxmail.com" title="E-Mail → suvvm@foxmail.com"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SUVVM</span>
+	<a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鲁ICP备19040043号-2</a>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
