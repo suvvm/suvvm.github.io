@@ -177,6 +177,97 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/08/HDOJ-1176-%E5%85%8D%E8%B4%B9%E9%A6%85%E9%A5%BC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/08/HDOJ-1176-%E5%85%8D%E8%B4%B9%E9%A6%85%E9%A5%BC/" class="post-title-link" itemprop="url">HDOJ 1176 免费馅饼</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-08 21:24:43" itemprop="dateCreated datePublished" datetime="2018-12-08T21:24:43+08:00">2018-12-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><meta name="referrer" content="no-referrer"><br>　　都说天上不会掉馅饼，但有一天gameboy正走在回家的小径上，忽然天上掉下大把大把的馅饼。说来gameboy的人品实在是太好了，这馅饼别处都不掉，就掉落在他身旁的10米范围内。馅饼如果掉在了地上当然就不能吃了，所以gameboy马上卸下身上的背包去接。但由于小径两侧都不能站人，所以他只能在小径上接。由于gameboy平时老呆在房间里玩游戏，虽然在游戏中是个身手敏捷的高手，但在现实中运动神经特别迟钝，每秒种只有在移动不超过一米的范围内接住坠落的馅饼。现在给这条小径如图标上坐标：<br><img src="https://vj.e949.cn/3d6e7172eea0b64638702b3468ac5ad2?v=1544089883" alt="img"><br>　　为了使问题简化，假设在接下来的一段时间里，馅饼都掉落在0-10这11个位置。开始时gameboy站在5这个位置，因此在第一秒，他只能接到4,5,6这三个位置中其中一个位置上的馅饼。问gameboy最多可能接到多少个馅饼？（假设他的背包可以容纳无穷多个馅饼） </p>
+<p>Input</p>
+<p>　　输入数据有多组。每组数据的第一行为以正整数n(0&lt;n&lt;100000)，表示有n个馅饼掉在这条小径上。在结下来的n行中，每行有两个整数x,T(0&lt;T&lt;100000),表示在第T秒有一个馅饼掉在x点上。同一秒钟在同一点上可能掉下多个馅饼。n=0时输入结束。<br>Output</p>
+<p>　　每一组输入数据对应一行输出。输出一个整数m，表示gameboy最多可能接到m个馅饼。<br>提示：本题的输入数据量比较大，建议用scanf读入，用cin可能会超时。 </p>
+<p>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">6</span><br><span class="line">5 1</span><br><span class="line">4 1</span><br><span class="line">6 1</span><br><span class="line">7 2</span><br><span class="line">7 2</span><br><span class="line">8 3</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题每组数据包括馅饼数量n之后n行给出每个馅饼的掉落时间与位置，有0-10共11个位置，起始在5位置，每次只能移动到周围两个位置，要求输出最大接到的馅饼数量。</p>
+<p>　　本题类似数塔问题。</p>
+<p>　　分析样例数据</p>
+<p>　　<img src="https://img2018.cnblogs.com/blog/1447131/201812/1447131-20181208210111589-796906900.png" alt="img"></p>
+<p>　　每个位置都可以抵达包括本身在内的3个位置我们用二维数组dp[ i ][ j ]表示如果第 i 秒在第 j 号位置，从开始到第 i 秒最多接到多少馅饼，与数塔问题一样都是找出一条路径，使路径上的权值和最大。</p>
+<p>　　本着和数塔类似的拆解最低层的原则，该题形成的数塔的最底层为最后时间，样例中最后一个馅饼在第3秒落下，那么对于第三秒的某个位置j，如果第三秒gameboy刚好站在这个位置，那么其能接到的最大馅饼数量就是第三秒该位置掉落的馅饼数量加上其第二秒所在位置的最大获得馅饼数，而若在第三秒能抵达j位置，gameboy在第二秒一定是在j-1，j，j+1三个位置中的某一个，我们，只需要比较这三个位置的dp值并选择最大的一个即可获得第三秒j位置的dp值。</p>
+<p>　　而求第二秒的三个位置的最馅饼数量又可以继续拆分为求第一秒所对应位置的最大馅饼数量，这样这个问题就可以被成功拆分了。</p>
+<p>　　根据分析我们便可以写出动态转移方程dp[i][j] = max(max(dp[i - 1][j - 1], dp[i - 1][j]), dp[i - 1][j + 1]) + f[i][j]</p>
+<p>　　AC代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e5</span>+<span class="number">100</span>;</span><br><span class="line"><span class="keyword">int</span> dp[maxn][<span class="number">12</span>];   <span class="comment">//dp[i][j]表示如果第i秒在第j号位置，从开始到第i秒最多接到多少馅饼</span></span><br><span class="line"><span class="keyword">int</span> f[maxn][<span class="number">12</span>];    <span class="comment">//f[i][j]的值第i秒j号位置上落下的馅饼数量</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;  <span class="comment">//n为馅饼数量</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n) != EOF &amp;&amp; n)&#123;</span><br><span class="line">        <span class="keyword">int</span> maxtime = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(dp, <span class="number">0</span>,<span class="keyword">sizeof</span>(dp));</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0</span>,<span class="keyword">sizeof</span>(f));</span><br><span class="line">        <span class="comment">//每次运算dp与f初始化为0</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> time, x;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;x, &amp;time);   <span class="comment">//输入每个馅饼的掉落时间与位置</span></span><br><span class="line">            maxtime = max(maxtime, time);   <span class="comment">//记录最晚掉落的馅饼时间</span></span><br><span class="line">            f[time][x]++;   <span class="comment">//第time秒第x位置掉落的馅饼数量加一</span></span><br><span class="line">        &#125;</span><br><span class="line">        dp[<span class="number">1</span>][<span class="number">4</span>] = f[<span class="number">1</span>][<span class="number">4</span>]; <span class="comment">//由于第1秒接到4，5，6三个位置的其中一个位置的馅饼</span></span><br><span class="line">        dp[<span class="number">1</span>][<span class="number">5</span>] = f[<span class="number">1</span>][<span class="number">5</span>]; <span class="comment">//所以若第一秒在哪个位置，第一秒最多接到的馅饼数量就是那个位置第一秒掉落的馅饼数量</span></span><br><span class="line">        dp[<span class="number">1</span>][<span class="number">6</span>] = f[<span class="number">1</span>][<span class="number">6</span>];</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= maxtime; i++)&#123;  <span class="comment">//遍历从第二秒到最后掉落馅饼的那一秒</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">11</span>; j++)&#123;</span><br><span class="line">                <span class="comment">//动态转移方程</span></span><br><span class="line">                dp[i][j] = max(max(dp[i - <span class="number">1</span>][j - <span class="number">1</span>], dp[i - <span class="number">1</span>][j]), dp[i - <span class="number">1</span>][j + <span class="number">1</span>]) + f[i][j];</span><br><span class="line">                <span class="comment">//记录最大值</span></span><br><span class="line">                ans = max(ans, dp[i][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/08/HDU-1074-Doing-Homework/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1025,92 +1116,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/28/HDU-1878-%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/28/HDU-1878-%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF/" class="post-title-link" itemprop="url">HDU 1878 欧拉回路</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-28 20:21:53" itemprop="dateCreated datePublished" datetime="2018-11-28T20:21:53+08:00">2018-11-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>　　欧拉回路是指不令笔离开纸面，可画过图中每条边仅一次，且可以回到起点的一条回路。现给定一个图，问是否存在欧拉回路？</p>
-<p>Input</p>
-<p>　　测试输入包含若干测试用例。每个测试用例的第1行给出两个正整数，分别是节点数N ( 1 &lt; N &lt; 1000 )和边数M；随后的M行对应M条边，每行给出一对正整数，分别是该条边直接连通的两个节点的编号（节点从1到N编号）。当N为0时输入结<br>束。</p>
-<p>Output</p>
-<p>　　每个测试用例的输出占一行，若欧拉回路存在则输出1，否则输出0。<br>Sample Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">3 3</span><br><span class="line">1 2</span><br><span class="line">1 3</span><br><span class="line">2 3</span><br><span class="line">3 2</span><br><span class="line">1 2</span><br><span class="line">2 3</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
-<p>Sample Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　本题有多组测试数据，每组给出顶点数n与边数m，之后m行给出每条边的信息，想要求出欧拉回路是否存在，学过离散数学的同志应该明白，只要无向连通图中每个点的度都为偶数，该图一定存在欧拉回路。</p>
-<p>　　那么问题就转化为了判断该图是否连通与判断所有顶点的度是否都为偶数。</p>
-<p>　　判断是否连通可以使用并查集判断所有顶点是否都再一个集合中，顶点的度用一个数组来记录，由于是无向图所以再输入时顶点每出现一次该顶点的度便加一。</p>
-<p>　　AC代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1010</span>;</span><br><span class="line"><span class="keyword">int</span> f[maxn];</span><br><span class="line"><span class="keyword">int</span> node[maxn];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getFather</span><span class="params">(<span class="keyword">int</span> x)</span>    <span class="comment">//并查集找爹函数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(f[x] == x)</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> f[x] = getFather(f[x]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m;  </span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n) != EOF &amp;&amp; n != <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;m); <span class="comment">//输入顶点数与边数</span></span><br><span class="line">        <span class="keyword">int</span> a, b;   <span class="comment">//a，b记录边两边连接的点</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++)&#123;</span><br><span class="line">            f[i] = i;</span><br><span class="line">        &#125;<span class="comment">//初始化所有顶点的父亲为自己，即所有顶点不连通</span></span><br><span class="line">        <span class="built_in">memset</span>(node, <span class="number">0</span>, <span class="keyword">sizeof</span>(node));</span><br><span class="line">        <span class="comment">//初始化所有点度为0</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);  <span class="comment">//输入便连接的两个点</span></span><br><span class="line">            node[a]++;  <span class="comment">//连接的两个点度都加一</span></span><br><span class="line">            node[b]++;</span><br><span class="line">            <span class="keyword">int</span> fa, fb;</span><br><span class="line">            <span class="comment">//获取a与b的父亲</span></span><br><span class="line">            fa = f[a];</span><br><span class="line">            fb = f[b];</span><br><span class="line">            <span class="comment">//如果a与b不连通将它们标记为连通</span></span><br><span class="line">            <span class="keyword">if</span>(fa != fb)&#123;</span><br><span class="line">                f[b] = a;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> fx = f[<span class="number">1</span>];  </span><br><span class="line">        <span class="keyword">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">//判断所有点是否再一个集合中</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(fx != f[i])&#123;</span><br><span class="line">                flag = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(flag)&#123;   <span class="comment">//如果图连通</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;    <span class="comment">//判断所有点的度是否都为偶数</span></span><br><span class="line">                <span class="keyword">if</span>(node[i] % <span class="number">2</span> != <span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"0\n"</span>);</span><br><span class="line">                    flag = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(flag)&#123; </span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"1\n"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"0\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1182,7 +1187,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">154</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -177,6 +177,86 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/02/25/HDU-1272-%E5%B0%8F%E5%B8%8C%E7%9A%84%E8%BF%B7%E5%AE%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/02/25/HDU-1272-%E5%B0%8F%E5%B8%8C%E7%9A%84%E8%BF%B7%E5%AE%AB/" class="post-title-link" itemprop="url">HDU 1272 小希的迷宫</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-02-25 14:03:38" itemprop="dateCreated datePublished" datetime="2019-02-25T14:03:38+08:00">2019-02-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>上次Gardon的迷宫城堡小希玩了很久（见Problem B），现在她也想设计一个迷宫让Gardon来走。但是她设计迷宫的思路不一样，首先她认为所有的通道都应该是双向连通的，就是说如果有一个通道连通了房间A和B，那么既可以通过它从房间A走到房间B，也可以通过它从房间B走到房间A，为了提高难度，小希希望任意两个房间有且仅有一条路径可以相通（除非走了回头路）。小希现在把她的设计图给你，让你帮忙判断她的设计图是否符合她的设计思路。比如下面的例子，前两个是符合条件的，但是最后一个却有两种方法从5到达8。 </p>
+<p>Input输入包含多组数据，每组数据是一个以0 0结尾的整数对列表，表示了一条通道连接的两个房间的编号。房间的编号至少为1，且不超过100000。每两组数据之间有一个空行。<br>整个文件以两个-1结尾。<br>Output对于输入的每一组数据，输出仅包括一行。如果该迷宫符合小希的思路，那么输出”Yes”，否则输出”No”。<br>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">6 8  5 3  5 2  6 4</span><br><span class="line">5 6  0 0</span><br><span class="line"></span><br><span class="line">8 1  7 3  6 2  8 9  7 5</span><br><span class="line">7 4  7 8  7 6  0 0</span><br><span class="line"></span><br><span class="line">3 8  6 8  6 4</span><br><span class="line">5 3  5 6  5 2  0 0</span><br><span class="line"></span><br><span class="line">-1 -1</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Yes</span><br><span class="line">Yes</span><br><span class="line">No</span><br></pre></td></tr></table></figure>
+<p>题目解析<br>　　本题持续输入包含两房间的道路每次输入到0 0开始视为一个迷宫，要求迷宫所有房间连通且任意两个房间之间只有唯一的一条道路，这就要求给出的图是一个无向连通无环图，也就是一棵树，这样我们便可以使用边数加一等于点数与来判断是否是树，维护并查集判断所有点是否连通。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX = <span class="number">1e5</span>+<span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> f[MAX]; <span class="comment">//记录每个房间的父亲</span></span><br><span class="line"><span class="keyword">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">bool</span> n[MAX] = &#123;<span class="literal">false</span>&#125;;  <span class="comment">//记录出现过的房间编号</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getF</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;    <span class="comment">//并查集找爹函数</span></span><br><span class="line">    <span class="keyword">if</span>(x == f[x])</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> f[x] = getF(f[x]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">unionf</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v)</span></span>&#123;  <span class="comment">//合并两点</span></span><br><span class="line">    <span class="keyword">int</span> fu = getF(u);</span><br><span class="line">    <span class="keyword">int</span> fv = getF(v);</span><br><span class="line">    <span class="keyword">if</span>(fu != fv)    <span class="comment">//两者不再一个集合中则将其合并</span></span><br><span class="line">        f[fu] = fv;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> u, v;</span><br><span class="line">    <span class="built_in">memset</span>(n, <span class="number">0</span>, <span class="keyword">sizeof</span>(n));</span><br><span class="line">    <span class="keyword">int</span> edgeCnt = <span class="number">0</span>;    <span class="comment">//记录边数</span></span><br><span class="line">    <span class="keyword">int</span> nodeCnt = <span class="number">0</span>;    <span class="comment">//记录点数</span></span><br><span class="line">    <span class="keyword">int</span> minn = INT_MAX; <span class="comment">//记录当前最小房间编号</span></span><br><span class="line">    <span class="keyword">int</span> maxn = <span class="number">0</span>;   <span class="comment">//记录当前最大房间编号</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; MAX; i++)&#123;   <span class="comment">//初始化每个结点的父亲为自己</span></span><br><span class="line">        f[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;u, &amp;v) != EOF)&#123;    <span class="comment">//输入边数据</span></span><br><span class="line">        <span class="keyword">if</span>(u == <span class="number">-1</span> &amp;&amp; v == <span class="number">-1</span>)  <span class="comment">//u、v都为-1时结束循环</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">if</span>(u == <span class="number">0</span> &amp;&amp; v == <span class="number">0</span>)&#123;   <span class="comment">//u、v都为0时记为一组开始运算</span></span><br><span class="line">            <span class="keyword">if</span>(flag == <span class="literal">false</span>)&#123;  <span class="comment">//如果图中一个房间都没有照样符合题目要求，输出Yes</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Yes\n"</span>);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = minn; i &lt;= maxn; i++)&#123;  <span class="comment">//遍历所有房间获取连通块数量</span></span><br><span class="line">                <span class="keyword">if</span>(n[i] &amp;&amp; f[i] == i)</span><br><span class="line">                    cnt++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(cnt &gt; <span class="number">1</span>)&#123;    <span class="comment">//若连通块数量大于1则肯定不符合题目要求</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"No\n"</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(edgeCnt + <span class="number">1</span> == nodeCnt)&#123; <span class="comment">//边数加一为顶点数的图无环</span></span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"Yes\n"</span>);</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"No\n"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; MAX; i++)&#123;   <span class="comment">//初始化每个结点的父亲为自己</span></span><br><span class="line">                f[i] = i;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">memset</span>(n, <span class="literal">false</span>, <span class="keyword">sizeof</span>(n));    <span class="comment">//初始化所有房间为未出现</span></span><br><span class="line">            edgeCnt = <span class="number">0</span>;    <span class="comment">//初始化边数为0</span></span><br><span class="line">            nodeCnt = <span class="number">0</span>;    <span class="comment">//初始化点数为0</span></span><br><span class="line">            minn = INT_MAX; <span class="comment">//最小房间编号初始记为无穷大</span></span><br><span class="line">            maxn = <span class="number">0</span>;   <span class="comment">//最大房间编号初始积为0</span></span><br><span class="line">            flag = <span class="literal">false</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            edgeCnt++;  <span class="comment">//每次输入边数加一</span></span><br><span class="line">            maxn = max(max(maxn, u), v);</span><br><span class="line">            minn = min(min(minn, u), v);</span><br><span class="line">            <span class="comment">//获取当前最大最小房间编号</span></span><br><span class="line">            <span class="keyword">if</span>(!n[u])&#123;  <span class="comment">//记录出现过的房间</span></span><br><span class="line">                nodeCnt++;</span><br><span class="line">                n[u] = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(!n[v])&#123;</span><br><span class="line">                nodeCnt++;</span><br><span class="line">                n[v] = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            unionf(u, v);   <span class="comment">//合并道路两端的房间</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/02/24/FZU-2150-Fire-Game/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -978,89 +1058,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/01/08/PTA-Advanced-Level-1020-Tree-Traversals/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/01/08/PTA-Advanced-Level-1020-Tree-Traversals/" class="post-title-link" itemprop="url">PTA (Advanced Level) 1020 Tree Traversals</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-01-08 21:01:30" itemprop="dateCreated datePublished" datetime="2019-01-08T21:01:30+08:00">2019-01-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>　　Suppose that all the keys in a binary tree are distinct positive integers. Given the postorder and inorder traversal sequences, you are supposed to output the level order traversal sequence of the corresponding binary tree.</p>
-<h3 id="Input-Specification"><a href="#Input-Specification" class="headerlink" title="Input Specification:"></a>Input Specification:</h3><p>　　Each input file contains one test case. For each case, the first line gives a positive integer N (≤), the total number of nodes in the binary tree. The second line gives the postorder sequence and the third line gives the inorder sequence. All the numbers in a line are separated by a space.</p>
-<h3 id="Output-Specification"><a href="#Output-Specification" class="headerlink" title="Output Specification:"></a>Output Specification:</h3><p>　　For each test case, print in one line the level order traversal sequence of the corresponding binary tree. All the numbers in a line must be separated by exactly one space, and there must be no extra space at the end of the line.</p>
-<h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input:"></a>Sample Input:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">7</span><br><span class="line">2 3 1 5 7 6 4</span><br><span class="line">1 2 3 4 5 6 7</span><br></pre></td></tr></table></figure>
-<h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output:"></a>Sample Output:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4 1 6 3 5 7 2</span><br></pre></td></tr></table></figure>
-<p>题目解析<br>　　本题第一行给出二叉树的结点数量n，之后第二行给出二叉树的后序遍历，第三行给出二叉树的中序遍历，要求输出二叉树的层序遍历。（保证树中的每个结点数据都不同）</p>
-<p>　　后序遍历中最后一个元素便是当前树的根结点，在中序遍历中找到根结点对应的值，其左侧便是左子树的中序遍历，在知道左子树中序遍历后可以根据结点数量在后续遍历中找到左子树的后续遍历，确定了左子树与根结点后剩下的便是右子树信息了，以此类推可以得到整棵二叉树。</p>
-<p>　　建立二叉树后使用广搜，由于广搜二叉树维护队列时，每次出队一个结点并将其对应的左孩子与右孩子入队，这就是层序遍历。</p>
-<p>　　AC代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">35</span>;</span><br><span class="line"><span class="keyword">int</span> postorder[maxn];    <span class="comment">//储存后续遍历</span></span><br><span class="line"><span class="keyword">int</span> inorder[maxn];      <span class="comment">//储存中序遍历</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span>    <span class="comment">//二叉树结点信息</span></span><br><span class="line">    <span class="keyword">int</span> data;</span><br><span class="line">    node *lchild;</span><br><span class="line">    node *rchild;</span><br><span class="line">    node(<span class="keyword">int</span> tdata)&#123;    <span class="comment">//构造函数</span></span><br><span class="line">        data = tdata;</span><br><span class="line">        lchild = <span class="literal">NULL</span>;</span><br><span class="line">        rchild = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">node *<span class="title">create</span><span class="params">(<span class="keyword">int</span> postL, <span class="keyword">int</span> postR, <span class="keyword">int</span> inL, <span class="keyword">int</span> inR)</span></span>&#123;   </span><br><span class="line">    <span class="comment">//由于要递归建树我们并不需要将每个树的左子树右子树的后序遍历与中序遍历储存下来</span></span><br><span class="line">    <span class="comment">//只需要在原始postorder与inorder数组中标记出其位置即可</span></span><br><span class="line">    <span class="comment">//postL与postR表示当前后续遍历的左右两端，inL与inR表示当前中序遍历的左右两端</span></span><br><span class="line">    <span class="keyword">if</span>(postL &gt; postR)   <span class="comment">//如果后续遍历左端位置大于右端位置，证明当前正在建立的树为空树</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    node *root = <span class="keyword">new</span> node(postorder[postR]);    <span class="comment">//建立根结点，权值为postorder[postR]左右子树都为空</span></span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i = inL; inorder[i] != postorder[postR]; i++);  <span class="comment">//在中序遍历中找到根结点</span></span><br><span class="line">    <span class="keyword">int</span> lenl = i - inL; <span class="comment">//记录左子树长度</span></span><br><span class="line">    root-&gt;lchild = create(postL, postL + lenl - <span class="number">1</span>, inL, inL + lenl - <span class="number">1</span>);</span><br><span class="line">    <span class="comment">//建立左子树</span></span><br><span class="line">    root-&gt;rchild = create(postL + lenl, postR - <span class="number">1</span>, inL + lenl + <span class="number">1</span>, inR);</span><br><span class="line">    <span class="comment">//建立右子树</span></span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> n;  <span class="comment">//n记录结点数量</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">levelorder</span><span class="params">(node *root)</span></span>&#123;    <span class="comment">//层序遍历</span></span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>)    </span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">queue</span>&lt;node*&gt; Q;</span><br><span class="line">    Q.push(root);   <span class="comment">//根结点入队</span></span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>;    <span class="comment">//记录当前已经输出了几个数，用于之后判断是否输出空格</span></span><br><span class="line">    <span class="keyword">while</span>(!Q.empty())&#123;</span><br><span class="line">        cnt++;</span><br><span class="line">        node *top = Q.front();</span><br><span class="line">        Q.pop();</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>, top-&gt;data);<span class="comment">//输出结点权值</span></span><br><span class="line">        <span class="keyword">if</span>(cnt != n)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">        <span class="keyword">if</span>(top-&gt;lchild != <span class="literal">NULL</span>) <span class="comment">//左儿子入队</span></span><br><span class="line">            Q.push(top-&gt;lchild);</span><br><span class="line">        <span class="keyword">if</span>(top-&gt;rchild != <span class="literal">NULL</span>)<span class="comment">//右儿子入队</span></span><br><span class="line">            Q.push(top-&gt;rchild);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);    <span class="comment">//输入结点数量</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)  </span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;postorder[i]); <span class="comment">//输入后序遍历</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;inorder[i]);   <span class="comment">//输入中序遍历</span></span><br><span class="line">    node *root = create(<span class="number">0</span>, n - <span class="number">1</span>, <span class="number">0</span>, n - <span class="number">1</span>);    <span class="comment">//建树</span></span><br><span class="line">    levelorder(root);   <span class="comment">//输出层序遍历</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1132,7 +1129,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">154</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

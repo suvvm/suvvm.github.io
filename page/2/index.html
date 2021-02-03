@@ -177,6 +177,137 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/01/20/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/20/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">自然语言处理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-20 15:54:27" itemprop="dateCreated datePublished" datetime="2021-01-20T15:54:27+08:00">2021-01-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-21 14:24:09" itemprop="dateModified" datetime="2021-01-21T14:24:09+08:00">2021-01-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="自然语言处理"><a href="#自然语言处理" class="headerlink" title="自然语言处理"></a>自然语言处理</h1><p>​    自然语言处理NLP是使一台计算机”理解“自然语言文档内容，包括文档中的上下文差别，准确提取文档中包含的信息和见解，并对文档本身进行分类和组织。常见的挑战涉及语音识别、自然语言理解和自然语言生成。</p>
+<h2 id="一、方法"><a href="#一、方法" class="headerlink" title="一、方法"></a>一、方法</h2><h3 id="1、规则方法"><a href="#1、规则方法" class="headerlink" title="1、规则方法"></a>1、规则方法</h3><p>​    受计算机语言学理论指导，基于规则的自然语言处理方法强调对语言知识的理性整理，通过专家人工设计不同规则建立有关自然语言的有限状态模型。</p>
+<p>​    一直到1980年代，多数自然语言处理系统是以一套复杂、人工订定的规则为基础。</p>
+<p>​    但规则方法难以覆盖多种多样的语言现象，且制定规则费时费力，现已趋于废弃。</p>
+<h3 id="2、统计方法"><a href="#2、统计方法" class="headerlink" title="2、统计方法"></a>2、统计方法</h3><p>​    统计方法运用了推测学、几率、统计的方法来进行自然语言处理。使用机器学习算法处理自然语言，通过<a href="https://zh.wikipedia.org/wiki/%E8%AA%9E%E6%96%99%E5%BA%AB" target="_blank" rel="noopener">语料库</a>和马科夫模型处理高度磨合的句子和进行消歧。</p>
+<p>​    自从1980年代末和1990年代中期发生的“统计革命”以来，许多自然语言处理研究都开始使用统计方法，传统的基于句法-语义规则的理性主义方法过于复杂，随着语料库建设和语料库语言学的崛起，大规模真实文本的机器学习处理成为自然语言处理的主要选择。</p>
+<h3 id="3、神经网络"><a href="#3、神经网络" class="headerlink" title="3、神经网络"></a>3、神经网络</h3><h4 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h4><p>​    神经网络是由人工或生物性神经元组成的神经网络。神经元之间的连接加权建模。正直表示兴奋性联系，负值表示抑制性联系。所有输入都通过权重进行修改求和。</p>
+<p>​    这些人工的神经网络可以用于预测建模，自适应控制和应用，可以通过数据集合对其惊喜训练，并从一堆看似负载且无关的消息中的出所需结论。</p>
+<h3 id="神经网络自然语言处理"><a href="#神经网络自然语言处理" class="headerlink" title="神经网络自然语言处理"></a>神经网络自然语言处理</h3><p>​    神经网络方法无需向统计方法一般精心设计特征工程，转而使用神经网络进行机器学习。流行技术包括使用单词嵌入捕获单词的语义，并增加更高级的功能（如回答问题）的端到端学习，而不需要将高级问题拆分为中间问题（词性标记和依赖性分析）的解析。神经网络的出现导致NLP系统设计方式发生重大改变，因此基于深度神经网络的方法可以被视为不同于统计方法的新的处理方法。</p>
+<h2 id="二、常见NLP任务"><a href="#二、常见NLP任务" class="headerlink" title="二、常见NLP任务"></a>二、常见NLP任务</h2><h3 id="1、文字和语音处理"><a href="#1、文字和语音处理" class="headerlink" title="1、文字和语音处理"></a>1、文字和语音处理</h3><ul>
+<li>光学符号识别（OCR）</li>
+<li>语音识别</li>
+<li>语音分割</li>
+<li>文字转语音</li>
+<li>单词拆分</li>
+</ul>
+<h3 id="2、形态分析"><a href="#2、形态分析" class="headerlink" title="2、形态分析"></a>2、形态分析</h3><ul>
+<li>合法化（将语义不合法的连续单词组进行规范化）</li>
+<li>形态分割（将单词分为<a href="https://en.wikipedia.org/wiki/Morpheme" target="_blank" rel="noopener">词素</a>）</li>
+<li>词性标记</li>
+<li>提取主干（将单词的变形或派生提取为基本形式）</li>
+</ul>
+<h3 id="3、句法分析"><a href="#3、句法分析" class="headerlink" title="3、句法分析"></a>3、句法分析</h3><ul>
+<li>语法归纳</li>
+<li>句边界消歧</li>
+<li>句分析树构建</li>
+</ul>
+<h3 id="4、-上下文语法语义"><a href="#4、-上下文语法语义" class="headerlink" title="4、 上下文语法语义"></a>4、 上下文语法语义</h3><ul>
+<li>词汇语义</li>
+<li>分布语义</li>
+<li>命名实体识别（专有名词识别）</li>
+<li>情绪分析（提取剧中的主观信息判读对象情绪）</li>
+<li>术语提取</li>
+<li>词义消歧</li>
+</ul>
+<h3 id="5、关系语义学"><a href="#5、关系语义学" class="headerlink" title="5、关系语义学"></a>5、关系语义学</h3><ul>
+<li>关系提取（根据大量文本确定命名实体之间的关系，如婚姻关系）</li>
+<li>语义解析</li>
+<li>语义角色标签（给一个橘子识别语义角色）</li>
+</ul>
+<h3 id="6、话语"><a href="#6、话语" class="headerlink" title="6、话语"></a>6、话语</h3><ul>
+<li>共同解析（”我翻墙进入郭一后庭“ ‘后庭’是指代表达，指代的是我进入的庭院是郭一家后方的庭院）</li>
+<li>话语分析（分析句子间的关系）</li>
+<li>隐式语义角色标签（识别消除谓词和显示语义角色，识别未明确的语义角色）</li>
+<li>认识文字蕴含（识别一段文本的意思是否包含另一段，是否为另一段的否定等）</li>
+<li>主题细分与识别</li>
+</ul>
+<h3 id="7、高级NLP应用"><a href="#7、高级NLP应用" class="headerlink" title="7、高级NLP应用"></a>7、高级NLP应用</h3><ul>
+<li>自动摘要</li>
+<li>图书生成</li>
+<li>对话管理（与人类对话）</li>
+<li>文件AI</li>
+<li>语法错误矫正</li>
+<li>机器翻译</li>
+<li>自然语言生成NLG</li>
+<li>自然语言理解NLU</li>
+<li>问题回答</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/01/19/%E5%9B%BE%E7%81%B5%E6%B5%8B%E8%AF%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -992,104 +1123,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/05/03/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E5%85%AD%E7%A7%8D%E6%96%B9%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/03/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E5%85%AD%E7%A7%8D%E6%96%B9%E5%BC%8F/" class="post-title-link" itemprop="url">进程间通信的六种方式</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-03 19:56:30" itemprop="dateCreated datePublished" datetime="2020-05-03T19:56:30+08:00">2020-05-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="进程间通信的六种方式"><a href="#进程间通信的六种方式" class="headerlink" title="进程间通信的六种方式"></a>进程间通信的六种方式</h1><h2 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h2><h3 id="匿名管道（Pipe）"><a href="#匿名管道（Pipe）" class="headerlink" title="匿名管道（Pipe）"></a>匿名管道（Pipe）</h3><ul>
-<li>将父进程的输出流重定向为子进程的输入流</li>
-<li>实现方式为在内存中开辟管道缓冲区，缓冲区分为两部分，读端和写段</li>
-<li>半双工，只能由父进程向子进程传输数据</li>
-</ul>
-<h3 id="流管道（S-pipe）"><a href="#流管道（S-pipe）" class="headerlink" title="流管道（S_pipe）"></a>流管道（S_pipe）</h3><ul>
-<li>在匿名管道的基础上实现了全双工，父进程与子进程可以相互传输数据</li>
-</ul>
-<h3 id="命名管道（Named-pipe）"><a href="#命名管道（Named-pipe）" class="headerlink" title="命名管道（Named pipe）"></a>命名管道（Named pipe）</h3><ul>
-<li>在上述管道的基础上实现了无亲缘关系的多个并发进程之间的通信</li>
-</ul>
-<h2 id="信号Signal"><a href="#信号Signal" class="headerlink" title="信号Signal"></a>信号Signal</h2><p>信号是一种类似终端的异步事件，使用很广泛，比如平时终止进程常用的ctrl + c信号SIGINT，kill -9发数的SIGKILL信号等。</p>
-<p>程序的信号处理函数就像OS的中断处理函数一般，收到指定信号就去处理它。</p>
-<h2 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h2><p>信号量是一种用于实现同步的工具，一般用于限制对临界资源的使用，用以保证硬件资源的互斥使用。主要有P与V两种操作</p>
-<ul>
-<li>P(target) 若目标值大于零就减一为零就阻塞请求进程</li>
-<li>V(target) 恢复一个等待该目标资源的进程，无进程则目标资源加一</li>
-</ul>
-<h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><p>使用消息队列OS会为对应这些进程开辟一块内存区域，但对应进程并不会将其添加至地址空间，可用于分布式系统或一般进程通信。</p>
-<p>而是由开发人员设计消息传递工具以提供对这部分空间的操作。</p>
-<p>消息传递工具提供send和receive两种操作，指明进程或“邮箱”。</p>
-<h2 id="套接字"><a href="#套接字" class="headerlink" title="套接字"></a>套接字</h2><p>可用于一般进程或不同主机进程通信，设计了一种客户端/服务器的通信方式</p>
-<p>服务器进程可以接受客户端进程的连接并创建套接字</p>
-<p>有流和数据报两种形式，流使用TCP/IP协议实现可靠传输，数据报使用UDP/IP实现不可靠传输。</p>
-<h2 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h2><p>OS为需要通信的进程开辟一块公共的内存空间，需要建立通信的进程将其附加至其本身的内存空间，这样各个进程尝试对公共内存空间的访问将不会被内核禁止。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1161,7 +1194,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">154</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

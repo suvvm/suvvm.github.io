@@ -23,19 +23,19 @@
   <meta name="description" content="推荐系统​    推荐系统是一个子类信息过滤系统，旨在根据目标角色过去的行为以及其他角色所做出的类似决策来构建模型，并使用该模型推荐具有相似属性的项目。当前推荐系统大多是组合了多种推荐算法的混合系统。 一、推荐系统目的​    一个出色的推荐系统最终要实现的是用户、内容（目标项目）、使用推荐系统的平台三方共赢，而不是成为资本家推送产品的帮凶。  让用户更快速的获取到所需的目标内容 让内容更快推送到">
 <meta property="og:type" content="article">
 <meta property="og:title" content="推荐系统">
-<meta property="og:url" content="https://www.suvvm.work/2021/01/31/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:url" content="https://www.suvvm.work/2021/02/03/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/index.html">
 <meta property="og:site_name" content="SUVVM">
 <meta property="og:description" content="推荐系统​    推荐系统是一个子类信息过滤系统，旨在根据目标角色过去的行为以及其他角色所做出的类似决策来构建模型，并使用该模型推荐具有相似属性的项目。当前推荐系统大多是组合了多种推荐算法的混合系统。 一、推荐系统目的​    一个出色的推荐系统最终要实现的是用户、内容（目标项目）、使用推荐系统的平台三方共赢，而不是成为资本家推送产品的帮凶。  让用户更快速的获取到所需的目标内容 让内容更快推送到">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.suvvm.work/2021/01/31/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/cos.png">
-<meta property="article:published_time" content="2021-01-31T07:38:51.000Z">
-<meta property="article:modified_time" content="2021-01-31T08:06:48.121Z">
+<meta property="og:image" content="https://www.suvvm.work/2021/02/03/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/cos.png">
+<meta property="article:published_time" content="2021-02-03T05:38:43.000Z">
+<meta property="article:modified_time" content="2021-02-03T10:33:59.121Z">
 <meta property="article:author" content="SUVVM">
 <meta property="article:tag" content="推荐系统">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.suvvm.work/2021/01/31/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/cos.png">
+<meta name="twitter:image" content="https://www.suvvm.work/2021/02/03/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/cos.png">
 
-<link rel="canonical" href="https://www.suvvm.work/2021/01/31/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">
+<link rel="canonical" href="https://www.suvvm.work/2021/02/03/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">
 
 
 <script id="page-configurations">
@@ -183,7 +183,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/01/31/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/02/03/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/ortrait.jpg">
@@ -207,7 +207,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-01-31 15:38:51 / 修改时间：16:06:48" itemprop="dateCreated datePublished" datetime="2021-01-31T15:38:51+08:00">2021-01-31</time>
+              <time title="创建时间：2021-02-03 13:38:43 / 修改时间：18:33:59" itemprop="dateCreated datePublished" datetime="2021-02-03T13:38:43+08:00">2021-02-03</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -238,6 +238,84 @@
 <li>让使用推荐系统的平台更有效的保留用户资源</li>
 </ol>
 <h2 id="二、推荐算法"><a href="#二、推荐算法" class="headerlink" title="二、推荐算法"></a>二、推荐算法</h2><h3 id="1、协同过滤（Collaborative-Filtering）"><a href="#1、协同过滤（Collaborative-Filtering）" class="headerlink" title="1、协同过滤（Collaborative Filtering）"></a>1、协同过滤（Collaborative Filtering）</h3><p>​    协同过滤的理论基于一种假设：用户过去的决策与未来的决策不会发生变动，过去认同的属性在将来也会得到认同。推荐算法使用不同用户对目标项目的评级历史集来生成建议，通过在历史集中查找与当前用户有相似评级的用户，使用邻域（测试用户相似性与项目相似性如k-NN）生成推荐。</p>
+<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><ul>
+<li>具于近邻的协同过滤<ul>
+<li>基于用户（User-CF）</li>
+<li>基于物品（Item-CF）</li>
+</ul>
+</li>
+<li>给予模型的协同过滤<ul>
+<li>奇异值分解（SVD）</li>
+<li>潜在语义分析（LSA）</li>
+<li>支撑向量机（SVM）</li>
+</ul>
+</li>
+</ul>
+<h5 id="基于临近的推荐"><a href="#基于临近的推荐" class="headerlink" title="基于临近的推荐"></a>基于临近的推荐</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>大香蕉</th>
+<th>臭粑粑</th>
+<th>泥猴桃</th>
+<th>臭卤虾</th>
+<th>小汉堡</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>老八</td>
+<td>1</td>
+<td>5</td>
+<td>2</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr>
+<td>肥豪</td>
+<td>5</td>
+<td>1</td>
+<td></td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>郭一</td>
+<td>2</td>
+<td>？</td>
+<td>3</td>
+<td>5</td>
+<td>4</td>
+</tr>
+<tr>
+<td>房V</td>
+<td>4</td>
+<td>3</td>
+<td>5</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h6 id="基于用户的协同过滤"><a href="#基于用户的协同过滤" class="headerlink" title="基于用户的协同过滤"></a>基于用户的协同过滤</h6><ul>
+<li>基于用户对物品的偏好发现口味相似的用户“邻居”群体</li>
+<li>计算中采取类似knn获取k个临近用户根据临近用户的喜好对当前用户进行推荐</li>
+<li>User-CF与基于人口投机学推荐的差异在User-CF所需的数据是用户操作历史而不是用户本身特征</li>
+<li>一般用于处理物品数量远大于用户数量的情况（新闻）</li>
+</ul>
+<h6 id="基于物品的协同过滤"><a href="#基于物品的协同过滤" class="headerlink" title="基于物品的协同过滤"></a>基于物品的协同过滤</h6><ul>
+<li>基于用户对物品的评价发现类似物品群体</li>
+<li>计算方式与基于用户类似，筛选临近物品</li>
+<li>一般用于处理用户数量远大于物品数量的情况（电影、音乐）</li>
+</ul>
+<h5 id="基于模型的推荐"><a href="#基于模型的推荐" class="headerlink" title="基于模型的推荐"></a>基于模型的推荐</h5><p>​    抽象出模型使用机器学习算法训练模型进行推荐，与基于统计学的区别在于模型的建立相当于在用户行为数据中提取用户和物品特征而无需提前知道用户特征。</p>
+<p>​    特征分为显性特征（用户标签、物品分类标签）和隐性特征，显性特征可以直接匹配推荐，隐形特征则需要根据已有偏好通过隐语义模型（Latent Factor Model，LFM）发觉隐藏特征。</p>
+<ul>
+<li>用户有一定特征决定选择偏好（郭一喜欢NTR）</li>
+<li>物品有一定特征决定用户是否选择它（NTR的本子）</li>
+<li>用户选择物品的原因是因为用户特征与物品特征匹配（郭一选择NTR本子）</li>
+</ul>
 <h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
 <li>不依赖于机器可分析内容</li>
 <li>可以准确推荐复杂项目</li>
@@ -247,6 +325,7 @@
 <li>对于历史集中未给出的新项目，没有足够数据来给出准确建议（冷启动）</li>
 <li>若历史集项目和用户数量巨大，则每次推荐都需要大量的计算能力（可伸缩性）</li>
 <li>大部分用户不会对全部项目进行评级，只会对一小部分项目进行评级（稀疏性）</li>
+<li>很难顾及口味特殊的“重口味”用户的喜好</li>
 </ul>
 <h3 id="2、基于内容的过滤（Content-based-Filtering）"><a href="#2、基于内容的过滤（Content-based-Filtering）" class="headerlink" title="2、基于内容的过滤（Content-based Filtering）"></a>2、基于内容的过滤（Content-based Filtering）</h3><p>​    基于内容的过滤使用项目属性和用户偏好通过机器学习的方法来进行推荐，一般适用于在项目有已知属性（名称、位置、描述等等）但用户没有已知数据的情况。基于内容的过滤最关键问题就是针对用户偏好的建模与通过抽取项目内在或外在的特征值，实现相似度计算。</p>
 <h4 id="物品特征提取"><a href="#物品特征提取" class="headerlink" title="物品特征提取"></a>物品特征提取</h4><ul>
@@ -263,7 +342,7 @@
 </li>
 </ul>
 <h4 id="相似度计算"><a href="#相似度计算" class="headerlink" title="相似度计算"></a>相似度计算</h4><p>​    相似度的评判一般用距离表示，最常使用的是余弦相似度</p>
-<p><img src="/2021/01/31/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/cos.png" alt="img"></p>
+<p><img src="/2021/02/03/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/cos.png" alt="img"></p>
 <ul>
 <li><p>欧式距离</p>
 <script type="math/tex; mode=display">
@@ -316,12 +395,12 @@ cos\theta = \frac{a·b}{||a||\times||b||} = \frac{\sum_{i}x_iy_i}{\sqrt{\sum_{i}
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/01/30/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%A9%E6%95%88%E8%A1%A1%E9%87%8F/" rel="prev" title="推荐系统的绩效衡量">
-      <i class="fa fa-chevron-left"></i> 推荐系统的绩效衡量
+    <a href="/2021/02/02/TF-IDF%E7%AE%97%E6%B3%95/" rel="prev" title="TF-IDF算法">
+      <i class="fa fa-chevron-left"></i> TF-IDF算法
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/02/01/%E6%95%B0%E5%80%BC%E5%9E%8B%E7%89%B9%E5%BE%81%E5%A4%84%E7%90%86/" rel="next" title="数值型特征处理">
-      数值型特征处理 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/02/03/%E9%9A%90%E8%AF%AD%E4%B9%89%E6%A8%A1%E5%9E%8B/" rel="next" title="隐语义模型">
+      隐语义模型 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -381,7 +460,7 @@ cos\theta = \frac{a·b}{||a||\times||b||} = \frac{\sum_{i}x_iy_i}{\sqrt{\sum_{i}
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#推荐系统"><span class="nav-number">1.</span> <span class="nav-text">推荐系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、推荐系统目的"><span class="nav-number">1.1.</span> <span class="nav-text">一、推荐系统目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、推荐算法"><span class="nav-number">1.2.</span> <span class="nav-text">二、推荐算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、协同过滤（Collaborative-Filtering）"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、协同过滤（Collaborative Filtering）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、基于内容的过滤（Content-based-Filtering）"><span class="nav-number">1.2.2.</span> <span class="nav-text">2、基于内容的过滤（Content-based Filtering）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#物品特征提取"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">物品特征提取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相似度计算"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">相似度计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优点-1"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点-1"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、多标准推荐系统（Multi-criteria-recommender-systems）"><span class="nav-number">1.2.3.</span> <span class="nav-text">3、多标准推荐系统（Multi-criteria recommender systems）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、有风险意识的推荐系统（Risk-aware-recommender-systems）"><span class="nav-number">1.2.4.</span> <span class="nav-text">4、有风险意识的推荐系统（Risk-aware recommender systems）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、移动推荐系统（Mobile-recommender-systems）"><span class="nav-number">1.2.5.</span> <span class="nav-text">5、移动推荐系统（Mobile recommender systems）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、基于会话的推荐系统（Session-based-recommender-systems）"><span class="nav-number">1.2.6.</span> <span class="nav-text">6、基于会话的推荐系统（Session-based recommender systems）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、强化学习推荐系统（Reinforcement-learning-for-recommender-systems）"><span class="nav-number">1.2.7.</span> <span class="nav-text">7、强化学习推荐系统（Reinforcement learning for recommender systems）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8、混合推荐系统（Hybrid-recommender-systems）"><span class="nav-number">1.2.8.</span> <span class="nav-text">8、混合推荐系统（Hybrid recommender systems）</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#推荐系统"><span class="nav-number">1.</span> <span class="nav-text">推荐系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、推荐系统目的"><span class="nav-number">1.1.</span> <span class="nav-text">一、推荐系统目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、推荐算法"><span class="nav-number">1.2.</span> <span class="nav-text">二、推荐算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、协同过滤（Collaborative-Filtering）"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、协同过滤（Collaborative Filtering）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分类"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#基于临近的推荐"><span class="nav-number">1.2.1.1.1.</span> <span class="nav-text">基于临近的推荐</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#基于用户的协同过滤"><span class="nav-number">1.2.1.1.1.1.</span> <span class="nav-text">基于用户的协同过滤</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#基于物品的协同过滤"><span class="nav-number">1.2.1.1.1.2.</span> <span class="nav-text">基于物品的协同过滤</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基于模型的推荐"><span class="nav-number">1.2.1.1.2.</span> <span class="nav-text">基于模型的推荐</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优点"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、基于内容的过滤（Content-based-Filtering）"><span class="nav-number">1.2.2.</span> <span class="nav-text">2、基于内容的过滤（Content-based Filtering）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#物品特征提取"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">物品特征提取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相似度计算"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">相似度计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优点-1"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点-1"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、多标准推荐系统（Multi-criteria-recommender-systems）"><span class="nav-number">1.2.3.</span> <span class="nav-text">3、多标准推荐系统（Multi-criteria recommender systems）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、有风险意识的推荐系统（Risk-aware-recommender-systems）"><span class="nav-number">1.2.4.</span> <span class="nav-text">4、有风险意识的推荐系统（Risk-aware recommender systems）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、移动推荐系统（Mobile-recommender-systems）"><span class="nav-number">1.2.5.</span> <span class="nav-text">5、移动推荐系统（Mobile recommender systems）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、基于会话的推荐系统（Session-based-recommender-systems）"><span class="nav-number">1.2.6.</span> <span class="nav-text">6、基于会话的推荐系统（Session-based recommender systems）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、强化学习推荐系统（Reinforcement-learning-for-recommender-systems）"><span class="nav-number">1.2.7.</span> <span class="nav-text">7、强化学习推荐系统（Reinforcement learning for recommender systems）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8、混合推荐系统（Hybrid-recommender-systems）"><span class="nav-number">1.2.8.</span> <span class="nav-text">8、混合推荐系统（Hybrid recommender systems）</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -397,7 +476,7 @@ cos\theta = \frac{a·b}{||a||\times||b||} = \frac{\sum_{i}x_iy_i}{\sqrt{\sum_{i}
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">154</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
