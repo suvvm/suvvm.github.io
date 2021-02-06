@@ -177,92 +177,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/28/HDU-1878-%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/28/HDU-1878-%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF/" class="post-title-link" itemprop="url">HDU 1878 欧拉回路</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-28 20:21:53" itemprop="dateCreated datePublished" datetime="2018-11-28T20:21:53+08:00">2018-11-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>　　欧拉回路是指不令笔离开纸面，可画过图中每条边仅一次，且可以回到起点的一条回路。现给定一个图，问是否存在欧拉回路？</p>
-<p>Input</p>
-<p>　　测试输入包含若干测试用例。每个测试用例的第1行给出两个正整数，分别是节点数N ( 1 &lt; N &lt; 1000 )和边数M；随后的M行对应M条边，每行给出一对正整数，分别是该条边直接连通的两个节点的编号（节点从1到N编号）。当N为0时输入结<br>束。</p>
-<p>Output</p>
-<p>　　每个测试用例的输出占一行，若欧拉回路存在则输出1，否则输出0。<br>Sample Input</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">3 3</span><br><span class="line">1 2</span><br><span class="line">1 3</span><br><span class="line">2 3</span><br><span class="line">3 2</span><br><span class="line">1 2</span><br><span class="line">2 3</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
-<p>Sample Output</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
-<p>解题思路：<br>　　本题有多组测试数据，每组给出顶点数n与边数m，之后m行给出每条边的信息，想要求出欧拉回路是否存在，学过离散数学的同志应该明白，只要无向连通图中每个点的度都为偶数，该图一定存在欧拉回路。</p>
-<p>　　那么问题就转化为了判断该图是否连通与判断所有顶点的度是否都为偶数。</p>
-<p>　　判断是否连通可以使用并查集判断所有顶点是否都再一个集合中，顶点的度用一个数组来记录，由于是无向图所以再输入时顶点每出现一次该顶点的度便加一。</p>
-<p>　　AC代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1010</span>;</span><br><span class="line"><span class="keyword">int</span> f[maxn];</span><br><span class="line"><span class="keyword">int</span> node[maxn];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getFather</span><span class="params">(<span class="keyword">int</span> x)</span>    <span class="comment">//并查集找爹函数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(f[x] == x)</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> f[x] = getFather(f[x]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m;  </span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n) != EOF &amp;&amp; n != <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;m); <span class="comment">//输入顶点数与边数</span></span><br><span class="line">        <span class="keyword">int</span> a, b;   <span class="comment">//a，b记录边两边连接的点</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++)&#123;</span><br><span class="line">            f[i] = i;</span><br><span class="line">        &#125;<span class="comment">//初始化所有顶点的父亲为自己，即所有顶点不连通</span></span><br><span class="line">        <span class="built_in">memset</span>(node, <span class="number">0</span>, <span class="keyword">sizeof</span>(node));</span><br><span class="line">        <span class="comment">//初始化所有点度为0</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);  <span class="comment">//输入便连接的两个点</span></span><br><span class="line">            node[a]++;  <span class="comment">//连接的两个点度都加一</span></span><br><span class="line">            node[b]++;</span><br><span class="line">            <span class="keyword">int</span> fa, fb;</span><br><span class="line">            <span class="comment">//获取a与b的父亲</span></span><br><span class="line">            fa = f[a];</span><br><span class="line">            fb = f[b];</span><br><span class="line">            <span class="comment">//如果a与b不连通将它们标记为连通</span></span><br><span class="line">            <span class="keyword">if</span>(fa != fb)&#123;</span><br><span class="line">                f[b] = a;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> fx = f[<span class="number">1</span>];  </span><br><span class="line">        <span class="keyword">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">//判断所有点是否再一个集合中</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(fx != f[i])&#123;</span><br><span class="line">                flag = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(flag)&#123;   <span class="comment">//如果图连通</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;    <span class="comment">//判断所有点的度是否都为偶数</span></span><br><span class="line">                <span class="keyword">if</span>(node[i] % <span class="number">2</span> != <span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"0\n"</span>);</span><br><span class="line">                    flag = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(flag)&#123; </span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"1\n"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"0\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/28/HDU-6225-Little-Boxes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1114,6 +1028,107 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/19/LightOJ-1214-Large-Division%20copy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/19/LightOJ-1214-Large-Division%20copy/" class="post-title-link" itemprop="url">LightOJ 1214 Large Division</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-19 21:46:44" itemprop="dateCreated datePublished" datetime="2018-11-19T21:46:44+08:00">2018-11-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><meta name="referrer" content="no-referrer"><br>Given two integers, <strong>a</strong> and <strong>b</strong>, you should check whether <strong>a</strong> is divisible by <strong>b</strong> or not. We know that an integer <strong>a</strong> is divisible by an integer <strong>b</strong> if and only if there exists an integer <strong>c</strong> such that <strong>a = b * c</strong>.</p>
+<p>Input</p>
+<p>　　Input starts with an integer <strong>T (**</strong>≤ 525)**, denoting the number of test cases.</p>
+<p>　　Each case starts with a line containing two integers <strong>a (-10200 ≤ a ≤ 10200)</strong> and <strong>b (|b| &gt; 0, b fits into a 32 bit signed integer)</strong>. Numbers will not contain leading zeroes.</p>
+<p>Output</p>
+<p>　　For each case, print the case number first. Then print <strong>‘divisible’</strong> if <strong>a</strong> is divisible by <strong>b</strong>. Otherwise print <strong>‘not divisible’</strong>.</p>
+<p>Sample Input</p>
+<p>6</p>
+<p>101 101</p>
+<p>0 67</p>
+<p>-101 101</p>
+<p>7678123668327637674887634 101</p>
+<p>11010000000000000000 256</p>
+<p>-202202202202000202202202 -101</p>
+<p>Sample Output</p>
+<p>Case 1: divisible</p>
+<p>Case 2: divisible</p>
+<p>Case 3: divisible</p>
+<p>Case 4: not divisible</p>
+<p>Case 5: divisible</p>
+<p>Case 6: divisible</p>
+<p>解题思路：<br>　　本题考查大数运算，每次测试给定一个整数T为测试数量，之后跟随T行，每行都给出两个数字，第一个数字是一个大于<strong>10200</strong> 且小于<strong>10200</strong>的数字，第二个数字是一个32位的int，要求计算第一个数是否可以整除第二个数，若可以整除输出divisible否则输出not divisible。<strong>
+</strong></p>
+<p>　　由于第一个数字超出可以直接存储的范围太多，我们不能直接对其进行运算，那么就换一种运算方式，按位对其进行运算，至于如何按位运算，小学时学过对数字运算极为方便的方法——竖式。</p>
+<p>　　以12345678 / 9为例子</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201811/1447131-20181119212238950-1576527854.png" alt="img"></p>
+<p>　　由于题目中已经告诉我们输入的数字中不包含先导0，所以按照小学的算法我们用第一个数首位除数除以第二个数，9 除以 1得0余1，继续运算将余数1与下一个数结合得到12， 12除以9得1余3，将3与下一个数结合，得到33，以此类推直到运算到最后一位，我们便可以得到最终的余数。之后判断余数是否为0就可以得出答案。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">200</span>+<span class="number">10</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Big</span>&#123;</span> <span class="comment">//Big储存输入的大数</span></span><br><span class="line">    <span class="keyword">int</span> num[maxn];</span><br><span class="line">    <span class="keyword">int</span> len;</span><br><span class="line">    Big()&#123;</span><br><span class="line">        len = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(num, <span class="number">0</span>, <span class="keyword">sizeof</span>(num));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">divide</span><span class="params">(Big a, <span class="keyword">int</span> b)</span></span>&#123;   <span class="comment">//传入被除数与除数</span></span><br><span class="line">    Big c;</span><br><span class="line">    LL mod = <span class="number">0</span>; <span class="comment">//mod记路余数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.len; i++)&#123; <span class="comment">//从首位开始按位运算</span></span><br><span class="line">        mod = mod * <span class="number">10</span> + a.num[i];  <span class="comment">//mod要用long long 因为mod * 10后可能超int范围</span></span><br><span class="line">        <span class="keyword">if</span>(mod &gt;= b)    <span class="comment">//如果除不开就去计算下一位，除的开就进行计算</span></span><br><span class="line">            mod = mod % b;  <span class="comment">//当前值除以b找到新的余数</span></span><br><span class="line">    &#125;</span><br><span class="line">   <span class="keyword">return</span> (<span class="keyword">int</span>)mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t, b;   <span class="comment">//t为测试数量</span></span><br><span class="line">    <span class="built_in">string</span> str; <span class="comment">//str记录输入第一个数字</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t) != EOF)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= t; i++)&#123;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; str &gt;&gt; b;</span><br><span class="line">            Big a;  <span class="comment">//a记录第一个数</span></span><br><span class="line">            <span class="keyword">if</span>(str[<span class="number">0</span>] == <span class="string">'-'</span>)&#123;  <span class="comment">//第一个数字如果是负数就去掉符号</span></span><br><span class="line">                <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">                a.len = str.size() - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="built_in">string</span>::iterator it = ++str.begin(); it != str.end(); it++)&#123;</span><br><span class="line">                    a.num[cnt++] = *it - <span class="string">'0'</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;  <span class="comment">//正数直接记录入a</span></span><br><span class="line">                <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">                a.len = str.size();</span><br><span class="line">                <span class="keyword">for</span>(<span class="built_in">string</span>::iterator it = str.begin(); it != str.end(); it++)&#123;</span><br><span class="line">                    a.num[cnt++] = *it - <span class="string">'0'</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(b &lt; <span class="number">0</span>)</span><br><span class="line">                b = -b;</span><br><span class="line">            <span class="keyword">if</span>(!divide(a, b))&#123;  <span class="comment">//只要mod为0就可以整除，否则不能整除</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Case %d: divisible\n"</span>, i);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Case %d: not divisible\n"</span>, i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1185,7 +1200,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1198,7 +1213,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-count">84</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

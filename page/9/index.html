@@ -177,91 +177,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/04/11/2015%E5%B9%B4%E7%AC%AC%E5%85%AD%E5%B1%8A-%E8%93%9D%E6%A1%A5%E6%9D%AFC-C-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E6%9C%AC%E7%A7%91B%E7%BB%84%E5%86%B3%E8%B5%9B-%E5%AE%8C%E7%BE%8E%E6%AD%A3%E6%96%B9%E5%BD%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/11/2015%E5%B9%B4%E7%AC%AC%E5%85%AD%E5%B1%8A-%E8%93%9D%E6%A1%A5%E6%9D%AFC-C-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E6%9C%AC%E7%A7%91B%E7%BB%84%E5%86%B3%E8%B5%9B-%E5%AE%8C%E7%BE%8E%E6%AD%A3%E6%96%B9%E5%BD%A2/" class="post-title-link" itemprop="url">2015年第六届 蓝桥杯C  C++程序设计 本科B组决赛 完美正方形</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-11 21:54:34" itemprop="dateCreated datePublished" datetime="2019-04-11T21:54:34+08:00">2019-04-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><meta name="referrer" content="no-referrer"><br>　　如果一些边长互不相同的正方形，可以恰好拼出一个更大的正方形，则称其为完美正方形。历史上，人们花了很久才找到了若干完美正方形。比如：如下边长的22个正方形</p>
-<p>2 3 4 6 7 8 12 13 14 15 16 17 18 21 22 23 24 26 27 28 50 60</p>
-<p>如【图1.png】那样组合，就是一种解法。</p>
-<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190411214601151-449620736.png" alt="img"><br>　　此时，紧贴上边沿的是：60 50，紧贴下边沿的是：26 28 17 21 18</p>
-<p>　　22阶完美正方形一共有8种。下面的组合是另一种：</p>
-<p>2 5 9 11 16 17 19 21 22 24 26 30 31 33 35 36 41 46 47 50 52 61</p>
-<p>　　如果告诉你该方案紧贴着上边沿的是从左到右依次为：47 46 61，你能计算出紧贴着下边沿的是哪几个正方形吗？</p>
-<p>　　请提交紧贴着下边沿的正方形的边长，从左到右，用空格分开。</p>
-<p>不要填写任何多余的内容或说明文字。</p>
-<p>解题思路：</p>
-<p>　　既然已经给出紧贴着上边沿的三个正方形，便可以得知最终拼接成的大正方形边长为47+46+61=154我们将整个大正方形视为一个154*154的地图，将47 46 61三个正方形先拼到地图顶端。之后找到第一个空闲位置，深搜填入其他正方形，直到找到可以填满地图的填充方式为止。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> EDGE = <span class="number">47</span> + <span class="number">46</span> + <span class="number">61</span>;</span><br><span class="line"><span class="comment">//大正方形边长</span></span><br><span class="line"><span class="keyword">int</span> num[] = &#123;<span class="number">2</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">11</span>, <span class="number">16</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">21</span>, <span class="number">22</span>, <span class="number">24</span>, <span class="number">26</span>, <span class="number">30</span>, <span class="number">31</span>, <span class="number">33</span>, <span class="number">35</span>, <span class="number">36</span>, <span class="number">41</span>, <span class="number">50</span>, <span class="number">52</span>&#125;;</span><br><span class="line"><span class="comment">//num需要是有序的</span></span><br><span class="line"><span class="comment">//记录剩下的所有可以被选取的正方形边长</span></span><br><span class="line"><span class="keyword">int</span> vis[<span class="number">20</span>] = &#123;<span class="literal">false</span>&#125;;</span><br><span class="line"><span class="comment">//vis[i]记录i号正方形是否被选取过</span></span><br><span class="line"><span class="keyword">int</span> mp[EDGE][EDGE];</span><br><span class="line"><span class="comment">//地图</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fillUp</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> length, <span class="keyword">int</span> fillNumber)</span></span>&#123;</span><br><span class="line">    <span class="comment">//填充函数，x y为要填充位置的坐标（要填充正方形的左上角所在位置）</span></span><br><span class="line">    <span class="comment">//length为填充正方形的长度，fillNumber表示填入地图的数字（填充时设为边长，拿出时设为0）</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = x; i &lt; x + length; i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = y; j &lt; y + length; j++)</span><br><span class="line">            mp[i][j] = fillNumber;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isFull</span><span class="params">()</span></span>&#123;  <span class="comment">//判断地图是否已被填满</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; EDGE; i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; EDGE; j++)</span><br><span class="line">            <span class="keyword">if</span>(!mp[i][j])</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> length)</span></span>&#123;   <span class="comment">//判断位置x y是否能填入边长为length的正方形</span></span><br><span class="line">    <span class="keyword">if</span>(x + length &gt; EDGE || y + length &gt; EDGE)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = x; i &lt; x + length; i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = y; j &lt; y + length; j++)</span><br><span class="line">            <span class="keyword">if</span>(mp[i][j])</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(isFull())  <span class="comment">//如果地图已被填满则找到答案，返回true</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span>(x &gt; EDGE || y &gt; EDGE)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">int</span> newX, newY;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; EDGE; i++)&#123;  <span class="comment">//将newX newY记录为地图上第一个空位的坐标</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; EDGE; j++)</span><br><span class="line">            <span class="keyword">if</span>(!mp[i][j])&#123;</span><br><span class="line">                newX = i, newY = j;</span><br><span class="line">                flag = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">if</span>(flag)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">19</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(judge(newX, newY, num[i]))&#123;  <span class="comment">//位置newX newY能填入边长为num[i]的正方形 且边长为num[i]的正方形还没有被选取过</span></span><br><span class="line">            <span class="keyword">if</span>(!vis[i])&#123;</span><br><span class="line">                fillUp(newX, newY, num[i], num[i]); <span class="comment">//将长度为num[i]的正方形 填入位置 newX, newY</span></span><br><span class="line">                vis[i] = <span class="literal">true</span>;  <span class="comment">//边长为num[i]的正方形标记为已选取</span></span><br><span class="line">                <span class="keyword">if</span>(dfs(newX, newY + num[i]))</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                fillUp(newX, newY, num[i], <span class="number">0</span>);  <span class="comment">//将长度为num[i]的正方形从位置 newX, newY取出</span></span><br><span class="line">                vis[i] = <span class="literal">false</span>; <span class="comment">//边长为num[i]的正方形标记为未选取</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>   <span class="comment">//由于num是有序的只要num[i]无法放入位置newX newY则之后的正方形都无法放入位置newX newY</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fillUp(<span class="number">0</span>, <span class="number">0</span>, <span class="number">47</span>, <span class="number">47</span>);</span><br><span class="line">    fillUp(<span class="number">0</span>, <span class="number">47</span>, <span class="number">46</span>, <span class="number">46</span>);</span><br><span class="line">    fillUp(<span class="number">0</span>, <span class="number">93</span>, <span class="number">61</span>, <span class="number">61</span>);</span><br><span class="line">    <span class="comment">//将题中给出的上方三个正方形填入地图</span></span><br><span class="line">    dfs(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">//int ans = 0;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; EDGE; j++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%3d "</span>, mp[<span class="number">153</span>][j]); <span class="comment">//打印最后一行</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/04/08/PTA-Advanced-Level-1007-Maximum-Subsequence-Sum/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1133,6 +1048,86 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/02/25/HDU-1272-%E5%B0%8F%E5%B8%8C%E7%9A%84%E8%BF%B7%E5%AE%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/02/25/HDU-1272-%E5%B0%8F%E5%B8%8C%E7%9A%84%E8%BF%B7%E5%AE%AB/" class="post-title-link" itemprop="url">HDU 1272 小希的迷宫</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-02-25 14:03:38" itemprop="dateCreated datePublished" datetime="2019-02-25T14:03:38+08:00">2019-02-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>上次Gardon的迷宫城堡小希玩了很久（见Problem B），现在她也想设计一个迷宫让Gardon来走。但是她设计迷宫的思路不一样，首先她认为所有的通道都应该是双向连通的，就是说如果有一个通道连通了房间A和B，那么既可以通过它从房间A走到房间B，也可以通过它从房间B走到房间A，为了提高难度，小希希望任意两个房间有且仅有一条路径可以相通（除非走了回头路）。小希现在把她的设计图给你，让你帮忙判断她的设计图是否符合她的设计思路。比如下面的例子，前两个是符合条件的，但是最后一个却有两种方法从5到达8。 </p>
+<p>Input输入包含多组数据，每组数据是一个以0 0结尾的整数对列表，表示了一条通道连接的两个房间的编号。房间的编号至少为1，且不超过100000。每两组数据之间有一个空行。<br>整个文件以两个-1结尾。<br>Output对于输入的每一组数据，输出仅包括一行。如果该迷宫符合小希的思路，那么输出”Yes”，否则输出”No”。<br>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">6 8  5 3  5 2  6 4</span><br><span class="line">5 6  0 0</span><br><span class="line"></span><br><span class="line">8 1  7 3  6 2  8 9  7 5</span><br><span class="line">7 4  7 8  7 6  0 0</span><br><span class="line"></span><br><span class="line">3 8  6 8  6 4</span><br><span class="line">5 3  5 6  5 2  0 0</span><br><span class="line"></span><br><span class="line">-1 -1</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Yes</span><br><span class="line">Yes</span><br><span class="line">No</span><br></pre></td></tr></table></figure>
+<p>题目解析<br>　　本题持续输入包含两房间的道路每次输入到0 0开始视为一个迷宫，要求迷宫所有房间连通且任意两个房间之间只有唯一的一条道路，这就要求给出的图是一个无向连通无环图，也就是一棵树，这样我们便可以使用边数加一等于点数与来判断是否是树，维护并查集判断所有点是否连通。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX = <span class="number">1e5</span>+<span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> f[MAX]; <span class="comment">//记录每个房间的父亲</span></span><br><span class="line"><span class="keyword">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">bool</span> n[MAX] = &#123;<span class="literal">false</span>&#125;;  <span class="comment">//记录出现过的房间编号</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getF</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;    <span class="comment">//并查集找爹函数</span></span><br><span class="line">    <span class="keyword">if</span>(x == f[x])</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> f[x] = getF(f[x]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">unionf</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v)</span></span>&#123;  <span class="comment">//合并两点</span></span><br><span class="line">    <span class="keyword">int</span> fu = getF(u);</span><br><span class="line">    <span class="keyword">int</span> fv = getF(v);</span><br><span class="line">    <span class="keyword">if</span>(fu != fv)    <span class="comment">//两者不再一个集合中则将其合并</span></span><br><span class="line">        f[fu] = fv;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> u, v;</span><br><span class="line">    <span class="built_in">memset</span>(n, <span class="number">0</span>, <span class="keyword">sizeof</span>(n));</span><br><span class="line">    <span class="keyword">int</span> edgeCnt = <span class="number">0</span>;    <span class="comment">//记录边数</span></span><br><span class="line">    <span class="keyword">int</span> nodeCnt = <span class="number">0</span>;    <span class="comment">//记录点数</span></span><br><span class="line">    <span class="keyword">int</span> minn = INT_MAX; <span class="comment">//记录当前最小房间编号</span></span><br><span class="line">    <span class="keyword">int</span> maxn = <span class="number">0</span>;   <span class="comment">//记录当前最大房间编号</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; MAX; i++)&#123;   <span class="comment">//初始化每个结点的父亲为自己</span></span><br><span class="line">        f[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;u, &amp;v) != EOF)&#123;    <span class="comment">//输入边数据</span></span><br><span class="line">        <span class="keyword">if</span>(u == <span class="number">-1</span> &amp;&amp; v == <span class="number">-1</span>)  <span class="comment">//u、v都为-1时结束循环</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">if</span>(u == <span class="number">0</span> &amp;&amp; v == <span class="number">0</span>)&#123;   <span class="comment">//u、v都为0时记为一组开始运算</span></span><br><span class="line">            <span class="keyword">if</span>(flag == <span class="literal">false</span>)&#123;  <span class="comment">//如果图中一个房间都没有照样符合题目要求，输出Yes</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Yes\n"</span>);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = minn; i &lt;= maxn; i++)&#123;  <span class="comment">//遍历所有房间获取连通块数量</span></span><br><span class="line">                <span class="keyword">if</span>(n[i] &amp;&amp; f[i] == i)</span><br><span class="line">                    cnt++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(cnt &gt; <span class="number">1</span>)&#123;    <span class="comment">//若连通块数量大于1则肯定不符合题目要求</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"No\n"</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(edgeCnt + <span class="number">1</span> == nodeCnt)&#123; <span class="comment">//边数加一为顶点数的图无环</span></span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"Yes\n"</span>);</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"No\n"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; MAX; i++)&#123;   <span class="comment">//初始化每个结点的父亲为自己</span></span><br><span class="line">                f[i] = i;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">memset</span>(n, <span class="literal">false</span>, <span class="keyword">sizeof</span>(n));    <span class="comment">//初始化所有房间为未出现</span></span><br><span class="line">            edgeCnt = <span class="number">0</span>;    <span class="comment">//初始化边数为0</span></span><br><span class="line">            nodeCnt = <span class="number">0</span>;    <span class="comment">//初始化点数为0</span></span><br><span class="line">            minn = INT_MAX; <span class="comment">//最小房间编号初始记为无穷大</span></span><br><span class="line">            maxn = <span class="number">0</span>;   <span class="comment">//最大房间编号初始积为0</span></span><br><span class="line">            flag = <span class="literal">false</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            edgeCnt++;  <span class="comment">//每次输入边数加一</span></span><br><span class="line">            maxn = max(max(maxn, u), v);</span><br><span class="line">            minn = min(min(minn, u), v);</span><br><span class="line">            <span class="comment">//获取当前最大最小房间编号</span></span><br><span class="line">            <span class="keyword">if</span>(!n[u])&#123;  <span class="comment">//记录出现过的房间</span></span><br><span class="line">                nodeCnt++;</span><br><span class="line">                n[u] = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(!n[v])&#123;</span><br><span class="line">                nodeCnt++;</span><br><span class="line">                n[v] = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            unionf(u, v);   <span class="comment">//合并道路两端的房间</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1204,7 +1199,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1217,7 +1212,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-count">84</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
