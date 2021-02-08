@@ -177,6 +177,170 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/03/16/Java%E7%90%90%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/16/Java%E7%90%90%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/" class="post-title-link" itemprop="url">Java琐碎知识点汇总</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-16 17:53:06" itemprop="dateCreated datePublished" datetime="2020-03-16T17:53:06+08:00">2020-03-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Java琐碎知识点汇总"><a href="#Java琐碎知识点汇总" class="headerlink" title="Java琐碎知识点汇总"></a>Java琐碎知识点汇总</h1><ul>
+<li>javac指令有些类似于make 会自动寻找并编译对应依赖的类，java编译器在编译源文件时不检查目录结构，但若类类与其对应的包目录不匹配，虚拟机就找不到类</li>
+<li>JAR文件使用ZIP格式组织文件和子目录，可用使用所有ZIP使用程序查看JAR文件内部</li>
+<li>char类型一般不建议使用（⑪占2个代码单元），建议将字符串作为抽线数据类型处理（除非确实要处理UTF16代码单元） </li>
+<li>布尔类型值与整形值不能相互转换 (if (x = 0) 不能编译通过)</li>
+<li>JAVA不区分变量的声明与定义 (int i = 10 or extern int i)</li>
+<li>整数被零除产生除零异常 浮点数被0除产生无穷大或NaN</li>
+<li>可以通过为类或方法添加strictfp关键词，其所有指令都将使用严格浮点数计算（可能产生溢出）</li>
+<li>有精度丢失的整型向浮点型的类型转换 int-&gt;float long-&gt;float long-&gt;double</li>
+<li>Java字符串为不可变字符串，对字符串变量的修改实际为使其引用另一字符串</li>
+<li>Java不允许内层定义的变量覆盖外层定义的变量</li>
+<li>长度为0的数组与null值不同</li>
+<li>main函数args数组用来存放命令行参数（如java DemoClass -g AAA BBB args[0] = “-g” args[1] = “AAA” args[2] = “BBB”）</li>
+<li>Java没有严格意义上的多维数组，其实现为元素为数组的数组</li>
+<li>局部变量不会自动初始化为null，必须调用new 或将其设为null进行初始化</li>
+<li>关键词this表示当前方法隐式参数</li>
+<li>Java method参数使用情况:<ul>
+<li>方法不能修改基本数据类型的参数</li>
+<li>方法可以改变对象参数的状态</li>
+<li>方法不能让对象参数引用一个新的参数</li>
+</ul>
+</li>
+<li>Java默认域初始化:<pre><code>如果在构造器中没有显示的对域赋予初值，将被自动赋为默认值（数值为0、布尔为false、对象引用为null）
+</code></pre></li>
+<li>当且仅当一个类不存在任何构造器时系统才会提供默认构造器</li>
+<li>静态初始化块 -&gt; 初始化块 -&gt; 构造方法</li>
+<li>Java调用构造器的具体处理步骤<ol>
+<li>所有数据域被初始化为默认值</li>
+<li>按照在类声明中出现的次序，依次执行所有域初始化语句和初始化块</li>
+<li>若构造器第一行调用了第二个构造器则执行第二个构造器主体</li>
+<li>执行该构造器主题</li>
+</ol>
+</li>
+<li>Java有自动垃圾回收器，不支持析构器，可以为类添加finalize方法（在垃圾回收器清除对象之前调用）可用System.runFinalizerOnExit(true)确保finalizer方法在Java关闭前被调用（不安全）或使用Runtime.addShutdownHook 添加关闭钩（安全）</li>
+<li>包命名规范 包名为逆序域名.项目名.模块名</li>
+<li><h1 id="include-与-import无共同点-C-编译器无法查看文件内部所以-include用于加载外部特性声明-Java编译器可以查看文件内部，所以即使不使用import也可以显示的给出包名，也可以使用import导入静态方法与静态域"><a href="#include-与-import无共同点-C-编译器无法查看文件内部所以-include用于加载外部特性声明-Java编译器可以查看文件内部，所以即使不使用import也可以显示的给出包名，也可以使用import导入静态方法与静态域" class="headerlink" title="include 与 import无共同点 C++编译器无法查看文件内部所以#include用于加载外部特性声明 Java编译器可以查看文件内部，所以即使不使用import也可以显示的给出包名，也可以使用import导入静态方法与静态域"></a>include 与 import无共同点 C++编译器无法查看文件内部所以#include用于加载外部特性声明 Java编译器可以查看文件内部，所以即使不使用import也可以显示的给出包名，也可以使用import导入静态方法与静态域</h1></li>
+<li>可用为超类变量赋值子类引用，但不能为子类变量赋值超类引用</li>
+<li>由于每次调用方法都要搜索时间开销太大，虚拟机预先为每个类创建了一个方法表（method table）</li>
+<li>不允许被扩展的类叫final类 不能被子类方法覆盖的方法叫final方法 String就是final类</li>
+<li>包含抽象方法（abstract）的类必须为抽象类</li>
+<li>抽象类变量永远引用不到抽像类而是引用其具体子类对象</li>
+<li>protected域可以被子类访问也可以被本包其他类访问所以安全性比C++交差，Object clone方法为protected方法</li>
+<li>只有基本类型不是对象 所有数组类型，不管是对象数组还是基本类型数组都扩展了Object类</li>
+<li>Object.equals方法比较对象时判断的是两个对象是否具有相同的引用，对于大多数类来说这种判断并没有什么意义，所以需要对其覆盖（重写）且equals满足自反性、对称性传递性和一致性</li>
+<li>hashCode定义在Object中，每个对象都有一个默认的散列码为对象的存储地址，字符串hashCode由字符串内容导出，内容相同的字符串hashCode相同</li>
+<li>重写定义equals就要重写hashCode以便用户可以将对象插入散列表，重写hashCode时应用null安全的Object.hashCode获取对象内部属性hashCode，应保证equals相等为hashCode相等的充分条件，hashCode相等为equals相等的必要条件</li>
+<li>数组继承了Object类的toString方法，数组类型将按Object toString打印所属类名和散列码，建议使用静态方法Arrays.toString</li>
+<li>ArrayList管理的数组空间被用尽时，数组列表会自动创建一个更大的数组并将所有对象从较小的数组中拷贝至较大的数组中而不是去扩展较小的数组</li>
+<li>可以通过 ensureCapacity(size) 或者 new ArrayList&lt;&gt;(size)为数组列表设置初始容量，数组列表将直接创建包含size个对象的内部数组</li>
+<li>若确定ArrayList数组列表大小不会再次改变后可以调用trimToSize 将存储区大小调整为当前元素数量所需要的储存空间，垃圾回收器将回收多余存储空间</li>
+<li>Java编译器在对类型转换检查后如果没有违规情况会将所有类型化数组列表转换为ArrayList对象 所以类型转换(ArrayList) 和 (ArrayList<ClassName>)将执行相同的运行时检查（warning照样有）</ClassName></li>
+<li>所有基本类型的包装类都是不可变类</li>
+<li>包装类与基本类型相互赋值是会进行自动拆箱与自动装箱，算数表达式也可以</li>
+<li>boolean、byte、char&lt;=127 int或short介于-128~127之间将被包装到固定对象中，它们的==比较一定成立</li>
+<li>要想实现改变参数值的方法包装类也无法实现，但可以使用org.omg.CORBA包中的 holder类型（其值域为公有）</li>
+<li>Object… 表示该函数可以接收任意数量的对象</li>
+<li>Java printf 实际接收至为Object数组（允许将一个数组传递给可变阐述方法的最后一个参数）</li>
+<li>某个特定类可以临时转换为Object 但初始就是Object类永远不能转为其他特定类</li>
+<li>可以在枚举类型中添加一些构造器、方法和域</li>
+<li>反射被大量应用于JavaBeans中</li>
+<li>Class类实则用于访问郧西是类型信息，Object 类中的 getClass( ) 方法将会返回一个 Class 类型的实例</li>
+<li>虚拟机为每个类型管理一个Class对象，所以 对getClass方法进行==比较完全没有问题</li>
+<li>反射显示对象私有域内容时可用setAccessible为反射对象设置可访问标志屏蔽Java语言的访问检查</li>
+<li>接口中的函数默认public不用声明，但实现接口时必备吧对应方法声明为public</li>
+<li>接口不是类，不能实例化，接口变量应引用实现了接口的类的对象</li>
+<li>Java Array.sort()方法使用的排序类型 小于47个元素使用插入排序 大于47小于286使用快排 大于286梳理数据使用归并排序若降序数组过多转回快排</li>
+<li>接口默认方法冲突默认解决：超类优先 若某个接口提供了默认方法与另一接口某方法或参数冲突则必须覆盖（重写）该方法</li>
+<li>若一个类的超类中某方法与接口默认方法冲突则接口默认方法被忽略（类优先原则）</li>
+<li>BiFunction<T,U,R> 可以用来保存lambda表达式可惜大部分情况莫得卵用</T,U,R></li>
+<li>使用类名::方法名可以传递方法引用（如System.out::println或Math::max）如果对应方法有多个版本编译器会尝试从上下文中找出应该使用哪一个方法</li>
+<li>lambda表达式中的this关键词指的是创建这个lambda表达式的方法的this</li>
+<li>所有内部类都有指向其外部类的引用，只有静态内部类没用指向外部类的引用</li>
+<li>声明在接口中的内部类自动作为public statis</li>
+<li>Java的Exception异常分为RuntimeException与IOException，其中RuntimeException与C++logic_error类（程序中的逻辑错误）类似而不是runtime_error类，runtime_error类是所有由不可预知的原因引发的异常的基类</li>
+<li>使用try/catch/finally时，当finally子句包含return语句时其返回值将覆盖try块与catch块中的return语句</li>
+<li>异常处理效率低下，不能代替简单判断测试</li>
+<li>-verbose标志启动JVM可以观察类的加载过程</li>
+<li>JDK提供jconsole来显示JVM性能统计结果使用jconsole processID运行</li>
+<li>jmap可以获得一个堆的转储，显示堆中的每个对象使用<br>jmap -dump:format=b,file=dumpFileName processID<br>jhat dumpFileName</li>
+<li>Java定义泛型类型都的自动提供相应的原始类型 （删去类型参数的泛型类型名，查出类型变量替换为限定型，无限定用Object）</li>
+<li>Java泛型不能用类型参数代替基本类型（没有Pair\<double>只有Pair\<Double>，类型擦除之后含有Object类型的域 Object不能存储double）</Double></double></li>
+<li>Java泛型不能实例化参数化类型的数组<br>Pair\<String>[] table = new Pair\<String>[10];    // Error<br>但Pair\<String>[]变量声明依旧合法,可通过声明通配类型数组，然后进行类型转换<br>Pair\<String>[] table = (Pair\<String>[])new Pair\&lt;?&gt;[10];</String></String></String></String></String></li>
+<li>Java泛型类中静态上下文变量无效</li>
+<li>不能抛出或捕获泛型类的实例对象</li>
+<li>若S是T的子类Pair\<S>与Pair\<T>没有任何关系</T></S></li>
+<li>Java集合迭代器与C++迭代器并不相同，不直接指向对应元素，而更类似于InputStream.read每次消耗掉一个元素，所以remove操作要与next操作对应</li>
+<li>Java ArrayList默认大小10，扩容规则：旧容量 + 旧容量 &gt;&gt; 1(扩容1.5倍)</li>
+<li>ClassLoader中loadClass()方法结束后并未完成类的初始化</li>
+<li>通过子类全类名使用父类静态变量，只会初始化父类的静态域而不会初始化子类的静态域</li>
+<li>静态代码块只有被访问时才会进行初始化</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/03/16/Java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -6937,596 +7101,6 @@ P =10011(n=4)\\
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/11/13/SPFA%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ortrait.jpg">
-      <meta itemprop="name" content="SUVVM">
-      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUVVM">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/13/SPFA%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">SPFA原理分析</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-13 08:13:28" itemprop="dateCreated datePublished" datetime="2019-11-13T08:13:28+08:00">2019-11-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="SPFA原理分析"><a href="#SPFA原理分析" class="headerlink" title="SPFA原理分析"></a>SPFA原理分析</h2><h3 id="贝尔曼-福特算法时间复杂度"><a href="#贝尔曼-福特算法时间复杂度" class="headerlink" title="贝尔曼 福特算法时间复杂度"></a>贝尔曼 福特算法时间复杂度</h3><p>针对N个顶点E条边的连通图，由于Bellman Ford算法需要对所有的边遍历N-1次后再添加一次额外的遍历(<a href="https://www.suvvm.work/2019/11/12/Bellman-Ford原理分析/">详见</a>)，其时间复杂度为 $ O(N\times E)$ 。这个复杂度依旧不尽人意，现在要对其进行优化，之前针对贝尔曼 福特算法的分析中指出，如果最短路存在，松弛操作的次数不会超过N-1，正因如此，每个点被优化的次数也不会超过N-1，且只有当某个顶点u到源点的最短距离发生改变，它所发出的边所指向的另外一点v到源点的最短路才有可能会发生改变。</p>
-<h3 id="进行优化"><a href="#进行优化" class="headerlink" title="进行优化"></a>进行优化</h3><p>以上方思想为指导进行优化，初始将源点到所有顶点最短路距离视为无穷大，之后维护一个队列，每次将队首的顶点u取出，对从u出发的所有边进行遍历，如果u可以使边另一端的顶点v到达源点的最短距离缩短，则进行优化操作，如果当前v不在队列中则将v入队，这样一旦队列为空时证明所有的优化已经完成，便可以成功获得源点到所有点的最短路长度，而一旦某个点被优化的次数超过N-1则说明给出的图中有从源点可达的负环。</p>
-<h3 id="模拟SPFA运行过程"><a href="#模拟SPFA运行过程" class="headerlink" title="模拟SPFA运行过程"></a>模拟SPFA运行过程</h3><p>以下图为例，进行一次SPFA运行过程的模拟。</p>
-<p><img src="/2019/11/13/SPFA%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/spfa1-1.svg" alt="img"></p>
-<p>以A为起点，依旧用其他最短路算法一样，将初始状态的，源点到所有点之间的最短距离视为无穷大。</p>
-<h4 id="优化源点"><a href="#优化源点" class="headerlink" title="优化源点"></a>优化源点</h4><p>记录源点到其本身的距离为0，并将其入队。</p>
-<p><img src="/2019/11/13/SPFA%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/spfa1-2.svg" alt="img"></p>
-<p>此时队列中的点</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>A</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>当前A点到所有点的最短路长度表</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">∞</td>
-<td style="text-align:left">∞</td>
-<td style="text-align:left">∞</td>
-<td style="text-align:left">∞</td>
-<td style="text-align:left">∞</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="第一次优化"><a href="#第一次优化" class="headerlink" title="第一次优化"></a>第一次优化</h4><p>将队首的元素A出队，遍历所有以A为起点的边</p>
-<p>以A为起点的边有权值为2的$A\rightarrow B$与权值为3的$A\rightarrow C$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">边A(0)	2	B(∞)	将B点到源点的最短距离由无穷大优化为0+2&#x3D;2</span><br><span class="line">边A(0)	3	C(∞)	将C点到源点的最短距离由无穷大优化为0+2&#x3D;3</span><br></pre></td></tr></table></figure>
-<p>将被优化的B点和C点入队</p>
-<p><img src="/2019/11/13/SPFA%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/spfa1-3.svg" alt="img"></p>
-<p>此时队列中的点</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>B</th>
-<th>C</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2</td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>当前A点到所有点的最短路长度表</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">2</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">∞</td>
-<td style="text-align:left">∞</td>
-<td style="text-align:left">∞</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="第二次优化"><a href="#第二次优化" class="headerlink" title="第二次优化"></a>第二次优化</h4><p>将队首的元素B出队，遍历所有以B为起点的边</p>
-<p>以B为起点的边有权值为6的$B\rightarrow E$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">边B(2)	6	E(∞)	将E点到源点的最短距离由无穷大优化为2+6&#x3D;8</span><br></pre></td></tr></table></figure>
-<p>将被优化的E点入队</p>
-<p><img src="/2019/11/13/SPFA%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/spfa1-4.svg" alt="img"></p>
-<p>此时队列中的点</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>C</th>
-<th>E</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>3</td>
-<td>8</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>当前A点到所有点的最短路长度表</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">2</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">∞</td>
-<td style="text-align:left">8</td>
-<td style="text-align:left">∞</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="第三次优化"><a href="#第三次优化" class="headerlink" title="第三次优化"></a>第三次优化</h4><p>将队首的元素C出队，遍历所有以C为起点的边</p>
-<p>以B为起点的边有权值为-2的$C\rightarrow B$与权值为5的$C\rightarrow E$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">边C(3)	-2	B(2)	将B点到源点的最短距离由无穷大优化为3-2&#x3D;1</span><br><span class="line">边C(3)	5	E(8)	并不能进行优化</span><br></pre></td></tr></table></figure>
-<p>将被优化的B点入队</p>
-<p><img src="/2019/11/13/SPFA%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/spfa1-5.svg" alt="img"></p>
-<p>此时队列中的点</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>E</th>
-<th>B</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>8</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>当前A点到所有点的最短路长度表</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">∞</td>
-<td style="text-align:left">8</td>
-<td style="text-align:left">∞</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="第四次优化"><a href="#第四次优化" class="headerlink" title="第四次优化"></a>第四次优化</h4><p>将队首的元素E出队，遍历所有以E为起点的边</p>
-<p>以E为起点的边有权值为-5的$E\rightarrow D$与权值为8的$E\rightarrow F$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">边E(8)	-5	D(∞)	将D点到源点的最短距离由无穷大优化为8-5&#x3D;3</span><br><span class="line">边E(8)	8	F(∞)	将F点到源点的最短距离由无穷大优化为8+8&#x3D;16</span><br></pre></td></tr></table></figure>
-<p>将被优化的点D点F入队</p>
-<p><img src="/2019/11/13/SPFA%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/spfa1-6.svg" alt="img"></p>
-<p>此时队列中的点</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>B</th>
-<th>D</th>
-<th>F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>3</td>
-<td>16</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>当前A点到所有点的最短路长度表</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">8</td>
-<td style="text-align:left">16</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="第五次优化"><a href="#第五次优化" class="headerlink" title="第五次优化"></a>第五次优化</h4><p>将队首的元素B出队，遍历所有以B为起点的边</p>
-<p>以B为起点的边有权值为6的$B\rightarrow E$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">边B(1)	4	E(8)	将E点到源点的最短距离由8优化为1+6&#x3D;7</span><br></pre></td></tr></table></figure>
-<p>将被优化的E点入队</p>
-<p><img src="/2019/11/13/SPFA%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/spfa1-7.svg" alt="img"></p>
-<p>此时队列中的点</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>D</th>
-<th>F</th>
-<th>E</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>3</td>
-<td>16</td>
-<td>7</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>当前A点到所有点的最短路长度表</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">7</td>
-<td style="text-align:left">16</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="第六次优化"><a href="#第六次优化" class="headerlink" title="第六次优化"></a>第六次优化</h4><p>将队首的元素D出队，遍历所有以D为起点的边</p>
-<p>以D为起点的边有权值为4的$D\rightarrow B$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">边D(3)	6	B(1)	并不能进行优化</span><br></pre></td></tr></table></figure>
-<p>没有要入队的点</p>
-<p><img src="/2019/11/13/SPFA%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/spfa1-8.svg" alt="img"></p>
-<p>此时队列中的点</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>F</th>
-<th>E</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>16</td>
-<td>7</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>当前A点到所有点的最短路长度表</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">7</td>
-<td style="text-align:left">16</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="第七次优化"><a href="#第七次优化" class="headerlink" title="第七次优化"></a>第七次优化</h4><p>将队首的元素F出队，遍历所有以F为起点的边</p>
-<p>以F为起点的边有权值为3的$F\rightarrow C$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">边F(16)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
-<p>没有要入队的点</p>
-<p><img src="/2019/11/13/SPFA%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/spfa1-9.svg" alt="img"></p>
-<p>此时队列中的点</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>E</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>7</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>当前A点到所有点的最短路长度表</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">7</td>
-<td style="text-align:left">16</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="第八次优化"><a href="#第八次优化" class="headerlink" title="第八次优化"></a>第八次优化</h4><p>将队首的元素E出队，遍历所有以E为起点的边</p>
-<p>以E为起点的边有权值为-5的$E\rightarrow D$与权值为8的$E\rightarrow F$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">边E(7)	-5	D(3)	将D点到源点的最短距离由无穷大优化为7-5&#x3D;2</span><br><span class="line">边E(7)	8	F(16)	将F点到源点的最短距离由无穷大优化为7+8&#x3D;15</span><br></pre></td></tr></table></figure>
-<p>将被优化的点D点F入队</p>
-<p><img src="/2019/11/13/SPFA%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/spfa1-10.svg" alt="img"></p>
-<p>此时队列中的点</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>D</th>
-<th>F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2</td>
-<td>15</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>当前A点到所有点的最短路长度表</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">2</td>
-<td style="text-align:left">7</td>
-<td style="text-align:left">15</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="第九次优化"><a href="#第九次优化" class="headerlink" title="第九次优化"></a>第九次优化</h4><p>将队首的元素D出队，遍历所有以D为起点的边</p>
-<p>以D为起点的边有权值为4的$D\rightarrow B$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">边D(2)	4	B(1)	并不能进行优化</span><br></pre></td></tr></table></figure>
-<p>没有要入队的点</p>
-<p><img src="/2019/11/13/SPFA%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/spfa1-11.svg" alt="img"></p>
-<p>此时队列中的点</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>15</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>当前A点到所有点的最短路长度表</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">2</td>
-<td style="text-align:left">7</td>
-<td style="text-align:left">15</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="第十次优化"><a href="#第十次优化" class="headerlink" title="第十次优化"></a>第十次优化</h4><p>将队首的元素F出队，遍历所有以F为起点的边</p>
-<p>以F为起点的边有权值为3的$F\rightarrow C$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">边F(15)	3	C(3)	并不能进行优化</span><br></pre></td></tr></table></figure>
-<p>没有要入队的点</p>
-<p><img src="/2019/11/13/SPFA%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/spfa1-12.svg" alt="img"></p>
-<p>此时队列中的点</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>没啦！</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>当前A点到所有点的最短路长度表</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">A</th>
-<th style="text-align:left">B</th>
-<th style="text-align:left">C</th>
-<th style="text-align:left">D</th>
-<th style="text-align:left">E</th>
-<th style="text-align:left">F</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">2</td>
-<td style="text-align:left">7</td>
-<td style="text-align:left">15</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>到此为止所有的优化都完成了，虽然比较原生的Bellman-Ford要多了五次优化，但SPFA的每次优化并不需要遍历所有边，只需要遍历以出队点为源点的边即可，这就将SPFA的时间复杂度大大降低，降为了$O(M\times E)$而且通常情况下M不会超过2，这使得SPFA再处理没有负环的情况下的速度往往要优于堆优化的dijkstra，但是不要太寄希望于SPFA，都知道它快，所以有很多题目都会有专门的一组数据来卡SPFA（具体请随便找一个搜索引擎搜索卡SPFA），而且SPFA在有负环时时间复杂度会退化为$O(N\times E)$ 我比较懒，就不模拟负环运行了。</p>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e3</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">1e6</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> v, dis;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;Node&gt; Adj[MAXN];</span><br><span class="line"><span class="keyword">int</span> num[MAXN];</span><br><span class="line"><span class="keyword">bool</span> inq[MAXN];</span><br><span class="line"><span class="keyword">int</span> d[MAXN];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">SPFA</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">    fill(d, d + MAXN, INF); <span class="comment">//初始化起点到所有点的最短路长度为无穷大</span></span><br><span class="line">    <span class="built_in">queue</span>&lt;Node&gt; Q;</span><br><span class="line">    d[s] = <span class="number">0</span>;   <span class="comment">//起点至本身的距离为0</span></span><br><span class="line">    Q.push(Node&#123;s, <span class="number">0</span>&#125;); <span class="comment">//这里队列中Node.v为当前点 Node.dis为当前点至起点的距离</span></span><br><span class="line">    inq[s] = <span class="literal">true</span>;  <span class="comment">//将s标记为已入队</span></span><br><span class="line">    num[s]++;   <span class="comment">//s入队次数加一</span></span><br><span class="line">    <span class="keyword">while</span>(!Q.empty())&#123;</span><br><span class="line">        Node f = Q.front();   <span class="comment">//获取队首元素</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">" 出队点："</span> &lt;&lt; f.v;</span><br><span class="line">        Q.pop();    <span class="comment">//出队</span></span><br><span class="line">        inq[f.v] = <span class="literal">false</span>; <span class="comment">//将队首对应的点标记为未入队</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i : Adj[f.v])&#123; <span class="comment">//遍历所有该点的相邻点</span></span><br><span class="line">            <span class="keyword">int</span> v = i.v;</span><br><span class="line">            <span class="keyword">int</span> dis = i.dis;</span><br><span class="line">            <span class="keyword">if</span>(d[f.v] + i.dis &lt; d[i.v])&#123;    <span class="comment">//判断是否可以优化</span></span><br><span class="line">                d[i.v] = d[f.v] + i.dis;</span><br><span class="line">                <span class="keyword">if</span>(!inq[i.v])&#123;  <span class="comment">//优化并入队</span></span><br><span class="line">                    Q.push(Node&#123;i.v, d[i.v]&#125;);</span><br><span class="line">                    inq[i.v] = <span class="literal">true</span>;</span><br><span class="line">                    num[i.v] ++;</span><br><span class="line">                    <span class="keyword">if</span>(num[v] &gt;= n) <span class="comment">//入队次数超过n-1则有负环</span></span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入顶点数:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">int</span> m;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入边数"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i ++)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入边 (端点1 端点2 权值):"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">int</span> u, v, dis;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; u &gt;&gt; v &gt;&gt; dis;</span><br><span class="line">        Adj[u].push_back(Node&#123;v, dis&#125;);</span><br><span class="line">        <span class="comment">//Adj[v].push_back(Node&#123;u, dis&#125;);</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> s;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入起点:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">    <span class="keyword">int</span> e;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入终点:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; e;</span><br><span class="line">    <span class="keyword">if</span>(SPFA(s))&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"起点到终点最短路长度:"</span> &lt;&lt; d[e] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++)&#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">" : "</span> &lt;&lt; d[i] &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"最短路不存在"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -7598,7 +7172,7 @@ P =10011(n=4)\\
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">154</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -7611,7 +7185,7 @@ P =10011(n=4)\\
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">84</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
