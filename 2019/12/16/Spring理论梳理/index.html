@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ortrait.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.suvvm.work","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Spring[TOC] Spring概述WEB架构层 关系数据库层 表示层 业务层  Spring使用简单POJO来克服的问题 Web应用程序可能包含实现其核心功能所不需要的大量代码 单元测试困难 j2ee设计模式由开发人员变更，其他应用不能使用这些设计模式 应用代码依赖于j2ee容器不能迁移至其他容器  Spring功能 可插拔性 依赖注入(DI) DI松散耦合，无需自建与关联业务层对象，只需在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring理论梳理">
+<meta property="og:url" content="https://www.suvvm.work/2019/12/16/Spring%E7%90%86%E8%AE%BA%E6%A2%B3%E7%90%86/index.html">
+<meta property="og:site_name" content="SUVVM">
+<meta property="og:description" content="Spring[TOC] Spring概述WEB架构层 关系数据库层 表示层 业务层  Spring使用简单POJO来克服的问题 Web应用程序可能包含实现其核心功能所不需要的大量代码 单元测试困难 j2ee设计模式由开发人员变更，其他应用不能使用这些设计模式 应用代码依赖于j2ee容器不能迁移至其他容器  Spring功能 可插拔性 依赖注入(DI) DI松散耦合，无需自建与关联业务层对象，只需在">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-12-16T10:48:29.000Z">
+<meta property="article:modified_time" content="2020-12-19T14:05:00.663Z">
+<meta property="article:author" content="SUVVM">
+<meta property="article:tag" content="Spring">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.suvvm.work/2019/12/16/Spring%E7%90%86%E8%AE%BA%E6%A2%B3%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Spring理论梳理 | SUVVM</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e5190116d64be66cac29daef18c94ac0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">SUVVM</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">呜嗷SUVVM</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/12/16/Spring%E7%90%86%E8%AE%BA%E6%A2%B3%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spring理论梳理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-16 18:48:29" itemprop="dateCreated datePublished" datetime="2019-12-16T18:48:29+08:00">2019-12-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><p>[TOC]</p>
+<h2 id="Spring概述"><a href="#Spring概述" class="headerlink" title="Spring概述"></a>Spring概述</h2><h3 id="WEB架构层"><a href="#WEB架构层" class="headerlink" title="WEB架构层"></a>WEB架构层</h3><ul>
+<li>关系数据库层</li>
+<li>表示层</li>
+<li>业务层</li>
+</ul>
+<h3 id="Spring使用简单POJO来克服的问题"><a href="#Spring使用简单POJO来克服的问题" class="headerlink" title="Spring使用简单POJO来克服的问题"></a>Spring使用简单POJO来克服的问题</h3><ul>
+<li>Web应用程序可能包含实现其核心功能所不需要的大量代码</li>
+<li>单元测试困难</li>
+<li>j2ee设计模式由开发人员变更，其他应用不能使用这些设计模式</li>
+<li>应用代码依赖于j2ee容器不能迁移至其他容器</li>
+</ul>
+<h3 id="Spring功能"><a href="#Spring功能" class="headerlink" title="Spring功能"></a>Spring功能</h3><ul>
+<li>可插拔性</li>
+<li>依赖注入(DI) DI松散耦合，无需自建与关联业务层对象，只需在Spring配置文件中描述如何创建与依赖，允许可插拔性易于维护重用</li>
+<li>面向方面(AOP)</li>
+<li>容器</li>
+<li>轻量级</li>
+</ul>
+<h3 id="SpringMVC优点"><a href="#SpringMVC优点" class="headerlink" title="SpringMVC优点"></a>SpringMVC优点</h3><ul>
+<li>清晰分离控制器视图与模型</li>
+<li>高度灵活</li>
+<li>提供控制器</li>
+<li>支持多种视图技术：jsp，velocity，tiles，jsf</li>
+<li>通过依赖注入配置控制器</li>
+<li>容易测试</li>
+<li>验证器作为应用程序对象，不依赖于SpringAPI 而 struts需要借助StrutsAPI ActionForm.validate()</li>
+</ul>
+<h3 id="Spring框架的七个模块"><a href="#Spring框架的七个模块" class="headerlink" title="Spring框架的七个模块"></a>Spring框架的七个模块</h3><ul>
+<li>核心：提供基本功能，包含bean工厂 使用org.springframework.core包</li>
+<li>DAO（数据访问对象）：通过Hibernate、JDBC等标准化数据访问，编写简单数据库代码，无需考虑打开关闭数据库，提供异常层次结构 使用org.springframework.dao包</li>
+<li>ORM（关系映射）：将Spring框架与其他对象关系映射工具（Hibernate、iBatis）集成，<strong>构建在DAO模块之上</strong> 使用org.springframework.orm包</li>
+<li>AOP：面向切面，实现事务管理与安全性等，借助XML配置文件在应用程序中声明企业服务，使用org.springframework.aop包</li>
+<li>MVC：模型视图控制器，将模型应用、视图应用、用户界面分开实现松散耦合，可重用，可与其他MVC框架集成（struts等），使用org.springframework.web包</li>
+<li>应用程序上下文：构建在<strong>核心模块之上</strong>，使Spring成为一个框架， 通过一致的SpringAPI获取对象与资源，基于bean工厂 支持消息、应用程序生命周期事件验证国际化，由Spring配置文件定义，为Spring框架提供上下文信息（bean定义、安全性、事务管理）还提供了一些企业级服务（JNDI、EJB、电子邮件、远程通信、日程安排），使用org.springframework.context包*</li>
+<li>Web上下文：属于Web应用程序开发堆栈（该堆栈包括MVC模块）构建于<strong>应用程序上下文模块之上</strong>，提供创建Web应用程序的上下文，支持Spring框架与Struts，WebWorks，JSF等框架集成，使用org.springframework.web包</li>
+</ul>
+<h2 id="实现依赖注入"><a href="#实现依赖注入" class="headerlink" title="实现依赖注入"></a>实现依赖注入</h2><p>web应用程序由大量逻辑组件组成，这些逻辑组件被称为应用程序对象，作为实现web应用程序业务目标的内聚单元。spring通过依赖注入（DI）概念管理应用程序对象</p>
+<h3 id="Spring框架提供容器"><a href="#Spring框架提供容器" class="headerlink" title="Spring框架提供容器"></a>Spring框架提供容器</h3><ul>
+<li>Bean工厂：提供对DI的支持 使用org.springframework.beans.factory.BeanFactory接口定义</li>
+<li>应用程序上下文：基于bean工厂，提供如与SpringAOP集成、国际化等 使用org.springframework.context.ApplicationContext接口定义</li>
+</ul>
+<h3 id="介绍bean工厂"><a href="#介绍bean工厂" class="headerlink" title="介绍bean工厂"></a>介绍bean工厂</h3><p>bean可以是Spring容器创建、管理的任何java对象或实例。bean工厂容器用于实例化、配置、管理bean，bean工厂创建的对象是完全配置、可使用、知道关系的，管理一创建对象生命周期也涉及bean工厂。</p>
+<p>要实例化Web应用程序的bean工厂首先要加载bean配置文件，使用org.springframework.core.io.Resource接口定义的Rescource对象完成 可从不同位置加载bean配置文件。</p>
+<h3 id="resource接口实现检索配置文件资源"><a href="#resource接口实现检索配置文件资源" class="headerlink" title="resource接口实现检索配置文件资源"></a>resource接口实现检索配置文件资源</h3><ul>
+<li>org.springframework.core.io.ByteArrayResource 一组字节资源</li>
+<li>org.springframework.core.io.ClassPathResource 指定路径*</li>
+<li>org.springframework.core.io.FileSystemResource 指定文件系统</li>
+<li>org.springframework.core.io.InputStreamResource 输入流</li>
+<li>org.springframework.web.context.support.ServletContextResource servlet上下文*</li>
+<li>org.springframework.core.io.UrlResource 给定URL</li>
+</ul>
+<h3 id="bean标记属性"><a href="#bean标记属性" class="headerlink" title="bean标记属性"></a>bean标记属性</h3><ul>
+<li>id：唯一标识bean定义默认bean名称不可包含特殊字符</li>
+<li>name：指定bean别名可包含特殊字符</li>
+<li>class：指定bean类的全限定名</li>
+<li>scope：指定bean作用域 有singleton或prototype</li>
+</ul>
+<h3 id="bean生命周期步骤"><a href="#bean生命周期步骤" class="headerlink" title="bean生命周期步骤"></a>bean生命周期步骤</h3><ol>
+<li>实例化</li>
+<li>填充属性</li>
+<li>设置bean名称</li>
+<li>设置bean工厂</li>
+<li>预初始化</li>
+<li>初始化bean</li>
+<li>初始化后</li>
+<li>bean可使用</li>
+<li>销毁bean</li>
+</ol>
+<h3 id="应用程序上下文介绍"><a href="#应用程序上下文介绍" class="headerlink" title="应用程序上下文介绍"></a>应用程序上下文介绍</h3><p>应用程序上下文是高级容器，继承了BeanFactory接口的所有功能，所以ApplicationContext更常用，缺乏资源用bean工厂</p>
+<h4 id="企业级功能"><a href="#企业级功能" class="headerlink" title="企业级功能"></a>企业级功能</h4><ul>
+<li>提供解析文本消息的方式与消息国际化</li>
+<li>提供加载图像之类文件资源的常规方法</li>
+<li>将事件发布到作为侦听器注册的bean</li>
+</ul>
+<h4 id="应用程序上下文常用实现"><a href="#应用程序上下文常用实现" class="headerlink" title="应用程序上下文常用实现"></a>应用程序上下文常用实现</h4><ul>
+<li>ClassPathXmlApplicationContext 指定路径找配置文件</li>
+<li>FileSystemXmlApplicationContext 文件系统找配置文件</li>
+<li>XmlWebApplicationContext web.xml上下文参数contextConfigLocation找配置文件</li>
+</ul>
+<p>ClassPathXmlApplicationContext例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"Sport/Spring-Config.xml"</span>);</span><br></pre></td></tr></table></figure>
+<p>FileSystemXmlApplicationContext例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext = <span class="keyword">new</span> FileSystemXmlApplicationContext(<span class="string">"C:/Sport/Spring-Config.xml"</span>);</span><br></pre></td></tr></table></figure>
+<p>XmlWebApplicationContext例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext = <span class="keyword">new</span> XmlWebApplicationContext();</span><br></pre></td></tr></table></figure>
+<p>bean工厂只有在调用getBean()时才创建bean， 应用程序上下文一旦启动就会预加载所有bean</p>
+<h4 id="应用程序上下文bean生命周期步骤"><a href="#应用程序上下文bean生命周期步骤" class="headerlink" title="应用程序上下文bean生命周期步骤"></a>应用程序上下文bean生命周期步骤</h4><ol>
+<li>实例化</li>
+<li>填充属性</li>
+<li>设置bean名称</li>
+<li>设置bean工厂</li>
+<li>设置应用程序上下文</li>
+<li>预初始化</li>
+<li>初始化bean</li>
+<li>初始化后</li>
+<li>bean可使用</li>
+<li>销毁bean</li>
+</ol>
+<h3 id="注入应用程序对象"><a href="#注入应用程序对象" class="headerlink" title="注入应用程序对象"></a>注入应用程序对象</h3><p>应用程序对象之间创建和管理的过程形成了依赖注入DI核心并被成为装配</p>
+<h4 id="完成装配的方式"><a href="#完成装配的方式" class="headerlink" title="完成装配的方式"></a>完成装配的方式</h4><ul>
+<li>显示装配：根据配置文件中的显式声明</li>
+<li>自动装配：由容器自动确定</li>
+</ul>
+<h4 id="显式装配"><a href="#显式装配" class="headerlink" title="显式装配"></a>显式装配</h4><p>可用设值注入(setter)和构造函数注入，通过\<property>元素配置，其中又可以注入简单值或引用其他bean</property></p>
+<p>示例代码(setter)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> SetterInject;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Player</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">play</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> SetterInject;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FootballPlayer</span> <span class="keyword">implements</span> <span class="title">Player</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String football;</span><br><span class="line">    <span class="keyword">private</span> FootballBoots boots;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FootballPlayer</span><span class="params">()</span> </span>&#123;&#125;;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.plintln(<span class="string">"I am playing with "</span> + football + <span class="string">" football."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFootball</span><span class="params">(String football)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.football = football;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBoots</span><span class="params">(FootballBoots boots)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.boots = boots;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> SetterInject;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">FootballBoots</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">wearBoots</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注入简单值</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"Kaka"</span> <span class="attr">class</span>=<span class="string">"SetterInject.FootballPlayer"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"fotball"</span> <span class="attr">value</span>=<span class="string">"Adidas"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"Forlan"</span> <span class="attr">class</span>=<span class="string">"SetterInject.FootballPlayer"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"fotball"</span> <span class="attr">value</span>=<span class="string">"Nike"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> SetterInject;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Predator</span> <span class="keyword">implements</span> <span class="title">FootballBoots</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Predator</span><span class="params">()</span> </span>&#123;&#125;;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">wearBoots</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.plintln(<span class="string">"I am wearing Adids predator boots."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>引用其他bean</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"predator"</span> <span class="attr">class</span>=<span class="string">"SetterInject.Predator"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"Kaka"</span> <span class="attr">class</span>=<span class="string">"SetterInject.FootballPlayer"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"fotball"</span> <span class="attr">value</span>=<span class="string">"Adidas"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"boots"</span> <span class="attr">ref</span>=<span class="string">"predator"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"Forlan"</span> <span class="attr">class</span>=<span class="string">"SetterInject.FootballPlayer"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"fotball"</span> <span class="attr">value</span>=<span class="string">"Nike"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"boots"</span> <span class="attr">ref</span>=<span class="string">"predator"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>执行输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">I am playing with Adidas football. I am wearing Adids predator boots.</span><br><span class="line">I am playing with Nike football. I am wearing Adids predator boots.</span><br></pre></td></tr></table></figure>
+<p>示例代码(构造函数)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> SetterInject;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FootballPlayer</span> <span class="keyword">implements</span> <span class="title">Player</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> shirtNumber;</span><br><span class="line">   	<span class="function"><span class="keyword">public</span> <span class="title">FootballPlayer</span><span class="params">()</span> </span>&#123;&#125;;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FootballPlayer</span><span class="params">(<span class="keyword">int</span> shirtNumber)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.shirtNumber = shirtNumber;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.plintln(<span class="string">"I am playing with "</span> + football + <span class="string">" football."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"Kaka"</span> <span class="attr">class</span>=<span class="string">"SetterInject.FootballPlayer"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"7"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"Forlan"</span> <span class="attr">class</span>=<span class="string">"SetterInject.FootballPlayer"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"21"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>执行输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">I am playing with shirt nubmer 7.</span><br><span class="line">I am playing with shirt nubmer 21.</span><br></pre></td></tr></table></figure>
+<h4 id="自动装配"><a href="#自动装配" class="headerlink" title="自动装配"></a>自动装配</h4><p>紫铜装配通过设置对被装配bean配置autowire完成</p>
+<h5 id="autowire属性"><a href="#autowire属性" class="headerlink" title="autowire属性"></a>autowire属性</h5><ul>
+<li>byName： 寻找名称与被装配属性匹配的bean，找不到不匹配</li>
+<li>byType：寻找类型与被装配属性类型匹配的bean找不到不装配，找到多个抛出org.springframework.beans.factory.UnsatisfiedDependencyException异常</li>
+<li>constructor：尝试将容器中的一个或多个bean与被装配bean构造函数匹配，构造函数或bean中存在二义性抛出org.springframework.beans.factory.UnsatisfiedDependencyException异常</li>
+<li>autodetect：如果有默认无参构造先尝试用constructor然后用byType尝试装配bean</li>
+</ul>
+<p>通过名称</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"boots"</span> <span class="attr">class</span>=<span class="string">"SetterInject.Predator"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"Kaka"</span> <span class="attr">class</span>=<span class="string">"SetterInject.FootballPlayer"</span> <span class="attr">autowire</span>=<span class="string">"byName"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"football"</span> <span class="attr">value</span>=<span class="string">"Adidas"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>通过类型</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"boots"</span> <span class="attr">class</span>=<span class="string">"SetterInject.Predator"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"Kaka"</span> <span class="attr">class</span>=<span class="string">"SetterInject.FootballPlayer"</span> <span class="attr">autowire</span>=<span class="string">"byType"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"football"</span> <span class="attr">value</span>=<span class="string">"Adidas"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果找到多个类型相符的bean将抛出异常，所以需要只有一个bean可以匹配自动装配的类型。</p>
+<p>构造函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> AutowireInject;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RugByPlayer</span> <span class="keyword">implements</span> <span class="title">Player</span></span>&#123;</span><br><span class="line">    privite RugByBoots rugByBoots;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> shirtNumber;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RugByPlayer</span><span class="params">(RugByBoots rugByBoots)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.rugByBoots = rugByBoots;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getShirtNumber</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> shirtNumber;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setShirtNumber</span><span class="params">(<span class="keyword">int</span> shirtNumber)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">this</span>.shirtNumber = shirtNumber;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"I am playing with shirt number "</span> + shirtNumber + </span><br><span class="line">                           <span class="string">" and "</span> + rugByBoots.getBoots() + <span class="string">" rugby boots."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> AutowireInject;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RugByBoots</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String boots;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getBoots</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> boots;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SetBoots</span><span class="params">(String boots)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.boots = boots;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"Wilkinson"</span> <span class="attr">class</span>=<span class="string">"AutowireInject.RugByPlayer"</span> <span class="attr">autowire</span>=<span class="string">"constructor"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"shirtNumber"</span> <span class="attr">value</span>=<span class="string">"7"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"NikeBoots"</span> <span class="attr">class</span>=<span class="string">"AutowireInject.RugByBoots"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"boots"</span> <span class="attr">value</span>=<span class="string">"Nike"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>执行输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">I am playing with shirt number 7 and Nike rugby boots.</span><br></pre></td></tr></table></figure>
+<p>如果有多个可被装配的bean会抛出异常，如果有多个构造函数也会抛出异常</p>
+<p>自动检测</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;Kaka&quot; class&#x3D;&quot;SetterInject.FootballPlayer&quot; autowire&#x3D;&quot;autodetect&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<p>先构造函数后byType</p>
+<h4 id="使用默认自动装配"><a href="#使用默认自动装配" class="headerlink" title="使用默认自动装配"></a>使用默认自动装配</h4><p>需要在beans元素中配置default-autowire</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">default-autowire</span>=<span class="string">"byType"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="显式装配与自动装配结合"><a href="#显式装配与自动装配结合" class="headerlink" title="显式装配与自动装配结合"></a>显式装配与自动装配结合</h4><p>可以对任何属性使用\<property>或\<constructor-arg>，会覆盖已经自动装配过的属性。</constructor-arg></property></p>
+<p>使用byType时可以显式装配有二义性的属性如下</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"Kaka"</span> <span class="attr">class</span>=<span class="string">"SetterInject.FootballPlayer"</span> <span class="attr">autowire</span>=<span class="string">"byType"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"football"</span> <span class="attr">value</span>=<span class="string">"Adidas"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"boots"</span> <span class="attr">value</span>=<span class="string">"boot2"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"boot1"</span> <span class="attr">class</span>=<span class="string">"SetterInject.Predator"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"boot2"</span> <span class="attr">class</span>=<span class="string">"SetterInject.Predator"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>\<constructor-arg>不能与构造函数自动装配混合。</constructor-arg></p>
+<h2 id="Spring与Web层集成"><a href="#Spring与Web层集成" class="headerlink" title="Spring与Web层集成"></a>Spring与Web层集成</h2><h3 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h3><h4 id="SpringMVC具有的胜过其他MVC框架的功能"><a href="#SpringMVC具有的胜过其他MVC框架的功能" class="headerlink" title="SpringMVC具有的胜过其他MVC框架的功能"></a>SpringMVC具有的胜过其他MVC框架的功能</h4><ul>
+<li>可插拔视图技术：支持各种视图技术，如JSP、Tiles、JSF</li>
+<li>将服务注入控制器：结合了Spring优点，如依赖注入与AOP，可以将业务层对象隐式注入控制器以减少用户界面和业务逻辑层之间代码的冗余</li>
+<li>集成支持：支持与Struts与Hibernate等其他控件集成</li>
+</ul>
+<h4 id="MVC设计模式组成"><a href="#MVC设计模式组成" class="headerlink" title="MVC设计模式组成"></a>MVC设计模式组成</h4><ul>
+<li>模型：应用程序存留的数据</li>
+<li>视图：应用程序用户界面</li>
+<li>控制器：负责接收用户请求并将其传递给模型进行操作，基于操作结果由控制器指向对应视图</li>
+</ul>
+<h4 id="SpringMVC处理用户请求利用的组件"><a href="#SpringMVC处理用户请求利用的组件" class="headerlink" title="SpringMVC处理用户请求利用的组件"></a>SpringMVC处理用户请求利用的组件</h4><ul>
+<li>处理程序映射：使分发程序servlet能将传入请求转发到适当的控制器</li>
+<li>控制器：处理请求生成响应（包括视图逻辑名称）</li>
+<li>视图解析器：将控制器返回的视图逻辑名称解析为实际视图</li>
+<li>视图：向用户显示响应</li>
+</ul>
+<h4 id="SpringMVC框架优点"><a href="#SpringMVC框架优点" class="headerlink" title="SpringMVC框架优点"></a>SpringMVC框架优点</h4><ul>
+<li>易于测试</li>
+<li>可重用的应用程序代码</li>
+<li>简单强大的标记库</li>
+<li>支持多种视图技术与Web框架</li>
+</ul>
+<h4 id="Web请求的生命周期"><a href="#Web请求的生命周期" class="headerlink" title="Web请求的生命周期"></a>Web请求的生命周期</h4><p>Web应用程序的web.xml包含关于如何处理某个Web请求的信息，当服务器收到请求将读取web.xml并将请求转发至负责处理的servlet</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">	G(用户请求) --1--&gt; A</span><br><span class="line">	A(分发程序servlet) --2--&gt;B(处理程序映射)</span><br><span class="line">    A -- 5 --&gt; E(视图解析器)</span><br><span class="line">    A -- 6 --&gt; F(视图)</span><br><span class="line">    A -- 3 --&gt; C(控制器) -- 4 --&gt; D(模型和视图) --&gt; A</span><br></pre></td></tr></table></figure>
+<h5 id="请求生命周期"><a href="#请求生命周期" class="headerlink" title="请求生命周期"></a>请求生命周期</h5><ol>
+<li>请求抵达分发程序servlet</li>
+<li>分发程序servlet咨询一个或多个处理程序确定对应控制器</li>
+<li>分发程序servlet将请求转发给控制器</li>
+<li>控制器以逻辑视图名称与数据对象发送请求给分发程序servlet</li>
+<li>分发程序servlet请求视图解析器将逻辑视图名称解析为视图</li>
+<li>视图实现，交付模型数据并通过响应发送给浏览器</li>
+</ol>
+<h3 id="Web请求"><a href="#Web请求" class="headerlink" title="Web请求"></a>Web请求</h3><h4 id="使服务器支持Spring的MVC-Web应用程序中的Web请求"><a href="#使服务器支持Spring的MVC-Web应用程序中的Web请求" class="headerlink" title="使服务器支持Spring的MVC Web应用程序中的Web请求"></a>使服务器支持Spring的MVC Web应用程序中的Web请求</h4><ol>
+<li>创建和配置分发程序servlet</li>
+<li>创建对应控制器类</li>
+<li>在分发程序servlet上下文配置中配置控制器</li>
+<li>声明视图解析器将控制器与视图绑定</li>
+<li>创建视图渲染请求页面</li>
+</ol>
+<h4 id="创建和配置分发程序servlet"><a href="#创建和配置分发程序servlet" class="headerlink" title="创建和配置分发程序servlet"></a>创建和配置分发程序servlet</h4><p>分发程序servlet由org.springframework.web.servlet.DispatherServlet类表示，DispatherServlet与Spring框架的ApplicationContext集成。</p>
+<p>分发程序servlet需要在web.xml中通过\<servlet>与\<servlet-mapping>声明和配置</servlet-mapping></servlet></p>
+<p>dispatcher-servlet.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>dispatcher<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>web.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>dispatcher<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>*.htm<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上述代码*.hml表示扩展名为.hml的所有被请求URL都由分发程序servlet处理，若配置为*.* 表示分发servlet可以处理任何扩展名的所有被请求URL</p>
+<h4 id="创建和配置控制器"><a href="#创建和配置控制器" class="headerlink" title="创建和配置控制器"></a>创建和配置控制器</h4><p>编写一个类并注解为@Controller,假设已经配置了分发程序servlet TickDispatcher，创建机票预定控制器BookController</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> controller;</span><br><span class="line"><span class="keyword">import</span> bookTickets.Passenger;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.ui.ModelMap;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ModelAttribute;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line"><span class="keyword">import</span> service.BookService;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RquestMapping</span>(value=<span class="string">"/BookTickets.hmt"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BoolController</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> BookService bookService;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> BookService <span class="title">getBookService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> bookService;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookService</span><span class="params">(BookService bookService)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.bookService = bookService;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@RequestMapping</span>(method=RequestMethod.GET)</span><br><span class="line">    <span class="function">Public String <span class="title">processForm</span><span class="params">(ModelMap model)</span> </span>&#123;</span><br><span class="line">        Passenger p = <span class="keyword">new</span> Passenger();</span><br><span class="line">        model.addAttribute(<span class="string">"Passenger"</span>, p);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"BookTickets"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@RequestMapping</span>(method=RequestMethod.POST)</span><br><span class="line">    <span class="function">Public String <span class="title">processFrom</span><span class="params">(@ModelAttribute(value=<span class="string">"Passenger"</span>)</span> Passenger p, ModelMap model)</span>&#123;</span><br><span class="line">        model.addAttribute(<span class="string">"helloMessage"</span>, bookService.sayHello(p.getNumTravellers()));</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"BookConfirmed"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>BookService</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> service;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">(String num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Congratulations!!! The tickets have been booked for "</span> + num + <span class="string">" travellers."</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="RequestMapping"><a href="#RequestMapping" class="headerlink" title="@RequestMapping()"></a>@RequestMapping()</h4><ul>
+<li>value：指定类充当控制器的URL</li>
+<li>method：指定http请求方法<ol>
+<li>RequestMethod.GET</li>
+<li>RequestMethod.POST</li>
+</ol>
+</li>
+</ul>
+<p>控制器不自己处理请求，而是将请求委托给对应service服务类如上述BokService。</p>
+<p>控制器以org.springframework.ui.ModelMap类返回的ModelMap对象的形式将结构转发回浏览器</p>
+<h4 id="ModelMap中addAttribute方法"><a href="#ModelMap中addAttribute方法" class="headerlink" title="ModelMap中addAttribute方法"></a>ModelMap中addAttribute方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ModelMap <span class="title">addAttribute</span><span class="params">(String attributeName, Object attributeValue)</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>attributeName：要添加到ModelMap对象的属性名</li>
+<li>attributeValue：要添加到ModelMap对象的对象</li>
+</ul>
+<h4 id="在分发程序servlet中配置控制器"><a href="#在分发程序servlet中配置控制器" class="headerlink" title="在分发程序servlet中配置控制器"></a>在分发程序servlet中配置控制器</h4><p>以上述BookController为例配置TickerDispatcher-servlet.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"BookController"</span> <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.mvc.ParameterizableViewControler"</span> <span class="attr">p:viewName</span>=<span class="string">"BookTickets"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"controller.BookController"</span> <span class="attr">p:bookService-ref</span>=<span class="string">"bookService"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="修改applicationcontext-xml通过注解创建控制器类的自动检测"><a href="#修改applicationcontext-xml通过注解创建控制器类的自动检测" class="headerlink" title="修改applicationcontext.xml通过注解创建控制器类的自动检测"></a>修改applicationcontext.xml通过注解创建控制器类的自动检测</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:mvc</span>=<span class="string">"http://www.springframework.org/schema/mvc"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xis:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">           http://www.springframework.org/schema/context</span></span></span><br><span class="line"><span class="tag"><span class="string">           http://www.springframework.org/schema/context/spring-context-3.0.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">           http://www.springframework.org/schema/mvc</span></span></span><br><span class="line"><span class="tag"><span class="string">           http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">           "</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"messageSource"</span> <span class="attr">class</span>=<span class="string">"org.springframework.context.support.ReloadableResurceBundleMessageSource"</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"basename"</span> <span class="attr">value</span>=<span class="string">"/WEB-INF/messages"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">preperty</span> <span class="attr">name</span>=<span class="string">"cacheSeconds"</span> <span class="attr">value</span>=<span class="string">"3000"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"controller"</span>/&gt;</span> <span class="comment">&lt;!-- * --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:annotation-driven</span> /&gt;</span> <span class="comment">&lt;!-- * --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"viewResolver"</span> <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.view.InternalResourceViewResolver"</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"prefix"</span> <span class="attr">value</span>=<span class="string">"/WEB-INF/jsp/"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"suffix"</span> <span class="attr">value</span>=<span class="string">".jsp"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"bookService"</span> <span class="attr">class</span>=<span class="string">"service.BookService"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"bookController"</span> <span class="attr">class</span>=<span class="string">"controller.BookController"</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">porperty</span> <span class="attr">name</span>=<span class="string">"bookService"</span> <span class="attr">ref</span>=<span class="string">"bookService"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上述代码中\<context:component-scan>标记用于在Spring中启用自动扫描base-package指定需扫描文件夹找出并注册带有@Controller注解的bean，\<mvc:annotation-driven>标记指定应用程序支持注解驱动的MVC控制器。</mvc:annotation-driven></context:component-scan></p>
+<h4 id="将请求映射到控制器"><a href="#将请求映射到控制器" class="headerlink" title="将请求映射到控制器"></a>将请求映射到控制器</h4><p>Spring中处理映射由org.springframework.web.servlet.HandlerMapping接口表示</p>
+<p><strong>映射实现类</strong></p>
+<ul>
+<li>BeanNameUrlHandlerMapping</li>
+<li>SimpleUrlHandlerMapping</li>
+<li>ControllerClassNameHandlerMapping</li>
+</ul>
+<p>考虑用户访问以下URL</p>
+<ol>
+<li><a href="http://myurl.com/account/showAccount" target="_blank" rel="noopener">http://myurl.com/account/showAccount</a></li>
+<li><a href="http://myurl.com/account/createAccount" target="_blank" rel="noopener">http://myurl.com/account/createAccount</a></li>
+<li><a href="http://myurl.com/account/deleteAccount" target="_blank" rel="noopener">http://myurl.com/account/deleteAccount</a></li>
+</ol>
+<h5 id="BeanNameUrlHandlerMapping"><a href="#BeanNameUrlHandlerMapping" class="headerlink" title="BeanNameUrlHandlerMapping"></a>BeanNameUrlHandlerMapping</h5><p>使用org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping类</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"beanhandlermapping"</span> <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"/showAccount.htm"</span> <span class="attr">class</span>=<span class="string">"controller.ShowAccountController"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"/createAccount.htm"</span> <span class="attr">class</span>=<span class="string">"controller.CreateAccountController"</span>/&gt;</span></span><br><span class="line">   	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"/deleteAccount.htm"</span> <span class="attr">class</span>=<span class="string">"controller.DeleteAccountController"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="SimpleUrlHandlerMapping"><a href="#SimpleUrlHandlerMapping" class="headerlink" title="SimpleUrlHandlerMapping"></a>SimpleUrlHandlerMapping</h5><p>使用org.springframework.web.servlet.handler.SimpleUrlHandlerMapping类</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"showAccountController"</span> <span class="attr">class</span>=<span class="string">"controller.ShowAccountController"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"createAccountController"</span> <span class="attr">class</span>=<span class="string">"controller.CreateAccountController"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"deleteAccountController"</span> <span class="attr">class</span>=<span class="string">"controller.DeleteAccountController"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"simplehandlermapping"</span> <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"mapping"</span>&gt;</span></span><br><span class="line">        	<span class="tag">&lt;<span class="name">props</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"/showAccount.htm"</span>&gt;</span>showAccountController<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"/createAccount.htm"</span>&gt;</span>createAccountController<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"/deleteAccount.htm"</span>&gt;</span>deleteAccountController<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">props</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="ControllerClassNameHandlerMapping"><a href="#ControllerClassNameHandlerMapping" class="headerlink" title="ControllerClassNameHandlerMapping"></a>ControllerClassNameHandlerMapping</h5><p>使用org.springframework.web.servlet.handler.ControllerClassNameHandlerMapping类</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"ControllerClassNameHandlerMapping"</span> <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.handler.ControllerClassNameHandlerMapping"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"controller.ShowAccountController"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"controller.CreateAccountController"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"controller.DeleteAccountController"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="将响应渲染至客户机"><a href="#将响应渲染至客户机" class="headerlink" title="将响应渲染至客户机"></a>将响应渲染至客户机</h4><ul>
+<li>声明视图解析器</li>
+<li>创建视图</li>
+</ul>
+<h5 id="声明视图解析器"><a href="#声明视图解析器" class="headerlink" title="声明视图解析器"></a>声明视图解析器</h5><p>Spring使用视图解析器将逻辑通名称解析为视图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">	A(Controller) --&gt; B(DispatcherServlet) --&gt; C(View)</span><br><span class="line">	B --&gt;D(ViewResolver) --&gt; B</span><br></pre></td></tr></table></figure>
+<p>Spring利用org.springframework.web.servlet.ViewResolver接口执行此任务</p>
+<p><strong>ViewResolver接口</strong></p>
+<ul>
+<li>InternalResourceViewResolver</li>
+<li>BeanNameViewResolver</li>
+<li>ResourceBundleViewResolver</li>
+<li>XmlViewResolver</li>
+</ul>
+<p>例如渲染JSP视图使用InternalResourceViewResolver</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"viewResolver"</span> <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.view.InternalResourceViewResolver"</span> <span class="attr">p:prefix</span>=<span class="string">"WEB-INF/jsp"</span> <span class="attr">p:suffix</span>=<span class="string">".jsp"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="创建视图"><a href="#创建视图" class="headerlink" title="创建视图"></a>创建视图</h5><p>Spring提供了自己的标记库来创建视图</p>
+<p>使用spring标记库需要在视图中包含以下指令</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%<span class="meta">@taglib</span> uri=<span class="string">"http://www.springframework.org/tags"</span> prefix=<span class="string">"spring"</span> %&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>Spring标记库标记</strong></p>
+<ul>
+<li><p>\<spring:bing>将bean属性与表单组件绑定，包括一个path用于指定需要与表单组件绑定的bean属性路径</spring:bing></p>
+<p>假设将input与Student bean的name绑定</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;spring:bind path=<span class="string">"Student.name"</span>&gt;</span><br><span class="line">    &lt;input type=<span class="string">"text"</span> name=<span class="string">"$&#123;status.expression&#125;"</span> value=<span class="string">"$&#123;status.value&#125;"</span>/&gt;</span><br><span class="line">&lt;/spring:bind&gt;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>status.expression：用于返回表示bean属性的表达式，提交表单时Spring使用此表达式将表单组件与bean属性绑定</p>
+</li>
+<li><p>status.value：用于返回bean的属性值</p>
+</li>
+<li><p>status.nestedPath指定\<spring:bind>标记path的前缀路径</spring:bind></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">spring:nestedPath</span> <span class="attr">path</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">spring:bind</span> <span class="attr">path</span>=<span class="string">"name"</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"$&#123;status.expression&#125;"</span> <span class="attr">value</span>=<span class="string">"$&#123;status.value&#125;"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">spring:bind</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">spring:bind</span> <span class="attr">path</span>=<span class="string">"age"</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"$&#123;status.expression&#125;"</span> <span class="attr">value</span>=<span class="string">"$&#123;status.value&#125;"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">spring:bind</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">spring:nestedPath</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="实现AOP"><a href="#实现AOP" class="headerlink" title="实现AOP"></a>实现AOP</h2><h3 id="介绍AOP"><a href="#介绍AOP" class="headerlink" title="介绍AOP"></a>介绍AOP</h3><p>Web应用程序中有多个服务不属于应用程序的主业务逻辑的组成部分，如登录、安全性和事务管理，可以将这些服务视为横切关注点，因为它们趋向于横跨应用程序的多个模块。通过在应用程序的多个模块实现这些关注点可能会引入如下复杂性</p>
+<ul>
+<li>这些服务对于Web是必需的，需要在每个模块中实现，所以这些横切关注点代码在应用程序多个模块间是重复的，一旦更改需要更改每个模块，即使为这些横切关注点创建了单独的模块也需要在每个模块中写代码调用。</li>
+<li>应用程序模块包含于核心功能无关的代码。</li>
+</ul>
+<p>为了降低复杂性简化程序结构Spring提供了面向方面编程（AOP）</p>
+<h4 id="AOP功能"><a href="#AOP功能" class="headerlink" title="AOP功能"></a>AOP功能</h4><ul>
+<li>将次要逻辑与主逻辑隔离增加模块性</li>
+<li>提供封装如高速缓存、安全性、持久性、事务之类的横切关注点，将这些模块与核心应用程序分离</li>
+<li>可以通过Java类中定义方法实现方面减少重复代码。</li>
+<li>能够轻松删除先前定义的功能</li>
+</ul>
+<h4 id="AOP组件"><a href="#AOP组件" class="headerlink" title="AOP组件"></a>AOP组件</h4><ul>
+<li>通知：是切入切点的时机，是方面的执行操作，用于表示应用程序的次要关注点。（订票中诸如验证用户、检查座位可用性、更新剩余票数之类的次要工作这些可以为前置通知或后置通知）</li>
+<li>连接点：是应用程序的点或位置，可在该处插入通知。（主逻辑是订票所以包含订票逻辑的<strong>方法</strong>为连接点）</li>
+<li>切入点：定义特定通知应用于哪个连接点。（订票所有通知的切入点为订票方法book()这个3-）</li>
+<li>目标：是方面应用到的对象，所以执行应用程序主逻辑的类被称为目标对象。（实现订票主逻辑的类）</li>
+<li>代理：包裹目标对象并截取该对象所作的所有调用</li>
+<li>织入：在指定连接点将方面应用到目标对象以创建新的被代理对象的过程。</li>
+</ul>
+<h3 id="实现AOP-1"><a href="#实现AOP-1" class="headerlink" title="实现AOP"></a>实现AOP</h3><h4 id="注解实现"><a href="#注解实现" class="headerlink" title="注解实现"></a>注解实现</h4><p>SpringAOP借助AspectJ的语法  可以通过@EnableAspectJAutoProxy注解开启（SpringBoot引入依赖后默认开启）</p>
+<p>可以通过@Aspect 将一个类声明为一个切面</p>
+<p>@Pointcut声明切点，使用指示符execution匹配方法执行的连接点</p>
+<p>使用@Before @AfterReturning @AfterThrowing @After @Around声明通知</p>
+<p>为top.suvvm.dao包下所有方法添加前置通知</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SuvvmAspect</span> </span>&#123;	<span class="comment">// 这是一个切面</span></span><br><span class="line">    <span class="meta">@Pointcut</span>(execution(* top.suvvm.dao..*.*(..)))</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">xxxTransfer</span><span class="params">()</span></span>&#123;&#125;	<span class="comment">//这是一个切点里面包含一些连接点</span></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"xxxTransfer()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">advice</span><span class="params">()</span> </span>&#123;	<span class="comment">//这是一个前置通知</span></span><br><span class="line">        <span class="comment">// do some things</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Xml实现"><a href="#Xml实现" class="headerlink" title="Xml实现"></a>Xml实现</h4><p>以上述订票为例</p>
+<p>用于订票book()方法的BookTicketInterface</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BookTicketInterface</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">book</span><span class="params">(String numTravelers, String trnPass)</span></span>;	<span class="comment">//乘客人数与交易密码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>BookTicket</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> AOP;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookTicket</span> <span class="keyword">implements</span> <span class="title">BookTicketInterface</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">book</span><span class="params">(String numTravelers, String trnPass)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 各种订票代码实现</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要实现AOP要执行以下操作</p>
+<ul>
+<li>创建通知</li>
+<li>定义切入点</li>
+<li>创建代理</li>
+</ul>
+<h5 id="创建通知"><a href="#创建通知" class="headerlink" title="创建通知"></a>创建通知</h5><p>通知种类</p>
+<ul>
+<li><p>前置通知：在连接点（book()）前执行，需导入org.springframework.aop.MethodBeforeAdvice接口，该接口包含before()方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before</span><span class="params">(Method method, Object[] args, Object target)</span> <span class="keyword">throws</span> Throwalbe</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>method 通知将应用到的方法</li>
+<li>args 调用方法是传递给方法的参数</li>
+<li>target 方法调用的目标（对其调用方法的对象）</li>
+</ol>
+</li>
+<li><p>返回后通知：在连接点正常执行完成后执行，需导入org.springframework.aop.AfterReturningAdvice接口，该接口包含afterReturning()方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterReturning</span><span class="params">(Object returnValue, Method method, Object[] args, Object target)</span> <span class="keyword">throws</span> Throwalbe</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>returnValue 保存从被调用的方法返回的值</li>
+</ol>
+</li>
+<li><p>抛出后通知：在抛出异常后执行，需导入org.springframework.aop.ThrowsAdvice接口，该接口包含afterThrowing()方法BookTicketApp</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterThrowing</span><span class="params">(Throwable throwable)</span></span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>应由通知处理的异常</li>
+</ol>
+</li>
+</ul>
+<p>BookTicketApp</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> AOP;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookTicketApp</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String password;	<span class="comment">// 用户交易密码</span></span><br><span class="line">    <span class="keyword">private</span> String travelers;	<span class="comment">// 乘客数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPassowrd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> password;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPassword</span><span class="params">(String password)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.password = password;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getTravelers</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     	<span class="keyword">return</span> travelers;   </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTravelers</span><span class="params">(String travelers)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.travelers = travelers;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>HandleRequestController</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/BookTicket.htm"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HandleRequestController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping</span>(method=RequestMethod.GET)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">showView</span><span class="params">(ModelMap model)</span> </span>&#123;</span><br><span class="line">        BookTicketApp bt = <span class="keyword">new</span> BookTicketApp();</span><br><span class="line">        model.addAttribute(<span class="string">"book"</span>, bt);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"BookTicket"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@RequestMapping</span>(method=RequestMethod.POST)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">processView</span><span class="params">(@ModelAttribute(<span class="string">"book"</span>)</span> BookTicketApp bt, ModelMap model) </span>&#123;</span><br><span class="line">        ApplicationContext ctx = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"AOP/Config.xml"</span>);</span><br><span class="line">        BookTicetInterface perf=(BookTickInterface)ctx.getBean(<span class="string">"bookProxy"</span>);</span><br><span class="line">        <span class="comment">// 如果用户验证成功将对于用户验证结果，总价格信息，奖励信息加入ModelMap</span></span><br><span class="line">        <span class="comment">// 否则将错误信息加入ModelMap</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"BookTicket"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>主要功能机票预定，次要工作验证用户、检查座位可用性、更新座位、奖励礼券等</p>
+<p>SecondaryJob类</p>
+<ol>
+<li>验证用户</li>
+<li>检查座位可用性</li>
+<li>更新订票后的可用座位数</li>
+<li>奖励礼券</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> AOP;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecondaryJob</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 验证用户</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">authenticate</span><span class="params">(String pwd)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 成功记录 User is Authenticated</span></span><br><span class="line">        <span class="comment">// 失败记录 Authentiction Failed. Please Enter a Valid Transaction Password.</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 验证座位</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkSeatsAvailability</span><span class="params">(String numTrav)</span></span>&#123;</span><br><span class="line">   		<span class="comment">// 对比传入的乘客数与座位总数</span></span><br><span class="line">        <span class="comment">// 成功记录成功信息</span></span><br><span class="line">        <span class="comment">// 失败记录失败信息</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 更新订票后的可用座位数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateSeat</span><span class="params">(String numTrav)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 现有座位减去传入的乘客数</span></span><br><span class="line">        <span class="comment">// 上一步验证座位成功记录成功信息</span></span><br><span class="line">        <span class="comment">// 上一步验证座位失败不做记录</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 奖励方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rewardGift</span><span class="params">(String numTrav)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 验证座位且超过1000美元就记录奖励信息</span></span><br><span class="line">        <span class="comment">// 否则什么也不记录</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在Spring配置文件Config.xml中配置SecondaryJob</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sj"</span> <span class="attr">class</span>=<span class="string">"AOP.SecondaeyJob"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>之后便是配置通知</strong></p>
+<ul>
+<li>使用java类</li>
+<li>使用配置元素</li>
+</ul>
+<h5 id="使用JAVA类"><a href="#使用JAVA类" class="headerlink" title="使用JAVA类"></a>使用JAVA类</h5><p>创建SeconaryJobAdvice实现通知</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> AOP;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> org.springframework.aop.AfterReturningAdvice;</span><br><span class="line"><span class="keyword">import</span> org.springframework.aop.MethodBeforeAdvice;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecondaryJonAdvice</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecondaryJobAdvice</span> <span class="keyword">implements</span> <span class="title">MethodBeforeAdvice</span>,<span class="title">AfterReturningAdvice</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> SecondaryJob secondary;</span><br><span class="line">        <span class="comment">// 前置</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before</span><span class="params">(Method method, Object[] args, Object target)</span> <span class="keyword">throws</span> Throwable</span>&#123;</span><br><span class="line">            secondary.authenticate(args[<span class="number">1</span>].toString());</span><br><span class="line">            secondary.checkSeatsAvailability(args[<span class="number">0</span>].toString());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 返回后</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterReturning</span><span class="params">(Object returnValue, Method method, Object[] args, Object target)</span> <span class="keyword">throws</span> Throwable</span>&#123;</span><br><span class="line">            secondary.updateSeat(args[<span class="number">0</span>].toString());</span><br><span class="line">            secondary.rewardGift(args[<span class="number">0</span>].toString());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSecondary</span><span class="params">(SecondaryJob secondary)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.secondary = secondary;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之后需要在Spring配置文件Config.xml将上方类配置为bean</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"secondaryJobAdvice"</span> <span class="attr">class</span>=<span class="string">"AOP.SecondaryJobAdvice"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"secondary"</span> <span class="attr">ref</span>=<span class="string">"sj"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="使用配置元素"><a href="#使用配置元素" class="headerlink" title="使用配置元素"></a>使用配置元素</h5><p>可用使用Spring配置文件中的aop名称空间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlns:aop&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop&quot;</span><br></pre></td></tr></table></figure>
+<p><strong>配置元素</strong></p>
+<ul>
+<li>\<aop:config>：SpringAop配置元素 用于定义所有AOP配置</aop:config></li>
+<li>\<aop:aspect>：用于声明方面，具有引用Spring配置文件中定义的相应方面bean的ref属性</aop:aspect></li>
+<li>\<aop:before>：用于定义前置通知</aop:before></li>
+<li>\<aop:after-returning>：返回后通知</aop:after-returning></li>
+<li>\<aop:atter-throwing>：抛出后通知</aop:atter-throwing></li>
+<li>\<aop:around>：配置之前和返回后都执行的方法</aop:around></li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">ref</span>=<span class="string">"js"</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">method</span>=<span class="string">"authenticate"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">method</span>=<span class="string">"checkSeatsAvailability"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:after-returning</span> <span class="attr">method</span>=<span class="string">"updateSeats"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:after-returning</span> <span class="attr">method</span>=<span class="string">"rewardGift"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="定义切入点"><a href="#定义切入点" class="headerlink" title="定义切入点"></a>定义切入点</h5><p>切入点在Srping配置文件中定义Spring提供了org.springframework.aop.support.JdkRegexpMethodPointcut类，该类允许使用正则表达式定义切入点，此类有一个名为pattern的属性，其value属性用于指定引用通知可以应用到的方法的特定模式</p>
+<p>例如：value属性为PrimaryJob.*book的模式将把通知应用于PrimaryJob类中任何以book结尾的方法</p>
+<p>为用户预定机票的方法名为book()这里将book指定为模式的切入点</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"bookingPointCut"</span> <span class="attr">class</span>=<span class="string">"org.springframework.aop.support.JdkRegexpMethodPointcut"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">prorerty</span> <span class="attr">neme</span>=<span class="string">"pattern"</span> <span class="attr">value</span>=<span class="string">".*book"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>定义了切入点后还需要定义将那些通知应用到该切入点，所以要创建将通知与切入点相链接的通知器，Spring提供org.springframework.aop.support.DefaultPointcutAdvisor类来创建通知器</p>
+<p>以上方机票预定程序为例</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"secondarryJobAdvisor"</span> <span class="attr">class</span>=<span class="string">"org.springframework.aop.support.DefaultPointcutAdvisor"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"advice"</span> <span class="attr">ref</span>=<span class="string">"secondaryJobAdvice"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"pointcut"</span> <span class="attr">ref</span>=<span class="string">"bookingPontCut"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上述代码创建了将secondaryJobAdvice bean与bookingPointCut bean所定义的切入点相链接的secondaryJobAdvisor bean</p>
+<p>也可以使用Spring配置元素来定义切入点</p>
+<p>\<aop:pointcut>元素用来定义切入点此元素包含名为expression的属性，此属性用于定义执行连接点方法的表达式，语法：</aop:pointcut></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expression &#x3D; &quot;execution(regular_expression)&quot;</span><br></pre></td></tr></table></figure>
+<p>regular_expression为精确确定需要执行哪种方法的切入点表达式</p>
+<p>使用pointcut-ref属性可在多个通知元素之间引用切入点。</p>
+<p>以机票预定程序为例</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">ref</span>=<span class="string">"js"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"pointcut"</span> <span class="attr">expression</span>=<span class="string">"execution(* book*())"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">method</span>=<span class="string">"authenticate"</span> <span class="attr">pointcut-ref</span>=<span class="string">"pointcut"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">method</span>=<span class="string">"checkSeatsAvailability"</span> <span class="attr">pointcut-ref</span>=<span class="string">"pointcut"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after-returning</span> <span class="attr">method</span>=<span class="string">"updateSeats"</span> <span class="attr">pointcut-ref</span>=<span class="string">"pointcut"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after-returning</span> <span class="attr">method</span>=<span class="string">"rewardGift"</span> <span class="attr">pointcut-ref</span>=<span class="string">"pointcut"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">aop:pointcut</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="创建代理"><a href="#创建代理" class="headerlink" title="创建代理"></a>创建代理</h5><p>创建通知器后还需要创建调用该通知类的代理，代理充当通知、目标对象、连接点、切入点和通知器之间的链接，Spring提供了org.springframework.aop.config.ProxyFactory类</p>
+<p>所需参数</p>
+<ul>
+<li>target：指定想要代理的目标对象</li>
+<li>interceptorNames： 已在Spring配置文件中定义的通知器bean名称的列表</li>
+<li>proxyInterfaces：指定应用程序主逻辑界面的名称</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"inst"</span> <span class="attr">class</span>=<span class="string">"AOP.BookTicket"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"bookProxy"</span> <span class="attr">class</span>=<span class="string">"org.springframework.aop.config.ProxyFactory"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"target"</span> <span class="attr">ref</span>=<span class="string">"inst"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"interceptorNames"</span> <span class="attr">value</span>=<span class="string">"secondaryJovAdvisor"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"proxyInterface"</span> <span class="attr">value</span>=<span class="string">"AOP.BookTicketInterface"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>创建了bookProxy bean目标对象时主逻辑类BooKTicket通知器为secondaryJovAdvisor bean</p>
+<p>主逻辑界面为声明book()方法的BookTicketInterface接口</p>
+<p>要从HandleRequestController调用代理以订票要添加如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(method=RequestMethod.POST)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">processView</span><span class="params">(@MedelAttribute(<span class="string">"book"</span>)</span> BookTicketApp bt, ModelMap model) </span>&#123;</span><br><span class="line">    ApplicationContext ctx = <span class="keyword">new</span> ClassPatchXmlApplicationContext(<span class="string">"AOP/Config.xml"</span>);</span><br><span class="line">    BookTicketInterface perf = (BootTicketInterface)ctx.getBean(<span class="string">"bootProxy"</span>);</span><br><span class="line">    perf.book(bt.getTravelers(), bt.getPassword());</span><br><span class="line">    ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="踩坑警告"><a href="#踩坑警告" class="headerlink" title="踩坑警告"></a>踩坑警告</h4><p>当开启springAOP功能时，spring将通过CDLIB生成连接点所在对象的子类作为代理类，CGLIB将直接生成字节码而不经过Java编译器，所生成的子类在构造时不会调用super()，也就是说代理类不会初始化任何成员变量，包括final类型的成员变量，所以使用方法调用连接点所在对象中的属性。</p>
+<h2 id="将Spring与业务层和表示层集成"><a href="#将Spring与业务层和表示层集成" class="headerlink" title="将Spring与业务层和表示层集成"></a>将Spring与业务层和表示层集成</h2><h3 id="Spring集成JSF"><a href="#Spring集成JSF" class="headerlink" title="Spring集成JSF"></a>Spring集成JSF</h3><h4 id="解析JSF-Bean"><a href="#解析JSF-Bean" class="headerlink" title="解析JSF Bean"></a>解析JSF Bean</h4><p>在JSF配置文件faces-config.xml声明JSF受管Bean JsfBean</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">managed-bean</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">managed-bean-name</span>&gt;</span>JsfBean<span class="tag">&lt;/<span class="name">meanaged-bean-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">managed-bean-class</span>&gt;</span>JsfManagedBean<span class="tag">&lt;/<span class="name">meanaged-bean-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">managed-bean-scop</span>&gt;</span>request<span class="tag">&lt;/<span class="name">managed-bean-scop</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">managed-bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="添加Spring框架"><a href="#添加Spring框架" class="headerlink" title="添加Spring框架"></a>添加Spring框架</h4><p>在jsf应用程序中添加Spring框架需要在web.xml中提供applicationContext.xml的映射</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>/WEB-INF/applicationContext.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">listener</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">listener-class</span>&gt;</span>org.springframework.web.context.ContextLoaderListener<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上段代码是在web.xml中声明ContextLoaderListener侦听器类以加载Spring上下文，之后applicationContext.xml中声明的bean将在整个应用程序中可见</p>
+<p>之后还要声明程序分发servlet</p>
+<p>web.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>dispatcher<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>dispatcher<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>*.htm<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="解析Spring-Bean"><a href="#解析Spring-Bean" class="headerlink" title="解析Spring Bean"></a>解析Spring Bean</h4><p>为了调用Spring应用程序上下文中声明的Spring bean，Spring框架提供org.springframework.web.jsf.el.SpringBeanFaccesELResolver类此类在faces-config.xml文件的\<el-resover>中指定</el-resover></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">application</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">el-resolver</span>&gt;</span>org.springframework.web.jsf.el.SpringBeanFacesELResolver<span class="tag">&lt;/<span class="name">el-resolver</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上述代码声明的SpringBeanFacesELResolver bean变量解析器首先尝试从Spring应用上下文文件解析bean，如果不能解析bean，解析器将查找JSFbean变量解析器中是否有同名bean。</p>
+<p>JSF受管bean JsfBean在Spring applicationContext.xml中</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"JsdBean"</span> <span class="attr">class</span>=<span class="string">"JsfManagedBean"</span> <span class="attr">scope</span>=<span class="string">"request"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Spring集成Hibernate"><a href="#Spring集成Hibernate" class="headerlink" title="Spring集成Hibernate"></a>Spring集成Hibernate</h3><p>Hubernate是ORM（对象关系映射工具）Spring位于应用程序类和ORM之间，集成后可将Hibernate对象作为Spring bean使用。</p>
+<h4 id="Hibernate功能"><a href="#Hibernate功能" class="headerlink" title="Hibernate功能"></a>Hibernate功能</h4><ul>
+<li>提供对象\关系映射</li>
+<li>支持基本面向对象原则</li>
+<li>提供透明持久性</li>
+<li>独立于数据库平台</li>
+<li>提供Hibernate查询语言（HQL）</li>
+<li>支持查询高速缓存，提供统计信息</li>
+<li>受常用ide支持</li>
+<li>提供xml保存映射信息</li>
+<li>可以在受管和非受管环境运行，也可以在应用服务器容器外部和独立应用程序内部运行</li>
+<li>提供有助于发现已被修改的对象的攒肚数据检查的功能</li>
+</ul>
+<h4 id="实现ORM"><a href="#实现ORM" class="headerlink" title="实现ORM"></a>实现ORM</h4><p>要将Spring与Hibernate集成需要</p>
+<ul>
+<li>在Spring中配置SessionFactory对象</li>
+<li>使用数据访问对象DAO访问和更新数据</li>
+</ul>
+<h5 id="在Spring中配置SessionFactory对象"><a href="#在Spring中配置SessionFactory对象" class="headerlink" title="在Spring中配置SessionFactory对象"></a>在Spring中配置SessionFactory对象</h5><p>首先需要创建Spring配置文件spring-hibernate.xml</p>
+<p>之后使用Spring提供的org.springframework.orm.hibernate4.LocalSessionFactoryBean类声明会话工厂</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"mySessionFactory"</span> <span class="attr">class</span>=<span class="string">"org.springframework.orm.hibernate4.LocalSessionFactoryBean"</span> &gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"hibernate.cfg.xml"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上方声明了带有id mySessionFactory的会话工厂bean 为配置此bean，提供了Hibernate配置文件的位置作为configLocation属性的值</p>
+<p>hibernate.cfg.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding-"UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE hibernate-configuration P	ublic 	"-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">hibernate-configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">session-factory</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.dialect"</span>&gt;</span>org.hibernate.dialect.DerbyDialect<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.contection.driver_class"</span>&gt;</span>org.apache.deerby.jdbc.ClientDriver<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.connection.url"</span>&gt;</span>jdbc:derby://localhost:1527/University<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.contection.username"</span>&gt;</span>university<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.contection.password"</span>&gt;</span>password<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.show_sql"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.current_session_context_class"</span>&gt;</span>thread<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mapping</span> <span class="attr">resource</span>=<span class="string">"university/Coursedetaills.hbm.xml"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">session-factory</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">hibernate-configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上述代码与已有University数据库建立连接，Coursedetail.hbm.xml文件包含带有Coursedetails类的COURSEDETAILS表的映射信息</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">hibernate-mapping</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">"nuiversity.Coursedetails"</span> <span class="attr">table</span>=<span class="string">"COURSEDETAILS"</span> <span class="attr">schema</span>=<span class="string">"UNIVERSITY"</span>&gt;</span>			<span class="tag">&lt;<span class="name">id</span> <span class="attr">name</span>=<span class="string">"courseid"</span> <span class="attr">type</span>=<span class="string">"string"</span>&gt;</span></span><br><span class="line">        	<span class="tag">&lt;<span class="name">column</span> <span class="attr">name</span>=<span class="string">"COURSEID"</span> <span class="attr">length</span>=<span class="string">"10"</span>/&gt;</span></span><br><span class="line">        	<span class="tag">&lt;<span class="name">generator</span> <span class="attr">class</span>=<span class="string">"assigned"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"courseduration"</span> <span class="attr">type</span>=<span class="string">"string"</span>&gt;</span></span><br><span class="line">        	<span class="tag">&lt;<span class="name">column</span> <span class="attr">name</span>=<span class="string">"COURSENAME"</span> <span class="attr">length</span>=<span class="string">"20"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"courseeligibility"</span> <span class="attr">type</span>=<span class="string">"string"</span>&gt;</span></span><br><span class="line">        	<span class="tag">&lt;<span class="name">column</span> <span class="attr">name</span>=<span class="string">"COURSEFEE"</span> <span class="attr">length</span>=<span class="string">"20"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"coursefee"</span> <span class="attr">type</span>=<span class="string">"string"</span>&gt;</span></span><br><span class="line">        	<span class="tag">&lt;<span class="name">column</span> <span class="attr">name</span>=<span class="string">"COURSEFEE"</span> <span class="attr">length</span>=<span class="string">"20"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">hibernate-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>DAO类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> org.hibernate.Criteria;</span><br><span class="line"><span class="keyword">import</span> org.hibernate.Session;</span><br><span class="line"><span class="keyword">import</span> org.hibernate.SessionFactory;</span><br><span class="line"><span class="keyword">import</span> org.hibernate.cfg.Configuaration;</span><br><span class="line"><span class="keyword">import</span> org.hibernate.criterion.Restrictions;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CourseDetailsDAO</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> SessionFactory sessionFactory;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSessionFactory</span><span class="params">(SessionFactory sessionFactory)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.sessionFactory = sessionFactory;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CourseDetailsDAO</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Configuration configuration = <span class="keyword">new</span> Configuration().configure();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List <span class="title">getcourseByName</span><span class="params">(String courseName)</span></span>&#123;</span><br><span class="line">        List&lt;Coursedetails&gt; courselist=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            Session session = sessionFactory.openSession();</span><br><span class="line">            org.hibernate.Transaction tx = session.beginTransaction();</span><br><span class="line">            Criteria criteria = session.createCriteria(Coursedetails.class).add(Restrictions.eq(<span class="string">"coursename"</span>, courseName));</span><br><span class="line">            courselist = (List&lt;Coursedetails&gt; criteria.list());</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStrackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> courselist;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码创建了DAO类CourseDetailsDAO。此类创建了SessionFactory对象并使用该对象打开了一个会话以从数据库中检索数据</p>
+<p>除了DAO还需要再spring-hibernate.xml中将其声明为bean</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"courseDetailsDAO"</span> <span class="attr">class</span>=<span class="string">"unversity.CourseDetails.DAO"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sessionFactory"</span> <span class="attr">ref</span>=<span class="string">"mySessionFactory"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以用以下代码像访问其他Spring bean一样访问该bean及其方法</p>
+<p>CourseDetailDAO类的getcourseByName()方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext apc = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"university/spring-hibernate.xml"</span>);</span><br><span class="line">CourseDetailsDAO courseDao=(CourseDetailsDAO)apc.getBean(<span class="string">"courseDeatilsDao"</span>);</span><br><span class="line">List&lt;Coursedetails&gt; courses = <span class="keyword">new</span> ArraryList&lt;Coursedetails&gt;();</span><br><span class="line">courses = courseDao.getcourseByName(cName);</span><br></pre></td></tr></table></figure>
+<h2 id="管理事务"><a href="#管理事务" class="headerlink" title="管理事务"></a>管理事务</h2><h3 id="事务的功能"><a href="#事务的功能" class="headerlink" title="事务的功能"></a>事务的功能</h3><p>事务将任意数量的单个操作组成组，从而使整个过程看起来是一个工作逻辑单元。</p>
+<h4 id="事务的ACID属性"><a href="#事务的ACID属性" class="headerlink" title="事务的ACID属性"></a>事务的ACID属性</h4><ul>
+<li>原子性：执行所有数据修改或不执行任何数据修改</li>
+<li>一致性：成功完成事务后所以数据均处于一致状态。关系数据库中的所有规则必须均应用到事务中的修改，以维护整个数据的完整性</li>
+<li>隔离性： 每个事务执行都必须看起来好像独立于在同一环境中并发运行的其他事务</li>
+<li>持久性：完成的事务对数据库所做的任何更改在系统中永久有效，因此由于完成的事务在数据中做的任何更改甚至在系统故障的情况下也得以保持，这由日志备份和恢复事务日志的概念所确保。</li>
+</ul>
+<h3 id="事务的属性"><a href="#事务的属性" class="headerlink" title="事务的属性"></a>事务的属性</h3><ul>
+<li>传播行为</li>
+<li>隔离级别</li>
+<li>只读</li>
+<li>事务超时</li>
+<li>回滚规则</li>
+</ul>
+<h4 id="传播行为"><a href="#传播行为" class="headerlink" title="传播行为"></a>传播行为</h4><p>传播行为定义为org.springframework.transactionDefintion接口中的常量</p>
+<ul>
+<li>PROPAGATION_MANDATORY 当前方法必须在事务内运行，如果没有任何现有事务在运行将抛出异常</li>
+<li>PROPAGATION_REQUIRED 当前方法必须在事务内运行，如果由现有事务正在运行，那么该方法将在事务内运行，如果没有事务在运行将开启新事务</li>
+<li>PROPAGATION_NOT_SUPPORTED 当前方法不应该在事务内运行，如果有某个现有事务正在进行，那么它将暂挂直到方法的持续时间结束。</li>
+<li>PROPAGATION_REQUIRED_NEW 当前方法必须在自己的事务中运行，因此将开始一个新事物，但是如果有某个现有事务正在进行，那么它将暂挂直到方法的持续时间结束。</li>
+<li>PROPAGATION_SUPPORTS 当前事务不需要运行事务，但如果有某个事务正在运行，当前方法可以在其内运行</li>
+<li>PROPAGATION_NESTED 如果有某个现有事务正在运行，方法应在嵌套事务内运行，嵌套事务可以被提交，也可以单独从外围事务中回归，如果不存在外围事务那么它的行为像PROPAGATION_REQUIRED 一样</li>
+</ul>
+<h4 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h4><p>有多个事务并发运行可能导致</p>
+<ul>
+<li>脏读：当一个事务读取已由另一个事务写入但是尚未提交的数据时发生，如果稍后回滚更改那么第一个事务所获得的数据将无效。</li>
+<li>不可重复读：当事务两次或多次执行同一查询而每次检索的数据都不同时发生。由于有另一个并发事务正在更新数据</li>
+<li>幻象度：当事务T1度多行数据而并发事务T2同时插入更多行时发生，进行后续查询时第一个事务T1发现了原先不在该处的更多行</li>
+</ul>
+<p>为了避免上述问题，事务应该彼此完全隔离，因此Spring提供了几种隔离级别</p>
+<ul>
+<li>ISOLATION_DEFAULT 使用底层数据存储的默认隔离级别，默认隔离级别可以是任何隔离级别</li>
+<li>ISOLATION_READ_UNCOMMITTED 允许事务读取尚未由其他事务提交的更改，可能会导致脏读、幻象读和不可重复读</li>
+<li>ISOLATION_READ_COMMITTED 允许事务仅读取已由其他事务提交的那些更改，可以防止脏读，但幻象读和不可重复读仍会发生</li>
+<li>ISOLATION_REPEATABLE_READ 确保事务从同一字段执行多次读取将生成同一结果，其他事务在正在进行的事务读取期间对此字段所作的任何更新都将被禁止，可以防止脏读、不可重复读，但幻象读仍可能发生</li>
+<li>ISOLATION_SERIALIZABLE 这是完全符合ACID的隔离级别，可以确保防止发生所有问题，在当前事务的持续时间中，其他并发事务不能访问同一数据表，是所有隔离级别中最慢的一种。</li>
+</ul>
+<p>只读</p>
+<p>只读事务不修改任何事务</p>
+<p>事务超时</p>
+<p>声明事务在特定时间段后自动回滚，防止死锁</p>
+<p>回滚规则</p>
+<p>指定那些异常导致事务回滚</p>
+<h2 id="实现事务"><a href="#实现事务" class="headerlink" title="实现事务"></a>实现事务</h2><h3 id="定义事务管理器"><a href="#定义事务管理器" class="headerlink" title="定义事务管理器"></a>定义事务管理器</h3><p>Spring提供了用于所有事务管理器的一般接口，PlatformTransactionManager接口，封装了事务管理的核心功能并提供以下三种方法管理事务</p>
+<ul>
+<li>getTransaction() ：根据指定传播行为返回当前活动的事务或创建新事务</li>
+<li>commit()：将给定事务提交至数据存储</li>
+<li>rollback() ：回滚给定事务</li>
+</ul>
+<p>与不同事务管理API一同使用</p>
+<ul>
+<li>JDBC：DataSourceTransactionManager</li>
+<li>JTA：JtaTransactionManager</li>
+<li>Hibernate：HibernateTransactionManager</li>
+<li>JPA：JpaTransactionManager</li>
+<li>JDO：JdoTransactionManager</li>
+</ul>
+<p>使用事务管理器需要在Spting配置文件中声明为bean，如使用Hibernate</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"txManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.orm.hibernate4.HibernateTransactionManager"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sessionFactory"</span> <span class="attr">ref</span>=<span class="string">"mySessionFactory"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>声明了一个将事务管理委托给Hibernate事务的事务管理器，需要设置sessionFactory属性以便底层事务管理器可以使用指定会话工厂创建事务</p>
+<p>mySessionFactory</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"mySessionFactory"</span> <span class="attr">class</span>=<span class="string">"org.srpingframework.orm.hibernate4.LocalSessionFactory"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">value</span>=<span class="string">"org.apache.derby.jdbc.ClientDriver"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">value</span>=<span class="string">"dataSource"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上方声明了mySessionFactorybean保存通过org.springframework.jdbc.datasource.DiverManagerDataSource类声明的数据源bean的引用</p>
+<p>数据源bean</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DiverManagerDataSource"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">class</span>=<span class="string">"org.apache.derby.jdbc.DlientDriver"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"jdbc:derby://localhost:1527/Sample"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"Sample"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"passowrd"</span> <span class="attr">value</span>=<span class="string">"password"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>声明dataSource bean保存了在Hibernate配置文件中声明的数据源信息</p>
+<h3 id="使用配置管理元素"><a href="#使用配置管理元素" class="headerlink" title="使用配置管理元素"></a>使用配置管理元素</h3><p>要声明事务需要在Spring配置文件中添加tx名称空间，由于事务作为方面实现所以也要添加aop名称空间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xmlns:tx&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;tx&quot;</span><br><span class="line">xmlns:aop&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop&quot;</span><br></pre></td></tr></table></figure>
+<p>tx模式和aop模式位置(beans)</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">xis:schemaLocation="http://www.springframework.org/schema/beans</span><br><span class="line">           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd</span><br><span class="line">           http://www.springframework.org/schema/aop</span><br><span class="line">           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd</span><br><span class="line">           http://www.springframework.org/schema/tx</span><br><span class="line">           http://www.springframework.org/schema/tx/spring-tx-3.0.xsd</span><br></pre></td></tr></table></figure>
+<p>tx名称空间提供的xml配置元素</p>
+<ul>
+<li>tx:advice：创建调用事务管理器的通知，每个事务通知都要在配置文件中有一个标识符和到事务管理器的引用</li>
+<li>tx:attributes：设置事务属性描述事务行为</li>
+<li>tx:method：定义一个或多个方法的事务属性，策略：<ul>
+<li>name：指定方法的名称（*指定所有方法）</li>
+<li>propagation：定义事务传播规则</li>
+<li>isolation：设置用于事务的隔离级别</li>
+<li>timeout：超时时间（秒）</li>
+<li>read-only：只读</li>
+<li>roolback-for：回滚异常列表</li>
+<li>no-rollback-for：不需要回滚的异常列表</li>
+</ul>
+</li>
+</ul>
+<p>以机场订票为例</p>
+<p>PaymentServices接口声明了方法bookTicket()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> testl;</span><br><span class="line">……</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PaymentService</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> bookTicket;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>BookingDAO定义bookTicket()，使用当前会话工厂创建事务预定机票更新可用座位数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> test;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookingDAO</span> <span class="keyword">implements</span> <span class="title">PaymentServices</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> SessionFActory sessionFactory;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BookingDAO</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Configuration configuration = <span class="keyword">new</span> Configuration().configure();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSessionFactory</span><span class="params">(SessionFactory sessionFactory)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.sessionFactory = sessionFactory;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bookTicket</span><span class="params">()</span></span>&#123;</span><br><span class="line">        org.hibernate.Transaction tx = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            Session session = sessionFactory.openSession();</span><br><span class="line">            tx = session.beginTransaction();</span><br><span class="line">            tx.commit()</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            <span class="keyword">if</span>(tx != <span class="keyword">null</span>)&#123;</span><br><span class="line">                tx.rollback();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在Spring配置文件中装配BookingDAO</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transaction"</span> <span class="attr">class</span>=<span class="string">"test.BookingDAO"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sessionFactory"</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"mySessionFactory"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>现在可用tx:adivce元素声明事务策略</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">"txadvide"</span> <span class="attr">transcation-manager</span>=<span class="string">"txManager"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>事务管理器引用称为txManager，所有方法都必须在事务内执行；否则抛出异常</p>
+<p>在aop:config元素声明一个通知器将通知与切入点关联</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"pp"</span> <span class="attr">expression</span>=<span class="string">"execution(*test.PaymentService.*())"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:advisor</span> <span class="attr">advice-ref</span>=<span class="string">"txadvice"</span> <span class="attr">pointcut-ref</span>=<span class="string">"pp"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上方创建了一个一个切入点和一个通知器。pointcut属性使用切入点表达式来指示此通知器应通知PaymentServices接口的所有方法，但是事务内实际运行的方法由事务通知定义，该通知从通知器的advice-ref属性引用。</p>
+<p>在Spring配置文件中配置事务总结</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"mySessionFactory"</span> <span class="attr">class</span>=<span class="string">"org.springframework.orm.hibernate4.LocalSessionFactoryBean"</span> &gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"hibernate.cfg.xml"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DiverManagerDataSource"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">class</span>=<span class="string">"org.apache.derby.jdbc.DlientDriver"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"jdbc:derby://localhost:1527/Sample"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"Sample"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"passowrd"</span> <span class="attr">value</span>=<span class="string">"password"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">"txadvide"</span> <span class="attr">transcation-manager</span>=<span class="string">"txManager"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"pp"</span> <span class="attr">expression</span>=<span class="string">"execution(*test.PaymentService.*())"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:advisor</span> <span class="attr">advice-ref</span>=<span class="string">"txadvice"</span> <span class="attr">pointcut-ref</span>=<span class="string">"pp"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br><span class="line">……</span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"txManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.orm.hibernate4.HibernaetTransactionManager"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sessionFactory"</span> <span class="attr">ref</span>=<span class="string">"mySessionFactory"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transaction"</span> <span class="attr">class</span>=<span class="string">"test.BookingDAO"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sessionFactory"</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"mySessonFactory"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>现在需要调用trasaction bean将返回一个 为此bean启用了事务管理的代理对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext ctx = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"Config.xml"</span>);</span><br><span class="line">PaymentServices perf=(PaymentServices)ctx.getBean(<span class="string">"transaction"</span>);</span><br><span class="line">pref.bookTicket();</span><br></pre></td></tr></table></figure>
+<p>上述代码在应用程序上下文对象ctx中检索了配置文件Config.xml的引用 transaction bean引用返回代理对象perf用于执行transaction bean的bookTicket()方法</p>
+<p>使用注解配置事务</p>
+<p>Spring使用org.springframework.transction.anntation.Transactional类的@Transactional元素并提供tx:annotation-driven元素支持注解驱动的事务管理，其具有transaction-amager属性，此属性指定对将调用其以实现事务的现有PlatformTransactionManager bean的引用</p>
+<p>@Transactional注解属性</p>
+<ul>
+<li>propagation 类型：org.springframework.annotation.transaction.propagation 指定要使用的事务传播</li>
+<li>isolation 类型org.springframework.annotation.transaction.isolation 设置隔离级别</li>
+<li>timeout 类型 int 指定超时时间</li>
+<li>readOnly 类型 boolean 是否为只读事务 </li>
+<li>onRollbackFor 类型 java.lang.class<T> 不回滚的异常列表</T></li>
+<li>rollbackFor 类型 java.lang.class<T> 回滚的异常列表</T></li>
+</ul>
+<p>@Transactional默认设置</p>
+<ul>
+<li>传播设置：PROPAGATION_REQUIRED</li>
+<li>隔离级别：ISOLATION_DEFAULT</li>
+<li>事务是读写事务</li>
+<li>事务超时为底层事务系统默认超时时间或者不支持超时</li>
+</ul>
+<p>使用注解的BookDAO</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> test;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookingDAO</span> <span class="keyword">implements</span> <span class="title">PaymentServices</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> SessionFActory sessionFactory;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BookingDAO</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Configuration configuration = <span class="keyword">new</span> Configuration().configure();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSessionFactory</span><span class="params">(SessionFactory sessionFactory)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.sessionFactory = sessionFactory;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Transactional</span>(propagation = Propagation.REQUIRED, readOnly = <span class="keyword">false</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bookTicket</span><span class="params">()</span></span>&#123;</span><br><span class="line">        org.hibernate.Transaction tx = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            Session session = sessionFactory.openSession();</span><br><span class="line">            tx = session.beginTransaction();</span><br><span class="line">            tx.commit()</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            <span class="keyword">if</span>(tx != <span class="keyword">null</span>)&#123;</span><br><span class="line">                tx.rollback();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在配置文件中只需指定tx:annotation-driven元素并为其提供事务管理器</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">tx:annotation-driven</span> <span class="attr">transaction-manager</span>=<span class="string">"txManager"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"mySessionFactory"</span> <span class="attr">class</span>=<span class="string">"org.springframework.orm.hibernate4.LocalSessionFactoryBean"</span> &gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"hibernate.cfg.xml"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DiverManagerDataSource"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">class</span>=<span class="string">"org.apache.derby.jdbc.DlientDriver"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"jdbc:derby://localhost:1527/Sample"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"Sample"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"passowrd"</span> <span class="attr">value</span>=<span class="string">"password"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">……</span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"txManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.orm.hibernate4.HibernaetTransactionManager"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sessionFactory"</span> <span class="attr">ref</span>=<span class="string">"mySessionFactory"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transaction"</span> <span class="attr">class</span>=<span class="string">"test.BookingDAO"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sessionFactory"</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"mySessonFactory"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Spring/" rel="tag"># Spring</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/22/PTA-%E5%A4%A9%E6%A2%AF%E8%B5%9B-L3-005-%E5%9E%83%E5%9C%BE%E7%AE%B1%E5%88%86%E5%B8%83/" rel="prev" title="PTA (天梯赛) L3-005 垃圾箱分布">
+      <i class="fa fa-chevron-left"></i> PTA (天梯赛) L3-005 垃圾箱分布
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/12/17/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/" rel="next" title="操作系统理论梳理">
+      操作系统理论梳理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring"><span class="nav-number">1.</span> <span class="nav-text">Spring</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring概述"><span class="nav-number">1.1.</span> <span class="nav-text">Spring概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#WEB架构层"><span class="nav-number">1.1.1.</span> <span class="nav-text">WEB架构层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring使用简单POJO来克服的问题"><span class="nav-number">1.1.2.</span> <span class="nav-text">Spring使用简单POJO来克服的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring功能"><span class="nav-number">1.1.3.</span> <span class="nav-text">Spring功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpringMVC优点"><span class="nav-number">1.1.4.</span> <span class="nav-text">SpringMVC优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring框架的七个模块"><span class="nav-number">1.1.5.</span> <span class="nav-text">Spring框架的七个模块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现依赖注入"><span class="nav-number">1.2.</span> <span class="nav-text">实现依赖注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring框架提供容器"><span class="nav-number">1.2.1.</span> <span class="nav-text">Spring框架提供容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍bean工厂"><span class="nav-number">1.2.2.</span> <span class="nav-text">介绍bean工厂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resource接口实现检索配置文件资源"><span class="nav-number">1.2.3.</span> <span class="nav-text">resource接口实现检索配置文件资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bean标记属性"><span class="nav-number">1.2.4.</span> <span class="nav-text">bean标记属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bean生命周期步骤"><span class="nav-number">1.2.5.</span> <span class="nav-text">bean生命周期步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用程序上下文介绍"><span class="nav-number">1.2.6.</span> <span class="nav-text">应用程序上下文介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#企业级功能"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">企业级功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用程序上下文常用实现"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">应用程序上下文常用实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用程序上下文bean生命周期步骤"><span class="nav-number">1.2.6.3.</span> <span class="nav-text">应用程序上下文bean生命周期步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注入应用程序对象"><span class="nav-number">1.2.7.</span> <span class="nav-text">注入应用程序对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#完成装配的方式"><span class="nav-number">1.2.7.1.</span> <span class="nav-text">完成装配的方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#显式装配"><span class="nav-number">1.2.7.2.</span> <span class="nav-text">显式装配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自动装配"><span class="nav-number">1.2.7.3.</span> <span class="nav-text">自动装配</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#autowire属性"><span class="nav-number">1.2.7.3.1.</span> <span class="nav-text">autowire属性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用默认自动装配"><span class="nav-number">1.2.7.4.</span> <span class="nav-text">使用默认自动装配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#显式装配与自动装配结合"><span class="nav-number">1.2.7.5.</span> <span class="nav-text">显式装配与自动装配结合</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring与Web层集成"><span class="nav-number">1.3.</span> <span class="nav-text">Spring与Web层集成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SpringMVC"><span class="nav-number">1.3.1.</span> <span class="nav-text">SpringMVC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SpringMVC具有的胜过其他MVC框架的功能"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">SpringMVC具有的胜过其他MVC框架的功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MVC设计模式组成"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">MVC设计模式组成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SpringMVC处理用户请求利用的组件"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">SpringMVC处理用户请求利用的组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SpringMVC框架优点"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">SpringMVC框架优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Web请求的生命周期"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">Web请求的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#请求生命周期"><span class="nav-number">1.3.1.5.1.</span> <span class="nav-text">请求生命周期</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web请求"><span class="nav-number">1.3.2.</span> <span class="nav-text">Web请求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使服务器支持Spring的MVC-Web应用程序中的Web请求"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">使服务器支持Spring的MVC Web应用程序中的Web请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建和配置分发程序servlet"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">创建和配置分发程序servlet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建和配置控制器"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">创建和配置控制器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RequestMapping"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">@RequestMapping()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ModelMap中addAttribute方法"><span class="nav-number">1.3.2.5.</span> <span class="nav-text">ModelMap中addAttribute方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在分发程序servlet中配置控制器"><span class="nav-number">1.3.2.6.</span> <span class="nav-text">在分发程序servlet中配置控制器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改applicationcontext-xml通过注解创建控制器类的自动检测"><span class="nav-number">1.3.2.7.</span> <span class="nav-text">修改applicationcontext.xml通过注解创建控制器类的自动检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将请求映射到控制器"><span class="nav-number">1.3.2.8.</span> <span class="nav-text">将请求映射到控制器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#BeanNameUrlHandlerMapping"><span class="nav-number">1.3.2.8.1.</span> <span class="nav-text">BeanNameUrlHandlerMapping</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SimpleUrlHandlerMapping"><span class="nav-number">1.3.2.8.2.</span> <span class="nav-text">SimpleUrlHandlerMapping</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ControllerClassNameHandlerMapping"><span class="nav-number">1.3.2.8.3.</span> <span class="nav-text">ControllerClassNameHandlerMapping</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将响应渲染至客户机"><span class="nav-number">1.3.2.9.</span> <span class="nav-text">将响应渲染至客户机</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#声明视图解析器"><span class="nav-number">1.3.2.9.1.</span> <span class="nav-text">声明视图解析器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建视图"><span class="nav-number">1.3.2.9.2.</span> <span class="nav-text">创建视图</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现AOP"><span class="nav-number">1.4.</span> <span class="nav-text">实现AOP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍AOP"><span class="nav-number">1.4.1.</span> <span class="nav-text">介绍AOP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AOP功能"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">AOP功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AOP组件"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">AOP组件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现AOP-1"><span class="nav-number">1.4.2.</span> <span class="nav-text">实现AOP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注解实现"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">注解实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Xml实现"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">Xml实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#创建通知"><span class="nav-number">1.4.2.2.1.</span> <span class="nav-text">创建通知</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用JAVA类"><span class="nav-number">1.4.2.2.2.</span> <span class="nav-text">使用JAVA类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用配置元素"><span class="nav-number">1.4.2.2.3.</span> <span class="nav-text">使用配置元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#定义切入点"><span class="nav-number">1.4.2.2.4.</span> <span class="nav-text">定义切入点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建代理"><span class="nav-number">1.4.2.2.5.</span> <span class="nav-text">创建代理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#踩坑警告"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">踩坑警告</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将Spring与业务层和表示层集成"><span class="nav-number">1.5.</span> <span class="nav-text">将Spring与业务层和表示层集成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring集成JSF"><span class="nav-number">1.5.1.</span> <span class="nav-text">Spring集成JSF</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解析JSF-Bean"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">解析JSF Bean</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加Spring框架"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">添加Spring框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解析Spring-Bean"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">解析Spring Bean</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring集成Hibernate"><span class="nav-number">1.5.2.</span> <span class="nav-text">Spring集成Hibernate</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Hibernate功能"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">Hibernate功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现ORM"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">实现ORM</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#在Spring中配置SessionFactory对象"><span class="nav-number">1.5.2.2.1.</span> <span class="nav-text">在Spring中配置SessionFactory对象</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管理事务"><span class="nav-number">1.6.</span> <span class="nav-text">管理事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事务的功能"><span class="nav-number">1.6.1.</span> <span class="nav-text">事务的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#事务的ACID属性"><span class="nav-number">1.6.1.1.</span> <span class="nav-text">事务的ACID属性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务的属性"><span class="nav-number">1.6.2.</span> <span class="nav-text">事务的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#传播行为"><span class="nav-number">1.6.2.1.</span> <span class="nav-text">传播行为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#隔离级别"><span class="nav-number">1.6.2.2.</span> <span class="nav-text">隔离级别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现事务"><span class="nav-number">1.7.</span> <span class="nav-text">实现事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义事务管理器"><span class="nav-number">1.7.1.</span> <span class="nav-text">定义事务管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用配置管理元素"><span class="nav-number">1.7.2.</span> <span class="nav-text">使用配置管理元素</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SUVVM"
+      src="/images/ortrait.jpg">
+  <p class="site-author-name" itemprop="name">SUVVM</p>
+  <div class="site-description" itemprop="description">SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/suvvm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;suvvm" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/suvvm@foxmail.com" title="E-Mail → suvvm@foxmail.com"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SUVVM</span>
+	<a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鲁ICP备19040043号-2</a>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ortrait.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.suvvm.work","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、打开Qt Creator　　本次的目的是用Qt Creator建立一个Hello World项目，在安装Qt之后，首先要打开Qt Creator。  　　就是它啦，打开后会显示如下页面。  二、建立新项目　　点击文件——新建文件或项目 或者使用快捷键Ctrl+N便可以打开新建项目菜单。  　　这里选择其他项目——Empty qmake Project创建一个空的qt项目 HelloWorld">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Qt5--从零开始的Hello World教程(Qt Creator)">
+<meta property="og:url" content="https://www.suvvm.work/2019/04/02/Qt5-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Hello-World%E6%95%99%E7%A8%8B-Qt-Creator/index.html">
+<meta property="og:site_name" content="SUVVM">
+<meta property="og:description" content="一、打开Qt Creator　　本次的目的是用Qt Creator建立一个Hello World项目，在安装Qt之后，首先要打开Qt Creator。  　　就是它啦，打开后会显示如下页面。  二、建立新项目　　点击文件——新建文件或项目 或者使用快捷键Ctrl+N便可以打开新建项目菜单。  　　这里选择其他项目——Empty qmake Project创建一个空的qt项目 HelloWorld">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402144344775-843344643.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402144516906-500975365.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402144825806-315022429.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402145220721-54460256.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402145420368-1252528396.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402145521816-1197688933.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402150231560-2062946358.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402150738245-1316022751.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402151334917-157143616.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402151409236-1511120867.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402152145588-140921127.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402152215884-149429949.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402190800843-918816892.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402190907055-724741945.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407144430673-1999955819.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407144527554-1706277458.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407145104965-23413638.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407145222933-287602353.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407145638466-777605577.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407145926646-486457409.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407152141926-1324001370.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407154617832-1219284277.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407154646019-1773784269.png">
+<meta property="article:published_time" content="2019-04-02T09:10:07.000Z">
+<meta property="article:modified_time" content="2020-12-19T14:05:00.655Z">
+<meta property="article:author" content="SUVVM">
+<meta property="article:tag" content="Qt5">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402144344775-843344643.png">
+
+<link rel="canonical" href="https://www.suvvm.work/2019/04/02/Qt5-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Hello-World%E6%95%99%E7%A8%8B-Qt-Creator/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Qt5--从零开始的Hello World教程(Qt Creator) | SUVVM</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e5190116d64be66cac29daef18c94ac0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">SUVVM</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">呜嗷SUVVM</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2019/04/02/Qt5-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Hello-World%E6%95%99%E7%A8%8B-Qt-Creator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Qt5--从零开始的Hello World教程(Qt Creator)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-02 17:10:07" itemprop="dateCreated datePublished" datetime="2019-04-02T17:10:07+08:00">2019-04-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%80%E5%8D%95%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">简单教程</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><meta name="referrer" content="no-referrer"></p>
+<h3 id="一、打开Qt-Creator"><a href="#一、打开Qt-Creator" class="headerlink" title="一、打开Qt Creator"></a>一、打开Qt Creator</h3><p>　　本次的目的是用Qt Creator建立一个Hello World项目，在安装Qt之后，首先要打开Qt Creator。</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402144344775-843344643.png" alt="img"></p>
+<p>　　就是它啦，打开后会显示如下页面。</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402144516906-500975365.png" alt="img"></p>
+<h3 id="二、建立新项目"><a href="#二、建立新项目" class="headerlink" title="二、建立新项目"></a>二、建立新项目</h3><p>　　点击文件——新建文件或项目 或者使用快捷键Ctrl+N便可以打开新建项目菜单。</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402144825806-315022429.png" alt="img"></p>
+<p>　　这里选择其他项目——Empty qmake Project创建一个空的qt项目 HelloWorld_Qt。</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402145220721-54460256.png" alt="img"></p>
+<p>　　一路下一步到完成之后就可以看到已经成功建立的项目HelloWorld_Qt。</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402145420368-1252528396.png" alt="img"></p>
+<p>　　这个生成的新项目包含两个文件。</p>
+<p> <img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402145521816-1197688933.png" alt="img"></p>
+<p>　　HelloWorld_Qt.pro是qt的工程文件，HelloWorld_Qt.pro.user是用于记录该次编译所用的打开工程的路径，编译器、构建的工具链、生成目录、打开工程的qt-creator的版本等的文件，更换编译环境是需删除。</p>
+<p>　　这样建立Qt项目便完成了。</p>
+<p>　　由于这里建立的是一个空项目，我们需要添加文件来编写代码，右击项目HelloWorld_Qt点击Add New，选择C++中的C++ Source File添加一个c++源代码文件，起名叫main一路下一步到完成。</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402150231560-2062946358.png" alt="img"></p>
+<p>　　这样就有了一个可以用来编写代码的main.cpp</p>
+<h3 id="三、编写代码"><a href="#三、编写代码" class="headerlink" title="三、编写代码"></a>三、编写代码</h3><p>　　打开main.cpp在其中编写代码我们需要建立一个Qt应用程序，需要引入Qt应用程序类QApplication所以我们引用它</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;QApplication&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402150738245-1316022751.png" alt="img"></p>
+<p>　　但是这里报错了，编译器告诉我们‘QApplication’类文件没有找到，这是因为没有连接Qt Widgets库，打开HelloWorld_Qt.pro引入Qt Widgets库，添加一句QT += widgets按下Ctrl+S保存，之后回到main.cpp</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402151334917-157143616.png" alt="img"></p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402151409236-1511120867.png" alt="img"></p>
+<p>　　果然，错误消失了。</p>
+<p>　　继续编写代码，我们还需要有一个窗体，需要引入QWidget类</p>
+<p>　　</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;QWidget&gt;</span><br></pre></td></tr></table></figure>
+<p>　　之后便可以开始设计主函数了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;QWidget&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</span><br><span class="line">    <span class="comment">//在程序编译完成后会生成一个.exe后缀的可执行文件</span></span><br><span class="line">    <span class="comment">//argc是命令行参数个数</span></span><br><span class="line">    <span class="comment">//argv[0]记录程序名</span></span><br><span class="line">    <span class="comment">//argv[1]~argv[argc-1]记录的输入参数</span></span><br><span class="line">    <span class="comment">//argc argv是标识符，可以修改名称</span></span><br><span class="line">    <span class="comment">//main()函数有argc和argv或没有，即int main() 或void main，都是合法的。</span></span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">    <span class="comment">//应用程序抽象类</span></span><br><span class="line">    <span class="comment">//使用在argv中的argc个命令行参数构造一个名为app的QApplication对象。</span></span><br><span class="line">    <span class="comment">//QApplication 类管理图形用户界面应用程序的控制流和主要设置</span></span><br><span class="line">    <span class="comment">//任何一个使用Qt的图形用户界面应用程序，都存在一个QApplication对象</span></span><br><span class="line"></span><br><span class="line">    QWidget w;</span><br><span class="line">    <span class="comment">//QWidget类是所有用户界面对象的基类</span></span><br><span class="line">    <span class="comment">//在这里可以把它看作一个窗口，构造了一个窗口对象</span></span><br><span class="line">    w.setWindowTitle(<span class="string">"Hello World!"</span>);</span><br><span class="line">    <span class="comment">//将窗口的标题设为Hello World!</span></span><br><span class="line">    w.show();</span><br><span class="line">    <span class="comment">//显示窗体</span></span><br><span class="line">    <span class="keyword">return</span> app.exec();</span><br><span class="line">    <span class="comment">//exec()函数有一个消息循环，在调用之后，程序就被锁定。等待窗口的关闭</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　执行一下</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402152145588-140921127.png" alt="img"></p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402152215884-149429949.png" alt="img"></p>
+<p>　　成功显示HelloWorld窗口。 </p>
+<p>　　窗口建好之后我们便可以向窗口中添加控件了，现在需要在窗体中显示Hello World！，我们可以通过QLabel标签实现，要向窗体中添加QLabel标签则同样需要引入QLabel类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;QLabel&gt;</span><br></pre></td></tr></table></figure>
+<p>　　之后构造一个标签对象</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">textLabel.resize(<span class="number">100</span>,<span class="number">15</span>);</span><br><span class="line"><span class="comment">//设定标签宽40高15</span></span><br><span class="line">textLabel.move(<span class="number">150</span>, <span class="number">170</span>);</span><br><span class="line"><span class="comment">//将标签移动到距离左上角水平100px垂直130px的位置</span></span><br><span class="line">textLabel.setText(<span class="string">"Hello World!"</span>);</span><br><span class="line"><span class="comment">//标签的初始显示字符串NULL</span></span><br><span class="line">textLabel.setParent(&amp;w);</span><br></pre></td></tr></table></figure>
+<p>　　标签QLabel也是一个窗体，它继承自QFrame，而QFrame又继承自QWidget，若想让他显示在我们构造的窗口w中就需要将QLabel对象textLabel的父对象设为w。</p>
+<p>　　在这个程序中w是主窗口，主窗口是指没有父对象的窗口。</p>
+<p>　　若在此处不使用textLable.setParent(w),text标签将单独弹出一个窗口。</p>
+<p>　　这就说明了，所有最终继承至QFrame的控件如果不把控件的父对象设置为当前主窗口，控件将单独作为一另个主窗口弹出。</p>
+<p>　　<img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402190800843-918816892.png" alt="img"></p>
+<p>　　注释textLable.setParent(w),text后的效果</p>
+<p>　　<img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190402190907055-724741945.png" alt="img"></p>
+<p>　　正确效果</p>
+<p>　　源代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QWidget&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QLabel&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</span><br><span class="line">    <span class="comment">//在程序编译完成后会生成一个.exe后缀的可执行文件</span></span><br><span class="line">    <span class="comment">//argc是命令行参数个数</span></span><br><span class="line">    <span class="comment">//argv[0]记录程序名</span></span><br><span class="line">    <span class="comment">//argv[1]~argv[argc-1]记录的输入参数</span></span><br><span class="line">    <span class="comment">//argc argv是标识符，可以修改名称</span></span><br><span class="line">    <span class="comment">//main()函数有argc和argv或没有，即int main() 或void main，都是合法的。</span></span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">    <span class="comment">//应用程序抽象类</span></span><br><span class="line">    <span class="comment">//使用在argv中的argc个命令行参数构造一个名为app的QApplication对象。</span></span><br><span class="line">    <span class="comment">//QApplication 类管理图形用户界面应用程序的控制流和主要设置</span></span><br><span class="line">    <span class="comment">//任何一个使用Qt的图形用户界面应用程序，都存在一个QApplication对象</span></span><br><span class="line">    QWidget w;</span><br><span class="line">    w.resize(<span class="number">400</span>, <span class="number">400</span>);</span><br><span class="line">    <span class="comment">//QWidget类是所有用户界面对象的基类</span></span><br><span class="line">    <span class="comment">//在这里可以把它看作一个窗口，构造了一个窗口对象</span></span><br><span class="line">    w.setWindowTitle(<span class="string">"Hello World!"</span>);</span><br><span class="line">    <span class="comment">//将窗口的标题设为Hello World!</span></span><br><span class="line">    QLabel textLabel;</span><br><span class="line">    <span class="comment">//构造一个标签</span></span><br><span class="line">    textLabel.resize(<span class="number">100</span>,<span class="number">15</span>);</span><br><span class="line">    <span class="comment">//设定标签宽40高15</span></span><br><span class="line">    textLabel.move(<span class="number">150</span>, <span class="number">170</span>);</span><br><span class="line">    <span class="comment">//将标签移动到距离左上角水平100px垂直130px的位置</span></span><br><span class="line">    textLabel.setText(<span class="string">"Hello World!"</span>);</span><br><span class="line">    <span class="comment">//标签的初始显示字符串NULL</span></span><br><span class="line">    textLabel.setParent(&amp;w);</span><br><span class="line">    textLabel.show();</span><br><span class="line">    w.show();</span><br><span class="line">    <span class="comment">//显示窗体</span></span><br><span class="line">    <span class="keyword">return</span> app.exec();</span><br><span class="line">    <span class="comment">//exec()函数有一个消息循环，在调用之后，程序就被锁定。等待窗口的关闭</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="四、Hello-New-World"><a href="#四、Hello-New-World" class="headerlink" title="四、Hello New World!"></a>四、Hello New World!</h3><p>　　在成功完成上述项目后我们已经不能满足于单单在窗口中显示Hello World！了，这次我们希望用一个按钮来将Hello World！改为 Hello New World！。</p>
+<p>　　新建一个空的Qt项目，名为Hello New World。</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407144430673-1999955819.png" alt="img"></p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407144527554-1706277458.png" alt="img"></p>
+<p>　　一路下一步到完成，打开HelloNewWorld.pro引入Qt Widgets库，添加一句QT += widgets。</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407145104965-23413638.png" alt="img"></p>
+<p>　　这次我们不像上一个项目一样一个main函数到底，我们添加一个C++类作为主窗口框架。</p>
+<p> 　右击HelloNewWorld选择Add New添加一个C++ Class</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407145222933-287602353.png" alt="img"></p>
+<p>　　我们想让这个类作为我们主窗口的对象类型，我们将其命名为MainWidget，既然MainWidget是一个窗口，我们就让MainWidget作为QWidget的一个子类。</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407145638466-777605577.png" alt="img"></p>
+<p>　　将MainWidget的基类设为QWidget。</p>
+<p>　　一路下一步到结束。</p>
+<p>　　可以发现项目中多了两个文件，mainwidget.h 与 mainwidget.cpp。</p>
+<p><strong><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407145926646-486457409.png" alt="img"></strong></p>
+<p>　　我们的MainWidget类就声明在mainwidget.h中</p>
+<p>mainwidget.h:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> MAINWIDGET_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAINWIDGET_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QWidget&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainWidget</span> :</span> <span class="keyword">public</span> QWidget   <span class="comment">//MainWidget的声明</span></span><br><span class="line">&#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">MainWidget</span><span class="params">(QWidget *parent = <span class="literal">nullptr</span>)</span></span>;</span><br><span class="line">    <span class="comment">//MainWidget类的构造函数 因为使用了explicit所以为显式构造函数</span></span><br><span class="line">    <span class="comment">//c++ 类构造函数默认情况下即声明为implicit(隐式)</span></span><br><span class="line">    <span class="comment">//关于显示与隐式的区别这里就不介绍了，诸位若不知道可以搜索</span></span><br><span class="line">signals:</span><br><span class="line">    <span class="comment">//这里可以用来声明信号函数</span></span><br><span class="line"><span class="keyword">public</span> slots:</span><br><span class="line">    <span class="comment">//这里可以用来声明槽函数</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// MAINWIDGET_H</span></span></span><br></pre></td></tr></table></figure>
+<p> mainwidget.cpp: </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"mainwidget.h"</span></span></span><br><span class="line"></span><br><span class="line">MainWidget::MainWidget(QWidget *parent) : QWidget(parent)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//显示调用MainWidget构造函数</span></span><br><span class="line">    <span class="comment">//调用顺序是先调用父类QWidget的构造函数，再调用派生类的构造函数</span></span><br><span class="line">    <span class="comment">//具体可以看https://www.cnblogs.com/findumars/p/9231742.html这篇博客</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　之后便可以设计一下我们的主窗口了，根据本次的要求，我们希望主窗口中有一个标签来显示我们的Hello World与Hello New World，有一个按钮来实现点击按钮转换文字，这样就可以确定我们的MainWidget中会有两个成员控件，一个QLabel一个QPushButton。</p>
+<p>　　在MainWidget的声明中添加它们。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> MAINWIDGET_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAINWIDGET_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QWidget&gt;</span></span></span><br><span class="line"><span class="comment">//添加成员变量QPushButton与QLabel标签需要引入QPushButton与QLabel类。</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPushButton&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QLabel&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainWidget</span> :</span> <span class="keyword">public</span> QWidget</span><br><span class="line">&#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">MainWidget</span><span class="params">(QWidget *parent = <span class="literal">nullptr</span>)</span></span>;</span><br><span class="line">    <span class="comment">//MainWidget类的构造函数 因为使用了explicit所以为显式构造函数</span></span><br><span class="line">    <span class="comment">//c++ 类构造函数默认情况下即声明为implicit(隐式)</span></span><br><span class="line">    <span class="comment">//关于显示与隐式的区别这里就不介绍了，诸位若不知道可以搜索</span></span><br><span class="line"></span><br><span class="line">    QPushButton* button;    <span class="comment">//成员控件按钮</span></span><br><span class="line">    QLabel* label;  <span class="comment">//成员控件标签</span></span><br><span class="line"></span><br><span class="line">signals:</span><br><span class="line">    <span class="comment">//这里可以用来声明信号函数</span></span><br><span class="line"><span class="keyword">public</span> slots:</span><br><span class="line">    <span class="comment">//这里可以用来声明槽函数</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// MAINWIDGET_H</span></span></span><br></pre></td></tr></table></figure>
+<p> 　　之后便可以在mainwidget.cpp中编写代码了，我们希望将主窗口设计为一个400*400，文字和按钮显示在中间，文字在按钮上方，在mainwidget.cpp中，MainWidget构造函数处做如下更改 。 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">MainWidget::MainWidget(QWidget *parent) : QWidget(parent)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//显示调用MainWidget构造函数</span></span><br><span class="line">    <span class="comment">//调用顺序是先调用父类QWidget的构造函数，再调用派生类的构造函数</span></span><br><span class="line">    <span class="comment">//具体可以看https://www.cnblogs.com/findumars/p/9231742.html这篇博客</span></span><br><span class="line">    resize(<span class="number">400</span>, <span class="number">400</span>);</span><br><span class="line">    <span class="comment">//设置窗口大小为400px * 400px</span></span><br><span class="line">    label = <span class="keyword">new</span> QLabel(<span class="string">"Hello World!"</span>, <span class="keyword">this</span>);</span><br><span class="line">    <span class="comment">//初始化控件lable文字显示为Hello World!， 父对象为当前MainWidget窗口对象</span></span><br><span class="line">    label-&gt;setGeometry(<span class="number">150</span>, <span class="number">100</span>, <span class="number">130</span>, <span class="number">50</span>);</span><br><span class="line">    <span class="comment">//lable的位置在x = 150px y = 100px 宽为100px高为50px</span></span><br><span class="line">    button = <span class="keyword">new</span> QPushButton(<span class="string">"change"</span>, <span class="keyword">this</span>);</span><br><span class="line">    <span class="comment">//初始化控件button文字显示为change， 父对象为当前MainWidget窗口对象</span></span><br><span class="line">    button-&gt;setGeometry(<span class="number">150</span>, <span class="number">175</span>, <span class="number">130</span>, <span class="number">50</span>);</span><br><span class="line">    <span class="comment">//button的位置在x = 150px y = 175px 宽为100px高为50px</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 　　之后设计主函数，在主函数中构建一个MainWidget窗口w，将它显示出来。 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    MainWidget w;   <span class="comment">//构建一个MainWidget窗口w</span></span><br><span class="line">    w.show();   <span class="comment">//显示w</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> app.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　不要忘记引入QApplication。</p>
+<h3 id="以下为当前mainwidget-cpp的全部代码"><a href="#以下为当前mainwidget-cpp的全部代码" class="headerlink" title="　　以下为当前mainwidget.cpp的全部代码"></a>　　以下为当前mainwidget.cpp的全部代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"mainwidget.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"></span><br><span class="line">MainWidget::MainWidget(QWidget *parent) : QWidget(parent)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//显示调用MainWidget构造函数</span></span><br><span class="line">    <span class="comment">//调用顺序是先调用父类QWidget的构造函数，再调用派生类的构造函数</span></span><br><span class="line">    <span class="comment">//具体可以看https://www.cnblogs.com/findumars/p/9231742.html这篇博客</span></span><br><span class="line">    resize(<span class="number">400</span>, <span class="number">400</span>);</span><br><span class="line">    <span class="comment">//设置窗口大小为400px * 400px</span></span><br><span class="line">    label = <span class="keyword">new</span> QLabel(<span class="string">"Hello World!"</span>, <span class="keyword">this</span>);</span><br><span class="line">    <span class="comment">//初始化控件lable文字显示为Hello World!， 父对象为当前MainWidget窗口对象</span></span><br><span class="line">    label-&gt;setGeometry(<span class="number">150</span>, <span class="number">100</span>, <span class="number">130</span>, <span class="number">50</span>);</span><br><span class="line">    <span class="comment">//lable的位置在x = 150px y = 100px 宽为100px高为50px</span></span><br><span class="line">    button = <span class="keyword">new</span> QPushButton(<span class="string">"change"</span>, <span class="keyword">this</span>);</span><br><span class="line">    <span class="comment">//初始化控件button文字显示为change， 父对象为当前MainWidget窗口对象</span></span><br><span class="line">    button-&gt;setGeometry(<span class="number">150</span>, <span class="number">175</span>, <span class="number">130</span>, <span class="number">50</span>);</span><br><span class="line">    <span class="comment">//button的位置在x = 150px y = 175px 宽为100px高为50px</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    MainWidget w;   <span class="comment">//构建一个MainWidget窗口w</span></span><br><span class="line">    w.show();   <span class="comment">//显示w</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> app.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　运行一下</p>
+<p>　　<img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407152141926-1324001370.png" alt="img"></p>
+<p>　　一个符合我们设计要求的窗口已经完成了。</p>
+<p>　　之后就要开始完成点击按钮更换文字的功能了，这里就用到了信号和槽的知识。</p>
+<p>　　在QObject类中有一个connect函数其中要求传入四个参数，第一个参数为被用户操作的对象（发出信号的对象当前为我们的change按钮），第二个参数是一个被操作信号（当前为按钮被点击clicked()），第三个参数是我们要进行操作的对象（接受信号的对象当前为我们的主窗体w），第四个参数为对应的槽函数（这就需要我们自己设计一个槽函数了，我们将这个槽函数命名为changeText）。</p>
+<p>　　</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">QObject::connect(w.button, SIGNAL(clicked()), &amp;w, SLOT(changeText()));</span><br></pre></td></tr></table></figure>
+<p>　　当然，Qt中QObject是绝大多数类的基类，包括QWidget，而我们的MainWidget又是QWidget的子类，所以如下写法依然正确。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MainWidget::connect(w.button, SIGNAL(clicked()), &amp;w, SLOT(changeText()));</span><br></pre></td></tr></table></figure>
+<p>　　之后我们就要在MainWidget的声明中去声明和定义槽函数了（可以只声明，在mainwidget.cpp中定义）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public slots:</span><br><span class="line">    &#x2F;&#x2F;这里可以用来声明槽函数</span><br><span class="line">    void changeText()&#123;</span><br><span class="line">        label-&gt;setText(&quot;Hello New World!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>　　运行一下</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407154617832-1219284277.png" alt="img"></p>
+<p>　　点击change</p>
+<p><img src="https://img2018.cnblogs.com/blog/1447131/201904/1447131-20190407154646019-1773784269.png" alt="img"></p>
+<p>　　完整代码：</p>
+<p>　　HelloNewWorld.pro:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">QT +&#x3D; widgets</span><br><span class="line"></span><br><span class="line">HEADERS +&#x3D; \</span><br><span class="line">    mainwidget.h</span><br><span class="line"></span><br><span class="line">SOURCES +&#x3D; \</span><br><span class="line">    mainwidget.cpp</span><br></pre></td></tr></table></figure>
+<p> 　　mainwidget.h: </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> MAINWIDGET_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAINWIDGET_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QWidget&gt;</span></span></span><br><span class="line"><span class="comment">//添加成员变量QPushButton与QLabel标签需要引入QPushButton与QLabel类。</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPushButton&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QLabel&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainWidget</span> :</span> <span class="keyword">public</span> QWidget   <span class="comment">//MainWidget的声明</span></span><br><span class="line">&#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">MainWidget</span><span class="params">(QWidget *parent = <span class="literal">nullptr</span>)</span></span>;</span><br><span class="line">    <span class="comment">//MainWidget类的构造函数 因为使用了explicit所以为显式构造函数</span></span><br><span class="line">    <span class="comment">//c++ 类构造函数默认情况下即声明为implicit(隐式)</span></span><br><span class="line">    <span class="comment">//关于显示与隐式的区别这里就不介绍了，诸位若不知道可以搜索</span></span><br><span class="line"></span><br><span class="line">    QPushButton* button;    <span class="comment">//成员控件按钮</span></span><br><span class="line">    QLabel* label;  <span class="comment">//成员控件标签</span></span><br><span class="line"></span><br><span class="line">signals:</span><br><span class="line">    <span class="comment">//这里可以用来声明信号函数</span></span><br><span class="line"><span class="keyword">public</span> slots:</span><br><span class="line">    <span class="comment">//这里可以用来声明槽函数</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">changeText</span><span class="params">()</span></span>&#123;</span><br><span class="line">        label-&gt;setText(<span class="string">"Hello New World!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// MAINWIDGET_H</span></span></span><br></pre></td></tr></table></figure>
+<p> 　　mainwidget.cpp: </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"mainwidget.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"></span><br><span class="line">MainWidget::MainWidget(QWidget *parent) : QWidget(parent)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//显示调用MainWidget构造函数</span></span><br><span class="line">    <span class="comment">//调用顺序是先调用父类QWidget的构造函数，再调用派生类的构造函数</span></span><br><span class="line">    <span class="comment">//具体可以看https://www.cnblogs.com/findumars/p/9231742.html这篇博客</span></span><br><span class="line">    resize(<span class="number">400</span>, <span class="number">400</span>);</span><br><span class="line">    <span class="comment">//设置窗口大小为400px * 400px</span></span><br><span class="line">    label = <span class="keyword">new</span> QLabel(<span class="string">"Hello World!"</span>, <span class="keyword">this</span>);</span><br><span class="line">    <span class="comment">//初始化控件lable文字显示为Hello World!， 父对象为当前MainWidget窗口对象</span></span><br><span class="line">    label-&gt;setGeometry(<span class="number">150</span>, <span class="number">100</span>, <span class="number">130</span>, <span class="number">50</span>);</span><br><span class="line">    <span class="comment">//lable的位置在x = 150px y = 100px 宽为100px高为50px</span></span><br><span class="line">    button = <span class="keyword">new</span> QPushButton(<span class="string">"change"</span>, <span class="keyword">this</span>);</span><br><span class="line">    <span class="comment">//初始化控件button文字显示为change， 父对象为当前MainWidget窗口对象</span></span><br><span class="line">    button-&gt;setGeometry(<span class="number">150</span>, <span class="number">175</span>, <span class="number">130</span>, <span class="number">50</span>);</span><br><span class="line">    <span class="comment">//button的位置在x = 150px y = 175px 宽为100px高为50px</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    MainWidget w;   <span class="comment">//构建一个MainWidget窗口w</span></span><br><span class="line">    w.show();   <span class="comment">//显示w</span></span><br><span class="line"></span><br><span class="line">    QObject::connect(w.button, SIGNAL(clicked()), &amp;w, SLOT(changeText()));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> app.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Qt5/" rel="tag"># Qt5</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/04/02/PTA-Advanced-Level-1005-Spell-It-Right/" rel="prev" title="PTA (Advanced Level) 1005 Spell It Right">
+      <i class="fa fa-chevron-left"></i> PTA (Advanced Level) 1005 Spell It Right
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/02/PTA-Advanced-Level-1004-Counting-Leaves/" rel="next" title="PTA (Advanced Level) 1004 Counting Leaves">
+      PTA (Advanced Level) 1004 Counting Leaves <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、打开Qt-Creator"><span class="nav-number">1.</span> <span class="nav-text">一、打开Qt Creator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、建立新项目"><span class="nav-number">2.</span> <span class="nav-text">二、建立新项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、编写代码"><span class="nav-number">3.</span> <span class="nav-text">三、编写代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、Hello-New-World"><span class="nav-number">4.</span> <span class="nav-text">四、Hello New World!</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#以下为当前mainwidget-cpp的全部代码"><span class="nav-number">5.</span> <span class="nav-text">　　以下为当前mainwidget.cpp的全部代码</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SUVVM"
+      src="/images/ortrait.jpg">
+  <p class="site-author-name" itemprop="name">SUVVM</p>
+  <div class="site-description" itemprop="description">SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/suvvm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;suvvm" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/suvvm@foxmail.com" title="E-Mail → suvvm@foxmail.com"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SUVVM</span>
+	<a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鲁ICP备19040043号-2</a>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

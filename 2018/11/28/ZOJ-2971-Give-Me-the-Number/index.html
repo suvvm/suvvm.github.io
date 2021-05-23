@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ortrait.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.suvvm.work","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Numbers in English are written down in the following way (only numbers less than 109are considered). Number abc,def,ghi is written as “[abc] million [def] thousand [ghi]“. Here “[xyz] “ means the wr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ZOJ 2971 Give Me the Number">
+<meta property="og:url" content="https://www.suvvm.work/2018/11/28/ZOJ-2971-Give-Me-the-Number/index.html">
+<meta property="og:site_name" content="SUVVM">
+<meta property="og:description" content="Numbers in English are written down in the following way (only numbers less than 109are considered). Number abc,def,ghi is written as “[abc] million [def] thousand [ghi]“. Here “[xyz] “ means the wr">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-11-28T10:58:45.000Z">
+<meta property="article:modified_time" content="2020-12-19T14:05:00.665Z">
+<meta property="article:author" content="SUVVM">
+<meta property="article:tag" content="模拟">
+<meta property="article:tag" content="ZOJ">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.suvvm.work/2018/11/28/ZOJ-2971-Give-Me-the-Number/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ZOJ 2971 Give Me the Number | SUVVM</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e5190116d64be66cac29daef18c94ac0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">SUVVM</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">呜嗷SUVVM</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/11/28/ZOJ-2971-Give-Me-the-Number/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ZOJ 2971 Give Me the Number
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-28 18:58:45" itemprop="dateCreated datePublished" datetime="2018-11-28T18:58:45+08:00">2018-11-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>　　Numbers in English are written down in the following way (only numbers less than <em>109</em>are considered). Number <em>abc,def,ghi</em> is written as “<em>[abc]</em> million <em>[def]</em> thousand <em>[ghi]</em>“. Here “<em>[xyz]</em> “ means the written down number <em>xyz</em> .</p>
+<p>　　In the written down number the part “<em>[abc]</em> million” is omitted if <em>abc = 0</em> , “<em>[def]</em>thousand” is omitted if <em>def = 0</em> , and “<em>[ghi]</em> “ is omitted if <em>ghi = 0</em> . If the whole number is equal to <em>0</em> it is written down as “zero”. Note that words “million” and “thousand” are singular even if the number of millions or thousands respectively is greater than one.</p>
+<p>　　Numbers under one thousand are written down in the following way. The number <em>xyz</em> is written as “<em>[x]</em> hundred and <em>[yz]</em> ”. ( If <em>yz = 0</em> it should be only “<em>[x]</em> hundred”. Otherwise if <em>y = 0</em> it should be only “<em>[x]</em> hundred and [z]”.) Here “<em>[x]</em> hundred and” is omitted if <em>x = 0</em> . Note that “hundred” is also always singular.</p>
+<p>　　Numbers under <em>20</em> are written down as “zero”, “one”, “two”, “three”, “four”, “five”, “six”, “seven”, “eight”, “nine”, “ten”, “eleven”, “twelve”, “thirteen”, “fourteen”, “fifteen”, “sixteen”, “seventeen”, “eighteen”, and “nineteen” respectively. Numbers from <em>20</em> to <em>99</em> are written down in the following way. Number <em>xy</em> is written as “<em>[x0]**[y]</em> “, and numbers divisible by ten are written as “twenty”, “thirty”, “forty”, “fifty”, “sixty”, “seventy”, “eighty”, and “ninety” respectively.</p>
+<p>　　For example, number <em>987,654,312</em> is written down as “nine hundred and eighty seven million six hundred and fifty four thousand three hundred and twelve”, number <em>100,000,037</em> as “one hundred million thirty seven”, number <em>1,000</em> as “one thousand”. Note that “one” is never omitted for millions, thousands and hundreds.</p>
+<p>　　Give you the written down words of a number, please give out the original number.</p>
+<p>Input</p>
+<p>　　Standard input will contain multiple test cases. The first line of the input is a single integer <em>T</em> (1 &lt;= <em>T</em> &lt;= 1900) which is the number of test cases. It will be followed by <em>T</em> consecutive test cases.</p>
+<p>　　Each test case contains only one line consisting of a sequence of English words representing a number.</p>
+<p>Output</p>
+<p>　　For each line of the English words output the corresponding integer in a single line. You can assume that the integer is smaller than <em>109</em>.</p>
+<p>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">one</span><br><span class="line">eleven</span><br><span class="line">one hundred and two</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">11</span><br><span class="line">102</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　给出行数t，之后t行每行给出一个用英文描述的数字，要求输出这个数字。</p>
+<p>　　这里从头开始记录这个数字，每记录一个数字就将它加入答案，根据题目语法以百万”million”，千”thousand”和百”hundred”这几个在英文中有特殊表示形式的单词为标值，每次遇到这些标值就将目前的答案乘以标志数，如果是”million”或”thousand”（”hundred”不用）从0开始重新记录下一个标值前的数字，一直记录到字符串的最后一个单词。</p>
+<p>样例分析：</p>
+<p>nine hundred and eighty seven million six hundred and fifty four thousand three hundred and twelve</p>
+<p>nine： 9 + 0 = 9</p>
+<p>hundred： 9 * 100 = 900</p>
+<p>eighty ：80 + 900 = 980</p>
+<p>and ：0 + 980 = 980 </p>
+<p>seven ：7 + 980 = 987</p>
+<p>million ：987 * 1000000 = 987000000　　（遇到million重新从0开始记录）</p>
+<p>six ： 6 + 0 = 6</p>
+<p>hundred ： 6 * 100 = 600</p>
+<p>and : 0 + 600 = 600</p>
+<p>fifty ： 50 + 600 = 650</p>
+<p>four ： 4 + 650 = 654</p>
+<p>thousand ： 654 * 1000 + 987000000 = 987654000　　（遇到thousand重新从0开始记录）</p>
+<p>three ： 0 + 3 = 3</p>
+<p>hundred ： 3 * 100 = 300</p>
+<p>and ： 0 + 300 = 300；</p>
+<p>twelve ： 12 + 300 = 312；</p>
+<p>987654000 + 312 = 987654312</p>
+<p>　　知道解法后就要思考怎样实现它，由于每一行为一个数字，输入时我们用一个getline之间获得一行存入string型的变量str中，用头文件sstream下的istringstream可以以空格为界读取str中的每个单词，将获取的每个单词计入string型变量temp中，并根据temp的内容进行操作，我们可以用map来建立每个(非”million”，”thousand”，”hundred”)单词和其对应数字的关系。</p>
+<p>AC代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; m;</span><br><span class="line"><span class="built_in">string</span> s1[<span class="number">21</span>] = &#123;<span class="string">"zero"</span>,<span class="string">"one"</span>,<span class="string">"two"</span>,<span class="string">"three"</span>,<span class="string">"four"</span>,<span class="string">"five"</span>,<span class="string">"six"</span>,<span class="string">"seven"</span>,<span class="string">"eight"</span>,<span class="string">"nine"</span>,<span class="string">"ten"</span>,<span class="string">"eleven"</span>,<span class="string">"twelve"</span>,<span class="string">"thirteen"</span>,<span class="string">"fourteen"</span>,<span class="string">"fifteen"</span>,<span class="string">"sixteen"</span>,<span class="string">"seventeen"</span>,<span class="string">"eighteen"</span>,<span class="string">"nineteen"</span>&#125;;</span><br><span class="line"><span class="built_in">string</span> s2[<span class="number">9</span>] = &#123;<span class="string">"twenty"</span>,<span class="string">"thirty"</span>,<span class="string">"forty"</span>,<span class="string">"fifty"</span>,<span class="string">"sixty"</span>,<span class="string">"seventy"</span>,<span class="string">"eighty"</span>,<span class="string">"ninety"</span>&#125;;</span><br><span class="line"><span class="built_in">string</span> s3 = <span class="string">"and"</span>;</span><br><span class="line"><span class="built_in">string</span> str, temp;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++)&#123;    <span class="comment">//建立0~19的映射</span></span><br><span class="line">        m[s1[i]] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)&#123; <span class="comment">//建立20，30……，90的映射</span></span><br><span class="line">        m[s2[i]] = <span class="number">20</span> + i * <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    m[s3] = <span class="number">0</span>;  <span class="comment">//如果遇到and不需要操作，就将and映射为0即可</span></span><br><span class="line">    <span class="keyword">int</span> t;  <span class="comment">//行数</span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);</span><br><span class="line">    getchar();  <span class="comment">//吸收换行符</span></span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        getline(<span class="built_in">cin</span>,str);   <span class="comment">//获取一行</span></span><br><span class="line">        <span class="function"><span class="built_in">istringstream</span> <span class="title">cinstr</span><span class="params">(str)</span></span>;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>, num = <span class="number">0</span>;   <span class="comment">//ans记录答案，temp记录当前数字</span></span><br><span class="line">        <span class="keyword">while</span>(cinstr &gt;&gt; temp)&#123;  <span class="comment">//在str中读取单词</span></span><br><span class="line">            <span class="keyword">if</span>(temp == <span class="string">"million"</span>)&#123;  <span class="comment">//遇到million乘以1000000并从0开始重新记录</span></span><br><span class="line">                ans += num * <span class="number">1000000</span>;</span><br><span class="line">                num = <span class="number">0</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(temp == <span class="string">"thousand"</span>)&#123;   <span class="comment">//遇到thousand乘以1000并从0开始重新记录</span></span><br><span class="line">                ans += num * <span class="number">1000</span>;</span><br><span class="line">                num = <span class="number">0</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(temp == <span class="string">"hundred"</span>)&#123;    <span class="comment">//遇到hundred乘以100</span></span><br><span class="line">                num *= <span class="number">100</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                num += m[temp]; <span class="comment">//记录数字</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ans += num; <span class="comment">//将最后记录的数字加入答案</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%A8%A1%E6%8B%9F/" rel="tag"># 模拟</a>
+              <a href="/tags/ZOJ/" rel="tag"># ZOJ</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/11/26/Codeforces-450B-Jzzhu-and-Sequences/" rel="prev" title="Codeforces 450B Jzzhu and Sequences">
+      <i class="fa fa-chevron-left"></i> Codeforces 450B Jzzhu and Sequences
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/11/28/HDU-6225-Little-Boxes/" rel="next" title="HDU 6225 Little Boxes">
+      HDU 6225 Little Boxes <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SUVVM"
+      src="/images/ortrait.jpg">
+  <p class="site-author-name" itemprop="name">SUVVM</p>
+  <div class="site-description" itemprop="description">SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/suvvm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;suvvm" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/suvvm@foxmail.com" title="E-Mail → suvvm@foxmail.com"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SUVVM</span>
+	<a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鲁ICP备19040043号-2</a>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

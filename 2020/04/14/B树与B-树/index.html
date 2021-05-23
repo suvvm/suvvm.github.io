@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ortrait.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.suvvm.work","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="B树与B+树B树与B+树都是多路搜索树，由于二叉搜索树在结点数量巨大时树的深度会变得非常高于是出现了多路查找树来优化树的深度。 B树B树的每个结点含有一个或多个关键词。若只有一个关键词时同二叉搜索树，左子树保存所有比该结点关键词小的结点，右子树保存所有比该结点关键词大的结点；若有m-1个关键词，则有m-1棵子树，分别保存两关键词之间的结点。以树中结点的最大子树数量作为B树的阶。 结点 若根节点不为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="B树与B+树">
+<meta property="og:url" content="https://www.suvvm.work/2020/04/14/B%E6%A0%91%E4%B8%8EB-%E6%A0%91/index.html">
+<meta property="og:site_name" content="SUVVM">
+<meta property="og:description" content="B树与B+树B树与B+树都是多路搜索树，由于二叉搜索树在结点数量巨大时树的深度会变得非常高于是出现了多路查找树来优化树的深度。 B树B树的每个结点含有一个或多个关键词。若只有一个关键词时同二叉搜索树，左子树保存所有比该结点关键词小的结点，右子树保存所有比该结点关键词大的结点；若有m-1个关键词，则有m-1棵子树，分别保存两关键词之间的结点。以树中结点的最大子树数量作为B树的阶。 结点 若根节点不为">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-14T13:47:37.000Z">
+<meta property="article:modified_time" content="2020-12-19T14:05:00.620Z">
+<meta property="article:author" content="SUVVM">
+<meta property="article:tag" content="B树">
+<meta property="article:tag" content="B+树">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.suvvm.work/2020/04/14/B%E6%A0%91%E4%B8%8EB-%E6%A0%91/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>B树与B+树 | SUVVM</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e5190116d64be66cac29daef18c94ac0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">SUVVM</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">呜嗷SUVVM</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/14/B%E6%A0%91%E4%B8%8EB-%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          B树与B+树
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-14 21:47:37" itemprop="dateCreated datePublished" datetime="2020-04-14T21:47:37+08:00">2020-04-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="B树与B-树"><a href="#B树与B-树" class="headerlink" title="B树与B+树"></a>B树与B+树</h2><p>B树与B+树都是多路搜索树，由于二叉搜索树在结点数量巨大时树的深度会变得非常高于是出现了多路查找树来优化树的深度。</p>
+<h2 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h2><p>B树的每个结点含有一个或多个关键词。若只有一个关键词时同二叉搜索树，左子树保存所有比该结点关键词小的结点，右子树保存所有比该结点关键词大的结点；若有m-1个关键词，则有m-1棵子树，分别保存两关键词之间的结点。以树中结点的最大子树数量作为B树的阶。</p>
+<h3 id="结点"><a href="#结点" class="headerlink" title="结点"></a>结点</h3><ul>
+<li>若根节点不为唯一结点，则根节点至少有两颗子树</li>
+<li>m阶B树中的每个结点最多有m棵子树既至多含有m-1个关键字</li>
+<li>除根节点外所有结点至少有$ \frac{m}{2} $棵子树既至少含有$\frac m2-1$ 个关键词</li>
+<li>B树的叶子结点为空值，出现在同一层次中，代表查找失败</li>
+</ul>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><ul>
+<li>将要查找关键字与当前结点的所有关键字做比较</li>
+<li>若其等于某个关键字代表查找成功</li>
+<li>否则判断其所处的范围，查找对应子树</li>
+<li>若找至叶子节点已经没有找到对应关键词则判断查找失败</li>
+</ul>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><ul>
+<li><p>若为空树直接插入</p>
+</li>
+<li><p>按查询的方式找到插入位置</p>
+</li>
+<li>如果要插入的结点加入该关键词后其关键词数量并未超出限制，则直接将该关键词插入目标节点</li>
+<li>若要插入的结点加入该关键词后其关键词数量超出限制，则将当前结点以最中间的关键词为中心分裂为两部分，后将中间关键词插入到父节点中，将分裂的两部分作为父节点的子树，后对父节点进行关键词数量进行判断，若超限则对父节点继续进行分裂操作</li>
+</ul>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><ul>
+<li>要删除关键词的结点为最底层结点<ul>
+<li>节点内的关键词数量大于$\frac m2-1$ 可以直接删除</li>
+<li>节点内的关键词数量等于$\frac m2-1$，且其左右兄弟结点中存在关键词数量大于$\frac m2-1$ ，则<strong>去兄弟结点中借关键词</strong><ul>
+<li>在要删除关键词的结点的兄弟结点中挑选适父节目标关键词的后继关键词</li>
+<li>将父节目标关键词下一只要删除关键词的结点中，并以后继关键词代替父节目标关键词</li>
+<li>视为删除子结点中后继关键词继续执行删除操作</li>
+</ul>
+</li>
+<li>节点内的关键词数量等于$\frac m2-1$，且其左右兄弟结点中不存在关键词数量大于$\frac m2-1$ ，则进行结点合并<ul>
+<li>删除目标关键词，在父节点中取出关键词与当前结点剩余关键词合并</li>
+<li>将合并后的所有关键词合并至其兄弟节点中</li>
+<li>之后视为父节点删除了取出的关键词继续执行删除操作</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>要删除关键词的结点不为最底层结点<ul>
+<li>在子结点中挑选出要删除的目标关键词的后继关键词</li>
+<li>以后继关键词代替当前要删除关键词，之后视为删除后继关键词所在结点中的后继关键词继续执行删除操作</li>
+</ul>
+</li>
+</ul>
+<h2 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h2><p>B+树的信息在叶子节点，所有非叶子节点只起到索引作用，每个索引代表的是其子树中的最大关键词。</p>
+<p>B+树有一个指针指向其最小叶子节点，所有叶子节点形成一个有序链表。</p>
+<h3 id="结点-1"><a href="#结点-1" class="headerlink" title="结点"></a>结点</h3><ul>
+<li><p>若根节点不为唯一结点，则根节点至少有两颗子树</p>
+</li>
+<li><p>m阶B+树每一结点关键词个数范围为$\frac m2$ 到 m，子树的棵树与关键词个数相同</p>
+</li>
+<li>B+树子树结点内关键词范围为父结点的上一个关键词到当前关键词。</li>
+<li>B+树中叶子结点包含了所有出现过的关键词</li>
+</ul>
+<h3 id="查询-1"><a href="#查询-1" class="headerlink" title="查询"></a>查询</h3><p>B+树查找为逐层向下查找，在当前层找到一个大于目标key值的最小值，查找其子树，知道找到目标元素或查找失败。</p>
+<p>由于B+树每次查找都需要找到叶子节点，所以B+树的查找是稳定的。</p>
+<h3 id="插入-1"><a href="#插入-1" class="headerlink" title="插入"></a>插入</h3><p>假设一颗B+树为m阶</p>
+<ul>
+<li>若为空树直接插入，该点即使根节点也是叶子节点</li>
+<li>按查询的方式找到插入位置</li>
+<li>若要插入的叶子节点有空闲空间（不足m）直接插入结点</li>
+<li>若要插入的叶子节点空间不足，则将其分为包含前$\frac m2$个关键词的结点与包含其他部分的结点<ul>
+<li>将包含前$\frac m2$个关键词的结点进位至其父节点中</li>
+<li>对父节点执行平衡非叶子结点</li>
+</ul>
+</li>
+<li>平衡非叶子结点<ul>
+<li>若当前结点关键词数量小于m则无需操作</li>
+<li>若当前结点关键词数量大于m则且当前结点不为根节点<ul>
+<li>将当前结点分为包含前$\frac m2$个关键词的结点与包含其他部分的结点<ul>
+<li>将包含前$\frac m2$个关键词的结点进位至其父节点中</li>
+<li>对父节点执行平衡非叶子结点</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>若当前结点关键词数量大于m则且当前结点为根节点<ul>
+<li>将当前结点分为包含前$\frac m2$个关键词的结点与包含其他部分的结点</li>
+<li>将两个结点进位为一个根节点</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="删除-1"><a href="#删除-1" class="headerlink" title="删除"></a>删除</h3><ul>
+<li>要删除关键词的结点中关键词个数大于$\frac m2$<ul>
+<li>删除关键词为最大关键词修改父节点中的关键词</li>
+<li>否则直接删除</li>
+</ul>
+</li>
+<li>要删除关键词的结点中关键词个数小于或等于$\frac m2$<ul>
+<li>若其兄弟结点中存在关键词数大于$\frac m2$<strong>去兄弟结点中借关键词</strong><ul>
+<li>删除当前关键词</li>
+<li>将兄弟结点关键词放入当前节点中</li>
+<li>之后视为对兄弟结点借的关键词的删除操作</li>
+</ul>
+</li>
+<li>若兄弟结点中没有多余关键词<ul>
+<li>删除该关键词</li>
+<li>将当前结点与兄弟结点行合并操作并在父节点中删除对应索引，对父节点执行删除平衡操作</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>非叶子结点删除平衡操作<ul>
+<li>若要平衡的结点关键词数量大于$\frac m2$无需平衡，删除结束</li>
+<li>若平衡的结点关键词数量小于$\frac m2$<ul>
+<li>兄弟结点中有盈余结点，则将盈余结点借至当前欲平衡结点</li>
+<li>若兄弟结点中无平衡结点执行合并操作后对父节点执行删除平衡操作</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="为何数据库索引更倾向于使用B-树"><a href="#为何数据库索引更倾向于使用B-树" class="headerlink" title="为何数据库索引更倾向于使用B+树"></a>为何数据库索引更倾向于使用B+树</h3><p>B+树非叶子结点不存储数据，使得非叶子节点可以存储更多的索引，可以进一步降低树高，降低io次数。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/B%E6%A0%91/" rel="tag"># B树</a>
+              <a href="/tags/B-%E6%A0%91/" rel="tag"># B+树</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/14/%E6%95%B0%E7%BB%84%E4%B8%8E%E9%93%BE%E8%A1%A8/" rel="prev" title="数组与链表">
+      <i class="fa fa-chevron-left"></i> 数组与链表
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/17/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/" rel="next" title="数据库事务">
+      数据库事务 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#B树与B-树"><span class="nav-number">1.</span> <span class="nav-text">B树与B+树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B树"><span class="nav-number">2.</span> <span class="nav-text">B树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结点"><span class="nav-number">2.1.</span> <span class="nav-text">结点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询"><span class="nav-number">2.2.</span> <span class="nav-text">查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入"><span class="nav-number">2.3.</span> <span class="nav-text">插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除"><span class="nav-number">2.4.</span> <span class="nav-text">删除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-树"><span class="nav-number">3.</span> <span class="nav-text">B+树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结点-1"><span class="nav-number">3.1.</span> <span class="nav-text">结点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询-1"><span class="nav-number">3.2.</span> <span class="nav-text">查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入-1"><span class="nav-number">3.3.</span> <span class="nav-text">插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除-1"><span class="nav-number">3.4.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为何数据库索引更倾向于使用B-树"><span class="nav-number">3.5.</span> <span class="nav-text">为何数据库索引更倾向于使用B+树</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SUVVM"
+      src="/images/ortrait.jpg">
+  <p class="site-author-name" itemprop="name">SUVVM</p>
+  <div class="site-description" itemprop="description">SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/suvvm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;suvvm" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/suvvm@foxmail.com" title="E-Mail → suvvm@foxmail.com"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SUVVM</span>
+	<a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鲁ICP备19040043号-2</a>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

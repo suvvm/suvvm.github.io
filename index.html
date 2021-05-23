@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ortrait.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.suvvm.work","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SUVVM">
+<meta property="og:url" content="https://www.suvvm.work/index.html">
+<meta property="og:site_name" content="SUVVM">
+<meta property="og:description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="SUVVM">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.suvvm.work/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>SUVVM</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e5190116d64be66cac29daef18c94ac0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">SUVVM</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">呜嗷SUVVM</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/05/23/ToadOCR/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/05/23/ToadOCR/" class="post-title-link" itemprop="url">ToadOCR分布式神经网络服务体系</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-23 13:06:09 / 修改时间：13:26:47" itemprop="dateCreated datePublished" datetime="2021-05-23T13:06:09+08:00">2021-05-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="ToadOCR分布式神经网络服务体系"><a href="#ToadOCR分布式神经网络服务体系" class="headerlink" title="ToadOCR分布式神经网络服务体系"></a>ToadOCR分布式神经网络服务体系</h1><p> 文档站点：<a href="http://vjp.suvvm.work/" target="_blank" rel="noopener">http://vjp.suvvm.work/</a></p>
+<h2 id="Toad-OCR概述"><a href="#Toad-OCR概述" class="headerlink" title="Toad OCR概述"></a>Toad OCR概述</h2><p>  ToadOCR基于OCR设计领域的基本思路进行设计与编码，本项目意为对国内外关于深度学习发展历程和最新的研究成果进行整理和总结,以此学习与理解人工神经网络及经典的卷积神经网络所涉及到的概念和算法。</p>
+<p>  ToadOCR当前已经完成了对前馈型脉冲神经网络与卷积神经网络的支持。</p>
+<p>   ToadOCR在完成训练后，提供由全球多个国家5台服务器搭建分布式集群部署产物。负载均衡control center使用etcd，并开放gRPC接口</p>
+<h2 id="涵盖仓库"><a href="#涵盖仓库" class="headerlink" title="涵盖仓库"></a>涵盖仓库</h2><ul>
+<li><a href="https://github.com/suvvm/ToadOCREngine" target="_blank" rel="noopener">ToadOCREngine</a></li>
+<li><a href="https://github.com/suvvm/ToadOCRPreprocessor" target="_blank" rel="noopener">ToadOCRPreprocessor</a></li>
+<li><a href="https://github.com/suvvm/ToadOCRTools" target="_blank" rel="noopener">ToadOCRTools</a></li>
+<li><a href="https://github.com/felixsfan/ToadOCRClientService" target="_blank" rel="noopener">ToadOCRClientService</a></li>
+<li><a href="https://github.com/suvvm/ToadOCRDocument" target="_blank" rel="noopener">ToadOCRDocument</a></li>
+</ul>
+<p>各个仓库描述：<a href="http://vjp.suvvm.work/about/service-description/" target="_blank" rel="noopener">http://vjp.suvvm.work/about/service-description/</a></p>
+<h2 id="实现理论"><a href="#实现理论" class="headerlink" title="实现理论"></a>实现理论</h2><p>研究方法：（具体详见<a href="http://vjp.suvvm.work/how-toad-ocr-work/" target="_blank" rel="noopener">ToadOCR如何运作</a>）</p>
+<ul>
+<li><p>OPENCV提取图像内待识别文字区域</p>
+<p>使用Canny算法进行多轮边缘查找，再将其查找结果（阈化图像）进行像素邻域计算以得到分布在图像内大大小小多个像素连通区域，然后将这些以矩形标识的分散区域根据识别对象字符横向等距分布的特性进行多次区域兼并运算，之后将多轮处理后得到的多个兼并对象作整体布局上的比较分析，从而淘汰不良结果。最后根据最优兼并结果内字符单元区域集合提取图像内待识别文字。</p>
+<p>理论基于论文</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Satoshi Suzuki and others. Topological structural analysis of digitized binary images by border following. Computer Vision, Graphics, and Image Processing, 30(1):32–46, 1985.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>预处理</p>
+<p>处理包含目标字符的图像，进行基本处理（降噪、ZCA灰度化、像素缩放、二值化、归一化），最终将图像处理为规格相同的图像(28 * 28)，并作为张量读取至内存，以便后续得以顺利进行特征提取以及应用统一算法进行学习。</p>
+</li>
+<li><p>设计分类器</p>
+<p>使用脉冲神经网络与卷积神经网络设计并训练分类器（监督学习）对提取的字符进行识别。</p>
+</li>
+<li><p>分类结果优化</p>
+<p>处理分类器得出的结果，通过语言模型对识别的字符进行矫正（尽力排除近形字），并将最终的识别结果进行格式化。</p>
+</li>
+<li><p>训练权限开放</p>
+<p>​    训练集数据在ToadOCR北京数据中心挂靠为静态资源，构建二进制产物时会一并获取至本机，最终开放训练命令与更新权重矩阵的逻辑，便于开发者构建属于自己的服务体系。</p>
+</li>
+<li><p>分布式集群部署</p>
+<p>​    etcd作为强一致分布式存储系统控制服务注册服务发现与kv存储，使得全球各大洲多个服务节点统一为一个分布式集群进行管理。</p>
+</li>
+<li><p>服务模块分解</p>
+<p>​    将整个OCR手写体识别服务设计为由多个服务模块组成的RPC服务调用链路，允许开发者可以通过规定的鉴权方式，在服务客户端宿主机不再集群中的情况下，连接至ToadOCR分布式集群调用进行服务发现并与目标模块服务端建立连接。</p>
+</li>
+<li><p>身份验证与对称加密鉴权</p>
+<p>RPC分布式服务体系身份验证采取AppID - AppKey - AppSecret模式，由于当前开放服务原因，内部模块无需进行进一步鉴权，故为方便数据持久化与集群缓存，省略AppKey采取AppID- AppSecret模式进行鉴权。</p>
+</li>
+<li><p>Http service</p>
+<p>http service提供用于信息推送（邮件、短信）控制身份信息、与调用RPC服务的接口，供给Client与不便于接入rpc服务的开发者使用。</p>
+</li>
+<li><p>Client</p>
+<p>Client用于非开发者用户直接调用OCR服务与开发者申请鉴权所需验证信息，Client使用独立的用户-时效token模式进行鉴权。</p>
+</li>
+</ul>
+<h2 id="训练集合"><a href="#训练集合" class="headerlink" title="训练集合"></a>训练集合</h2><p> 手写体训练数据分为两部分</p>
+<ul>
+<li>数字数据使用使<a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="noopener">MNIST</a>(Mixed National Institute of Standards and Technology database)数据集</li>
+<li>字母与数字混合数据集使用<a href="https://www.nist.gov/itl/products-and-services/emnist-dataset" target="_blank" rel="noopener">EMNIST</a>(Extension Mixed National Institute of Standards and Technology database)数据集byClass部分。</li>
+</ul>
+<h2 id="服务限制与缺陷"><a href="#服务限制与缺陷" class="headerlink" title="服务限制与缺陷"></a>服务限制与缺陷</h2><ul>
+<li>ToadOCR图像解码处理体系限制采用jpeg</li>
+<li>ToadOCR图像文字区域提取采用OpenCV且在过程有多次腐蚀与膨胀操作，故要求图像分辨率尽可能高且字符间距尽可能不要过小。</li>
+<li>神经网络采用ByClass进行分类，故相似字符如 <code>i I l 1</code> 可能预测不够准确</li>
+</ul>
+<h2 id="潜在迭代方向"><a href="#潜在迭代方向" class="headerlink" title="潜在迭代方向"></a>潜在迭代方向</h2><ul>
+<li>进一步训练提升神经网络准确度</li>
+<li>减缓cnn(结构修改自LeNet-5)输出层下降速度添加缓冲层</li>
+<li>扩充支持神经网络类型</li>
+<li>取消输入张量与输出张量的硬编码，使得ToadOCR脱离OCR的限制成为通用型神经网络服务。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/03/20/PCA%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/20/PCA%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">PCA主成分分析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-20 20:19:09" itemprop="dateCreated datePublished" datetime="2021-03-20T20:19:09+08:00">2021-03-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-07 18:35:47" itemprop="dateModified" datetime="2021-05-07T18:35:47+08:00">2021-05-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="主成分分析法PCA"><a href="#主成分分析法PCA" class="headerlink" title="主成分分析法PCA"></a>主成分分析法PCA</h1><h2 id="一、PCA解决的问题"><a href="#一、PCA解决的问题" class="headerlink" title="一、PCA解决的问题"></a>一、PCA解决的问题</h2><p>从一个简单的数据集开始</p>
+<h3 id="1、当只有属性1时"><a href="#1、当只有属性1时" class="headerlink" title="1、当只有属性1时"></a>1、当只有属性1时</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>SampleA</th>
+<th>SampleB</th>
+<th>SampleC</th>
+<th>SampleD</th>
+<th>SampleE</th>
+<th>SampleF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Attr1</strong></td>
+<td>10</td>
+<td>11</td>
+<td>8</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>可以将数据绘制在一个一维的坐标轴上</p>
+<p><img src="/2021/03/20/PCA%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/PCA_1.png" alt="img"></p>
+<p>这里可以发现针对属性1样本A、B、C有相对较高的值，样本D、E、F有相对较低的值。通过上图可以发现，样本A、B、C彼此之间的相似性要比它们与D、E、F高。</p>
+<h3 id="2、如果测量两个属性"><a href="#2、如果测量两个属性" class="headerlink" title="2、如果测量两个属性"></a>2、如果测量两个属性</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>SampleA</th>
+<th>SampleB</th>
+<th>SampleC</th>
+<th>SampleD</th>
+<th>SampleE</th>
+<th>SampleF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Attr1</strong></td>
+<td>10</td>
+<td>11</td>
+<td>8</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>Attr2</strong></td>
+<td>6</td>
+<td>4</td>
+<td>5</td>
+<td>3</td>
+<td>2.8</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>可以将数据绘制在一个二维的坐标轴上</p>
+<p><img src="/2021/03/20/PCA%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/PCA_2.png" alt="img"></p>
+<p>在张图中，属性1是x轴，属性2是y轴。通过观察上图依旧可以得出，样本A、B、C在右上侧聚集，样本D、E、F在左下侧聚集。</p>
+<h3 id="3、如果测量三个属性"><a href="#3、如果测量三个属性" class="headerlink" title="3、如果测量三个属性"></a>3、如果测量三个属性</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>SampleA</th>
+<th>SampleB</th>
+<th>SampleC</th>
+<th>SampleD</th>
+<th>SampleE</th>
+<th>SampleF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Attr1</strong></td>
+<td>10</td>
+<td>11</td>
+<td>8</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>Attr2</strong></td>
+<td>6</td>
+<td>4</td>
+<td>5</td>
+<td>3</td>
+<td>2.8</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>Attr3</strong></td>
+<td>12</td>
+<td>9</td>
+<td>10</td>
+<td>2.5</td>
+<td>1.3</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>则需要在上图的基础上添加z轴，使之成为三维坐标轴</p>
+<p><img src="/2021/03/20/PCA%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/PCA_3.png" alt="img"></p>
+<h3 id="4、如果要测量四个属性"><a href="#4、如果要测量四个属性" class="headerlink" title="4、如果要测量四个属性"></a>4、如果要测量四个属性</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>SampleA</th>
+<th>SampleB</th>
+<th>SampleC</th>
+<th>SampleD</th>
+<th>SampleE</th>
+<th>SampleF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Attr1</strong></td>
+<td>10</td>
+<td>11</td>
+<td>8</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>Attr2</strong></td>
+<td>6</td>
+<td>4</td>
+<td>5</td>
+<td>3</td>
+<td>2.8</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>Attr3</strong></td>
+<td>12</td>
+<td>9</td>
+<td>10</td>
+<td>2.5</td>
+<td>1.3</td>
+<td>2</td>
+</tr>
+<tr>
+<td><strong>Attr4</strong></td>
+<td>5</td>
+<td>7</td>
+<td>6</td>
+<td>2</td>
+<td>4</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>则无法再绘制数据。</p>
+<p>​    四个属性需要四个维度，而PCA则是为了解决上述问题而出现的，使用PCA可以将三维、四维及其以上的更多数据降维绘制二维的PCA图，并告知使用者哪个属性对数据聚类最有价值。</p>
+<p><img src="/2021/03/20/PCA%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/PCA_4.png" alt="img"></p>
+<h2 id="二、PCA原理解析"><a href="#二、PCA原理解析" class="headerlink" title="二、PCA原理解析"></a>二、PCA原理解析</h2><p>​    如果要了解PCA功能以及工作原理，需要先回归只有两个属性的数据集。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>SampleA</th>
+<th>SampleB</th>
+<th>SampleC</th>
+<th>SampleD</th>
+<th>SampleE</th>
+<th>SampleF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Attr1</strong></td>
+<td>10</td>
+<td>11</td>
+<td>8</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>Attr2</strong></td>
+<td>6</td>
+<td>4</td>
+<td>5</td>
+<td>3</td>
+<td>2.8</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="1、计算中心点"><a href="#1、计算中心点" class="headerlink" title="1、计算中心点"></a>1、计算中心点</h3><p>​    首先，计算样本绘制的二维图像的中心点$ G(m_x,m_y) $ ，即针对对应坐标轴所代表的每个样本的属性值求和后除以样本数量。</p>
+<script type="math/tex; mode=display">
+m_x = \frac{\sum_{S=1}^nA_{1i}}{n} \\ 
+m_y = \frac{\sum_{S=1}^nA_{2i}}{n}</script><p>可以得到G(5.83,3.63)</p>
+<p><img src="/2021/03/20/PCA%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/PCA_6.png" alt="img"></p>
+<p>移动数据，使得中心点G落在坐标轴原点上。</p>
+<p><img src="/2021/03/20/PCA%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/PCA_7.png" alt="img"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>SampleA</th>
+<th>SampleB</th>
+<th>SampleC</th>
+<th>SampleD</th>
+<th>SampleE</th>
+<th>SampleF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Attr1</strong></td>
+<td>4.17</td>
+<td>5.17</td>
+<td>2.17</td>
+<td>-2.83</td>
+<td>-3.83</td>
+<td>-4.83</td>
+</tr>
+<tr>
+<td><strong>Attr2</strong></td>
+<td>2.37</td>
+<td>0.37</td>
+<td>1.37</td>
+<td>-0.63</td>
+<td>-0.83</td>
+<td>-2.63</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id><a href="#" class="headerlink" title=" "></a> </h3><h3 id="2、计算PC1"><a href="#2、计算PC1" class="headerlink" title="2、计算PC1"></a>2、计算PC1</h3><p>​    绘制一条穿过原点的随机直线，并旋转这条直线，使其在仍然穿过原点的情况下尽可能的拟合数据。</p>
+<p><img src="/2021/03/20/PCA%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/PCA_8.png" alt="img"></p>
+<p>判定拟合度高低，为了量化穿过原点的直线拟合数据的程度，首先将所有数据投影到目标直线上</p>
+<p><img src="/2021/03/20/PCA%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/PCA_9.png" alt="img"></p>
+<p>​    之后便可以测量各个样本点到目标直线的距离，并尝试找到使所有样本点到直线距离之和<strong>最小</strong>的直线，或者也可以尝试寻找所有投影点到原点的距离最之和大的直线，原因是当直线与数据更加拟合的时候，样本点到直线距离整体上会减小，而投影点到原点的整体距离则会增加。</p>
+<p>​    针对每个单独的样本点来说，可以以原点、样本点、投影点，三点组成一个直角三角形，通过勾股定理可以得知，样本点到直线距离(边a)和投影点到原点的距离(边b)是逆相关的且<script type="math/tex">c^2 = a^2 + b^2</script>。样本点到原点的距离(边c)是不变的。所以PCA可以选择最小化样本与直线的距离或最大化投影到原点的距离。</p>
+<p>​    不过显然投影点到原点更加方便计算，所以可以采用最大化投影点到原点的距离(d)的平方和($ SS_d $)。</p>
+<script type="math/tex; mode=display">
+SS_d = \sum_{s=1}^nd_s^2</script><p>​    这条线可以看作一条特殊的拟合直线。</p>
+<h4 id="PCA拟合直线"><a href="#PCA拟合直线" class="headerlink" title="PCA拟合直线"></a>PCA拟合直线</h4><p>我们将输入数据 $ \left( \begin{array} {ccc} 4.17 &amp; 5.17 &amp; 2.17 &amp; -2.83 &amp; -3.83 &amp; -4.83  \  2.37 &amp; 0.37 &amp; 1.37 &amp; -0.63 &amp; -0.83 &amp; -2.63 \end{array} \right) $  记为矩阵P</p>
+<p>因为直线过原点只需考虑计算直线斜率，那么如果知道了直线的单位法向量 $ \vec n(n_1, n_2) $ ，对于任意样本点 $ (x_s, y_s) $ 该点的坐标向量与直线法向量 $ \vec n $ 的内积正好等于该点到直线的距离(同向为正, 反向为负)，即 </p>
+<script type="math/tex; mode=display">
+d_s =  \left(
+\begin{array}
+{ccc}
+x_s\\
+y_s
+\end{array}
+\right) \cdot \vec n</script><p>将距离带入距离公式 $ SS<em>d = \sum</em>{s=1}^nd_s^2 $</p>
+<p>得到新的公式</p>
+<script type="math/tex; mode=display">
+SS_d = \sum_{s=1}^n \left|\left( \begin{array} {ccc} x_s \\ y_s \end{array} \right) \cdot \vec n \right|^2 = \sum_{s=1}^n \vec n^T \left( \begin{array} {ccc} x_s \\ y_s \end{array} \right) （\begin{array} {ccc} x_s & y_s \end{array}）\vec n = \vec n^T \sum_{s=1}^n \left( \begin{array} {ccc} x_s \\ y_s \end{array} \right) （\begin{array} {ccc} x_s & y_s \end{array}）\vec n</script><p>其中 $ \sum_{s=1}^n \left( \begin{array} {ccc} x_s \ y_s \end{array} \right) （\begin{array} {ccc} x_s &amp; y_s \end{array}）= PP^T $  所以 $ SS_d = \vec n^TPP^T\vec n $  而 $ \frac{1}{n - 1}  PP^T $     就是原始数据的协方差矩阵。 </p>
+<p>对矩阵P进行SVD奇异值分解</p>
+<script type="math/tex; mode=display">
+P = U\Sigma V^T</script><script type="math/tex; mode=display">
+PP^T    = U\Sigma V^T(U\Sigma V^T)^T</script><script type="math/tex; mode=display">
+PP^T = U\Sigma V^TV\Sigma U^T</script><script type="math/tex; mode=display">
+PP^T = V\Sigma \Sigma V^T \qquad or \qquad PP^T = U\Sigma \Sigma U^T</script><script type="math/tex; mode=display">
+P^TPV = V\Sigma \Sigma \qquad or \qquad PP^TU = U\Sigma \Sigma</script><p> $ PP^T $的特征向量</p>
+<script type="math/tex; mode=display">
+P^TP \vec v_1 = \lambda_1 \vec v_1 \qquad P^TP \vec v_2 = \lambda_2 \vec v_2</script><p> 所以</p>
+<script type="math/tex; mode=display">
+V = \vec v_1 \vec v_2</script><p>而</p>
+<script type="math/tex; mode=display">
+\Sigma = \left( \begin{array} {ccc} \sigma_1 & 0 \\ 0 & \sigma_2 \end{array} \right)</script><script type="math/tex; mode=display">
+\Sigma \Sigma = \left( \begin{array} {ccc} \lambda_1 & 0 \\ 0 & \lambda_2 \end{array} \right)</script><p>所以</p>
+<script type="math/tex; mode=display">
+\lambda_1 = \sigma_1^2 \qquad \lambda_2 = \sigma_2^2</script><p>直线的法向方向应该为$ PP^T $ 最小特征值对应的特征方向。</p>
+<p>得到了直线的法向量，便可以获得直线的斜率</p>
+<script type="math/tex; mode=display">
+PP^T = \left( \begin{array} {ccc} 4.17 & 5.17 & 2.17 & -2.83 & -3.83 & -4.83  \\  2.37 & 0.37 & 1.37 & -0.63 & -0.83 & -2.63 \end{array} \right)
+\left( \begin{array} {ccc} 2.37 & 4.17 \\ 0.37 & 5.17 \\ 1.37 & 2.17 \\ -0.63 & -2.83 \\ -0.83 & -3.83 \\ -2.63 & -4.83 \end{array} \right) =\left( \begin{array} {ccc} 32.43 & 94.83 \\ 15.63 & 32.43 \end{array} \right)</script><script type="math/tex; mode=display">
+\lambda_1 = 65.52 对应特征向量 = \left( \begin{array} {ccc} 2.64 \\ 1 \end{array} \right)  \qquad \lambda_2 = -0.66 对应特征向量 = \left( \begin{array} {ccc} -2.64 \\ 1 \end{array} \right)</script><p>所以斜率为0.264</p>
+<h5 id="最小二乘数法无法计算PCA拟合直线"><a href="#最小二乘数法无法计算PCA拟合直线" class="headerlink" title="最小二乘数法无法计算PCA拟合直线"></a>最小二乘数法无法计算PCA拟合直线</h5><p>​    使用截距式表示上述直线，直线为ax + by = 0，由于上方直线过原点，所以截距b为0</p>
+<script type="math/tex; mode=display">
+d = \frac{|ax_s + by_s|}{\sqrt {a^2 + b^2}}</script><p>​    我们要使表达式 $ \sum<em>{s=1}^n[\frac{|ax_s + by_s|}{\sqrt {a^2 + b^2}}]^2 = \sum</em>{s=1}^n\frac{(ax_s + by_s)^2}{a^2 + b^2} $ 的值最小</p>
+<p>​    首先对a和b求偏导：</p>
+<script type="math/tex; mode=display">
+\frac{\sigma}{\sigma a}\sum_{s=1}^n\frac{(ax_s + by_s)^2}{a^2 + b^2} \\ 
+= \sum_{s=1}^n\frac{2x_s(ax_s + by_s)(a^2 + b^2) - 2a(ax_s + by_s)^2}{(a^2 + b^2)^2}\\ 
+= \sum_{s=1}^n\frac{2x_s^2a^3 + 2bx_sy_sa^2 + 2x_s^2ab^2 + 2b^3x_sy_s - 2a^3x_s^2 - 4a^2bx_sy_s - 2ab^2y_s^2}{a^4 + 2a^2b^2 + b^4} \\ 
+= \sum_{s=1}^n\frac{-2bx_sy_s a^2 + 2b^2(x_s^2 - y_s^2)a + 2b^3x_sy_s}{a^4 + 2a^2b^2 + b^4}</script><script type="math/tex; mode=display">
+\frac{\sigma}{\sigma b}\sum_{s=1}^n\frac{(ax_s + by_s)^2}{a^2 + b^2} \\ 
+= \sum_{s=1}^n\frac{2y_s(ax_s + by_s)(a^2 + b^2) - 2b(ax_s + by_s)^2}{(a^2 + b^2)^2} \\ 
+= \sum_{s=1}^n\frac{2a^3x_sy_s + 2a^2y_s^2b + 2ax_sy_sb^2 + 2y_s^2b^3 - 2a^2x_s^2b - 4ax_sy_sb^2 - 2y_s^2b^3}{a^4 + 2a^2b^2 + b^4} \\ 
+= \sum_{s=1}^n\frac{-2ax_sy_sb^2 + 2a^2(y_s^2 - x_s^2)b + 2a^3x_sy_s}{a^4 + 2a^2b^2 + b^4}</script><p>得到下方方程组</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+\sum_{s=1}^n\frac{-2ax_sy_sb^2 + 2a^2(y_s^2 - x_s^2)b + 2a^3x_sy_s}{a^4 + 2a^2b^2 + b^4} = 0 \\ 
+\sum_{s=1}^n\frac{-2bx_sy_s a^2 + 2b^2(x_s^2 - y_s^2)a + 2b^3x_sy_s}{a^4 + 2a^2b^2 + b^4} = 0
+\end{cases}</script><p>xy共轭，无法根据将上述方程组得到a与b的表达式，所以无法继续解得拟合直线。</p>
+<p>​    最终得到的这条直线被称为主成份1(PC1) y = 0.264x，斜率为0.264</p>
+<p><img src="/2021/03/20/PCA%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/PCA_10.png" alt="img"></p>
+<p>​    可以通过PC1的斜率得知属性1和属性2的线性组合为2.64:1，可以根据勾股定理求的属性1为3.1，属性2位1的样本点在PC1上，其到原点距离为，使用SVD计算PCA时将上述PC1方向样本缩放做标准化，使3.1作为单位长度等于1。最终得到属性1为$ 2.64 \div 2.82 = 0.94 $ 属性2为$ 1 \div 2.82 = 0.35 $ 最终得到PC1的特征向量$ \vec a = (0.94, 0.35) $，0.94与0.35则作为属性1与属性2的荷载得分。而上方的$ SS_d $ 也就是PC1的特征值。</p>
+<h3 id="3、计算PC2"><a href="#3、计算PC2" class="headerlink" title="3、计算PC2"></a>3、计算PC2</h3><p>​    经过原点做一条垂直于PC1的直线</p>
+<p><img src="/2021/03/20/PCA%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/PCA_11.png" alt="img"></p>
+<p>​    同样适用SVD计算得到PC2的特征向量$ \vec b = (-0.35, 0.94) $ -0.35与0.94则作为属性1与属性2的荷载得分。</p>
+<h3 id="4、获得最终PCA图"><a href="#4、获得最终PCA图" class="headerlink" title="4、获得最终PCA图"></a>4、获得最终PCA图</h3><p>​    将PC1与PC2旋转至水平与垂直，作为新的坐标系</p>
+<p><img src="/2021/03/20/PCA%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/PCA_12.png" alt="img"></p>
+<p>得到新的一组样本点</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>SampleA’</th>
+<th>SampleB’</th>
+<th>SampleC’</th>
+<th>SampleD’</th>
+<th>SampleE’</th>
+<th>SampleF’</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Attr1</strong></td>
+<td>4.74</td>
+<td>4.97</td>
+<td>2.51</td>
+<td>-2.87</td>
+<td>-3.88</td>
+<td>-5.45</td>
+</tr>
+<tr>
+<td><strong>Attr2</strong></td>
+<td>0.74</td>
+<td>-1.49</td>
+<td>0.51</td>
+<td>0.41</td>
+<td>0.58</td>
+<td>-0.75</td>
+</tr>
+</tbody>
+</table>
+</div>
+<script type="math/tex; mode=display">
+SS_{dpc1} = \sum_{S'=1}^nd_{a1S'}^2 \\ 
+                    = 4.74^2 + 4.97^2 + 2.51^2 + (-2.87)^2 + (-3.88)^2 + (-5.45)^2 \\ 
+                    = 106.46 \\ 
+SS_{dpc1} = \sum_{S'=1}^nd_{a2S'}^2 \\ 
+                    = 0.74^2 + (-1.49)^2 + 0.51^2 + 0.41^2 + 0.58^2 + (-0.75)^2 \\ 
+                    = 4.09</script><p>可以用上方的平方和除以样本点数量减一获得PC1与PC2围绕原点的的差异</p>
+<script type="math/tex; mode=display">
+V_{PC1} = \frac{SS_{dpc1}}{6 - 1} = \frac{93.25}{5} = 21.29 \\ 
+V_{PC1} = \frac{SS_{dpc2}}{6 - 1} = \frac{4.05}{5} = 0.82</script><p>最终通过计算得到碎石图所需数值</p>
+<script type="math/tex; mode=display">
+PC1 = \frac{18.65}{18.65 + 0.81} = 0.962 = 96.2\% \\  
+PC2 = \frac{18.65}{18.65 + 0.81} = 0.038 = 3.8\% \\</script><p><img src="/2021/03/20/PCA%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/PCA_13.png" alt="img"></p>
+<p>可以发现PC1可以96.2%的表示特征数据，可以使用PC1作为主轴将上述数据降低为一维矩阵 $ X_{PCA} $</p>
+<h2 id="三、ZCA白化"><a href="#三、ZCA白化" class="headerlink" title="三、ZCA白化"></a>三、ZCA白化</h2><p>​    ZCA白化必须先进行PCA首先将目标n维特征映射到k维上，但此时得到的数据已经被降为k纬度，但是对于图像处理来说，输入的特征矩阵就是像素矩阵，我们希望原图像维度不变，这时则需要对PCA处理完的数据进行旋转，将维度旋转回原先的n维，使得最终得到的数据尽可能的接近原始数据。</p>
+<p>​    即 $ X<em>{ZCA} = UX</em>{PCA} $</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/02/08/LFM%E9%99%8D%E7%BB%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/08/LFM%E9%99%8D%E7%BB%B4/" class="post-title-link" itemprop="url">LFM降维</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-08 15:59:41 / 修改时间：17:14:37" itemprop="dateCreated datePublished" datetime="2021-02-08T15:59:41+08:00">2021-02-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="LFM（Latent-Factor-Model）"><a href="#LFM（Latent-Factor-Model）" class="headerlink" title="LFM（Latent Factor Model）"></a>LFM（Latent Factor Model）</h1><p>​    LFM有监督的降维，其思想是尽可能使偷饮后同类型数据的方差尽可能小，不同类型数据距离近可能大。</p>
+<h2 id="矩阵因子分解"><a href="#矩阵因子分解" class="headerlink" title="矩阵因子分解"></a>矩阵因子分解</h2><p>​    假设存在$m\times n$的矩阵R，假如想要发现k个隐类（隐藏特征），则需要找到两个矩阵P(m特征矩阵)和Q（n调整矩阵），使这两个矩阵乘积等于R，即将R分解为两个低纬矩阵相乘。</p>
+<script type="math/tex; mode=display">
+\widehat{R}_{m\times n}=P_{m\times k}^T · Q_{k\times n} \approx R</script><h2 id="预测位置数值计算"><a href="#预测位置数值计算" class="headerlink" title="预测位置数值计算"></a>预测位置数值计算</h2><p>​    假如$R<em>{m\times n}$代表m个用户对n个物品的评分矩阵它是一个稀疏矩阵，则$P</em>{m\times k}$代表用户受k个隐藏特征的影响，$Q_{k\times n}$。代表物品受这k个隐藏特征的影响。</p>
+<p>所以以u代表某个用户，以i代表某个物品，预测用户u对i的评分。</p>
+<script type="math/tex; mode=display">
+r_{ui} = P_u^T·Q_i=\sum_{k=1}^KP_{uk}·Q_{ki}</script><p>​    最终通过每一个$r_{ui}$计算得到预测评分矩阵$\widehat R$就不是稀疏矩阵了，而如果$\widehat R$在对应位置的值与R相近则认为预测位置的值也是近似的。</p>
+<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><p>​    继续上面的例子矩阵分解得到的预测评分矩阵$\widehat R$与原评分矩阵R在已知的评分项上可能存在误差，需要找到一个最优的分解方式，让分解后的预测评分矩阵总误差最小。这是可以使用损失函数</p>
+<ul>
+<li><p>平方损失函数</p>
+<p>使用平方损失函数加入正则化项可以防止过拟合</p>
+<p>每一个预测评分都和原始评分做一个差值，之后平方求和后加正则化项（对$P_u$和$Q_i$做惩罚因为隐藏特征k越大PQ就会越复杂，越拟合）</p>
+<script type="math/tex; mode=display">
+C = \sum _{(u,i)\in R_o}(R_{ui}-\widehat R_{ui})^2 + Reg \\
+  = \sum_{(u,i)\in R_o}(R_{ui}-P_u^T·Q_i)^2 + \lambda \sum_u ||P_u||^2+\lambda \sum_i||Q_i||^2</script><p>其中$\lambda \sum_u ||P_u||^2+\lambda \sum_i||Q_i||^2$是正则化项，$\lambda$一般通过交叉验证得到</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/02/03/%E9%9A%90%E8%AF%AD%E4%B9%89%E6%A8%A1%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/03/%E9%9A%90%E8%AF%AD%E4%B9%89%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">隐语义模型</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-03 18:22:46 / 修改时间：18:33:17" itemprop="dateCreated datePublished" datetime="2021-02-03T18:22:46+08:00">2021-02-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="隐语义模型（Latent-Factor-Model，LFM）"><a href="#隐语义模型（Latent-Factor-Model，LFM）" class="headerlink" title="隐语义模型（Latent Factor Model，LFM）"></a>隐语义模型（Latent Factor Model，LFM）</h1><h2 id="隐语义模型处理的对象"><a href="#隐语义模型处理的对象" class="headerlink" title="隐语义模型处理的对象"></a>隐语义模型处理的对象</h2><p>​    隐语义模型是为了提取一些隐藏的特征来解释用户的某些行为，这类特征可能是无法直接用语言进行描述的，但这些类似“玄学”的特征我吗只需要知道它存在和影响的目标，而不需要知道它的具体含义。（啤酒和尿布）</p>
+<h2 id="使用矩阵分解进行降维分析"><a href="#使用矩阵分解进行降维分析" class="headerlink" title="使用矩阵分解进行降维分析"></a>使用矩阵分解进行降维分析</h2><p>​    在进行协同过滤运算时，非常依赖历史偏好数据，而这些偏好数据往往是稀疏的，所以需要对原始数据进行降维。降维分解后的矩阵，就代表了用户和物品的隐藏特性。</p>
+<h2 id="隐语义模型的实例"><a href="#隐语义模型的实例" class="headerlink" title="隐语义模型的实例"></a>隐语义模型的实例</h2><ul>
+<li>给予概率的隐语义分析（pLSA）</li>
+<li>隐式迪利克雷模型（LDA）</li>
+<li>矩阵因子分解模型（基于奇异值分解的模型，SVD）</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/02/03/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/03/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">推荐系统</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-03 13:38:43" itemprop="dateCreated datePublished" datetime="2021-02-03T13:38:43+08:00">2021-02-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-08 17:14:18" itemprop="dateModified" datetime="2021-02-08T17:14:18+08:00">2021-02-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><p>​    推荐系统是一个子类信息过滤系统，旨在根据目标角色过去的行为以及其他角色所做出的类似决策来构建模型，并使用该模型推荐具有相似属性的项目。当前推荐系统大多是组合了多种推荐算法的混合系统。</p>
+<h2 id="一、推荐系统目的"><a href="#一、推荐系统目的" class="headerlink" title="一、推荐系统目的"></a>一、推荐系统目的</h2><p>​    一个出色的推荐系统最终要实现的是用户、内容（目标项目）、使用推荐系统的平台三方共赢，而不，7777是成为资本家推送产品的帮凶。</p>
+<ol>
+<li>让用户更快速的获取到所需的目标内容</li>
+<li>让内容更快推送到具有特定偏好的用户中</li>
+<li>让使用推荐系统的平台更有效的保留用户资源</li>
+</ol>
+<h2 id="二、推荐算法"><a href="#二、推荐算法" class="headerlink" title="二、推荐算法"></a>二、推荐算法</h2><h3 id="1、协同过滤（Collaborative-Filtering）"><a href="#1、协同过滤（Collaborative-Filtering）" class="headerlink" title="1、协同过滤（Collaborative Filtering）"></a>1、协同过滤（Collaborative Filtering）</h3><p>​    协同过滤的理论基于一种假设：用户过去的决策与未来的决策不会发生变动，过去认同的属性在将来也会得到认同。推荐算法使用不同用户对目标项目的评级历史集来生成建议，通过在历史集中查找与当前用户有相似评级的用户，使用邻域（测试用户相似性与项目相似性如k-NN）生成推荐。</p>
+<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><ul>
+<li>具于近邻的协同过滤<ul>
+<li>基于用户（User-CF）</li>
+<li>基于物品（Item-CF）</li>
+</ul>
+</li>
+<li>给予模型的协同过滤<ul>
+<li>奇异值分解（SVD）</li>
+<li>潜在语义分析（LSA）</li>
+<li>支撑向量机（SVM）</li>
+</ul>
+</li>
+</ul>
+<h5 id="基于临近的推荐"><a href="#基于临近的推荐" class="headerlink" title="基于临近的推荐"></a>基于临近的推荐</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>大香蕉</th>
+<th>臭粑粑</th>
+<th>泥猴桃</th>
+<th>臭卤虾</th>
+<th>小汉堡</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>老八</td>
+<td>1</td>
+<td>5</td>
+<td>2</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr>
+<td>肥豪</td>
+<td>5</td>
+<td>1</td>
+<td></td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>郭一</td>
+<td>2</td>
+<td>？</td>
+<td>3</td>
+<td>5</td>
+<td>4</td>
+</tr>
+<tr>
+<td>房V</td>
+<td>4</td>
+<td>3</td>
+<td>5</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h6 id="基于用户的协同过滤"><a href="#基于用户的协同过滤" class="headerlink" title="基于用户的协同过滤"></a>基于用户的协同过滤</h6><ul>
+<li>基于用户对物品的偏好发现口味相似的用户“邻居”群体</li>
+<li>计算中采取类似knn获取k个临近用户根据临近用户的喜好对当前用户进行推荐</li>
+<li>User-CF与基于人口投机学推荐的差异在User-CF所需的数据是用户操作历史而不是用户本身特征</li>
+<li>一般用于处理物品数量远大于用户数量的情况（新闻）</li>
+</ul>
+<h6 id="基于物品的协同过滤"><a href="#基于物品的协同过滤" class="headerlink" title="基于物品的协同过滤"></a>基于物品的协同过滤</h6><ul>
+<li>基于用户对物品的评价发现类似物品群体</li>
+<li>计算方式与基于用户类似，筛选临近物品</li>
+<li>一般用于处理用户数量远大于物品数量的情况（电影、音乐）</li>
+</ul>
+<h5 id="基于模型的推荐"><a href="#基于模型的推荐" class="headerlink" title="基于模型的推荐"></a>基于模型的推荐</h5><p>​    抽象出模型使用机器学习算法训练模型进行推荐，与基于统计学的区别在于模型的建立相当于在用户行为数据中提取用户和物品特征而无需提前知道用户特征。</p>
+<p>​    特征分为显性特征（用户标签、物品分类标签）和隐性特征，显性特征可以直接匹配推荐，隐形特征则需要根据已有偏好通过隐语义模型（Latent Factor Model，LFM）发觉隐藏特征。</p>
+<ul>
+<li>用户有一定特征决定选择偏好（郭一喜欢NTR）</li>
+<li>物品有一定特征决定用户是否选择它（NTR的本子）</li>
+<li>用户选择物品的原因是因为用户特征与物品特征匹配（郭一选择NTR本子）</li>
+</ul>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>不依赖于机器可分析内容</li>
+<li>可以准确推荐复杂项目</li>
+<li>无需了解被推荐项目本身属性</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>对于历史集中未给出的新项目，没有足够数据来给出准确建议（冷启动）</li>
+<li>若历史集项目和用户数量巨大，则每次推荐都需要大量的计算能力（可伸缩性）</li>
+<li>大部分用户不会对全部项目进行评级，只会对一小部分项目进行评级（稀疏性）</li>
+<li>很难顾及口味特殊的“重口味”用户的喜好</li>
+</ul>
+<h3 id="2、基于内容的过滤（Content-based-Filtering）"><a href="#2、基于内容的过滤（Content-based-Filtering）" class="headerlink" title="2、基于内容的过滤（Content-based Filtering）"></a>2、基于内容的过滤（Content-based Filtering）</h3><p>​    基于内容的过滤使用项目属性和用户偏好通过机器学习的方法来进行推荐，一般适用于在项目有已知属性（名称、位置、描述等等）但用户没有已知数据的情况。基于内容的过滤最关键问题就是针对用户偏好的建模与通过抽取项目内在或外在的特征值，实现相似度计算。</p>
+<h4 id="物品特征提取"><a href="#物品特征提取" class="headerlink" title="物品特征提取"></a>物品特征提取</h4><ul>
+<li>物品特征打标签（tag）<ul>
+<li>专家标签（PGC）</li>
+<li>用户自定义标签（UGC）</li>
+<li>降维分析数据，提取隐语义标签（LFM）</li>
+</ul>
+</li>
+<li>文本信息提取关键词<ul>
+<li>分词、语义处理、情感分析（NLP）</li>
+<li>潜在语义分析（LSA）</li>
+</ul>
+</li>
+</ul>
+<h4 id="相似度计算"><a href="#相似度计算" class="headerlink" title="相似度计算"></a>相似度计算</h4><p>​    相似度的评判一般用距离表示，最常使用的是余弦相似度</p>
+<p><img src="/2021/02/03/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/cos.png" alt="img"></p>
+<ul>
+<li><p>欧式距离</p>
+<script type="math/tex; mode=display">
+d(x,y)=\sqrt{\sum_i(x_i-y_i)^2}</script><p>差向量模长</p>
+</li>
+<li><p>余弦相似度</p>
+<script type="math/tex; mode=display">
+cos\theta = \frac{a·b}{||a||\times||b||} = \frac{\sum_{i}x_iy_i}{\sqrt{\sum_{i}x_i^2}\times\sqrt{\sum_{i}y_i^2}}</script><p>两个向量的点积除以两个向量模长的乘积</p>
+</li>
+</ul>
+<h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>只需要用户对特征属性的偏好，而不需要用户对项目的评价（可以分析新项目）</li>
+<li>可以通过控制项目特征属性的维度来控制推荐精度</li>
+</ul>
+<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>物品属性最大纬度有限切提取属性困难</li>
+<li>可分析内容有限，推荐内容僵化</li>
+</ul>
+<h3 id="3、多标准推荐系统（Multi-criteria-recommender-systems）"><a href="#3、多标准推荐系统（Multi-criteria-recommender-systems）" class="headerlink" title="3、多标准推荐系统（Multi-criteria recommender systems）"></a>3、多标准推荐系统（Multi-criteria recommender systems）</h3><p>​    可以将多标准推荐系统（MCRS）定义为在多个标准上包含首选项信息的推荐系统。多标准推荐系统是基于对影响用户对项目总体偏好的多个标准来预测用户对新新项目的评级。</p>
+<h3 id="4、有风险意识的推荐系统（Risk-aware-recommender-systems）"><a href="#4、有风险意识的推荐系统（Risk-aware-recommender-systems）" class="headerlink" title="4、有风险意识的推荐系统（Risk-aware recommender systems）"></a>4、有风险意识的推荐系统（Risk-aware recommender systems）</h3><p>​    有风险意识的推荐系统不止根据上下文信息而产出推荐内容，而且考虑了某些情况下产出推荐的风险。多采用DRARS，将上下文感知建通过<a href="https://en.wikipedia.org/wiki/Multi-armed_bandit" target="_blank" rel="noopener">多臂老虎机算法</a>进行建模。</p>
+<h3 id="5、移动推荐系统（Mobile-recommender-systems）"><a href="#5、移动推荐系统（Mobile-recommender-systems）" class="headerlink" title="5、移动推荐系统（Mobile recommender systems）"></a>5、移动推荐系统（Mobile recommender systems）</h3><p>​    移动推荐系统通过可以访问互联网等我移动设备提供个性化推荐（如驾驶路线推荐）其需要处理的数据异构而嘈杂。一般存在四个关键因素：上下文、推荐方法、隐私和地方政策。</p>
+<h3 id="6、基于会话的推荐系统（Session-based-recommender-systems）"><a href="#6、基于会话的推荐系统（Session-based-recommender-systems）" class="headerlink" title="6、基于会话的推荐系统（Session-based recommender systems）"></a>6、基于会话的推荐系统（Session-based recommender systems）</h3><p>​    基于会话的推荐系统使用会话中与用户的交互，在无需用户行为历史记录的情况下，根据最近会话交互顺序使用例如递归神经网络之类的深度学习算法生成顺序模型。</p>
+<h3 id="7、强化学习推荐系统（Reinforcement-learning-for-recommender-systems）"><a href="#7、强化学习推荐系统（Reinforcement-learning-for-recommender-systems）" class="headerlink" title="7、强化学习推荐系统（Reinforcement learning for recommender systems）"></a>7、强化学习推荐系统（Reinforcement learning for recommender systems）</h3><p>​    强化学习推荐系统通过直接训练用户参与度对用户兴趣模型进行优化（如有奖调查💪👴👉爪巴）通过向被推荐对象提供奖励来学习模型或策略。</p>
+<h3 id="8、混合推荐系统（Hybrid-recommender-systems）"><a href="#8、混合推荐系统（Hybrid-recommender-systems）" class="headerlink" title="8、混合推荐系统（Hybrid recommender systems）"></a>8、混合推荐系统（Hybrid recommender systems）</h3><p>​    混合推荐系统是当前大多数推荐系统使用的方法，其主要策略是将协作过滤、基于内容过滤等和其他方法结合在一起，对不同技术进行杂交混合。</p>
+<p>​    混合方法：</p>
+<ul>
+<li>加权（Weighted）：将不同推荐成分加权进行组合</li>
+<li>变换（Switching）：推荐时在不同推荐算法组件中进行切换</li>
+<li>混合（Mixed）：将来自不同算法的结果混合显示给用户</li>
+<li>特征组合（Feature Combination）：将不同知识来源的特征进行组合，提供给单个推荐算法</li>
+<li>特征增强（Feature Augmentation）：将一种算法产生的附加的特征信息嵌入另一种推荐算法的特征输入中</li>
+<li>级联（Cascade）：一个算法的结果作为另一个算法的输入</li>
+<li>元级别（Meta-Ievel)）：用一种推荐方法产生的模型作为另一种推荐方法的输入</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/02/02/TF-IDF%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/02/TF-IDF%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">TF-IDF算法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-02 15:25:09 / 修改时间：21:36:41" itemprop="dateCreated datePublished" datetime="2021-02-02T15:25:09+08:00">2021-02-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="TF-IDF算法"><a href="#TF-IDF算法" class="headerlink" title="TF-IDF算法"></a>TF-IDF算法</h1><h2 id="一、TF-IDF概念"><a href="#一、TF-IDF概念" class="headerlink" title="一、TF-IDF概念"></a>一、TF-IDF概念</h2><p>​    词频-逆文档频率（Term Frequency-Inverse Document Frequency，TD-IDF）是一种用于文本挖掘与信息检索的常用自然语言处理技术。</p>
+<p>​    TF-IDF属于统计方法，用于评估一个word对于一个文件集或语料库中的其中一份文件的重要程度（提取文档关键词）。word的重要性随着其在文件中出现的次数成正比增加，但同时会随着其在语料库中出现的频率成反比下降。</p>
+<script type="math/tex; mode=display">
+TFIDF = TF(词频) \times IDF（逆文档频率）</script><h2 id="二、TF-IDF主要思想"><a href="#二、TF-IDF主要思想" class="headerlink" title="二、TF-IDF主要思想"></a>二、TF-IDF主要思想</h2><p>​    TD-IDF的主要思想是如果某个词语或短语在一片文章中出现的的频率TF高，并且在其他文章中很少出现（IDF低），则认为该词或短语有很好的类别区分能力，适合用来分类。</p>
+<p>​    例如，我们用狗屁不通文章生成器以“郭一”为主题生成一篇文章。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">这是不可避免的。我们高兴地发现，郭一是一个好消息。高汀说过一句著名的话，习惯，我们每个人或多或少都是它的奴隶。这不禁令我深思。别林斯基曾经提到过，好的书籍是最贵重的珍宝。这句话语虽然很短，但令我浮想联翩。 这些事实也清楚地表明我们应该郭一。一般来讲，我们都必须务必慎重地考虑考虑。那么，郭沫若说过一句著名的话，形成天才的决定因素应该是勤奋。这句话把我们带到了一个新的维度去思考这个问题： 罗曼·罗兰曾经提到过，只有把抱怨环境的心情，化为上进的力量，才是成功的保证。我希望诸位也能好好地体会这句话。 郭一的发生，到底需要如何做到，不郭一的发生，又会如何产生。本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。我强烈建议郭一，既然如此，我希望大家本着知无不言、言无不尽、言者无罪、闻者足戒的精神，认真看待郭一这个重要问题。 </span><br><span class="line">总而言之，整个社会应该密切关注郭一这个问题。 </span><br><span class="line"> 莎士比亚曾经提到过，时间会刺破青春表面的彩饰，会在美人的额上掘深沟浅槽；会吃掉稀世之珍！天生丽质，什么都逃不过他那横扫的镰刀。这句话语虽然很短，但令我浮想联翩。 从这个角度来看，既然如此，我们要统一思想，统一步骤地，为了根本解决郭一的问题而努力。我们都知道，只要有意义，那么就必须慎重考虑。这些事实也清楚地表明我们应该郭一。我们一般认为，抓住了问题的关键，其他一切就会迎刃而解。问题的关键究竟为何？尽管不同问题人们有着不同观点，但是郭一正愈来愈成为人们的共识。可是，即使是这样，郭一的出现仍然代表了一定的意义。 </span><br><span class="line"> 郭一似乎是一种巧合，但如果我们从一个更大的角度看待问题，这似乎是一种不可避免的事实。鲁迅曾经说过，单是说不行，要紧的是做。这不禁令我深思。随着社会的发展变化，对我个人而言，郭一不仅仅是一个重大的事件，还可能会改变我的人生。尽管不同问题人们有着不同观点，但是郭一正愈来愈成为人们的共识。总之，我认为，对我个人而言，郭一不仅仅是一个重大的事件，还可能会改变我的人生。郭一，到底应该如何实现。一般来说，首先，也许是最重要的是郭一。而这些并不是完全重要，更加重要的问题是，可是，即使是这样，郭一的出现仍然代表了一定的意义。要想清楚，郭一，到底是一种怎么样的存在。郭一因何而发生？首先，也许是最重要的是郭一。带着这些问题，我们来审视一下郭一。从这个角度来看，每个人都不得不面对这些问题。在面对这种问题时，歌德在不经意间这样说过，谁要游戏人生，他就一事无成，谁不能主宰自己，永远是一个奴隶。这句话语虽然很短，但令我浮想联翩。</span><br></pre></td></tr></table></figure>
+<p>​    我们很清楚，这篇文章中的主题是“郭一”，但若单靠词频提取，可能“的”“了”之类的词出现的频率更高，这时便要给它们一个惩罚，这就是TF-IDF的主要思想。</p>
+<h2 id="三、TF与IDF的计算"><a href="#三、TF与IDF的计算" class="headerlink" title="三、TF与IDF的计算"></a>三、TF与IDF的计算</h2><h3 id="1、词频（TF）"><a href="#1、词频（TF）" class="headerlink" title="1、词频（TF）"></a>1、词频（TF）</h3><p>​    词频指的是给定的一个词语在该文档中出现的频率。这个数字是对词数的归一化，以防止计算结果偏向词书多的长文件。</p>
+<script type="math/tex; mode=display">
+TF_{i,j}=\frac{n_{i,j}}{n_{*,j}}</script><p>​    其中$TF<em>{i,j}$表示词语i在文档j中出现的频率，$n</em>{i,j}$表示词语i在文档j中出现的次数，$n_{*,j}$表示文档j的总词数。</p>
+<h3 id="2、逆向文件频率（IDF）"><a href="#2、逆向文件频率（IDF）" class="headerlink" title="2、逆向文件频率（IDF）"></a>2、逆向文件频率（IDF）</h3><p>​    逆向文件频率是一个词语普遍重要性的度量，某一特定词语的IDF可以由总文档数目处以包含该词语之文档的数目，再将其得到的商取对数获得。</p>
+<script type="math/tex; mode=display">
+IDF_i = log(\frac{N+1}{N_i+1})</script><p>​    其中$IDF_i$表示词语i在文档集中的逆文档频率，N表示文档集中的文档总数，$N_i$表示文档集中包含了词语I的文档数量。</p>
+<h2 id="四、算法实现"><a href="#四、算法实现" class="headerlink" title="四、算法实现"></a>四、算法实现</h2><p>​    这里我使用了TF-IDF算法简单实现了一个<a href="https://github.com/suvvm/BullshitDecoder" target="_blank" rel="noopener">狗屁不通文章解码器</a>，通过TF-IDF算法确定文章主题并推测最初关键词。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/02/01/%E7%B1%BB%E5%88%AB%E5%9E%8B%E7%89%B9%E5%BE%81%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/01/%E7%B1%BB%E5%88%AB%E5%9E%8B%E7%89%B9%E5%BE%81%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">类别型特征处理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-01 16:12:33 / 修改时间：16:14:06" itemprop="dateCreated datePublished" datetime="2021-02-01T16:12:33+08:00">2021-02-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="类别型特征处理"><a href="#类别型特征处理" class="headerlink" title="类别型特征处理"></a>类别型特征处理</h1><p>​    类别型数据本身没有大小关系，需要将它们编码为数字，但它们之间不能有预先设定的大小关系，比如lsp看妹子，妹子国籍为美国、苏联、勃艮第不能简单的标识为1、2、3，因此既要做到公平，又要区分开它们。</p>
+<h2 id="One-Hot-编码-哑变量"><a href="#One-Hot-编码-哑变量" class="headerlink" title="One-Hot 编码/哑变量"></a>One-Hot 编码/哑变量</h2><p>One-Hot 编码/哑变量所做的就是将类别型数据平行地展开，也就是经过One-Hot 编码/哑变量处理后，这条特征空间会膨胀。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>国家_苏联</th>
+<th>国家_美国</th>
+<th>国家_勃艮第</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>苏联</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>美国</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>勃艮第</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/02/01/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E5%8F%8D%E9%A6%88%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/01/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E5%8F%8D%E9%A6%88%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">推荐系统反馈数据</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-01 15:29:58 / 修改时间：16:44:55" itemprop="dateCreated datePublished" datetime="2021-02-01T15:29:58+08:00">2021-02-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="推荐系统反馈数据"><a href="#推荐系统反馈数据" class="headerlink" title="推荐系统反馈数据"></a>推荐系统反馈数据</h1><h2 id="显示反馈数据"><a href="#显示反馈数据" class="headerlink" title="显示反馈数据"></a>显示反馈数据</h2><ul>
+<li><p>评分（整数量化偏好）</p>
+<p>通过用户评分可以精确地道用户偏好</p>
+</li>
+<li><p>投票（布尔量化偏好）</p>
+<p>通过用户投票可以较为精确的得到用户的相对偏好</p>
+</li>
+<li><p>转发（布尔量化偏好）</p>
+<p>通过转发行为可以精确的得到用户偏好（转发人被转发人）</p>
+</li>
+<li><p>保存/收藏（布尔量化偏好）</p>
+<p>收藏行为可以精确的暴露用户偏好</p>
+</li>
+<li><p>打标签（词汇表明偏好）</p>
+<p>用户的标签多为有意义的特性短语，可以得到用户对项目的理解从而获得用户偏好</p>
+</li>
+<li><p>评论（段落文字表明偏好）</p>
+<p>通过分析用户评论，可以得到用户情感：对项目喜爱或厌恶，从而得到用户偏好</p>
+</li>
+</ul>
+<h2 id="隐式数据反馈"><a href="#隐式数据反馈" class="headerlink" title="隐式数据反馈"></a>隐式数据反馈</h2><ul>
+<li><p>点击浏览（通过分析一组用户点击的项目获得偏好）</p>
+<p>用户点击一定程度上反映了用户的注意点，可以在一定程度上表明用户偏好</p>
+</li>
+<li><p>目标项目停留时间（分析一组时间数据获得用户偏好）</p>
+<p>用户停留时间一定程度反映了用户的偏好，但噪声较大不好利用</p>
+</li>
+<li><p>处理决定（布尔量化偏好）</p>
+<p>如购买或其他决定性用户行为可以明确的说明用户偏好</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/02/01/%E6%97%B6%E9%97%B4%E5%9E%8B%E7%89%B9%E5%BE%81%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/01/%E6%97%B6%E9%97%B4%E5%9E%8B%E7%89%B9%E5%BE%81%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">时间型特征处理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-01 15:19:58 / 修改时间：16:20:03" itemprop="dateCreated datePublished" datetime="2021-02-01T15:19:58+08:00">2021-02-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="时间型特征处理"><a href="#时间型特征处理" class="headerlink" title="时间型特征处理"></a>时间型特征处理</h1><p>​    时间类型特征即可以看做连续值，又可以看作离散值。</p>
+<h2 id="连续值"><a href="#连续值" class="headerlink" title="连续值"></a>连续值</h2><ul>
+<li>持续时间</li>
+<li>间隔时间</li>
+</ul>
+<h2 id="离散值"><a href="#离散值" class="headerlink" title="离散值"></a>离散值</h2><ul>
+<li>具体的时间点/时间段</li>
+<li>特定的时间类型（节假日/工作日/周末/摸鱼日）</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/02/01/%E7%BB%9F%E8%AE%A1%E5%9E%8B%E7%89%B9%E5%BE%81%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/01/%E7%BB%9F%E8%AE%A1%E5%9E%8B%E7%89%B9%E5%BE%81%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">统计型特征处理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-01 15:19:58 / 修改时间：16:24:06" itemprop="dateCreated datePublished" datetime="2021-02-01T15:19:58+08:00">2021-02-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="统计型特征处理"><a href="#统计型特征处理" class="headerlink" title="统计型特征处理"></a>统计型特征处理</h1><ul>
+<li>加减平均（价格高于平均多少）</li>
+<li>分位线（商品处于出售商品价格分位线处）</li>
+<li>次序性（商品处于热门商品第几位）</li>
+<li>比例类（好/中/差评比例）</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SUVVM"
+      src="/images/ortrait.jpg">
+  <p class="site-author-name" itemprop="name">SUVVM</p>
+  <div class="site-description" itemprop="description">SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/suvvm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;suvvm" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/suvvm@foxmail.com" title="E-Mail → suvvm@foxmail.com"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SUVVM</span>
+	<a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鲁ICP备19040043号-2</a>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

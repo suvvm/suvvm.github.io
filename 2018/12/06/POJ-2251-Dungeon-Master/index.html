@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ortrait.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.suvvm.work","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="You are trapped in a 3D dungeon and need to find the quickest way out! The dungeon is composed of unit cubes which may or may not be filled with rock. It takes one minute to move one unit north, sou">
+<meta property="og:type" content="article">
+<meta property="og:title" content="POJ 2251 Dungeon Master">
+<meta property="og:url" content="https://www.suvvm.work/2018/12/06/POJ-2251-Dungeon-Master/index.html">
+<meta property="og:site_name" content="SUVVM">
+<meta property="og:description" content="You are trapped in a 3D dungeon and need to find the quickest way out! The dungeon is composed of unit cubes which may or may not be filled with rock. It takes one minute to move one unit north, sou">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-12-06T12:11:27.000Z">
+<meta property="article:modified_time" content="2020-12-19T14:05:00.647Z">
+<meta property="article:author" content="SUVVM">
+<meta property="article:tag" content="BFS（广度优先搜索)">
+<meta property="article:tag" content="POJ">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.suvvm.work/2018/12/06/POJ-2251-Dungeon-Master/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>POJ 2251 Dungeon Master | SUVVM</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e5190116d64be66cac29daef18c94ac0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">SUVVM</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">呜嗷SUVVM</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2018/12/06/POJ-2251-Dungeon-Master/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          POJ 2251 Dungeon Master
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-06 20:11:27" itemprop="dateCreated datePublished" datetime="2018-12-06T20:11:27+08:00">2018-12-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>　　You are trapped in a 3D dungeon and need to find the quickest way out! The dungeon is composed of unit cubes which may or may not be filled with rock. It takes one minute to move one unit north, south, east, west, up or down. You cannot move diagonally and the maze is surrounded by solid rock on all sides. </p>
+<p>　　Is an escape possible? If yes, how long will it take? </p>
+<p>Input</p>
+<p>　　The input consists of a number of dungeons. Each dungeon description starts with a line containing three integers L, R and C (all limited to 30 in size).<br>　　L is the number of levels making up the dungeon.<br>　　R and C are the number of rows and columns making up the plan of each level.<br>Then there will follow L blocks of R lines each containing C characters. Each character describes one cell of the dungeon. A cell full of rock is indicated by a ‘#’ and empty cells are represented by a ‘.’. Your starting position is indicated by ‘S’ and the exit by the letter ‘E’. There’s a single blank line after each level. Input is terminated by three zeroes for L, R and C.</p>
+<p>Output</p>
+<p>　　Each maze generates one line of output. If it is possible to reach the exit, print a line of the form </p>
+<p> Escaped in x minute(s). </p>
+<p> where x is replaced by the shortest time it takes to escape.<br>　　If it is not possible to escape, print the line  </p>
+<p> Trapped! </p>
+<p>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">3 4 5</span><br><span class="line">S....</span><br><span class="line">.###.</span><br><span class="line">.##..</span><br><span class="line">###.#</span><br><span class="line"></span><br><span class="line">#####</span><br><span class="line">#####</span><br><span class="line">##.##</span><br><span class="line">##...</span><br><span class="line"></span><br><span class="line">#####</span><br><span class="line">#####</span><br><span class="line">#.###</span><br><span class="line">####E</span><br><span class="line"></span><br><span class="line">1 3 3</span><br><span class="line">S##</span><br><span class="line">#E#</span><br><span class="line">###</span><br><span class="line"></span><br><span class="line">0 0 0</span><br></pre></td></tr></table></figure>
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Escaped in 11 minute(s).</span><br><span class="line">Trapped!</span><br></pre></td></tr></table></figure>
+<p>解题思路：<br>　　本题有多组测数据，每组数据包括第一行输入3个整数，分别为 l 地牢层数、 r 每次地牢行数， c 每层地牢列数。</p>
+<p>　　之后输入 l 个矩阵，分别为地牢每层的状态。</p>
+<p>　　其中’ # ‘表示该位置充满岩石；</p>
+<p>　　‘ . ‘表示空地；</p>
+<p>　　‘ S ‘表示起点；</p>
+<p>　　‘ E ‘表示终点；</p>
+<p>　　以 l r c 输入都为0为结束标准。</p>
+<p>　　要求按格式输出从起点到终点的最短时间，若不能逃脱输出Trapped!</p>
+<p>　　本题可以使用bfs基本思想为，从起点开始向周围东西南北上下6个方向搜索，使用一个队列记录当前可用起点，每次取出一个点并将其可以抵达且还没有抵达过的点加入队列，并将其步数记录为先前点的步数加一，当找到终点时，到终点的最短时间就是到终点所需的步数，若直到队列为空，即没有可用起点，则证明终点不可达，输出Trapped!</p>
+<p>　　这里将 l 视为z、 将r 视为x，将c视为y，使用一个char型的三维数组mapn记录地牢，由于给出的每个矩阵代表每层的信息，所以输入矩阵时按层输入。用三维布尔数组vis记录地牢内该位置是否已经抵达过，用一个结构体node记录该点信息与抵达该点所需的步数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BFS</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z)</span></span>&#123;   <span class="comment">//传入起点位置</span></span><br><span class="line">    Node.x = x;</span><br><span class="line">    Node.y = y;</span><br><span class="line">    Node.z = z;</span><br><span class="line">    Node.step = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//记录抵达起点所需的步数为0</span></span><br><span class="line">    vis[x][y][z] = <span class="literal">true</span>;</span><br><span class="line">    <span class="comment">//标记起点为已抵达</span></span><br><span class="line">    <span class="built_in">queue</span>&lt;node&gt; Q;</span><br><span class="line">    Q.push(Node);</span><br><span class="line">    <span class="comment">//起点入队</span></span><br><span class="line">    <span class="keyword">while</span>(!Q.empty())&#123;</span><br><span class="line">        node top = Q.front();</span><br><span class="line">        <span class="comment">//取出队首点寻找其周围可达的位置</span></span><br><span class="line">        <span class="keyword">if</span>(top.x == ex &amp;&amp; top.y == ey &amp;&amp; top.z == ez)</span><br><span class="line">            <span class="keyword">return</span> top.step;    <span class="comment">//若队首为终点证明可以逃脱，返回所需步数</span></span><br><span class="line">        Q.pop();    <span class="comment">//队首点出队</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">6</span>; i++)&#123; <span class="comment">//遍历周围四个位置</span></span><br><span class="line">            <span class="comment">//newX newY newZ为新的位置</span></span><br><span class="line">            <span class="keyword">int</span> newX = top.x + X[i];</span><br><span class="line">            <span class="keyword">int</span> newY = top.y + Y[i];</span><br><span class="line">            <span class="keyword">int</span> newZ = top.z + Z[i];</span><br><span class="line">            <span class="keyword">if</span>(judge(newX, newY, newZ))&#123;    <span class="comment">//判断新的位置是否可以走</span></span><br><span class="line">                Node.x = newX;</span><br><span class="line">                Node.y = newY;</span><br><span class="line">                Node.z = newZ;</span><br><span class="line">                Node.step = top.step + <span class="number">1</span>;   <span class="comment">//记录可以走的新的位置步数为top步数加一</span></span><br><span class="line">                vis[newX][newY][newZ] = <span class="literal">true</span>;   <span class="comment">//标记新位置为已抵达</span></span><br><span class="line">                Q.push(Node);   <span class="comment">//新位置入队</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;  <span class="comment">//若不可达返回-1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​        判断位置可以走的要求时不超地牢边界不是岩石且之前没走过。</p>
+<p>　　AC代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">35</span>;</span><br><span class="line"><span class="keyword">int</span> l, r, c;    <span class="comment">//记录层数列数与行数</span></span><br><span class="line"><span class="keyword">int</span> bx, by, bz, ex, ey, ez;</span><br><span class="line"><span class="comment">//记录起点与终点坐标</span></span><br><span class="line"><span class="keyword">char</span> mapn[maxn][maxn][maxn];    <span class="comment">//记录地牢</span></span><br><span class="line"><span class="keyword">bool</span> vis[maxn][maxn][maxn] = &#123;<span class="literal">false</span>&#125;;   <span class="comment">//某点是否走过</span></span><br><span class="line"><span class="comment">//周围6个方向</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> X[<span class="number">6</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> Y[<span class="number">6</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> Z[<span class="number">6</span>] = &#123;<span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> x, y, z;    <span class="comment">//记录当前点位置</span></span><br><span class="line">    <span class="keyword">int</span> step;   <span class="comment">//记录当前点步数</span></span><br><span class="line">&#125;Node;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">0</span> || x &gt;= r || y &lt; <span class="number">0</span> || y &gt;= c || z &lt; <span class="number">0</span> || z &gt;= l)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;   <span class="comment">//超边界返回false</span></span><br><span class="line">    <span class="keyword">if</span>(mapn[x][y][z] == <span class="string">'#'</span> || vis[x][y][z])</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;   <span class="comment">//目标点为岩石或之前走过返回false</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BFS</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z)</span></span>&#123;   <span class="comment">//传入起点位置</span></span><br><span class="line">    Node.x = x;</span><br><span class="line">    Node.y = y;</span><br><span class="line">    Node.z = z;</span><br><span class="line">    Node.step = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//记录抵达起点所需的步数为0</span></span><br><span class="line">    vis[x][y][z] = <span class="literal">true</span>;</span><br><span class="line">    <span class="comment">//标记起点为已抵达</span></span><br><span class="line">    <span class="built_in">queue</span>&lt;node&gt; Q;</span><br><span class="line">    Q.push(Node);</span><br><span class="line">    <span class="comment">//起点入队</span></span><br><span class="line">    <span class="keyword">while</span>(!Q.empty())&#123;</span><br><span class="line">        node top = Q.front();</span><br><span class="line">        <span class="comment">//取出队首点寻找其周围可达的位置</span></span><br><span class="line">        <span class="keyword">if</span>(top.x == ex &amp;&amp; top.y == ey &amp;&amp; top.z == ez)</span><br><span class="line">            <span class="keyword">return</span> top.step;    <span class="comment">//若队首为终点证明可以逃脱，返回所需步数</span></span><br><span class="line">        Q.pop();    <span class="comment">//队首点出队</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">6</span>; i++)&#123; <span class="comment">//遍历周围四个位置</span></span><br><span class="line">            <span class="comment">//newX newY newZ为新的位置</span></span><br><span class="line">            <span class="keyword">int</span> newX = top.x + X[i];</span><br><span class="line">            <span class="keyword">int</span> newY = top.y + Y[i];</span><br><span class="line">            <span class="keyword">int</span> newZ = top.z + Z[i];</span><br><span class="line">            <span class="keyword">if</span>(judge(newX, newY, newZ))&#123;    <span class="comment">//判断新的位置是否可以走</span></span><br><span class="line">                Node.x = newX;</span><br><span class="line">                Node.y = newY;</span><br><span class="line">                Node.z = newZ;</span><br><span class="line">                Node.step = top.step + <span class="number">1</span>;   <span class="comment">//记录可以走的新的位置步数为top步数加一</span></span><br><span class="line">                vis[newX][newY][newZ] = <span class="literal">true</span>;   <span class="comment">//标记新位置为已抵达</span></span><br><span class="line">                Q.push(Node);   <span class="comment">//新位置入队</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;  <span class="comment">//若不可达返回-1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;l, &amp;r, &amp;c) != EOF &amp;&amp; l &amp;&amp; r &amp;&amp;c)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> z = <span class="number">0</span>; z &lt; l; z++)&#123; <span class="comment">//按层输入</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; r; x++)&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; c; y++)&#123;</span><br><span class="line">                    <span class="built_in">cin</span> &gt;&gt; mapn[x][y][z];</span><br><span class="line">                    <span class="keyword">if</span>(mapn[x][y][z] == <span class="string">'S'</span>)&#123;   <span class="comment">//获取起点终点位置</span></span><br><span class="line">                        bx = x, by = y, bz = z;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span>(mapn[x][y][z] == <span class="string">'E'</span>)&#123;</span><br><span class="line">                        ex = x, ey = y, ez = z;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">memset</span>(vis, <span class="literal">false</span>, <span class="keyword">sizeof</span>(vis));</span><br><span class="line">        <span class="comment">//初始化所有点为未抵达</span></span><br><span class="line">        <span class="keyword">int</span> ans = BFS(bx, by, bz);</span><br><span class="line">        <span class="comment">//获取步数</span></span><br><span class="line">        <span class="keyword">if</span>(ans == <span class="number">-1</span>)&#123;  <span class="comment">//-1为不逃脱</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Trapped!\n"</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Escaped in %d minute(s).\n"</span>, ans);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/BFS%EF%BC%88%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" rel="tag"># BFS（广度优先搜索)</a>
+              <a href="/tags/POJ/" rel="tag"># POJ</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/05/HDU-3085-Nightmare-%E2%85%A1/" rel="prev" title="HDU 3085 Nightmare Ⅱ">
+      <i class="fa fa-chevron-left"></i> HDU 3085 Nightmare Ⅱ
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/12/07/HDU-1495-%E9%9D%9E%E5%B8%B8%E5%8F%AF%E4%B9%90/" rel="next" title="HDU 1495 非常可乐">
+      HDU 1495 非常可乐 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SUVVM"
+      src="/images/ortrait.jpg">
+  <p class="site-author-name" itemprop="name">SUVVM</p>
+  <div class="site-description" itemprop="description">SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/suvvm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;suvvm" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/suvvm@foxmail.com" title="E-Mail → suvvm@foxmail.com"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SUVVM</span>
+	<a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鲁ICP备19040043号-2</a>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ortrait.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.suvvm.work","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Java琐碎知识点汇总 javac指令有些类似于make 会自动寻找并编译对应依赖的类，java编译器在编译源文件时不检查目录结构，但若类类与其对应的包目录不匹配，虚拟机就找不到类 JAR文件使用ZIP格式组织文件和子目录，可用使用所有ZIP使用程序查看JAR文件内部 char类型一般不建议使用（⑪占2个代码单元），建议将字符串作为抽线数据类型处理（除非确实要处理UTF16代码单元）  布尔类型值">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java琐碎知识点汇总">
+<meta property="og:url" content="https://www.suvvm.work/2020/03/16/Java%E7%90%90%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/index.html">
+<meta property="og:site_name" content="SUVVM">
+<meta property="og:description" content="Java琐碎知识点汇总 javac指令有些类似于make 会自动寻找并编译对应依赖的类，java编译器在编译源文件时不检查目录结构，但若类类与其对应的包目录不匹配，虚拟机就找不到类 JAR文件使用ZIP格式组织文件和子目录，可用使用所有ZIP使用程序查看JAR文件内部 char类型一般不建议使用（⑪占2个代码单元），建议将字符串作为抽线数据类型处理（除非确实要处理UTF16代码单元）  布尔类型值">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-16T09:53:06.000Z">
+<meta property="article:modified_time" content="2020-12-19T14:05:00.641Z">
+<meta property="article:author" content="SUVVM">
+<meta property="article:tag" content="知识点汇总">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.suvvm.work/2020/03/16/Java%E7%90%90%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java琐碎知识点汇总 | SUVVM</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e5190116d64be66cac29daef18c94ac0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">SUVVM</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">呜嗷SUVVM</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/03/16/Java%E7%90%90%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java琐碎知识点汇总
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-16 17:53:06" itemprop="dateCreated datePublished" datetime="2020-03-16T17:53:06+08:00">2020-03-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Java琐碎知识点汇总"><a href="#Java琐碎知识点汇总" class="headerlink" title="Java琐碎知识点汇总"></a>Java琐碎知识点汇总</h1><ul>
+<li>javac指令有些类似于make 会自动寻找并编译对应依赖的类，java编译器在编译源文件时不检查目录结构，但若类类与其对应的包目录不匹配，虚拟机就找不到类</li>
+<li>JAR文件使用ZIP格式组织文件和子目录，可用使用所有ZIP使用程序查看JAR文件内部</li>
+<li>char类型一般不建议使用（⑪占2个代码单元），建议将字符串作为抽线数据类型处理（除非确实要处理UTF16代码单元） </li>
+<li>布尔类型值与整形值不能相互转换 (if (x = 0) 不能编译通过)</li>
+<li>JAVA不区分变量的声明与定义 (int i = 10 or extern int i)</li>
+<li>整数被零除产生除零异常 浮点数被0除产生无穷大或NaN</li>
+<li>可以通过为类或方法添加strictfp关键词，其所有指令都将使用严格浮点数计算（可能产生溢出）</li>
+<li>有精度丢失的整型向浮点型的类型转换 int-&gt;float long-&gt;float long-&gt;double</li>
+<li>Java字符串为不可变字符串，对字符串变量的修改实际为使其引用另一字符串</li>
+<li>Java不允许内层定义的变量覆盖外层定义的变量</li>
+<li>长度为0的数组与null值不同</li>
+<li>main函数args数组用来存放命令行参数（如java DemoClass -g AAA BBB args[0] = “-g” args[1] = “AAA” args[2] = “BBB”）</li>
+<li>Java没有严格意义上的多维数组，其实现为元素为数组的数组</li>
+<li>局部变量不会自动初始化为null，必须调用new 或将其设为null进行初始化</li>
+<li>关键词this表示当前方法隐式参数</li>
+<li>Java method参数使用情况:<ul>
+<li>方法不能修改基本数据类型的参数</li>
+<li>方法可以改变对象参数的状态</li>
+<li>方法不能让对象参数引用一个新的参数</li>
+</ul>
+</li>
+<li>Java默认域初始化:<pre><code>如果在构造器中没有显示的对域赋予初值，将被自动赋为默认值（数值为0、布尔为false、对象引用为null）
+</code></pre></li>
+<li>当且仅当一个类不存在任何构造器时系统才会提供默认构造器</li>
+<li>静态初始化块 -&gt; 初始化块 -&gt; 构造方法</li>
+<li>Java调用构造器的具体处理步骤<ol>
+<li>所有数据域被初始化为默认值</li>
+<li>按照在类声明中出现的次序，依次执行所有域初始化语句和初始化块</li>
+<li>若构造器第一行调用了第二个构造器则执行第二个构造器主体</li>
+<li>执行该构造器主题</li>
+</ol>
+</li>
+<li>Java有自动垃圾回收器，不支持析构器，可以为类添加finalize方法（在垃圾回收器清除对象之前调用）可用System.runFinalizerOnExit(true)确保finalizer方法在Java关闭前被调用（不安全）或使用Runtime.addShutdownHook 添加关闭钩（安全）</li>
+<li>包命名规范 包名为逆序域名.项目名.模块名</li>
+<li><h1 id="include-与-import无共同点-C-编译器无法查看文件内部所以-include用于加载外部特性声明-Java编译器可以查看文件内部，所以即使不使用import也可以显示的给出包名，也可以使用import导入静态方法与静态域"><a href="#include-与-import无共同点-C-编译器无法查看文件内部所以-include用于加载外部特性声明-Java编译器可以查看文件内部，所以即使不使用import也可以显示的给出包名，也可以使用import导入静态方法与静态域" class="headerlink" title="include 与 import无共同点 C++编译器无法查看文件内部所以#include用于加载外部特性声明 Java编译器可以查看文件内部，所以即使不使用import也可以显示的给出包名，也可以使用import导入静态方法与静态域"></a>include 与 import无共同点 C++编译器无法查看文件内部所以#include用于加载外部特性声明 Java编译器可以查看文件内部，所以即使不使用import也可以显示的给出包名，也可以使用import导入静态方法与静态域</h1></li>
+<li>可用为超类变量赋值子类引用，但不能为子类变量赋值超类引用</li>
+<li>由于每次调用方法都要搜索时间开销太大，虚拟机预先为每个类创建了一个方法表（method table）</li>
+<li>不允许被扩展的类叫final类 不能被子类方法覆盖的方法叫final方法 String就是final类</li>
+<li>包含抽象方法（abstract）的类必须为抽象类</li>
+<li>抽象类变量永远引用不到抽像类而是引用其具体子类对象</li>
+<li>protected域可以被子类访问也可以被本包其他类访问所以安全性比C++交差，Object clone方法为protected方法</li>
+<li>只有基本类型不是对象 所有数组类型，不管是对象数组还是基本类型数组都扩展了Object类</li>
+<li>Object.equals方法比较对象时判断的是两个对象是否具有相同的引用，对于大多数类来说这种判断并没有什么意义，所以需要对其覆盖（重写）且equals满足自反性、对称性传递性和一致性</li>
+<li>hashCode定义在Object中，每个对象都有一个默认的散列码为对象的存储地址，字符串hashCode由字符串内容导出，内容相同的字符串hashCode相同</li>
+<li>重写定义equals就要重写hashCode以便用户可以将对象插入散列表，重写hashCode时应用null安全的Object.hashCode获取对象内部属性hashCode，应保证equals相等为hashCode相等的充分条件，hashCode相等为equals相等的必要条件</li>
+<li>数组继承了Object类的toString方法，数组类型将按Object toString打印所属类名和散列码，建议使用静态方法Arrays.toString</li>
+<li>ArrayList管理的数组空间被用尽时，数组列表会自动创建一个更大的数组并将所有对象从较小的数组中拷贝至较大的数组中而不是去扩展较小的数组</li>
+<li>可以通过 ensureCapacity(size) 或者 new ArrayList&lt;&gt;(size)为数组列表设置初始容量，数组列表将直接创建包含size个对象的内部数组</li>
+<li>若确定ArrayList数组列表大小不会再次改变后可以调用trimToSize 将存储区大小调整为当前元素数量所需要的储存空间，垃圾回收器将回收多余存储空间</li>
+<li>Java编译器在对类型转换检查后如果没有违规情况会将所有类型化数组列表转换为ArrayList对象 所以类型转换(ArrayList) 和 (ArrayList<ClassName>)将执行相同的运行时检查（warning照样有）</ClassName></li>
+<li>所有基本类型的包装类都是不可变类</li>
+<li>包装类与基本类型相互赋值是会进行自动拆箱与自动装箱，算数表达式也可以</li>
+<li>boolean、byte、char&lt;=127 int或short介于-128~127之间将被包装到固定对象中，它们的==比较一定成立</li>
+<li>要想实现改变参数值的方法包装类也无法实现，但可以使用org.omg.CORBA包中的 holder类型（其值域为公有）</li>
+<li>Object… 表示该函数可以接收任意数量的对象</li>
+<li>Java printf 实际接收至为Object数组（允许将一个数组传递给可变阐述方法的最后一个参数）</li>
+<li>某个特定类可以临时转换为Object 但初始就是Object类永远不能转为其他特定类</li>
+<li>可以在枚举类型中添加一些构造器、方法和域</li>
+<li>反射被大量应用于JavaBeans中</li>
+<li>Class类实则用于访问郧西是类型信息，Object 类中的 getClass( ) 方法将会返回一个 Class 类型的实例</li>
+<li>虚拟机为每个类型管理一个Class对象，所以 对getClass方法进行==比较完全没有问题</li>
+<li>反射显示对象私有域内容时可用setAccessible为反射对象设置可访问标志屏蔽Java语言的访问检查</li>
+<li>接口中的函数默认public不用声明，但实现接口时必备吧对应方法声明为public</li>
+<li>接口不是类，不能实例化，接口变量应引用实现了接口的类的对象</li>
+<li>Java Array.sort()方法使用的排序类型 小于47个元素使用插入排序 大于47小于286使用快排 大于286梳理数据使用归并排序若降序数组过多转回快排</li>
+<li>接口默认方法冲突默认解决：超类优先 若某个接口提供了默认方法与另一接口某方法或参数冲突则必须覆盖（重写）该方法</li>
+<li>若一个类的超类中某方法与接口默认方法冲突则接口默认方法被忽略（类优先原则）</li>
+<li>BiFunction<T,U,R> 可以用来保存lambda表达式可惜大部分情况莫得卵用</T,U,R></li>
+<li>使用类名::方法名可以传递方法引用（如System.out::println或Math::max）如果对应方法有多个版本编译器会尝试从上下文中找出应该使用哪一个方法</li>
+<li>lambda表达式中的this关键词指的是创建这个lambda表达式的方法的this</li>
+<li>所有内部类都有指向其外部类的引用，只有静态内部类没用指向外部类的引用</li>
+<li>声明在接口中的内部类自动作为public statis</li>
+<li>Java的Exception异常分为RuntimeException与IOException，其中RuntimeException与C++logic_error类（程序中的逻辑错误）类似而不是runtime_error类，runtime_error类是所有由不可预知的原因引发的异常的基类</li>
+<li>使用try/catch/finally时，当finally子句包含return语句时其返回值将覆盖try块与catch块中的return语句</li>
+<li>异常处理效率低下，不能代替简单判断测试</li>
+<li>-verbose标志启动JVM可以观察类的加载过程</li>
+<li>JDK提供jconsole来显示JVM性能统计结果使用jconsole processID运行</li>
+<li>jmap可以获得一个堆的转储，显示堆中的每个对象使用<br>jmap -dump:format=b,file=dumpFileName processID<br>jhat dumpFileName</li>
+<li>Java定义泛型类型都的自动提供相应的原始类型 （删去类型参数的泛型类型名，查出类型变量替换为限定型，无限定用Object）</li>
+<li>Java泛型不能用类型参数代替基本类型（没有Pair\<double>只有Pair\<Double>，类型擦除之后含有Object类型的域 Object不能存储double）</Double></double></li>
+<li>Java泛型不能实例化参数化类型的数组<br>Pair\<String>[] table = new Pair\<String>[10];    // Error<br>但Pair\<String>[]变量声明依旧合法,可通过声明通配类型数组，然后进行类型转换<br>Pair\<String>[] table = (Pair\<String>[])new Pair\&lt;?&gt;[10];</String></String></String></String></String></li>
+<li>Java泛型类中静态上下文变量无效</li>
+<li>不能抛出或捕获泛型类的实例对象</li>
+<li>若S是T的子类Pair\<S>与Pair\<T>没有任何关系</T></S></li>
+<li>Java集合迭代器与C++迭代器并不相同，不直接指向对应元素，而更类似于InputStream.read每次消耗掉一个元素，所以remove操作要与next操作对应</li>
+<li>Java ArrayList默认大小10，扩容规则：旧容量 + 旧容量 &gt;&gt; 1(扩容1.5倍)</li>
+<li>ClassLoader中loadClass()方法结束后并未完成类的初始化</li>
+<li>通过子类全类名使用父类静态变量，只会初始化父类的静态域而不会初始化子类的静态域</li>
+<li>静态代码块只有被访问时才会进行初始化</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/" rel="tag"># 知识点汇总</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/16/Java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="prev" title="Java单例模式">
+      <i class="fa fa-chevron-left"></i> Java单例模式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/17/Java%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" rel="next" title="Java策略模式">
+      Java策略模式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java琐碎知识点汇总"><span class="nav-number">1.</span> <span class="nav-text">Java琐碎知识点汇总</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#include-与-import无共同点-C-编译器无法查看文件内部所以-include用于加载外部特性声明-Java编译器可以查看文件内部，所以即使不使用import也可以显示的给出包名，也可以使用import导入静态方法与静态域"><span class="nav-number">2.</span> <span class="nav-text">include 与 import无共同点 C++编译器无法查看文件内部所以#include用于加载外部特性声明 Java编译器可以查看文件内部，所以即使不使用import也可以显示的给出包名，也可以使用import导入静态方法与静态域</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SUVVM"
+      src="/images/ortrait.jpg">
+  <p class="site-author-name" itemprop="name">SUVVM</p>
+  <div class="site-description" itemprop="description">SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/suvvm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;suvvm" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/suvvm@foxmail.com" title="E-Mail → suvvm@foxmail.com"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SUVVM</span>
+	<a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鲁ICP备19040043号-2</a>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

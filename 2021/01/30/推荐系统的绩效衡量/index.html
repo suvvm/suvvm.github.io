@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ortrait.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.suvvm.work","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="推荐系统的绩效衡量一、评测方法衡量推荐系统的有效性的方法主要分为三种  用户研究 在线估计（A&#x2F;B测试） 离线评估  ​    常用的度量方式为方差度量和均方根差度量 1、用户研究​    用户研究是想数十个或数百个用户通过不同推荐策略创建推荐后由用户判断最佳的推荐策略，研究规模一般较小。 2、在线评估​    将不同推荐策略作为推荐系统的两个变体，通过受测用户的反映来评估变体的有效性故称之为A&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="推荐系统的绩效衡量">
+<meta property="og:url" content="https://www.suvvm.work/2021/01/30/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%A9%E6%95%88%E8%A1%A1%E9%87%8F/index.html">
+<meta property="og:site_name" content="SUVVM">
+<meta property="og:description" content="推荐系统的绩效衡量一、评测方法衡量推荐系统的有效性的方法主要分为三种  用户研究 在线估计（A&#x2F;B测试） 离线评估  ​    常用的度量方式为方差度量和均方根差度量 1、用户研究​    用户研究是想数十个或数百个用户通过不同推荐策略创建推荐后由用户判断最佳的推荐策略，研究规模一般较小。 2、在线评估​    将不同推荐策略作为推荐系统的两个变体，通过受测用户的反映来评估变体的有效性故称之为A&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-30T07:24:21.000Z">
+<meta property="article:modified_time" content="2021-01-31T07:37:00.571Z">
+<meta property="article:author" content="SUVVM">
+<meta property="article:tag" content="推荐系统">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.suvvm.work/2021/01/30/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%A9%E6%95%88%E8%A1%A1%E9%87%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>推荐系统的绩效衡量 | SUVVM</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e5190116d64be66cac29daef18c94ac0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">SUVVM</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">呜嗷SUVVM</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2021/01/30/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%A9%E6%95%88%E8%A1%A1%E9%87%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          推荐系统的绩效衡量
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-30 15:24:21" itemprop="dateCreated datePublished" datetime="2021-01-30T15:24:21+08:00">2021-01-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-31 15:37:00" itemprop="dateModified" datetime="2021-01-31T15:37:00+08:00">2021-01-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="推荐系统的绩效衡量"><a href="#推荐系统的绩效衡量" class="headerlink" title="推荐系统的绩效衡量"></a>推荐系统的绩效衡量</h1><h2 id="一、评测方法"><a href="#一、评测方法" class="headerlink" title="一、评测方法"></a>一、评测方法</h2><p>衡量推荐系统的有效性的方法主要分为三种</p>
+<ul>
+<li>用户研究</li>
+<li>在线估计（A/B测试）</li>
+<li>离线评估</li>
+</ul>
+<p>​    常用的度量方式为<a href="https://en.wikipedia.org/wiki/Mean_squared_error" target="_blank" rel="noopener">方差度量</a>和<a href="https://en.wikipedia.org/wiki/Root_mean_squared_error" target="_blank" rel="noopener">均方根差度量</a></p>
+<h3 id="1、用户研究"><a href="#1、用户研究" class="headerlink" title="1、用户研究"></a>1、用户研究</h3><p>​    用户研究是想数十个或数百个用户通过不同推荐策略创建推荐后由用户判断最佳的推荐策略，研究规模一般较小。</p>
+<h3 id="2、在线评估"><a href="#2、在线评估" class="headerlink" title="2、在线评估"></a>2、在线评估</h3><p>​    将不同推荐策略作为推荐系统的两个变体，通过受测用户的反映来评估变体的有效性故称之为A/B测试。在线评估过程中通常对将变体直接部署至部分生产环境，将真实产品向成千上万用户展示。</p>
+<h3 id="3、离线评估"><a href="#3、离线评估" class="headerlink" title="3、离线评估"></a>3、离线评估</h3><p>​    离线评估是基于历史数据的评估，通常是根据有现成结果的数据集来对推荐系统产出结果进行评估。可以基于一套数据集测试多种算法。</p>
+<ul>
+<li>通过体制系统获得用户行为数据，生成标准数据集</li>
+<li>见数据集按一定规则分为训练集和测试集</li>
+<li>使用训练集上训练对应用户/项目模型，使用测试集进行预测</li>
+<li>通过定义的离线指标评测推荐算法在测试集的预测结果</li>
+</ul>
+<h2 id="二、评测指标"><a href="#二、评测指标" class="headerlink" title="二、评测指标"></a>二、评测指标</h2><ul>
+<li>预测准确度</li>
+<li>信任度</li>
+<li>用户满意度</li>
+<li>实时性</li>
+<li>覆盖率（不要只覆盖热门）</li>
+<li>健壮性</li>
+<li>多样性（适度提升不相似性）</li>
+<li>商业目标（点击率、用户转化率）</li>
+<li>惊喜度</li>
+</ul>
+<h3 id="1、准确度评测"><a href="#1、准确度评测" class="headerlink" title="1、准确度评测"></a>1、准确度评测</h3><ul>
+<li><p>评分预测</p>
+<ul>
+<li><p>通过对获取用户对目标产品的评分历史，建立兴趣模型，预测用户对推荐新物品的可能评分</p>
+</li>
+<li><p>评分预测采用均方根差（RMSE 真实评分与预测评分的差的平方求和后处以预测的个数后开方）或平均绝对误差（MAE真实评分与预测评分的差的绝对值求和后处以预测的个数）计算</p>
+<script type="math/tex; mode=display">
+RMSE=
+\sqrt{ 
+    \frac{
+        \sum_{i<T}^{u} (r_{ui} - \hat{r}_{ui})
+    }{|T|
+    }
+}
+\qquad
+MAE=
+\frac{
+    \sum_{i\in T}^{u}|r_{ui}-\hat{r}_{ui}|
+}{
+    |T|
+}</script></li>
+</ul>
+</li>
+<li><p>Top-N推荐</p>
+<ul>
+<li>给用户一个大小为N的个性化推荐列表</li>
+<li>Top-N准确率一般使用精确率（precision）和召回率（recall）来度量<ul>
+<li>准确率（正确检索的元素数量与总数之比） $ A = \frac{TP + TN}{TP + FP + FN + TN} $</li>
+<li>精确率（正确检索的正类与被检索到的全部元素之比）$ P=\frac{TP}{TP+FP} $</li>
+<li>召回率（所有检索到的正类与全部正类的之比）$ R = \frac{TP}{TP+FP} $</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>相关(Relevant)正类</th>
+<th>无关(NonRelevant)负类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>被检索到(Retrieved)</td>
+<td>TP（正确检索的正类）</td>
+<td>FP（错误检索的负类）</td>
+</tr>
+<tr>
+<td>未被检索到(Not Retrieved)</td>
+<td>FN（错误检索的正类）</td>
+<td>TN（正确家检索的负类）</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" rel="tag"># 推荐系统</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/20/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/" rel="prev" title="自然语言处理">
+      <i class="fa fa-chevron-left"></i> 自然语言处理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/02/01/%E6%95%B0%E5%80%BC%E5%9E%8B%E7%89%B9%E5%BE%81%E5%A4%84%E7%90%86/" rel="next" title="数值型特征处理">
+      数值型特征处理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#推荐系统的绩效衡量"><span class="nav-number">1.</span> <span class="nav-text">推荐系统的绩效衡量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、评测方法"><span class="nav-number">1.1.</span> <span class="nav-text">一、评测方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、用户研究"><span class="nav-number">1.1.1.</span> <span class="nav-text">1、用户研究</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、在线评估"><span class="nav-number">1.1.2.</span> <span class="nav-text">2、在线评估</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、离线评估"><span class="nav-number">1.1.3.</span> <span class="nav-text">3、离线评估</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、评测指标"><span class="nav-number">1.2.</span> <span class="nav-text">二、评测指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、准确度评测"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、准确度评测</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SUVVM"
+      src="/images/ortrait.jpg">
+  <p class="site-author-name" itemprop="name">SUVVM</p>
+  <div class="site-description" itemprop="description">SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/suvvm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;suvvm" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/suvvm@foxmail.com" title="E-Mail → suvvm@foxmail.com"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SUVVM</span>
+	<a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鲁ICP备19040043号-2</a>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

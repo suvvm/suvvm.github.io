@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ortrait.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.suvvm.work","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="URL的解析过程用户输入URL现在的浏览器较为智能，如chrome在输入过程中会根据用户输入的字符串在历史记录中查询对应url并显示在地址栏下方，以便用户补全url。 查找DNS浏览器会先根据域名查找浏览器自身DNS缓存。 可以通过chrome:&#x2F;&#x2F;net-internals&#x2F;#dns产看与清除chromeDNS缓存。 查找本地缓存如果在浏览器自身缓存中未找到，浏览器会进行系统调用查询本机host">
+<meta property="og:type" content="article">
+<meta property="og:title" content="URL的解析过程">
+<meta property="og:url" content="https://www.suvvm.work/2020/03/28/URL%E7%9A%84%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B/index.html">
+<meta property="og:site_name" content="SUVVM">
+<meta property="og:description" content="URL的解析过程用户输入URL现在的浏览器较为智能，如chrome在输入过程中会根据用户输入的字符串在历史记录中查询对应url并显示在地址栏下方，以便用户补全url。 查找DNS浏览器会先根据域名查找浏览器自身DNS缓存。 可以通过chrome:&#x2F;&#x2F;net-internals&#x2F;#dns产看与清除chromeDNS缓存。 查找本地缓存如果在浏览器自身缓存中未找到，浏览器会进行系统调用查询本机host">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-28T12:32:41.000Z">
+<meta property="article:modified_time" content="2020-12-19T14:05:00.665Z">
+<meta property="article:author" content="SUVVM">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.suvvm.work/2020/03/28/URL%E7%9A%84%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>URL的解析过程 | SUVVM</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e5190116d64be66cac29daef18c94ac0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">SUVVM</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">呜嗷SUVVM</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/03/28/URL%E7%9A%84%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          URL的解析过程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-28 20:32:41" itemprop="dateCreated datePublished" datetime="2020-03-28T20:32:41+08:00">2020-03-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="URL的解析过程"><a href="#URL的解析过程" class="headerlink" title="URL的解析过程"></a>URL的解析过程</h1><h2 id="用户输入URL"><a href="#用户输入URL" class="headerlink" title="用户输入URL"></a>用户输入URL</h2><p>现在的浏览器较为智能，如chrome在输入过程中会根据用户输入的字符串在历史记录中查询对应url并显示在地址栏下方，以便用户补全url。</p>
+<h2 id="查找DNS"><a href="#查找DNS" class="headerlink" title="查找DNS"></a>查找DNS</h2><p>浏览器会先根据域名查找浏览器自身DNS缓存。</p>
+<p>可以通过<a href="chrome://net-internals/#dns">chrome://net-internals/#dns</a>产看与清除chromeDNS缓存。</p>
+<h2 id="查找本地缓存"><a href="#查找本地缓存" class="headerlink" title="查找本地缓存"></a>查找本地缓存</h2><p>如果在浏览器自身缓存中未找到，浏览器会进行系统调用查询本机host文件。</p>
+<h2 id="查找路由器缓存"><a href="#查找路由器缓存" class="headerlink" title="查找路由器缓存"></a>查找路由器缓存</h2><p>若在本机host中没有找到目标域名ip地址则会将查询请求发送给路由器查询路由器DNS。</p>
+<h2 id="查找运营商的解析（递归查询）"><a href="#查找运营商的解析（递归查询）" class="headerlink" title="查找运营商的解析（递归查询）"></a>查找运营商的解析（递归查询）</h2><p>若路由器中依旧没有目域名ip地址，会查询运营商的本地域名服务器（本地域名服务器会在第一次访问url时缓存它）。</p>
+<h2 id="查询根域名服务器"><a href="#查询根域名服务器" class="headerlink" title="查询根域名服务器"></a>查询根域名服务器</h2><p>若本地域名服务器依旧没有对应目标ip，本地域名服务器将代替用户机向根域名服务器发出查询请求报文。</p>
+<h2 id="迭代查询"><a href="#迭代查询" class="headerlink" title="迭代查询"></a>迭代查询</h2><p>若根域名服务器中依旧没有对应ip则回返回给本地域名服务器下一个要查询的根域名服务器地址，由本地域名服务器继续查询。</p>
+<h2 id="查询结束"><a href="#查询结束" class="headerlink" title="查询结束"></a>查询结束</h2><p>若查询成功将会把目标ip返回给用户机，若查询失败本地服务器会向用户机发出失败响应，表示无法查询到所需ip地址。</p>
+<h2 id="建立TCP连接"><a href="#建立TCP连接" class="headerlink" title="建立TCP连接"></a>建立TCP连接</h2><p>进行用户机与服务的三次握手建立TCP连接。</p>
+<h2 id="发送HTTP或HTTPS请求"><a href="#发送HTTP或HTTPS请求" class="headerlink" title="发送HTTP或HTTPS请求"></a>发送HTTP或HTTPS请求</h2><p>用户机向服务器发器一个请求信息，若试用https协议会在传输层对其进行加密（应用层依旧是明文的http请求）。</p>
+<h2 id="回复响应报文"><a href="#回复响应报文" class="headerlink" title="回复响应报文"></a>回复响应报文</h2><p>服务器将接收请求报文，使用私钥解密（https）后将响应发挥用户机。</p>
+<h2 id="页面渲染"><a href="#页面渲染" class="headerlink" title="页面渲染"></a>页面渲染</h2><p>浏览器收到响应报文后将其解析渲染后展现给用户。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"># 计算机网络</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/28/Spring%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC/" rel="prev" title="Spring控制反转">
+      <i class="fa fa-chevron-left"></i> Spring控制反转
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/29/JVM%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" rel="next" title="JVM生命周期">
+      JVM生命周期 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#URL的解析过程"><span class="nav-number">1.</span> <span class="nav-text">URL的解析过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用户输入URL"><span class="nav-number">1.1.</span> <span class="nav-text">用户输入URL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找DNS"><span class="nav-number">1.2.</span> <span class="nav-text">查找DNS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找本地缓存"><span class="nav-number">1.3.</span> <span class="nav-text">查找本地缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找路由器缓存"><span class="nav-number">1.4.</span> <span class="nav-text">查找路由器缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找运营商的解析（递归查询）"><span class="nav-number">1.5.</span> <span class="nav-text">查找运营商的解析（递归查询）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询根域名服务器"><span class="nav-number">1.6.</span> <span class="nav-text">查询根域名服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代查询"><span class="nav-number">1.7.</span> <span class="nav-text">迭代查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询结束"><span class="nav-number">1.8.</span> <span class="nav-text">查询结束</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立TCP连接"><span class="nav-number">1.9.</span> <span class="nav-text">建立TCP连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送HTTP或HTTPS请求"><span class="nav-number">1.10.</span> <span class="nav-text">发送HTTP或HTTPS请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回复响应报文"><span class="nav-number">1.11.</span> <span class="nav-text">回复响应报文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页面渲染"><span class="nav-number">1.12.</span> <span class="nav-text">页面渲染</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SUVVM"
+      src="/images/ortrait.jpg">
+  <p class="site-author-name" itemprop="name">SUVVM</p>
+  <div class="site-description" itemprop="description">SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/suvvm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;suvvm" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/suvvm@foxmail.com" title="E-Mail → suvvm@foxmail.com"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SUVVM</span>
+	<a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鲁ICP备19040043号-2</a>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ortrait.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ortrait.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.suvvm.work","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SUVVM">
+<meta property="og:url" content="https://www.suvvm.work/page/4/index.html">
+<meta property="og:site_name" content="SUVVM">
+<meta property="og:description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="SUVVM">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.suvvm.work/page/4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>SUVVM</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e5190116d64be66cac29daef18c94ac0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">SUVVM</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">呜嗷SUVVM</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/20/LRU%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/20/LRU%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">LRU页面置换算法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-20 17:26:11" itemprop="dateCreated datePublished" datetime="2020-04-20T17:26:11+08:00">2020-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="LRU页面置换算法"><a href="#LRU页面置换算法" class="headerlink" title="LRU页面置换算法"></a>LRU页面置换算法</h1><p>最近最久未使用（LRU）置换算法</p>
+<p>选择最近最久未使用的页面予以淘汰。</p>
+<h2 id="栈实现"><a href="#栈实现" class="headerlink" title="栈实现"></a>栈实现</h2><p>利用栈来保存当前使用的各页面页号。</p>
+<ul>
+<li>如果栈中没有目标页面且栈还有空余空间，直接将页面标号入栈</li>
+<li><p>如果栈中没有目标页面且栈没有空余空间，直接将页面标号入栈，将栈底元素出栈</p>
+</li>
+<li><p>如果栈中有目标页面时，便将该页的页号从栈中移出，将它压入栈顶。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: LRU</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: TODO</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/4/20 17:35</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LRU</span> </span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack;   <span class="comment">// 页标栈</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> capacity;   <span class="comment">// 容量</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> capacity;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LRU</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</span><br><span class="line">        stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="keyword">this</span>.capacity = capacity;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (stack.contains(val)) &#123;  <span class="comment">// 栈中存在指定页标</span></span><br><span class="line">            stack.remove(Integer.valueOf(val)); <span class="comment">// 移除目标页标</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (stack.size() == capacity) &#123;  <span class="comment">// 容量满</span></span><br><span class="line">            stack.remove(<span class="number">0</span>);    <span class="comment">// 移除栈底</span></span><br><span class="line">        &#125;</span><br><span class="line">        stack.push(val);    <span class="comment">// 指定页标入栈</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(stack);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试数据</p>
+<p><img src="/2020/04/20/LRU%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95/LRU栈.JPG" alt="img"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: LRUTest</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: TODO</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/4/20 17:49</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LRUTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        LRU lru = <span class="keyword">new</span> LRU(<span class="number">5</span>);</span><br><span class="line">        <span class="keyword">int</span>[] testValues = &#123;<span class="number">4</span>,<span class="number">7</span>,<span class="number">0</span>,<span class="number">7</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">6</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i : testValues) &#123;</span><br><span class="line">            lru.add(i);</span><br><span class="line">            lru.show();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[4]</span><br><span class="line">[4, 7]</span><br><span class="line">[4, 7, 0]</span><br><span class="line">[4, 0, 7]</span><br><span class="line">[4, 0, 7, 1]</span><br><span class="line">[4, 7, 1, 0]</span><br><span class="line">[4, 7, 0, 1]</span><br><span class="line">[4, 7, 0, 1, 2]</span><br><span class="line">[4, 7, 0, 2, 1]</span><br><span class="line">[4, 7, 0, 1, 2]</span><br><span class="line">[7, 0, 1, 2, 6]</span><br></pre></td></tr></table></figure>
+<h2 id="LinkedHashMap实现"><a href="#LinkedHashMap实现" class="headerlink" title="LinkedHashMap实现"></a>LinkedHashMap实现</h2><p>LinkedHashMap已经实现了按访问顺序存储，其存在方法removeElfestEntry()用于移除最久未使用数据，极为简便。这个方法将在map的put与putAll方法中被调用，如果返回true就将移除最久未使用数据，原本用于删除过时条目以减少map内存消耗，默认返回false，这里可以利用其特性覆盖该函数实现移除最久未使用数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Returns &lt;tt&gt;true&lt;/tt&gt; if this map should remove its eldest entry.</span></span><br><span class="line"><span class="comment">* This method is invoked by &lt;tt&gt;put&lt;/tt&gt; and &lt;tt&gt;putAll&lt;/tt&gt; after</span></span><br><span class="line"><span class="comment">* inserting a new entry into the map.  It provides the implementor</span></span><br><span class="line"><span class="comment">* with the opportunity to remove the eldest entry each time a new one</span></span><br><span class="line"><span class="comment">* is added.  This is useful if the map represents a cache: it allows</span></span><br><span class="line"><span class="comment">* the map to reduce memory consumption by deleting stale entries.</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* &lt;p&gt;Sample use: this override will allow the map to grow up to 100</span></span><br><span class="line"><span class="comment">* entries and then delete the eldest entry each time a new entry is</span></span><br><span class="line"><span class="comment">* added, maintaining a steady state of 100 entries.</span></span><br><span class="line"><span class="comment">* &lt;pre&gt;</span></span><br><span class="line"><span class="comment">*     private static final int MAX_ENTRIES = 100;</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">*     protected boolean removeEldestEntry(Map.Entry eldest) &#123;</span></span><br><span class="line"><span class="comment">*        return size() &amp;gt; MAX_ENTRIES;</span></span><br><span class="line"><span class="comment">*     &#125;</span></span><br><span class="line"><span class="comment">* &lt;/pre&gt;</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* &lt;p&gt;This method typically does not modify the map in any way,</span></span><br><span class="line"><span class="comment">* instead allowing the map to modify itself as directed by its</span></span><br><span class="line"><span class="comment">* return value.  It &lt;i&gt;is&lt;/i&gt; permitted for this method to modify</span></span><br><span class="line"><span class="comment">* the map directly, but if it does so, it &lt;i&gt;must&lt;/i&gt; return</span></span><br><span class="line"><span class="comment">* &lt;tt&gt;false&lt;/tt&gt; (indicating that the map should not attempt any</span></span><br><span class="line"><span class="comment">* further modification).  The effects of returning &lt;tt&gt;true&lt;/tt&gt;</span></span><br><span class="line"><span class="comment">* after modifying the map from within this method are unspecified.</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* &lt;p&gt;This implementation merely returns &lt;tt&gt;false&lt;/tt&gt; (so that this</span></span><br><span class="line"><span class="comment">* map acts like a normal map - the eldest element is never removed).</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span>    eldest The least recently inserted entry in the map, or if</span></span><br><span class="line"><span class="comment">*           this is an access-ordered map, the least recently accessed</span></span><br><span class="line"><span class="comment">*           entry.  This is the entry that will be removed it this</span></span><br><span class="line"><span class="comment">*           method returns &lt;tt&gt;true&lt;/tt&gt;.  If the map was empty prior</span></span><br><span class="line"><span class="comment">*           to the &lt;tt&gt;put&lt;/tt&gt; or &lt;tt&gt;putAll&lt;/tt&gt; invocation resulting</span></span><br><span class="line"><span class="comment">*           in this invocation, this will be the entry that was just</span></span><br><span class="line"><span class="comment">*           inserted; in other words, if the map contains a single</span></span><br><span class="line"><span class="comment">*           entry, the eldest entry is also the newest.</span></span><br><span class="line"><span class="comment">* <span class="doctag">@return</span>   &lt;tt&gt;true&lt;/tt&gt; if the eldest entry should be removed</span></span><br><span class="line"><span class="comment">*           from the map; &lt;tt&gt;false&lt;/tt&gt; if it should be retained.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">removeEldestEntry</span><span class="params">(Map.Entry&lt;K,V&gt; eldest)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.LinkedHashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: LRULinkedHashMap</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: TODO</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/4/20 18:02</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LRULinkedHashMap</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> LinkedHashMap&lt;Integer, Object&gt; map;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> capacity;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LRULinkedHashMap</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</span><br><span class="line">        map = <span class="keyword">new</span> LinkedHashMap&lt;Integer, Object&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">removeEldestEntry</span><span class="params">(Map.Entry eldest)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> size() &gt; LRULinkedHashMap.<span class="keyword">this</span>.capacity;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">this</span>.capacity = capacity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        map.put(val, <span class="keyword">new</span> Object());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.print(<span class="string">"["</span>);</span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;Integer, Object&gt; i : map.entrySet()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cnt != <span class="number">0</span>)</span><br><span class="line">                System.out.print(<span class="string">", "</span>);</span><br><span class="line">            cnt++;</span><br><span class="line">            System.out.print(i.getKey());</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"]"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试数据</p>
+<p><img src="/2020/04/20/LRU%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95/LRU栈.JPG" alt="img"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: LRUTest</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: TODO</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SUVVM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/4/20 17:49</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LRUTest</span> </span>&#123;</span><br><span class="line"><span class="comment">//    @Test</span></span><br><span class="line"><span class="comment">//    public void test() &#123;</span></span><br><span class="line"><span class="comment">//        LRU lru = new LRU(5);</span></span><br><span class="line"><span class="comment">//        int[] testValues = &#123;4,7,0,7,1,0,1,2,1,2,6&#125;;</span></span><br><span class="line"><span class="comment">//        for(int i : testValues) &#123;</span></span><br><span class="line"><span class="comment">//            lru.add(i);</span></span><br><span class="line"><span class="comment">//            lru.show();</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLinkedHashMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        LRULinkedHashMap lru = <span class="keyword">new</span> LRULinkedHashMap(<span class="number">5</span>);</span><br><span class="line">        <span class="keyword">int</span>[] testValues = &#123;<span class="number">4</span>,<span class="number">7</span>,<span class="number">0</span>,<span class="number">7</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">6</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i : testValues) &#123;</span><br><span class="line">            lru.add(i);</span><br><span class="line">            lru.show();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[4]</span><br><span class="line">[4, 7]</span><br><span class="line">[4, 7, 0]</span><br><span class="line">[4, 7, 0]</span><br><span class="line">[4, 7, 0, 1]</span><br><span class="line">[4, 7, 0, 1]</span><br><span class="line">[4, 7, 0, 1]</span><br><span class="line">[4, 7, 0, 1, 2]</span><br><span class="line">[4, 7, 0, 1, 2]</span><br><span class="line">[4, 7, 0, 1, 2]</span><br><span class="line">[7, 0, 1, 2, 6]</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/20/Hash%E5%86%B2%E7%AA%81%E7%9A%84%E8%A7%A3%E5%86%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/20/Hash%E5%86%B2%E7%AA%81%E7%9A%84%E8%A7%A3%E5%86%B3/" class="post-title-link" itemprop="url">Hash冲突的解决</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-20 15:23:17" itemprop="dateCreated datePublished" datetime="2020-04-20T15:23:17+08:00">2020-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Hash冲突的解决"><a href="#Hash冲突的解决" class="headerlink" title="Hash冲突的解决"></a>Hash冲突的解决</h1><p>确定插入位置：根据指定的hash函数获取hash值后取模table的大小m，可以获得目标插入位置，但目标插入位置可能已被占用。</p>
+<h2 id="开放地址法"><a href="#开放地址法" class="headerlink" title="开放地址法"></a>开放地址法</h2><h3 id="线性探测"><a href="#线性探测" class="headerlink" title="线性探测"></a>线性探测</h3><p>若插入的某数据hash值已存在，则在原来的hash值位置向后线性探测，若探测到表尾则从表首开始探测，直到不发生hash冲突为止。</p>
+<h3 id="平方探测"><a href="#平方探测" class="headerlink" title="平方探测"></a>平方探测</h3><blockquote>
+<p>若插入的某数据hash值已存在，由i=1开始每次向前后探测$i^2(i = 1,2,3,…)$个位置，查看目标位置是否被占用，若探测位置超出table大小m则执行模m操作，直到不发生hash冲突为止。</p>
+</blockquote>
+<h3 id="伪随机探测法"><a href="#伪随机探测法" class="headerlink" title="伪随机探测法"></a>伪随机探测法</h3><p>若插入的某数据hash值已存在，根据设定的随机数种子进行向后进行探测，若探测位置超出table大小m则执行模m操作，直到不发生hash冲突为止。</p>
+<h2 id="链地址法"><a href="#链地址法" class="headerlink" title="链地址法"></a>链地址法</h2><p>若插入的某数据hash值已存在，将该位置所存储的，hash值相同的元素构成一个单链表，将插入值加入到链表尾。</p>
+<h2 id="再哈希法"><a href="#再哈希法" class="headerlink" title="再哈希法"></a>再哈希法</h2><p>构造多个不同的hash函数，若发生hash冲突则使用其他hash函数直到不发生冲突为止。</p>
+<h2 id="建立公共溢出区"><a href="#建立公共溢出区" class="headerlink" title="建立公共溢出区"></a>建立公共溢出区</h2><p>为hash表添加数据溢出区，若发生hash冲突则将冲突数据放入数据溢出区。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/20/%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/20/%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81/" class="post-title-link" itemprop="url">乐观锁与悲观锁</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-20 13:09:25" itemprop="dateCreated datePublished" datetime="2020-04-20T13:09:25+08:00">2020-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="乐观锁与悲观锁"><a href="#乐观锁与悲观锁" class="headerlink" title="乐观锁与悲观锁"></a>乐观锁与悲观锁</h1><p>乐观锁与悲观锁是一种设计思想，不止存在于数据库中，而广泛应用于各种方面。</p>
+<h2 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h2><h3 id="乐观锁的思想"><a href="#乐观锁的思想" class="headerlink" title="乐观锁的思想"></a>乐观锁的思想</h3><p>默认总是认为数据更新是不会发生冲突，开始更新数据时不对数据加锁，而是在提交更新时进行验证，判断本次更新提交之前是否有其它的更新操作已被提交。</p>
+<h3 id="乐观锁的应用场景"><a href="#乐观锁的应用场景" class="headerlink" title="乐观锁的应用场景"></a>乐观锁的应用场景</h3><p>乐观锁适用于写操作较少的情况，省去了加锁的开销，提升了吞吐量。（阿里巴巴开发规范上提到过并发量不高，失败几率不超过20%推荐使用CAS更新）</p>
+<h3 id="乐观锁的实现方式"><a href="#乐观锁的实现方式" class="headerlink" title="乐观锁的实现方式"></a>乐观锁的实现方式</h3><ul>
+<li><p>版本号机制</p>
+<p>为目标数据添加一个版本号version字段（或时间戳timestamp），表示数据被更新的次数，当数据被修改时，其版本号会发生改变，若某次更新提交之前发现版本号于提交前相比有变动，则拒绝该次更新提交并尝试重新进行更新操作，直到版本号不变。</p>
+</li>
+<li><p>CAS算法（compare and swap）</p>
+<p>CAS算法包含3个操作数</p>
+<ul>
+<li>内存位置V</li>
+<li>预期原值A</li>
+<li>目标更新值B</li>
+</ul>
+<p>每当尝试更新每个值时，都会检测其内存位置的值V是否与预期原值A相等，相等证明更新提交之前该值没有被其他并发任务改变，可以提交，否则拒绝提交，并更新预期原值A</p>
+<p>CAS的问题</p>
+<ul>
+<li><p>ABA </p>
+<p>可能有一个任务读取的V为A这时另一个任务将V修改为B又修改为A，第一个任务提交时就会误认为V没有发生改变重新提交（可以通过版本号解决）</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h2><h3 id="悲观锁的思想"><a href="#悲观锁的思想" class="headerlink" title="悲观锁的思想"></a>悲观锁的思想</h3><p>默认总是认为数据更新会发生冲突，所以直接对目标数据加锁以解决并发问题</p>
+<h3 id="悲观锁的应用场景"><a href="#悲观锁的应用场景" class="headerlink" title="悲观锁的应用场景"></a>悲观锁的应用场景</h3><p>在并发任务数较多，乐观锁失败几率较大的情况下使用悲观锁</p>
+<h3 id="悲观锁的实现方式"><a href="#悲观锁的实现方式" class="headerlink" title="悲观锁的实现方式"></a>悲观锁的实现方式</h3><p>每当尝试更新数据时都将尝试对目标数据加排它锁：<a href="https://www.suvvm.work/2020/04/18/InnoDB中的锁/">InnoDB中的锁</a></p>
+<h3 id="MySQL-InnoDB加锁方式"><a href="#MySQL-InnoDB加锁方式" class="headerlink" title="MySQL InnoDB加锁方式"></a>MySQL InnoDB加锁方式</h3><h4 id="两段锁协议"><a href="#两段锁协议" class="headerlink" title="两段锁协议"></a>两段锁协议</h4><p>将事务的加锁过程分为了两个阶段，第一阶段为加锁阶段，第二阶段为解锁阶段，保证了事务的串行化</p>
+<ul>
+<li><p>加锁阶段</p>
+<p>在事务开始后到提交或回滚前都处于加锁阶段</p>
+</li>
+<li><p>放锁阶段</p>
+<p>当事务开始回滚或提交时进入放锁阶段</p>
+</li>
+</ul>
+<h3 id="死锁避免"><a href="#死锁避免" class="headerlink" title="死锁避免"></a>死锁避免</h3><h4 id="产生死锁的必要条件"><a href="#产生死锁的必要条件" class="headerlink" title="产生死锁的必要条件"></a>产生死锁的必要条件</h4><ul>
+<li>互斥使用（资源独占）</li>
+<li>占有且等待</li>
+<li>不可抢占</li>
+<li>循环等待</li>
+</ul>
+<h4 id="破坏产生死锁的必要条件"><a href="#破坏产生死锁的必要条件" class="headerlink" title="破坏产生死锁的必要条件"></a>破坏产生死锁的必要条件</h4><ul>
+<li><p>破坏互斥使用</p>
+<p>曼彻斯特大学的spooling技术，将独占资源交给守护线程分配有守护线程决定请求的处理方式</p>
+</li>
+<li><p>破坏占有且等待</p>
+<ul>
+<li>一次性申请所有资源</li>
+<li>不能立刻得到满足则释放已占用资源，若需使用重新申请</li>
+</ul>
+</li>
+<li><p>破坏不可抢占</p>
+<p>利用优先级来抢占目标资源（易于保存和恢复）</p>
+</li>
+<li><p>破坏循环等待</p>
+<p>为资源标号线性分配资源，让当前占有资源标号最大的任务继续执行</p>
+</li>
+</ul>
+<h4 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h4><ul>
+<li><p>鸵鸟算法</p>
+</li>
+<li><p>保证程序逻辑不产生死锁</p>
+</li>
+<li>保证事务轻量，尽早提交事务</li>
+<li>为事务设置等待超时阈值（InnoDB innodb_lock_wait_timeout）</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/19/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/19/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">JVM内存模型</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-19 21:05:10" itemprop="dateCreated datePublished" datetime="2020-04-19T21:05:10+08:00">2020-04-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="JVM内存模型"><a href="#JVM内存模型" class="headerlink" title="JVM内存模型"></a>JVM内存模型</h1><p><img src="/2020/04/19/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/JvmMemory.svg" alt="img"></p>
+<h2 id="线程共享"><a href="#线程共享" class="headerlink" title="线程共享"></a>线程共享</h2><h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>原永久代gc可以延申至方法区，存储运行时常量池和已被虚拟机加载的类的信息、常量、static变量</p>
+<p>回收行为：常量池回收、对象类型的卸载</p>
+<h3 id="堆（最大内存区域）"><a href="#堆（最大内存区域）" class="headerlink" title="堆（最大内存区域）"></a>堆（最大内存区域）</h3><ul>
+<li>堆用于存储对象实例</li>
+<li>是垃圾搜集器管理的主要区域</li>
+<li>分为新生代和老年代</li>
+</ul>
+<h2 id="线程独占"><a href="#线程独占" class="headerlink" title="线程独占"></a>线程独占</h2><h3 id="Java栈"><a href="#Java栈" class="headerlink" title="Java栈"></a>Java栈</h3><p>存放方法运行时所需数据（方法的动态内存模型）</p>
+<p>每个方法执行都会创建一个栈帧，伴随方法从执行到结束，用于存储局部变量表、操作数栈、动态链接、方法出口等。</p>
+<p>栈帧创建完毕后进栈，方法执行完毕后出栈。</p>
+<ul>
+<li><p>局部变量表（空间在编译时就计算完毕）</p>
+<p>存放基本数据类型变量与对象变量引用</p>
+</li>
+</ul>
+<p>若栈内栈帧太多超出栈容量就会发生StackOverFlowError</p>
+<h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3><p>与上述Java栈相似，都有栈帧局部变量表等，但是本地方法栈为JVM所调用的Naitve方法服务。</p>
+<h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>程序计数器空间很小，指向当前线程执行的字节码指令的地址，若执行本地方法则为undefined，程序计数器没有OutOfMemoryError</p>
+<p>(goto为Java保留字无法使用)</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/19/JVM%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E4%B8%8E%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E7%9A%84%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/19/JVM%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E4%B8%8E%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E7%9A%84%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">JVM内存溢出与内存泄漏的处理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-19 19:11:52" itemprop="dateCreated datePublished" datetime="2020-04-19T19:11:52+08:00">2020-04-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="JVM内存溢出与内存泄漏的处理"><a href="#JVM内存溢出与内存泄漏的处理" class="headerlink" title="JVM内存溢出与内存泄漏的处理"></a>JVM内存溢出与内存泄漏的处理</h1><h2 id="已报OOM的内存溢出或内存泄漏"><a href="#已报OOM的内存溢出或内存泄漏" class="headerlink" title="已报OOM的内存溢出或内存泄漏"></a>已报OOM的内存溢出或内存泄漏</h2><ul>
+<li>在运行时设置虚拟机参数 -XX:+HeapDumpOnOutOfMemoryError 创建堆内存存储快照</li>
+<li>使用 -Xms分配合适的启动内存，使用-Xmx分配合适的最大内存</li>
+<li>重新运行OOM的程序，生成.hprof堆快照文件</li>
+<li>使用任意内存监视工具打开快照文件，根据堆内存占用结果进行分析</li>
+<li>制定解决方案解决问题</li>
+</ul>
+<h2 id="未报OOM但存在内存泄漏风险和情况"><a href="#未报OOM但存在内存泄漏风险和情况" class="headerlink" title="未报OOM但存在内存泄漏风险和情况"></a>未报OOM但存在内存泄漏风险和情况</h2><ul>
+<li>使用可视化监控工具，如Jprofiler，或jdk自带的jconsole进行监控</li>
+<li>根据监控结果判断是否存在泄漏点（如观察占用内存最多的对象类型、观察生命周期过长的对象）</li>
+<li>制定解决方案解决问题</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/19/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/19/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">Java代理模式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-19 16:23:21" itemprop="dateCreated datePublished" datetime="2020-04-19T16:23:21+08:00">2020-04-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Java代理模式"><a href="#Java代理模式" class="headerlink" title="Java代理模式"></a>Java代理模式</h1><p>代理模式是一种结构模式，使用一个类控制另一个类的访问。总结来说就是创建一个持有被代理对象的代理类，通过代理类提供的接口适用被代理类实现目标功能。</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><p>想要针对某个类的对象做一些访问控制或者无法直接访问目标对象。如你是一个烂好人别人让你干啥你都干，你太累了，找个带哥，所有找你办事的人都要经过你带哥，并切只能找你办带哥规定的事情。你是个👴，有一堆在外地的孙子，你直接打不到你的孙子，你找到了一个名为滴滴打人的代理，你通过联系本地的滴滴打人代理人通知到了和你孙子同城的滴滴打人代理人，把你孙子揍了一遍。</p>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><ul>
+<li><p>优点</p>
+<ul>
+<li>通过创建代理对象提高了扩展性</li>
+<li>代理对象起到了保护目标对象的作用</li>
+</ul>
+</li>
+<li><p>缺点</p>
+<ul>
+<li>要为被代理类提供代理类，导致类的总数增加增加了系统的复杂度</li>
+<li>效率不如直接适用被代理对象高</li>
+</ul>
+</li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>创建被代理类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">You</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doThis</span><span class="params">()</span> </span>&#123;...&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doThat</span><span class="params">()</span> </span>&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建代理类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BigBrother</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> You you;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BigBrother</span><span class="params">(You you)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.you = you;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">todo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        you.doThis();</span><br><span class="line">        you.doThat();</span><br><span class="line">        you.doThis();</span><br><span class="line">        you.doThat();</span><br><span class="line">        you.doThis();</span><br><span class="line">        you.doThat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/18/InnoDB%E4%B8%AD%E7%9A%84%E9%94%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/18/InnoDB%E4%B8%AD%E7%9A%84%E9%94%81/" class="post-title-link" itemprop="url">InnoDB中的锁</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-18 15:20:45" itemprop="dateCreated datePublished" datetime="2020-04-18T15:20:45+08:00">2020-04-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="InnoDB中的锁"><a href="#InnoDB中的锁" class="headerlink" title="InnoDB中的锁"></a>InnoDB中的锁</h1><h2 id="表级锁"><a href="#表级锁" class="headerlink" title="表级锁"></a>表级锁</h2><p>MySQL中的表级锁分为两种，读锁和写锁。通过LOCK TABLE name READ/WRITE可以添加读锁，UNLOCK TABLES可以释放锁（事务提交前不要使用UNLOCK TABLES，因为其默认会提交事务）。但是表级锁不由InnoDB存储引擎管理，而是由MySQL Server控制（autocommit=0,innodb_table_lock=1）。</p>
+<h3 id="表级锁适用情况"><a href="#表级锁适用情况" class="headerlink" title="表级锁适用情况"></a>表级锁适用情况</h3><ul>
+<li>事务需要更新表中的大量数据，且表也较为庞大</li>
+<li>事务涉及多个表的操作，较为复杂容易引起死锁</li>
+</ul>
+<h3 id="表锁的种类"><a href="#表锁的种类" class="headerlink" title="表锁的种类"></a>表锁的种类</h3><ul>
+<li><p>读锁</p>
+<p>当某一事务为某一表添加读锁后，其他所有事务无法获取该表的写锁来修改该表内容，但依旧可以继续为该表添加读锁来查询数据。</p>
+</li>
+<li><p>写锁</p>
+<p>当某一事物为某一表添加写锁后，其他所有事务无法获取该表的读锁与写锁，即无权访问该表。</p>
+</li>
+<li><p>意向锁</p>
+<p>为了使表锁与行锁共存而出现的表锁的种类，具体将在行锁中介绍。</p>
+</li>
+</ul>
+<h3 id="表锁的实现"><a href="#表锁的实现" class="headerlink" title="表锁的实现"></a>表锁的实现</h3><p>维护了四个队列</p>
+<ul>
+<li>读锁队列中保存当前所有的持有读锁的事务</li>
+<li>读锁等待队列中保存当前所有等待得到读锁的事务</li>
+<li>写锁队列中保存当前获得写锁的事务</li>
+<li>写锁等待队列中保存当前所有等待获得写锁的事务</li>
+</ul>
+<h2 id="行锁"><a href="#行锁" class="headerlink" title="行锁"></a>行锁</h2><p>与表锁的直接由MySQL Server控制不同，行锁由数据库存储引擎自行实现。</p>
+<h3 id="行锁的种类"><a href="#行锁的种类" class="headerlink" title="行锁的种类"></a>行锁的种类</h3><ul>
+<li><p>共享锁</p>
+<p>类似于行的读锁，一个事务读取某行数据时会为该行数据添加共享锁，此时若有其他事务想要并发读取该行时可以再次为该行添加共享锁；若某行存在共享锁时，有并发事务妄图申请该行的排它锁则会被阻塞。</p>
+</li>
+<li><p>排它锁</p>
+<p>类似于行的写锁，一个事务更新某行数据时会为该行添加排它锁，此时将阻塞所有其他申请该行共享锁或排它锁的事务。</p>
+</li>
+</ul>
+<h3 id="意向锁"><a href="#意向锁" class="headerlink" title="意向锁"></a>意向锁</h3><p>若表种的某行上已经存在共享锁或排它锁，此时有并发事务申请表的写锁，由于对于表来说此时没有写锁的存在，所有可以申请，此时就出现了错误，为了避免这种情况的发生，出现了意向锁。</p>
+<ul>
+<li>意向共享锁，若某个事务尝试向表中某行添加共享锁时，会首先为该表添加意向共享锁</li>
+<li>意向排它锁，若某个事务尝试向表中某行添加排它锁时，会首先为该表添加意向排它锁</li>
+</ul>
+<h3 id="锁的兼容状态"><a href="#锁的兼容状态" class="headerlink" title="锁的兼容状态"></a>锁的兼容状态</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>共享锁</th>
+<th>排它锁</th>
+<th>意向共享锁</th>
+<th>意向排它锁</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>共享锁</strong></td>
+<td>兼容</td>
+<td>不兼容</td>
+<td>兼容</td>
+<td>不兼容</td>
+</tr>
+<tr>
+<td><strong>排它锁</strong></td>
+<td>不兼容</td>
+<td>不兼容</td>
+<td>不兼容</td>
+<td>不兼容</td>
+</tr>
+<tr>
+<td><strong>意向共享锁</strong></td>
+<td>兼容</td>
+<td>不兼容</td>
+<td>兼容</td>
+<td>兼容</td>
+</tr>
+<tr>
+<td><strong>意向排它锁</strong></td>
+<td>不兼容</td>
+<td>不兼容</td>
+<td>兼容</td>
+<td>兼容</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="InnoBD的加锁方式"><a href="#InnoBD的加锁方式" class="headerlink" title="InnoBD的加锁方式"></a>InnoBD的加锁方式</h2><ul>
+<li>InnoDB将对UPDATE、DELETE、INSERT语句涉及的数据集自动添加排它锁</li>
+<li>SELECT语句可以通过 添加 LOCK IN SHARE MODE添加共享锁，通过添加FOR UPDATE 添加排它锁</li>
+<li>InnoDB的行级锁锁的不是数据项，而是索引项，只有通过索引检索数据时InnoBD才会使用行级锁</li>
+<li>InnoDB有间隙锁的概念，在指定隔离级别下如果是范围性查询，即使没有检索到数据也会对数据间隙加速，防止其他事务操作间隙。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/17/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/17/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/" class="post-title-link" itemprop="url">数据库事务</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-17 21:39:19" itemprop="dateCreated datePublished" datetime="2020-04-17T21:39:19+08:00">2020-04-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%90%86%E8%AE%BA%E5%BD%92%E7%BA%B3/" itemprop="url" rel="index"><span itemprop="name">理论归纳</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="数据库事务"><a href="#数据库事务" class="headerlink" title="数据库事务"></a>数据库事务</h1><h2 id="事务的四个特性（ACID）"><a href="#事务的四个特性（ACID）" class="headerlink" title="事务的四个特性（ACID）"></a>事务的四个特性（ACID）</h2><ul>
+<li>原子性（Atomicity）一个事务要么全部执行完成，要么全部不执行，事务发生错误后会回滚至事务开始前的状态</li>
+<li>一致性（Consistency）事务只影响数据的状态，事务开始前和结束后数据完整性不变</li>
+<li>隔离性（Isolation）隔离性是当有多个并发事务对数据进行操作时，事务之间不会相互影响</li>
+<li>持久性（Durability）事务对数据的修改是持久的，事务一旦提交后数据的改变就是永久的。</li>
+</ul>
+<h2 id="事务的隔离级别"><a href="#事务的隔离级别" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h2><h3 id="多个事务并发执行可能导致的问题"><a href="#多个事务并发执行可能导致的问题" class="headerlink" title="多个事务并发执行可能导致的问题"></a>多个事务并发执行可能导致的问题</h3><ul>
+<li><p>更新丢失</p>
+<p>一个事务开始并对目标数据进行修改，这时有另一个并发事务在第一个事务完成前提交了对目标数据的修改，这时第一个事务回滚，目标数据又回滚到了第一个事务开启前的状态，第二个事务对数据的更新丢失了。</p>
+</li>
+<li><p>脏读</p>
+<p>一个事务读取了另一个事务修改却并未提交的数据，若之后修改数据的事务回滚，则第一个事务读到的便是无效数据。</p>
+</li>
+<li><p>不可重复读</p>
+<p>一个事务读取数据需要读取两次以上，另一个并发事务在第一个事务初次读取数据后提交了对该项数据的修改，导致第一个事务在第二次读取数据时获得的结果不同。</p>
+</li>
+<li><p>幻象读</p>
+<p>一个事务范围性读取需要读取两次以上，另一个并发事务在第一个事务初次范围性读取数据后提交了对插入或删除，导致第一个事务在第二次范围性读取数据获得的数据量与初次读取时不同。</p>
+</li>
+</ul>
+<h3 id="事务的隔离级别-1"><a href="#事务的隔离级别-1" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h3><ul>
+<li><p>读未提交（Read uncommitted）</p>
+<p>如果一个事务已经开始更新数据，则另外一个事务不允许并发对第一个事务读取的数据进行更新。</p>
+<p>避免了更新丢失，但无法避免脏读、不可重复读、幻象读。</p>
+</li>
+<li><p>读提交（Read committed）</p>
+<p>读取数据的事务运行时，允许其他事务并发进行对目标数据的访问，但是正在更新数据的事务不允许其他事务并发访问目标数据。</p>
+<p>避免了更新丢失、脏读，但无法避免不可重复读、幻象读。</p>
+</li>
+<li><p>可重复读（Repeatable read）</p>
+<p>读取数据的事务运行时，允许其他事务并发进行对目标数据的读取操作，但禁止其他事务对目标数据的更新，更新数据的事务不允许其他事务并发访问目标数据。</p>
+<p>避免了更新丢失、脏读、不可重复读，但无法避免幻象读。</p>
+</li>
+<li><p>序列化（Serializable）</p>
+<p>禁止事务并发，所有事务串行化执行。</p>
+<p>没有并发，所有问题迎刃而解，但是效率低下。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/14/B%E6%A0%91%E4%B8%8EB-%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/14/B%E6%A0%91%E4%B8%8EB-%E6%A0%91/" class="post-title-link" itemprop="url">B树与B+树</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-14 21:47:37" itemprop="dateCreated datePublished" datetime="2020-04-14T21:47:37+08:00">2020-04-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="B树与B-树"><a href="#B树与B-树" class="headerlink" title="B树与B+树"></a>B树与B+树</h2><p>B树与B+树都是多路搜索树，由于二叉搜索树在结点数量巨大时树的深度会变得非常高于是出现了多路查找树来优化树的深度。</p>
+<h2 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h2><p>B树的每个结点含有一个或多个关键词。若只有一个关键词时同二叉搜索树，左子树保存所有比该结点关键词小的结点，右子树保存所有比该结点关键词大的结点；若有m-1个关键词，则有m-1棵子树，分别保存两关键词之间的结点。以树中结点的最大子树数量作为B树的阶。</p>
+<h3 id="结点"><a href="#结点" class="headerlink" title="结点"></a>结点</h3><ul>
+<li>若根节点不为唯一结点，则根节点至少有两颗子树</li>
+<li>m阶B树中的每个结点最多有m棵子树既至多含有m-1个关键字</li>
+<li>除根节点外所有结点至少有$ \frac{m}{2} $棵子树既至少含有$\frac m2-1$ 个关键词</li>
+<li>B树的叶子结点为空值，出现在同一层次中，代表查找失败</li>
+</ul>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><ul>
+<li>将要查找关键字与当前结点的所有关键字做比较</li>
+<li>若其等于某个关键字代表查找成功</li>
+<li>否则判断其所处的范围，查找对应子树</li>
+<li>若找至叶子节点已经没有找到对应关键词则判断查找失败</li>
+</ul>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><ul>
+<li><p>若为空树直接插入</p>
+</li>
+<li><p>按查询的方式找到插入位置</p>
+</li>
+<li>如果要插入的结点加入该关键词后其关键词数量并未超出限制，则直接将该关键词插入目标节点</li>
+<li>若要插入的结点加入该关键词后其关键词数量超出限制，则将当前结点以最中间的关键词为中心分裂为两部分，后将中间关键词插入到父节点中，将分裂的两部分作为父节点的子树，后对父节点进行关键词数量进行判断，若超限则对父节点继续进行分裂操作</li>
+</ul>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><ul>
+<li>要删除关键词的结点为最底层结点<ul>
+<li>节点内的关键词数量大于$\frac m2-1$ 可以直接删除</li>
+<li>节点内的关键词数量等于$\frac m2-1$，且其左右兄弟结点中存在关键词数量大于$\frac m2-1$ ，则<strong>去兄弟结点中借关键词</strong><ul>
+<li>在要删除关键词的结点的兄弟结点中挑选适父节目标关键词的后继关键词</li>
+<li>将父节目标关键词下一只要删除关键词的结点中，并以后继关键词代替父节目标关键词</li>
+<li>视为删除子结点中后继关键词继续执行删除操作</li>
+</ul>
+</li>
+<li>节点内的关键词数量等于$\frac m2-1$，且其左右兄弟结点中不存在关键词数量大于$\frac m2-1$ ，则进行结点合并<ul>
+<li>删除目标关键词，在父节点中取出关键词与当前结点剩余关键词合并</li>
+<li>将合并后的所有关键词合并至其兄弟节点中</li>
+<li>之后视为父节点删除了取出的关键词继续执行删除操作</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>要删除关键词的结点不为最底层结点<ul>
+<li>在子结点中挑选出要删除的目标关键词的后继关键词</li>
+<li>以后继关键词代替当前要删除关键词，之后视为删除后继关键词所在结点中的后继关键词继续执行删除操作</li>
+</ul>
+</li>
+</ul>
+<h2 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h2><p>B+树的信息在叶子节点，所有非叶子节点只起到索引作用，每个索引代表的是其子树中的最大关键词。</p>
+<p>B+树有一个指针指向其最小叶子节点，所有叶子节点形成一个有序链表。</p>
+<h3 id="结点-1"><a href="#结点-1" class="headerlink" title="结点"></a>结点</h3><ul>
+<li><p>若根节点不为唯一结点，则根节点至少有两颗子树</p>
+</li>
+<li><p>m阶B+树每一结点关键词个数范围为$\frac m2$ 到 m，子树的棵树与关键词个数相同</p>
+</li>
+<li>B+树子树结点内关键词范围为父结点的上一个关键词到当前关键词。</li>
+<li>B+树中叶子结点包含了所有出现过的关键词</li>
+</ul>
+<h3 id="查询-1"><a href="#查询-1" class="headerlink" title="查询"></a>查询</h3><p>B+树查找为逐层向下查找，在当前层找到一个大于目标key值的最小值，查找其子树，知道找到目标元素或查找失败。</p>
+<p>由于B+树每次查找都需要找到叶子节点，所以B+树的查找是稳定的。</p>
+<h3 id="插入-1"><a href="#插入-1" class="headerlink" title="插入"></a>插入</h3><p>假设一颗B+树为m阶</p>
+<ul>
+<li>若为空树直接插入，该点即使根节点也是叶子节点</li>
+<li>按查询的方式找到插入位置</li>
+<li>若要插入的叶子节点有空闲空间（不足m）直接插入结点</li>
+<li>若要插入的叶子节点空间不足，则将其分为包含前$\frac m2$个关键词的结点与包含其他部分的结点<ul>
+<li>将包含前$\frac m2$个关键词的结点进位至其父节点中</li>
+<li>对父节点执行平衡非叶子结点</li>
+</ul>
+</li>
+<li>平衡非叶子结点<ul>
+<li>若当前结点关键词数量小于m则无需操作</li>
+<li>若当前结点关键词数量大于m则且当前结点不为根节点<ul>
+<li>将当前结点分为包含前$\frac m2$个关键词的结点与包含其他部分的结点<ul>
+<li>将包含前$\frac m2$个关键词的结点进位至其父节点中</li>
+<li>对父节点执行平衡非叶子结点</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>若当前结点关键词数量大于m则且当前结点为根节点<ul>
+<li>将当前结点分为包含前$\frac m2$个关键词的结点与包含其他部分的结点</li>
+<li>将两个结点进位为一个根节点</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="删除-1"><a href="#删除-1" class="headerlink" title="删除"></a>删除</h3><ul>
+<li>要删除关键词的结点中关键词个数大于$\frac m2$<ul>
+<li>删除关键词为最大关键词修改父节点中的关键词</li>
+<li>否则直接删除</li>
+</ul>
+</li>
+<li>要删除关键词的结点中关键词个数小于或等于$\frac m2$<ul>
+<li>若其兄弟结点中存在关键词数大于$\frac m2$<strong>去兄弟结点中借关键词</strong><ul>
+<li>删除当前关键词</li>
+<li>将兄弟结点关键词放入当前节点中</li>
+<li>之后视为对兄弟结点借的关键词的删除操作</li>
+</ul>
+</li>
+<li>若兄弟结点中没有多余关键词<ul>
+<li>删除该关键词</li>
+<li>将当前结点与兄弟结点行合并操作并在父节点中删除对应索引，对父节点执行删除平衡操作</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>非叶子结点删除平衡操作<ul>
+<li>若要平衡的结点关键词数量大于$\frac m2$无需平衡，删除结束</li>
+<li>若平衡的结点关键词数量小于$\frac m2$<ul>
+<li>兄弟结点中有盈余结点，则将盈余结点借至当前欲平衡结点</li>
+<li>若兄弟结点中无平衡结点执行合并操作后对父节点执行删除平衡操作</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="为何数据库索引更倾向于使用B-树"><a href="#为何数据库索引更倾向于使用B-树" class="headerlink" title="为何数据库索引更倾向于使用B+树"></a>为何数据库索引更倾向于使用B+树</h3><p>B+树非叶子结点不存储数据，使得非叶子节点可以存储更多的索引，可以进一步降低树高，降低io次数。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.suvvm.work/2020/04/14/%E6%95%B0%E7%BB%84%E4%B8%8E%E9%93%BE%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ortrait.jpg">
+      <meta itemprop="name" content="SUVVM">
+      <meta itemprop="description" content="SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SUVVM">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/14/%E6%95%B0%E7%BB%84%E4%B8%8E%E9%93%BE%E8%A1%A8/" class="post-title-link" itemprop="url">数组与链表</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-14 13:49:49" itemprop="dateCreated datePublished" datetime="2020-04-14T13:49:49+08:00">2020-04-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-19 22:05:00" itemprop="dateModified" datetime="2020-12-19T22:05:00+08:00">2020-12-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="数组与链表"><a href="#数组与链表" class="headerlink" title="数组与链表"></a>数组与链表</h1><p>数组与链表都是线性表的一种</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>真数组是在内存中连续的，是一种顺序的存储结构。</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>Java实现了真数组，数组在内存中连续分配，可以通过下标直接访问目标位置的元素</li>
+<li>Java数组所在内存为数组专用，不会出现数据覆盖的问题</li>
+</ul>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>插入与删除效率低</li>
+<li>需要预先分配内存空间，可能出现内存空间的浪费</li>
+<li>数组大小是固定的，无法动态扩展，若扩充只能开辟新的数组将原来的数组复制到另一个内存空间更大的数组中</li>
+</ul>
+<h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><p>链表是通过引用连接元素的链式存储结构。</p>
+<h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>链表的插入与删除只需知道引用便可以在O(1)的时间复杂度内完成</li>
+<li>链表无需预先分配内存，没有内存空间的浪费</li>
+<li>链表不固定大小，扩展链表很容易</li>
+</ul>
+<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>链表无法通过下标访问数据，查找是必须从head开始遍历</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SUVVM"
+      src="/images/ortrait.jpg">
+  <p class="site-author-name" itemprop="name">SUVVM</p>
+  <div class="site-description" itemprop="description">SUVVM的个人博客，主要涉及编程知识分享、算法题解等方面</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/suvvm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;suvvm" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/suvvm@foxmail.com" title="E-Mail → suvvm@foxmail.com"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SUVVM</span>
+	<a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鲁ICP备19040043号-2</a>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
